@@ -3,6 +3,7 @@ package de.client;
 import java.util.ArrayList;
 
 import de.client.company.Company;
+import de.client.message.MessageContractConfirm;
 import de.client.message.MessageRequestContract;
 import de.client.message.MessageResourceRegionBid;
 import de.client.message.MessageStartResourceRegionBidding;
@@ -68,8 +69,14 @@ public class ClientGame extends Game {
 	public void acceptContract(ContractRequestAnswer answer) {
 		CityRelation cityRelation = (CityRelation) getCompany().getRegionRelation(answer.coords);
 		cityRelation.setContract(answer.contract);
-		//OPTIMIZE HERE
+
+		confirmContract(answer);
+		
 		Optimizer.optimizePowerStations(company.getPowerStations(), company.getCityRelationsWithContract());
+	}
+	
+	public void confirmContract(ContractRequestAnswer answer) {
+		client.sendMessage(new MessageContractConfirm(answer));
 	}
 	
 }

@@ -122,9 +122,15 @@ public class ServerGame extends Game {
 		CityRegion cityRegion = (CityRegion) getMap().getRegion(request.coords);
 		int freeCustomers = cityRegion.getFreeCustomers();
 		
-		int maxAvailableCustomers = (int) (freeCustomers * request.awareness * request.popularity);
-		//System.out.println(maxAvailableCustomers + " " + request.maxCustomers + " " + request.awareness + " " + request.popularity);
-		int customersForClient = (maxAvailableCustomers > request.maxCustomers) ? request.maxCustomers : maxAvailableCustomers;
+		int averagePriceCustomers = (int) (freeCustomers * request.awareness * request.popularity);
+		double averagePrice = map.getEnergyExchange().getCurrentEnergyPrice();
+		
+		//int customersForClient = (maxAvailableCustomers > request.maxCustomers) ? request.maxCustomers : maxAvailableCustomers;
+		int customersForClient = customerFunction(freeCustomers, averagePriceCustomers, averagePrice, request.amountMoneyPerCustomer);
+		
+		if (customersForClient > request.maxCustomers)
+			customersForClient = request.maxCustomers;
+		
 		double cityDemand = customersForClient * getMap().getEnergyFactor();
 		double amountMoneyPerCustomer = request.amountMoneyPerCustomer; //CHANGE THIS, atm you could set it to whatever price you wanted
 		
@@ -132,6 +138,21 @@ public class ServerGame extends Game {
 		return contract;
 	}
 
+	private int customerFunction(int freeCustomers, int averagePriceCustomers, double averagePrice, double price) {
+		/**
+		 * Zwei Parabeln: eine von 0 bis zum preis danach von 0 bis customer = 0;
+		 * Parabel in der Scheitelpunktform f(x) = a(x-d)^2 + b
+		 */
+		int b = averagePriceCustomers;
+		double a = (b+freeCustomers) / averagePrice;
+		double d = averagePrice;
+		double x = price;
+		
+		if (x > d) a = -a;
+		
+		return (int) (a * (x-d) * (x-d) + b);
+	}
+	
 	public synchronized void confirmContract(ContractRequestAnswer confirmation) {
 		CityRegion cityRegion = (CityRegion) getMap().getRegion(confirmation.coords);
 		cityRegion.setFreeCustomers(cityRegion.getFreeCustomers() - confirmation.contract.amountCustomer);

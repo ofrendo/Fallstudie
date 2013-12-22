@@ -1,8 +1,7 @@
-package de.server.message;
+package de.shared.map.relation;
 import de.shared.message.Message;
 import de.shared.message.MessageType;
 import de.shared.message.MessageTypeToClient;
-import de.shared.map.relation.*;
 
 public class MessageContractRequestAnswer implements Message {
 

@@ -39,14 +39,14 @@ public class TestContract {
 		
 		CityRegion cityRegion = server.getServerGame().getFirstCityRegion();
 		
-		double price1 = 0.35;
-		double price2 = 0.40;
-		
 		//PRO STADT ZEIGEN WIE VIEL BEDARF IN DER STADT GRAD IST ODER PRO PERSON?
 		//Stadt vertrag bilden: 
 		//"Vertrag vorschlagen" -> RequestContract zu den bedingungen
 		//Antwort vom Server erhalten -> im GUI anzeigen
 		//"Vertrag akzeptieren -> zum Server schicken
+		double price1 = 0.35;
+		double price2 = 0.30;
+
 		client1.getClientGame().requestContract(cityRegion, 100000, price1);
 		client2.getClientGame().requestContract(cityRegion, 50000, price2);
 		
@@ -55,12 +55,13 @@ public class TestContract {
 		client1.getClientGame().acceptContract( client1.getLatestContractAnswer() );
 		client2.getClientGame().acceptContract( client2.getLatestContractAnswer() );
 		
-		//System.out.println(client1.getClientGame().getCompany().getContracts().get(0).amountCustomer);
-		//System.out.println(client2.getClientGame().getCompany().getContracts().get(0).amountCustomer);
+		int newCustomers = 
+				client1.getClientGame().getCompany().getContracts().get(0).amountCustomer + 
+				client2.getClientGame().getCompany().getContracts().get(0).amountCustomer;
 		
 		assertEquals(price1, client1.getClientGame().getCompany().getContracts().get(0).amountMoneyPerCustomer, 0.001);
 		assertEquals(price2, client2.getClientGame().getCompany().getContracts().get(0).amountMoneyPerCustomer, 0.001);
-		
+		assertEquals(newCustomers, cityRegion.getPopulation() - cityRegion.getFreeCustomers());
 	}
 	
 }

@@ -1,16 +1,18 @@
 package de.server;
 import java.io.IOException;
-
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 import de.shared.game.Player;
-import de.shared.map.region.*;
+import de.shared.map.region.Coords;
+import de.shared.map.region.ResourceRegionBid;
+import de.shared.map.relation.Contract;
+import de.shared.map.relation.ContractRequest;
+import de.shared.map.relation.ContractRequestAnswer;
+import de.shared.map.relation.MessageContractRequestAnswer;
 import de.shared.message.Message;
 import de.shared.message.MessageTypeToServer;
-import de.shared.map.relation.*;
-import de.server.message.*;
 
 public class Connection extends Thread {
 
