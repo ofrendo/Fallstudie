@@ -89,7 +89,7 @@ public class Company {
 	}
 	
 	public void addPowerStation(Coords coords, ResourceType resourceType) {
-		PowerStation powerStation = new PowerStation(resourceType.maxProduction);
+		PowerStation powerStation = new PowerStation(resourceType);
 		
 		//Add ps to resourcerelation
 		ResourceRelation resourceRelation = (ResourceRelation) this.getRegionRelation(coords);

@@ -28,9 +28,9 @@ public class TestObjectFactory {
 		double city2Demand = 60;
 		double city2Price = 0.35;
 		
-		double power1Prod = 30;
-		double power2Prod = 20;
-		double power3Prod = 40;
+		//double power1Prod = 30;
+		//double power2Prod = 20;
+		//double power3Prod = 40;
 		
 		//Make cityrelations
 		CityRelation cityRelation1 = new CityRelation(new Coords(0, 0));
@@ -45,14 +45,14 @@ public class TestObjectFactory {
 		this.cityRelations = cityRelations;
 		
 		//Make powerstations
-		PowerStation powerStation1 = new PowerStation(power1Prod);
+		PowerStation powerStation1 = new PowerStation(ResourceType.TEST_30);
 		powerStation1.addPowerStationRelation(cityRelation1);
 		
-		PowerStation powerStation2 = new PowerStation(power2Prod);
+		PowerStation powerStation2 = new PowerStation(ResourceType.TEST_20);
 		powerStation2.addPowerStationRelation(cityRelation1);
 		powerStation2.addPowerStationRelation(cityRelation2);
 		
-		PowerStation powerStation3 = new PowerStation(power3Prod);
+		PowerStation powerStation3 = new PowerStation(ResourceType.TEST_40);
 		powerStation3.addPowerStationRelation(cityRelation2);
 		
 		PowerStation[] powerStations = {powerStation1, powerStation2, powerStation3};
