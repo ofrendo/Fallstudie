@@ -123,7 +123,7 @@ public class ServerGame extends Game {
 		int freeCustomers = cityRegion.getFreeCustomers();
 		
 		int maxAvailableCustomers = (int) (freeCustomers * request.awareness * request.popularity);
-		System.out.println(maxAvailableCustomers + " " + request.maxCustomers + " " + request.awareness + " " + request.popularity);
+		//System.out.println(maxAvailableCustomers + " " + request.maxCustomers + " " + request.awareness + " " + request.popularity);
 		int customersForClient = (maxAvailableCustomers > request.maxCustomers) ? request.maxCustomers : maxAvailableCustomers;
 		double cityDemand = customersForClient * getMap().getEnergyFactor();
 		double amountMoneyPerCustomer = request.amountMoneyPerCustomer; //CHANGE THIS, atm you could set it to whatever price you wanted

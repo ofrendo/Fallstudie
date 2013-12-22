@@ -55,8 +55,8 @@ public class TestContract {
 		client1.getClientGame().acceptContract( client1.getLatestContractAnswer() );
 		client2.getClientGame().acceptContract( client2.getLatestContractAnswer() );
 		
-		System.out.println(client1.getClientGame().getCompany().getContracts().get(0).amountCustomer);
-		System.out.println(client2.getClientGame().getCompany().getContracts().get(0).amountCustomer);
+		//System.out.println(client1.getClientGame().getCompany().getContracts().get(0).amountCustomer);
+		//System.out.println(client2.getClientGame().getCompany().getContracts().get(0).amountCustomer);
 		
 		assertEquals(price1, client1.getClientGame().getCompany().getContracts().get(0).amountMoneyPerCustomer, 0.001);
 		assertEquals(price2, client2.getClientGame().getCompany().getContracts().get(0).amountMoneyPerCustomer, 0.001);
