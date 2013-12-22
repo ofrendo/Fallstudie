@@ -44,7 +44,7 @@ public class TestContract {
 		//"Vertrag vorschlagen" -> RequestContract zu den bedingungen
 		//Antwort vom Server erhalten -> im GUI anzeigen
 		//"Vertrag akzeptieren -> zum Server schicken
-		double price1 = 0.35;
+		double price1 = 0.45;
 		double price2 = 0.30;
 
 		client1.getClientGame().requestContract(cityRegion, 100000, price1);
@@ -58,6 +58,8 @@ public class TestContract {
 		int newCustomers = 
 				client1.getClientGame().getCompany().getContracts().get(0).amountCustomer + 
 				client2.getClientGame().getCompany().getContracts().get(0).amountCustomer;
+		
+		TestUtils.blockShort();
 		
 		assertEquals(price1, client1.getClientGame().getCompany().getContracts().get(0).amountMoneyPerCustomer, 0.001);
 		assertEquals(price2, client2.getClientGame().getCompany().getContracts().get(0).amountMoneyPerCustomer, 0.001);

@@ -150,7 +150,10 @@ public class ServerGame extends Game {
 		
 		if (x > d) a = -a;
 		
-		return (int) (a * (x-d) * (x-d) + b);
+		int result = (int) (a * (x-d) * (x-d) + b);
+		if (result < 0) result = 0;
+		
+		return result;
 	}
 	
 	public synchronized void confirmContract(ContractRequestAnswer confirmation) {
