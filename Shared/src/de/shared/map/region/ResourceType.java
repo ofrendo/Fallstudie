@@ -13,7 +13,7 @@ public enum ResourceType implements Serializable {
 	
 	TEST_20(20, 0.2, -1, 100000, 10000, 0),
 	TEST_30(30, 0.2, -1, 100000, 10000, 0),
-	TEST_40(40, 0.2, -1, 100000, 10000, 0);
+	TEST_40(40, 0.2, -1, 90000, 10000, 0);
 	
 	public double pMaxProduction;
 	public double pAdjustability;

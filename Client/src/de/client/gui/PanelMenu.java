@@ -17,7 +17,7 @@ public class PanelMenu extends JPanel {
 	private JButton buttonMarket;
 	
 	public PanelMenu() {
-		setBackground(Color.RED);
+		setBackground(Color.BLUE);
 		
 		buttonCompany = new JButton(Strings.MENU_BUTTON_COMPANY);
 		buttonMap = new JButton(Strings.MENU_BUTTON_MAP);

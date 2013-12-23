@@ -117,6 +117,8 @@ public class RegionGenerator {
 			
 		}
 		
+		//lastly, order the arraylist for a nice ordered array
+		
 		return regions;
 	}
 	
