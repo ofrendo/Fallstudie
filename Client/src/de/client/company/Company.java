@@ -11,9 +11,11 @@ public class Company {
 	
 	private ArrayList<RegionRelation> regionRelations = new ArrayList<RegionRelation>();
 	private ArrayList<Building> buildings = new ArrayList<Building>();
-	
+	private double money;
+
 	public Company(String companyName) {
 		this.companyName = companyName;
+		this.money = Constants.START_MONEY;
 	}
 	
 	public void initRelations(ArrayList<Region> regions) {
@@ -56,6 +58,10 @@ public class Company {
 	
 	public ArrayList<Building> getBuildings() {
 		return buildings;
+	}
+	
+	public double getMoney() {
+		return money;
 	}
 	
 	public PowerStation[] getPowerStations() {
