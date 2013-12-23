@@ -21,4 +21,8 @@ public class Balance {
 		}
 		return value;
 	}
+	
+	public double getMoneyValue(){
+		return company.getMoney();
+	}
 }

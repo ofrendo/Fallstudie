@@ -13,6 +13,12 @@ public abstract class Building extends Investment {
 		this.productionMax = productionMax;
 	}
 	
+	public void performDepreciation(){
+		if(this.isBuilt()){	// the depreciation of a building starts at the completion date
+			super.performDepreciation();
+		}
+	}
+	
 	public double getProduction() {
 		return productionMax * utlizationRate;
 	}

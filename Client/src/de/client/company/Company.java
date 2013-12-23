@@ -94,6 +94,11 @@ public class Company {
 		buildings.add(building);
 	}
 	
+	public void buyPowerStation(Coords coords, ResourceType resourceType){
+		this.money -= resourceType.pPurchaseValue;
+		this.addPowerStation(coords, resourceType);
+	}
+	
 	public void addPowerStation(Coords coords, ResourceType resourceType) {
 		PowerStation powerStation = new PowerStation(resourceType);
 		
