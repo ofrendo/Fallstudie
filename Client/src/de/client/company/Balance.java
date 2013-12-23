@@ -13,7 +13,6 @@ public class Balance {
 		
 	}
 	
-	
 	public double getBuildingsValue(){
 		double value = 0;
 		ArrayList<Building> buildings = this.company.getBuildings();
