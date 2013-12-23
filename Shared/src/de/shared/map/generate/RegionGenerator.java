@@ -1,6 +1,8 @@
 package de.shared.map.generate;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -118,8 +120,29 @@ public class RegionGenerator {
 		}
 		
 		//lastly, order the arraylist for a nice ordered array
+		Collections.sort(regions, new CustomComparator());
 		
 		return regions;
+	}
+
+	public static class CustomComparator implements Comparator<Region> {
+	    @Override
+	    public int compare(Region r1, Region r2) {
+	        if (r1.coords.equals(r2.coords)) 
+	        	return 0;
+	        
+	        if (r1.coords.y > r2.coords.y)
+	        	return 1;
+	        
+	        if (r1.coords.y < r2.coords.y) 
+	        	return -1;
+	        
+	        //y1 = y2
+	        if (r1.coords.x > r2.coords.x)
+	        	return 1;
+	        
+	        return -1;
+	    }
 	}
 	
 	private static Random random = new Random();

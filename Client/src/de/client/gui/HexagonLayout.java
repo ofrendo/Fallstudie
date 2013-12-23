@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.LayoutManager;
 
+import de.shared.map.generate.MapTypeRect;
+
 /**
  * 
  * http://forums.codeguru.com/showthread.php?478270-Hexagon-Buttons
@@ -41,6 +43,7 @@ public class HexagonLayout implements LayoutManager {
     private Dimension minSize;
     private Dimension prefSize;
 
+    private MapTypeRect mapType;
 
     /**
      * Generates a HexagonLayout with the number of columns given. The layout
@@ -73,14 +76,14 @@ public class HexagonLayout implements LayoutManager {
      * @param beginWithSmallRow Wether or not to begin with a small row.
      */
     public HexagonLayout(int cols, boolean beginWithSmallRow) {
-	checkColInput(cols);
-	minSize = new Dimension(800, 600); //Standard size. Can be changed with setter.
-	prefSize = new Dimension(800, 600); //Standard size. Can be changed with setter.
-	insets = new Insets(0, 0, 0, 0);
-	this.rows = 0;
-	this.cols = cols;
-	this.beginWithSmallRow = beginWithSmallRow;
-    }
+		checkColInput(cols);
+		minSize = new Dimension(800, 600); //Standard size. Can be changed with setter.
+		prefSize = new Dimension(800, 600); //Standard size. Can be changed with setter.
+		insets = new Insets(0, 0, 0, 0);
+		this.rows = 0;
+		this.cols = cols;
+		this.beginWithSmallRow = beginWithSmallRow;
+	    }
 
     /**
      * Generates a HexagonLayout with the number of columns given. The layout
@@ -121,14 +124,15 @@ public class HexagonLayout implements LayoutManager {
      * @param i Insets object that specify the spacing between gui elements
      * @param beginWithSmallRow Flag for wether or not to begin with a small row.
      */
-    public HexagonLayout(int cols, Insets i, boolean beginWithSmallRow) {
-	checkColInput(cols);
-	insets = i;
-	minSize = new Dimension(800, 600); //Standard size. Can be changed with setter.
-	prefSize = new Dimension(800, 600); //Standard size. Can be changed with setter.
-	this.rows = 0;
-	this.cols = cols;
-	this.beginWithSmallRow = beginWithSmallRow;
+    public HexagonLayout(int cols, Insets i, boolean beginWithSmallRow, MapTypeRect mapType) {
+		checkColInput(cols);
+		insets = i;
+		minSize = new Dimension(800, 600); //Standard size. Can be changed with setter.
+		prefSize = new Dimension(800, 600); //Standard size. Can be changed with setter.
+		this.rows = 0;
+		this.cols = cols;
+		this.beginWithSmallRow = beginWithSmallRow;
+		this.mapType = mapType;
     }
 
     /**
@@ -148,44 +152,44 @@ public class HexagonLayout implements LayoutManager {
      * @return
      */
     private int calculateRows(int componentCount) {
-
-	boolean smallRow = beginWithSmallRow;
-
-	int numberOfRows = 0;
-	int bgRow = cols;
-	int smRow = bgRow - 1;
-
-	int placedItems = 0;
-	if (smallRow) {
-	    while (true) {
-		if (placedItems >= componentCount) {
-		    break;
+		/*boolean smallRow = beginWithSmallRow;
+	
+		int numberOfRows = 0;
+		int bgRow = cols;
+		int smRow = bgRow - 1;
+	
+		int placedItems = 0;
+		if (smallRow) {
+		    while (true) {
+			if (placedItems >= componentCount) {
+			    break;
+			}
+			placedItems += smRow;
+			numberOfRows += 1;
+			if (placedItems >= componentCount) {
+			    break;
+			}
+			placedItems += bgRow;
+			numberOfRows += 1;
+		    }
+		} else {
+		    while (true) {
+			if (placedItems >= componentCount) {
+			    break;
+			}
+			placedItems += bgRow;
+			numberOfRows += 1;
+			if (placedItems >= componentCount) {
+			    break;
+			}
+			placedItems += smRow;
+			numberOfRows += 1;
+		    }
+	
 		}
-		placedItems += smRow;
-		numberOfRows += 1;
-		if (placedItems >= componentCount) {
-		    break;
-		}
-		placedItems += bgRow;
-		numberOfRows += 1;
-	    }
-	} else {
-	    while (true) {
-		if (placedItems >= componentCount) {
-		    break;
-		}
-		placedItems += bgRow;
-		numberOfRows += 1;
-		if (placedItems >= componentCount) {
-		    break;
-		}
-		placedItems += smRow;
-		numberOfRows += 1;
-	    }
-
-	}
-	//System.out.println(numberOfRows);
-	return numberOfRows;
+		//System.out.println(numberOfRows);
+		return numberOfRows;*/
+    	return mapType.amountRows;
     }
 
     /*
@@ -194,62 +198,116 @@ public class HexagonLayout implements LayoutManager {
      */
     @Override
     public void layoutContainer(Container parent) {
-
-	// Get componentCount and check that it is not 0
-	int componentCount = parent.getComponentCount();
-	if (componentCount == 0) {
-	    return;
-	}
-
-	// This indicates wither or not to begin with a small row
-	boolean smallRow = beginWithSmallRow;
-
-	// Calculating the number of rows needed
-	rows = calculateRows(componentCount);
-
-	// insets
-	int leftOffset = insets.left;
-	int rightOffset = insets.right;
-	int topOffset = insets.top;
-	int bottomOffset = insets.bottom;
-
-	// spacing dimensions
-	int boxWidth = parent.getWidth() / cols;
-	int boxHeight = (int) Math
-		.round((parent.getHeight() / (1 + (0.75 * (rows - 1)))));
-	double heightRatio = 0.75;
-
-	// component dimensions
-	int cWidth = (boxWidth - (leftOffset + rightOffset));
-	int cHeight = (boxHeight - (topOffset + bottomOffset));
-
-
-	int x;
-	int y;
-	if(smallRow){
-	    x = (int)Math.round((boxWidth / 2.0));
-	}else{
-	    x = 0;
-	}
-	y = 0;
-
-	// Laying out each of the components in the container
-	for (Component c : parent.getComponents()) {
-	    if (x > parent.getWidth() - boxWidth) {
-		smallRow = !smallRow;
-		if (smallRow) {
-		    x = (int)Math.round(boxWidth / 2.0);
-		    y += Math.round(boxHeight * heightRatio);
-		} else {
-		    x = 0;
-		    y += Math.round(boxHeight * heightRatio);
+		// Get componentCount and check that it is not 0
+		int componentCount = parent.getComponentCount();
+		if (componentCount == 0) {
+		    return;
 		}
-
-	    }
-	    c.setBounds(x + leftOffset, y + topOffset, cWidth, cHeight);
-	    x += boxWidth;
-	}
-
+	
+		// This indicates wither or not to begin with a small row
+		boolean smallRow = beginWithSmallRow;
+	
+		// Calculating the number of rows needed
+		rows = calculateRows(componentCount);
+	
+		// insets
+		int leftOffset = insets.left;
+		int rightOffset = insets.right;
+		int topOffset = insets.top;
+		int bottomOffset = insets.bottom;
+	
+		//int minBoxWidth = 50;
+		//int minBoxHeight = 50;
+		
+		int containerWidth = parent.getWidth();
+		int containerHeight = parent.getHeight();
+		
+		double heightRatio = 0.75;
+		
+		double rectRatio = (double) (mapType.lengthRow + 0.5) / (mapType.amountRows);
+		double isRatio = (double) containerWidth / containerHeight;
+		double hexagonWidthHeightRatio = 1;
+		
+		int boxWidth;
+		int boxHeight;
+		
+		int containerXPadding;
+		int containerYPadding;
+		
+		if (rectRatio > isRatio)  { //Container is too high
+			boxWidth = (int) (containerWidth / (cols + 0.5));
+			boxHeight = (int) (boxWidth * (1.0/hexagonWidthHeightRatio));
+			
+			containerXPadding = 0;
+			containerYPadding = (int) ((containerHeight - boxHeight * rows)/2.0) ;
+		}
+		else { //container is too wide
+			
+			boxHeight =  (int) (containerHeight / rows);
+			boxWidth = (int) (boxHeight * hexagonWidthHeightRatio);
+			containerXPadding = (int) ((containerWidth - boxWidth * (cols + 0.5)) /2.0);
+			containerYPadding = 0;
+		}
+		containerYPadding += (rows * boxHeight - rows * boxHeight * heightRatio - boxHeight * (1-heightRatio) )/2.0;
+		
+		// spacing dimensions
+		
+		//int boxHeight = (int) Math.round((parent.getHeight() / (1 + (0.75 * (rows - 1)))));
+	
+		// component dimensions
+		int cWidth = (boxWidth - (leftOffset + rightOffset));
+		int cHeight = (boxHeight - (topOffset + bottomOffset));
+	
+	
+		int x;
+		int y;
+		if (smallRow){
+		    x = (int)Math.round((boxWidth / 2.0));
+		} 
+		else {
+		    x = 0;
+		}
+		y = 0;
+	
+		int buttonsPlaced = 0;
+		int row = 0;
+		for (Component c : parent.getComponents()) {
+			if (buttonsPlaced % mapType.lengthRow == 0 && buttonsPlaced != 0)  {
+				smallRow = !smallRow;
+				row++;
+			}
+			
+			if (!smallRow) {
+				x = containerXPadding + (buttonsPlaced % mapType.lengthRow) * boxWidth;
+				y = (int) (containerYPadding + (row * boxHeight * heightRatio)); 
+				
+			}
+			else {
+				x = (int) (containerXPadding + (buttonsPlaced % mapType.lengthRow) * boxWidth + (boxWidth / 2.0));
+				y = (int) (containerYPadding + (row * boxHeight * heightRatio)); 
+			}
+			//System.out.println(x + " " + y);
+			c.setBounds(x, y, cWidth, cHeight);
+			buttonsPlaced++;
+		}
+		
+		// Laying out each of the components in the container
+		/*for (Component c : parent.getComponents()) {
+			
+		    if (x > parent.getWidth() - boxWidth) {
+				smallRow = !smallRow;
+				if (smallRow) {
+				    x = (int)Math.round(boxWidth / 2.0);
+				    y += Math.round(boxHeight * heightRatio);
+				} else {
+				    x = 0;
+				    y += Math.round(boxHeight * heightRatio);
+				}
+	
+		    }
+		    c.setBounds(x + leftOffset, y + topOffset, cWidth, cHeight);
+		    x += boxWidth;
+		}*/
     }
 
     /*
@@ -258,7 +316,7 @@ public class HexagonLayout implements LayoutManager {
      */
     @Override
     public Dimension minimumLayoutSize(Container parent) {
-	return minSize;
+    	return minSize;
     }
 
     /*
@@ -267,7 +325,7 @@ public class HexagonLayout implements LayoutManager {
      */
     @Override
     public Dimension preferredLayoutSize(Container parent) {
-	return prefSize;
+    	return prefSize;
     }
 
     /*

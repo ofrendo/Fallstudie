@@ -1,6 +1,7 @@
 package de.client.gui;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.JFrame;
 
@@ -9,7 +10,10 @@ public class Frame extends JFrame {
 	private static final long serialVersionUID = -4775983963721353054L;
 
 	private int width = 1280;
-	private int height = 800;
+	private int height = 667;
+	
+	private int minWidth = 1024;
+	private int minHeight = 667;
 	
 	private PanelMain panelMain;
 	
@@ -27,6 +31,7 @@ public class Frame extends JFrame {
 	public void init() {
 		
 		setSize(width, height);
+		setMinimumSize(new Dimension(minWidth, minHeight));
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}

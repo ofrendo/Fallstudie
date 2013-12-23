@@ -11,7 +11,7 @@ public class PanelDetails extends JPanel {
 
 	public PanelDetails() {
 		setBackground(Color.RED);
-		add(new JLabel("Details"));
+		add(new JLabel("Details longer longer longer"));
 	}
 	
 }

@@ -1,6 +1,5 @@
 package de.client.gui;
 
-import java.awt.Color;
 import java.awt.Insets;
 import java.util.ArrayList;
 
@@ -15,13 +14,18 @@ public class PanelMap extends JPanel {
 
 	private static final long serialVersionUID = 2211410456715150941L;
 	
+	private MapType mapType;
 	
 	public PanelMap(MapType mapType) {
-		setBackground(Color.green);
-		
+		setBackground(Look.COLOR_MAP_BACKGROUND);
+		this.mapType = mapType;
+	}
+
+	public void init() {
 		int padding = 1;
-		HexagonLayout layout = new HexagonLayout(((MapTypeRect) mapType).lengthRow, new Insets(padding, padding, padding, padding), false);
-		layout.setMinimumSize(this.getMinimumSize());
+		HexagonLayout layout = new HexagonLayout(((MapTypeRect) mapType).lengthRow, new Insets(padding, padding, padding, padding), false, (MapTypeRect) mapType);
+
+		//layout.setMinimumSize(this.getMinimumSize());
 		//layout.setPrefferedSize(this.getPreferredSize());
 		
 		setLayout(layout);
@@ -37,8 +41,6 @@ public class PanelMap extends JPanel {
 		//testButton.setBounds(50, 50, 100, 80);
 		
 		//this.add(testButton);
-		
-		
 	}
 	
 }

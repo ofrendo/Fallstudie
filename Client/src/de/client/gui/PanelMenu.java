@@ -1,7 +1,6 @@
 package de.client.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
@@ -17,7 +16,7 @@ public class PanelMenu extends JPanel {
 	private JButton buttonMarket;
 	
 	public PanelMenu() {
-		setBackground(Color.BLUE);
+		setBackground(Look.COLOR_MENU_BACKGROUND);
 		
 		buttonCompany = new JButton(Strings.MENU_BUTTON_COMPANY);
 		buttonMap = new JButton(Strings.MENU_BUTTON_MAP);

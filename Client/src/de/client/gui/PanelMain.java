@@ -1,6 +1,5 @@
 package de.client.gui;
 
-import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
@@ -27,8 +26,11 @@ public class PanelMain extends JPanel {
 		c.gridx = 0;
 		c.gridy = 0;
 		c.gridwidth = 2;
+		c.gridheight = 1;
 		c.anchor = GridBagConstraints.WEST;
-		c.fill = GridBagConstraints.HORIZONTAL;
+		//c.fill = GridBagConstraints.VERTICAL;
+		c.weighty = 0;
+		//Dimension menuD = new Dimension(100)
 		this.add(panelMenu, c);
 		
 		c = new GridBagConstraints();
@@ -37,10 +39,10 @@ public class PanelMain extends JPanel {
 		c.gridwidth = 1;
 		c.gridheight = 2;
 		c.fill = GridBagConstraints.BOTH;
-		Dimension d = new Dimension(1000, 400);
-		panelMap.setMinimumSize(d);
-		panelMap.setMaximumSize(d);
-		panelMap.setSize(d);
+		//c.weighty = 1.0;
+		c.weightx = 1.0;
+		c.weighty = 1.0;
+		panelMap.init();
 		this.add(panelMap, c);
 		
 		c = new GridBagConstraints();

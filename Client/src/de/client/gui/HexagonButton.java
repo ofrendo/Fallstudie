@@ -129,18 +129,17 @@ public class HexagonButton extends JButton {
      * @return Polygon with the buttons hexagonal shape.
      */
     private Polygon getHexPolygon() {
-	Polygon hex = new Polygon();
-	int w = getWidth() - 1;
-	int h = getHeight() - 1;
-	int ratio = (int) (h * .25);
-
-	hex.addPoint(w / 2, 0);
-	hex.addPoint(w, ratio);
-	hex.addPoint(w, h - ratio);
-	hex.addPoint(w / 2, h);
-	hex.addPoint(0, h - ratio);
-	hex.addPoint(0, ratio);
-
+		Polygon hex = new Polygon();
+		int w = getWidth() - 1;
+		int h = getHeight() - 1;
+		int ratio = (int) (h * .25);
+	
+		hex.addPoint(w / 2, 0);
+		hex.addPoint(w, ratio);
+		hex.addPoint(w, h - ratio);
+		hex.addPoint(w / 2, h);
+		hex.addPoint(0, h - ratio);
+		hex.addPoint(0, ratio);
 	return hex;
     }
 
