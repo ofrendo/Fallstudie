@@ -10,9 +10,8 @@ public class Player implements Serializable {
 	
 	public Player(String playerName) {
 		this.playerName = playerName;
-		this.companyName = "0815 company AG";
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
 		if (o instanceof Player) {

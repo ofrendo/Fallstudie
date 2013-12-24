@@ -1,4 +1,4 @@
-package de.server.message;
+package de.shared.message.server;
 import de.shared.message.*;
 import de.shared.map.*;
 

@@ -76,6 +76,11 @@ public class Connection extends Thread {
 					String playerName = (String) message.getValue();
 					this.player = new Player(playerName);
 					Server.getInstance().addPlayer(this.player);
+					
+					while (Server.getInstance().getServerGame().isPinging == true);
+					Server.getInstance().pingPlayerReady();
+					
+					
 					break;
 				case READY:
 					//need to do it like this - need to wait until server has finished pinging
@@ -107,13 +112,19 @@ public class Connection extends Thread {
 				default:
 					break;
 				}
-			} catch (ClassNotFoundException | IOException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
-			} catch (NullPointerException nullE) {
-				//Means in (ObjectInputStream) is null, which means socket has disconnected
-				//System.out.println("[SERVER] NullException from reading message");
-				break;
-			}
+				try {
+					if (in != null)
+						in.close();
+					if (out != null)
+						in.close();
+					if (clientSocket != null)
+						clientSocket.close();
+				}
+				catch (Exception ex) {}
+				return;
+			} 
 		}
 		while (reading == false) {
 			

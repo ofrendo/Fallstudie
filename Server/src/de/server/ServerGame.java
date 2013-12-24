@@ -2,7 +2,6 @@ package de.server;
 
 import java.util.ArrayList;
 
-import de.server.message.MessagePlayerReadyChange;
 import de.shared.game.Game;
 import de.shared.game.GamePhase;
 import de.shared.game.Player;
@@ -11,12 +10,13 @@ import de.shared.map.region.*;
 import de.shared.map.relation.Contract;
 import de.shared.map.relation.ContractRequest;
 import de.shared.map.relation.ContractRequestAnswer;
+import de.shared.message.server.MessagePlayerReadyChange;
 
 public class ServerGame extends Game {
 	
 	public boolean isPinging = false;
 
-	private int minimumPlayers = 2;
+	private int minimumPlayers = 1;
 	
 	private ArrayList<ResourceRegionBid> currentBids;
 	

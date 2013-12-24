@@ -327,7 +327,7 @@ public class HexagonLayout implements LayoutManager {
 				else {
 					xShifts = (row % longestRowIndex == 0) ? longestRowIndex : row % longestRowIndex;
 				}
-				int rowXPadding = (int) (xShifts * (boxWidth / 2.0));
+				int rowXPadding = (int) (xShifts * (boxWidth / 2.0) + boxWidth/4.0);
 				
 				x = containerXPadding + rowXPadding + buttonsPlacedCurrentRow * boxWidth;
 				y = (int) (containerYPadding + (row * boxHeight * heightRatio));

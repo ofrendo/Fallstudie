@@ -5,10 +5,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import de.server.message.MessageMapUpdate;
 import de.shared.game.GamePhase;
 import de.shared.game.Player;
 import de.shared.message.Message;
+import de.shared.message.server.MessageMapUpdate;
 
 public class Server extends Thread {
 	

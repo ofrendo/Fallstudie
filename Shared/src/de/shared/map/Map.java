@@ -3,6 +3,7 @@ package de.shared.map;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import de.shared.map.generate.MapType;
 import de.shared.map.generate.MapTypeRect;
 import de.shared.map.generate.RegionGenerator;
 import de.shared.map.region.Coords;
@@ -18,17 +19,20 @@ public class Map implements Serializable {
 
 	//NOTE ENERGY DEMAND PER PERSON PER CITY OR FOR THE WHOLE MAP?
 	private double energyFactor = 3.14159;
+
+	public MapType mapType;
 	
 	private static Map instance;
-	private Map() {
-		regions = RegionGenerator.generateRegions(MapTypeRect.NORMAL);
+	private Map(MapType mapType) {
+		this.mapType = mapType;
+		regions = RegionGenerator.generateRegions(mapType);
 		energyExchange = new EnergyExchange();
 		resourceMarket = new ResourceMarket();
 	}
 	
 	public static Map getInstance() {
 		if (instance == null)
-			instance = new Map();
+			instance = new Map(MapTypeRect.NORMAL);
 		
 		return instance;
 	}

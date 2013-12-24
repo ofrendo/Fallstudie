@@ -4,14 +4,15 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import de.client.message.MessageInit;
-import de.client.message.MessageReady;
+import de.client.gui.Controller;
 import de.shared.game.GamePhase;
 import de.shared.game.Player;
 import de.shared.map.Map;
 import de.shared.map.relation.*;
 import de.shared.message.Message;
 import de.shared.message.MessageTypeToClient;
+import de.shared.message.client.MessageInit;
+import de.shared.message.client.MessageReady;
 
 public class Client extends Thread {
 	
@@ -28,10 +29,12 @@ public class Client extends Thread {
 		this.clientGame = new ClientGame(this, new Player(playerName));
 	}
 	
+	public void setCompanyName(String companyName) {
+		this.clientGame.getPlayer().companyName = companyName;
+	}
+	
 	@Override
 	public void run() {
-		connectToServer();
-		sendInitMessage();
 		handleMessage();
 	}
 	
@@ -99,11 +102,19 @@ public class Client extends Thread {
 			case PLAYER_READY_CHANGE: 
 				ArrayList<Player> players = (ArrayList<Player>) message.getValue();
 				clientGame.setPlayers(players);
+				
+				if (clientGame.gamePhase == GamePhase.PLAYERS_JOINING) {
+					Controller.getInstance().updateGameLobby(players);
+				}
+				else if (clientGame.gamePhase == GamePhase.GAME_STARTED) {
+					
+				}
 				break;
 			case MAP_UPDATE:
 				Map newMap = (Map) message.getValue();
 				if (clientGame.gamePhase == GamePhase.PLAYERS_JOINING) {
 					clientGame.nextGamePhase();
+					Controller.getInstance().initGame(newMap);
 				}
 				else if (clientGame.gamePhase == GamePhase.GAME_STARTED) {
 					clientGame.incrementRound();

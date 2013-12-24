@@ -5,7 +5,7 @@ import java.awt.GridBagLayout;
 
 import javax.swing.JPanel;
 
-import de.shared.map.generate.MapTypeHexagon;
+import de.shared.map.Map;
 
 public class PanelMain extends JPanel {
 
@@ -15,11 +15,11 @@ public class PanelMain extends JPanel {
 	private PanelMap panelMap;
 	private PanelDetails panelDetails;
 	
-	public PanelMain() {
+	public PanelMain(Map map) {
 		this.setLayout(new GridBagLayout());
 		
 		panelMenu = new PanelMenu();
-		panelMap = new PanelMap(MapTypeHexagon.SMALL);
+		panelMap = new PanelMap(map);
 		panelDetails = new PanelDetails();
 		
 		GridBagConstraints c = new GridBagConstraints();
