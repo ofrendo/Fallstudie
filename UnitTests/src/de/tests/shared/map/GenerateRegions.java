@@ -6,7 +6,8 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 
-import de.shared.map.generate.MapTypeRect;
+import de.shared.map.generate.MapType;
+import de.shared.map.generate.MapTypeHexagon;
 import de.shared.map.generate.RegionGenerator;
 import de.shared.map.region.CityRegion;
 import de.shared.map.region.Region;
@@ -18,7 +19,7 @@ public class GenerateRegions {
 		int numberCities = 0;
 		int numberTiles = 0;
 		
-		final MapTypeRect mapType = MapTypeRect.NORMAL;
+		MapType mapType = MapTypeHexagon.SMALL;
 		
 		final ArrayList<Region> regions = RegionGenerator.generateRegions(mapType);
 		
@@ -27,6 +28,7 @@ public class GenerateRegions {
 				numberCities++;
 				//System.out.println(region.regionIDX + " " + region.regionIDY);
 			}
+			System.out.println(region.coords);
 			numberTiles++;
 		}
 		

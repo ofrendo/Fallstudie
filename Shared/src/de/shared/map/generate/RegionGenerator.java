@@ -52,72 +52,110 @@ public class RegionGenerator {
 		int numberCitiesLeft = mapType.getNumberCities();
 		//int numberTilesLeft = mapType.getNumberTiles();
 		
-		if (mapType instanceof MapTypeRect) {
-			boolean citiesDone = false;
+		boolean citiesDone = false;
 
-			while (!citiesDone) {
-				//Cities not allowed at edge of map
-				//city circles amount = amountcities
-				int rowIndex = getRandomInt(1, ((MapTypeRect) mapType).amountRows-2); //Which row this tile is in
-				int tileIndex = getRandomInt(1, ((MapTypeRect) mapType).lengthRow-2); //Index of tile in row
+		while (!citiesDone) {
+			//Cities not allowed at edge of map
+			//city circles amount = amountcities
+			int rowIndex;
+			int tileIndex;
+			int xShift;
+			
+			if (mapType instanceof MapTypeRect) {
+				rowIndex = getRandomInt(1, ((MapTypeRect) mapType).amountRows-2); //Which row this tile is in
+				tileIndex = getRandomInt(1, ((MapTypeRect) mapType).lengthRow-2); //Index of tile in row
+				xShift = - rowIndex / 2;
+			}
+			else {
+				rowIndex = getRandomInt(1, mapType.getAmountRows()-2); //Which row this tile is in
+				tileIndex  = getRandomInt(1, ((MapTypeHexagon) mapType).getAmountTilesForRow(rowIndex)-2);  //index of tile in row
 				
-				int xShift = - rowIndex / 2;
+				int longestRowIndex = ((MapTypeHexagon) mapType).getLongestRowIndex(); 
+				if (rowIndex <= longestRowIndex) {
+					xShift = - rowIndex;
+				}
+				else {
+					xShift = - longestRowIndex;
+				}
+			}
+			
+			int regionIDX = tileIndex + xShift;
+			int regionIDY = rowIndex;
+			
+			//Check if this region has been added already or is in range of another
+			boolean isOKToPlace = true;
+			for (Region region : regions) {
+				if (getRegionDistance(regionIDX, regionIDY, region.coords.x, region.coords.y) <= minHexLengthCityDistance) {
+					isOKToPlace = false;
+				}
+			}
+			
+			if (isOKToPlace == true) {
+				int population = getRandomInt(minPopulation, maxPopulation);
+				CityRegion cityRegion = new CityRegion(regionIDX, regionIDY, population);
+				regions.add(cityRegion);
+				numberCitiesLeft--;
+				//numberTilesLeft--;
+				if (numberCitiesLeft == 0) {
+					citiesDone = true;
+				}
+			}
+		}
+		
+		
+		
+		for (int rowIndex = 0; rowIndex < mapType.getAmountRows(); rowIndex++) {
+			
+			int xShift;
+			int maxTiles;
+			if (mapType instanceof MapTypeRect) {
+				maxTiles = ((MapTypeRect) mapType).lengthRow;
+				xShift = - rowIndex / 2;
+			}
+			else {
+				maxTiles = ((MapTypeHexagon) mapType).getAmountTilesForRow(rowIndex);
+				
+				int longestRowIndex = ((MapTypeHexagon) mapType).getLongestRowIndex(); 
+				if (rowIndex <= longestRowIndex) {
+					xShift = - rowIndex;
+				}
+				else {
+					xShift = - longestRowIndex;
+				}
+			}
+			
+			for (int tileIndex = 0; tileIndex < maxTiles; tileIndex++) {
 				
 				int regionIDX = tileIndex + xShift;
 				int regionIDY = rowIndex;
 				
-				//Check if this region has been added already or is in range of another
+				//Check if this is not already a city
 				boolean isOKToPlace = true;
-				for (Region region : regions) {
-					if (getRegionDistance(regionIDX, regionIDY, region.coords.x, region.coords.y) <= minHexLengthCityDistance) {
+				for (int i = 0; i < mapType.getNumberCities(); i++) {
+					Region cityRegion = regions.get(i);
+					
+					if (getRegionDistance(regionIDX, regionIDY, cityRegion.coords.x, cityRegion.coords.y) == 0) {
 						isOKToPlace = false;
 					}
 				}
 				
 				if (isOKToPlace == true) {
-					int population = getRandomInt(minPopulation, maxPopulation);
-					CityRegion cityRegion = new CityRegion(regionIDX, regionIDY, population);
-					regions.add(cityRegion);
-					numberCitiesLeft--;
-					//numberTilesLeft--;
-					if (numberCitiesLeft == 0) {
-						citiesDone = true;
-					}
+					ResourceType resourceType = getRandomResourceType(resourceMap);
+					ResourceRegion resourceRegion = new ResourceRegion(regionIDX, regionIDY, resourceType);
+					
+					regions.add(resourceRegion);
 				}
-			}
-			
-			for (int rowIndex = 0; rowIndex < ((MapTypeRect) mapType).amountRows; rowIndex++) {
-				for (int tileIndex = 0; tileIndex < ((MapTypeRect) mapType).lengthRow; tileIndex++) {
-					
-					int xShift = - rowIndex / 2;
-					
-					int regionIDX = tileIndex + xShift;
-					int regionIDY = rowIndex;
 				
-					//Check if this is not already a city
-					boolean isOKToPlace = true;
-					for (int i = 0; i < mapType.getNumberCities(); i++) {
-						Region cityRegion = regions.get(i);
-						
-						if (getRegionDistance(regionIDX, regionIDY, cityRegion.coords.x, cityRegion.coords.y) == 0) {
-							isOKToPlace = false;
-						}
-					}
-					
-					if (isOKToPlace == true) {
-						ResourceType resourceType = getRandomResourceType(resourceMap);
-						ResourceRegion resourceRegion = new ResourceRegion(regionIDX, regionIDY, resourceType);
-						
-						regions.add(resourceRegion);
-					}
-					
-				}
 			}
+		}
+		
+		
+		/*if (mapType instanceof MapTypeRect) {
 			
 		}
 		else if (mapType instanceof MapTypeHexagon) {
-			
-		}
+			MapTypeHexagon mapTypeH = (MapTypeHexagon) mapType;
+		}*/
 		
 		//lastly, order the arraylist for a nice ordered array
 		Collections.sort(regions, new CustomComparator());

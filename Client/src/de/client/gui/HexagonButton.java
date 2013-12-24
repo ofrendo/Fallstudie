@@ -80,7 +80,7 @@ public class HexagonButton extends JButton {
 		}
 		else {
 			//CityRegion
-			hexString = "#FFEFB3";
+			hexString = "#656660";
 			imagePath = "stadt.png";
 		}
 		
@@ -93,10 +93,7 @@ public class HexagonButton extends JButton {
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		InputStream input = classLoader.getResourceAsStream( imagePath );
 		try {
-			//ImageIcon icon = new ImageIcon(ImageIO.read(input));
 			this.image = ImageIO.read(input);
-			//ImageIcon icon = new ImageIcon(image);
-			//setIcon(icon);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

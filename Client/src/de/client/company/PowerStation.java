@@ -53,7 +53,9 @@ public class PowerStation extends Building {
 
 	public void setMaintenanceRate(double maintenanceRate) {
 		this.maintenanceRate = maintenanceRate;
-		//Update running costs after each round
+	}
+	
+	public void finishRound() {
 		
 	}
 	

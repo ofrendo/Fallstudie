@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import de.shared.map.generate.MapType;
+import de.shared.map.generate.MapTypeHexagon;
 import de.shared.map.generate.MapTypeRect;
 import de.shared.map.generate.RegionGenerator;
 import de.shared.map.region.Region;
@@ -23,7 +24,16 @@ public class PanelMap extends JPanel {
 
 	public void init() {
 		int padding = 1;
-		HexagonLayout layout = new HexagonLayout(((MapTypeRect) mapType).lengthRow, new Insets(padding, padding, padding, padding), false, (MapTypeRect) mapType);
+		
+		int cols;
+		if (mapType instanceof MapTypeRect) {
+			cols = ((MapTypeRect) mapType).lengthRow;
+		}
+		else {
+			cols = ((MapTypeHexagon) mapType).getMaxAmountTilesForRow();
+		}
+		
+		HexagonLayout layout = new HexagonLayout(cols, new Insets(padding, padding, padding, padding), false, mapType);
 
 		//layout.setMinimumSize(this.getMinimumSize());
 		//layout.setPrefferedSize(this.getPreferredSize());

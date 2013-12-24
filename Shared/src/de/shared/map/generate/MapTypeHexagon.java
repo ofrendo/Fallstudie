@@ -1,9 +1,9 @@
 package de.shared.map.generate;
 
 public enum MapTypeHexagon implements MapType {
-		SMALL(4, 3),
-		NORMAL(5, 4),
-		LARGE(6, 5);
+		SMALL(4, 4),
+		NORMAL(5, 5),
+		LARGE(6, 6);
 		
 		int hexagonLength;
 		int numberTiles;
@@ -21,6 +21,11 @@ public enum MapTypeHexagon implements MapType {
 			length--;
 			return length*6  + getNumTilesHexa(length);
 		}
+		
+		@Override
+		public int getAmountRows() {
+			return hexagonLength * 2 -1;
+		}
 
 		@Override
 		public int getNumberTiles() {
@@ -30,6 +35,28 @@ public enum MapTypeHexagon implements MapType {
 		@Override
 		public int getNumberCities() {
 			return numberCities;
+		}
+
+		public int getAmountTilesForRow(int rowIndex) {
+			if (rowIndex == 0) 
+				return hexagonLength;
+			
+			int middleRowIndex = getAmountRows() / 2;
+			
+			if (rowIndex <= middleRowIndex) {
+				return 1 + getAmountTilesForRow(rowIndex-1);
+			}
+			else {
+				return -1 + getAmountTilesForRow(rowIndex-1);
+			}
+		}
+		
+		public int getMaxAmountTilesForRow() {
+			return getAmountTilesForRow( getLongestRowIndex() );
+		}
+		
+		public int getLongestRowIndex() {
+			return getAmountRows() / 2;
 		}
 		
 	}

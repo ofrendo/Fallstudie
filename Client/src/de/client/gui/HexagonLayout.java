@@ -6,6 +6,8 @@ import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.LayoutManager;
 
+import de.shared.map.generate.MapType;
+import de.shared.map.generate.MapTypeHexagon;
 import de.shared.map.generate.MapTypeRect;
 
 /**
@@ -43,7 +45,7 @@ public class HexagonLayout implements LayoutManager {
     private Dimension minSize;
     private Dimension prefSize;
 
-    private MapTypeRect mapType;
+    private MapType mapType;
 
     /**
      * Generates a HexagonLayout with the number of columns given. The layout
@@ -124,7 +126,7 @@ public class HexagonLayout implements LayoutManager {
      * @param i Insets object that specify the spacing between gui elements
      * @param beginWithSmallRow Flag for wether or not to begin with a small row.
      */
-    public HexagonLayout(int cols, Insets i, boolean beginWithSmallRow, MapTypeRect mapType) {
+    public HexagonLayout(int cols, Insets i, boolean beginWithSmallRow, MapType mapType) {
 		checkColInput(cols);
 		insets = i;
 		minSize = new Dimension(800, 600); //Standard size. Can be changed with setter.
@@ -189,7 +191,7 @@ public class HexagonLayout implements LayoutManager {
 		}
 		//System.out.println(numberOfRows);
 		return numberOfRows;*/
-    	return mapType.amountRows;
+    	return mapType.getAmountRows();
     }
 
     /*
@@ -224,7 +226,18 @@ public class HexagonLayout implements LayoutManager {
 		
 		double heightRatio = 0.75;
 		
-		double rectRatio = (double) (mapType.lengthRow + 0.5) / (mapType.amountRows);
+		int maxRowLength;
+		double addCol;
+		if (mapType instanceof MapTypeRect) {
+			maxRowLength = ((MapTypeRect) mapType).lengthRow;
+			addCol = 0.5;
+		}
+		else { //if (mapType instanceof MapTypeHexagon) {
+			maxRowLength = ((MapTypeHexagon) mapType).getMaxAmountTilesForRow();
+			addCol = 0.5; //Dont know why this should be 0.5, but it is for smooth switching between ratios
+		}
+			
+		double rectRatio = (double) (maxRowLength + 0.5) / (mapType.getAmountRows());
 		double isRatio = (double) containerWidth / containerHeight;
 		double hexagonWidthHeightRatio = 1;
 		
@@ -235,14 +248,13 @@ public class HexagonLayout implements LayoutManager {
 		int containerYPadding;
 		
 		if (rectRatio > isRatio)  { //Container is too high
-			boxWidth = (int) (containerWidth / (cols + 0.5));
+			boxWidth = (int) (containerWidth / (cols + addCol));
 			boxHeight = (int) (boxWidth * (1.0/hexagonWidthHeightRatio));
 			
 			containerXPadding = 0;
 			containerYPadding = (int) ((containerHeight - boxHeight * rows)/2.0) ;
 		}
 		else { //container is too wide
-			
 			boxHeight =  (int) (containerHeight / rows);
 			boxWidth = (int) (boxHeight * hexagonWidthHeightRatio);
 			containerXPadding = (int) ((containerWidth - boxWidth * (cols + 0.5)) /2.0);
@@ -270,24 +282,63 @@ public class HexagonLayout implements LayoutManager {
 		y = 0;
 	
 		int buttonsPlaced = 0;
+		int buttonsPlacedCurrentRow = 0;
 		int row = 0;
+		int rowLength;
 		for (Component c : parent.getComponents()) {
-			if (buttonsPlaced % mapType.lengthRow == 0 && buttonsPlaced != 0)  {
-				smallRow = !smallRow;
-				row++;
-			}
-			
-			if (!smallRow) {
-				x = containerXPadding + (buttonsPlaced % mapType.lengthRow) * boxWidth;
-				y = (int) (containerYPadding + (row * boxHeight * heightRatio)); 
+			//int rowLength;
+			if (mapType instanceof MapTypeRect) {
+				rowLength = ((MapTypeRect) mapType).lengthRow;
 				
+				if (buttonsPlaced % rowLength == 0 && buttonsPlaced != 0)  {
+					smallRow = !smallRow;
+					row++;
+				}
+				
+				if (!smallRow) {
+					x = containerXPadding + (buttonsPlaced % rowLength) * boxWidth;
+					y = (int) (containerYPadding + (row * boxHeight * heightRatio)); 
+					
+				}
+				else {
+					x = (int) (containerXPadding + (buttonsPlaced % rowLength) * boxWidth + (boxWidth / 2.0));
+					y = (int) (containerYPadding + (row * boxHeight * heightRatio)); 
+				}
 			}
 			else {
-				x = (int) (containerXPadding + (buttonsPlaced % mapType.lengthRow) * boxWidth + (boxWidth / 2.0));
-				y = (int) (containerYPadding + (row * boxHeight * heightRatio)); 
+				rowLength = ((MapTypeHexagon) mapType).getAmountTilesForRow(row);
+				
+				if (buttonsPlacedCurrentRow % rowLength == 0 && buttonsPlaced != 0) {
+					row ++;
+					buttonsPlacedCurrentRow = 0;
+				}
+				smallRow = (row % 2 == 0); 
+				
+				int longestRowIndex = ((MapTypeHexagon) mapType).getLongestRowIndex();
+				
+				//Number of x half box shifts: If at the first or last row, number = longestRowIndex, else row % longestRowIndex
+				int xShifts;
+				if (row < longestRowIndex) {
+					xShifts = longestRowIndex - (row % longestRowIndex);
+				}
+				else if (row == longestRowIndex) {
+					xShifts = 0;
+				}
+				else {
+					xShifts = (row % longestRowIndex == 0) ? longestRowIndex : row % longestRowIndex;
+				}
+				int rowXPadding = (int) (xShifts * (boxWidth / 2.0));
+				
+				x = containerXPadding + rowXPadding + buttonsPlacedCurrentRow * boxWidth;
+				y = (int) (containerYPadding + (row * boxHeight * heightRatio));
+				
+				buttonsPlacedCurrentRow++;
 			}
+			
+			
 			//System.out.println(x + " " + y);
 			c.setBounds(x, y, cWidth, cHeight);
+			
 			buttonsPlaced++;
 		}
 		

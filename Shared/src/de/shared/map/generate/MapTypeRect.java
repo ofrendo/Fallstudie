@@ -17,6 +17,11 @@ public enum MapTypeRect implements MapType {
 	}
 	
 	@Override
+	public int getAmountRows() {
+		return amountRows;
+	};
+	
+	@Override
 	public int getNumberTiles() {
 		return numberTiles;
 	}
