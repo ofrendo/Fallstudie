@@ -32,16 +32,11 @@ public class Controller {
 		frame = new Frame(newPlayers);
 		frame.init();
 	}
-
-	private ArrayList<Player> allPlayers;
 	
 	public void updateGameLobby(ArrayList<Player> newPlayers) {
 		if (frame != null)	{
 			frame.getPanelLobby().updateReadyStatus(newPlayers);
 			frame.refresh();
-		}
-		else {
-			allPlayers = newPlayers;
 		}
 	}
 	
@@ -52,22 +47,25 @@ public class Controller {
 		client.connectToServer();
 		client.sendInitMessage();
 		client.start();
-		
-		if (allPlayers == null) {
-			allPlayers = new ArrayList<Player>();
-			allPlayers.add(client.getClientGame().ownPlayer);
-		}
-		
+	}
+	
+	public void triggerInitRejected() {
+		frameConnect.showInitRejected();
+	}
+	
+	public void triggerInitConfirmed(ArrayList<Player> players) {
 		//Open lobby gui
-		initGameLobby(allPlayers);
+		initGameLobby(players);
 		
 		//Close connecting GUI
 		frameConnect.setVisible(false); 
 		frameConnect.dispose();
 	}
+	
+	
 
-	public void sendReady() {
-		client.sendReadyMessage();
+	public void sendReady(boolean ready) {
+		client.sendReadyMessage(ready);
 	}
 	
 	public void initGame(Map map) {
@@ -86,5 +84,6 @@ public class Controller {
 		//For testing
 		Controller.getInstance();
 	}
+
 
 }

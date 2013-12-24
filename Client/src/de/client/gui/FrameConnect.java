@@ -183,4 +183,8 @@ public class FrameConnect extends JFrame {
 		}
 		return buttonConnect;
 	}
+
+	public void showInitRejected() {
+		JOptionPane.showMessageDialog(null, "Spielername oder Firmaname existiert bereits.");
+	}
 }

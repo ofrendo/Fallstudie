@@ -1,13 +1,16 @@
 package de.shared.message.client;
 
-import de.shared.message.*;
+import de.shared.game.Player;
+import de.shared.message.Message;
+import de.shared.message.MessageType;
+import de.shared.message.MessageTypeToServer;
 
 public class MessageInit implements Message {
 	private static final long serialVersionUID = 5660018588315707107L;
-	private String playerName;
+	private Player player;
 	
-	public MessageInit(String playerName) {
-		this.playerName = playerName;
+	public MessageInit(Player player) {
+		this.player = player;
 	}
 	
 	@Override
@@ -17,7 +20,7 @@ public class MessageInit implements Message {
 	
 	@Override
 	public Object getValue() {
-		return playerName;
+		return player;
 	}
 
 }

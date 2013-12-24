@@ -73,11 +73,11 @@ public class Client extends Thread {
 	}
 	
 	public void sendInitMessage() {
-		sendMessage(new MessageInit(clientGame.ownPlayer.playerName));
+		sendMessage(new MessageInit(clientGame.ownPlayer));
 	}
 	
-	public void sendReadyMessage() {
-		sendMessage(new MessageReady());
+	public void sendReadyMessage(boolean ready) {
+		sendMessage(new MessageReady(ready));
 		//handleMessage();
 	}
 	
@@ -87,6 +87,7 @@ public class Client extends Thread {
 
 	@SuppressWarnings("unchecked")
 	public void handleMessage() {
+		boolean continueListening = true;
 		Message message = null;
 		try	{
 			System.out.println("[CLIENT] Listening for message from server...");
@@ -98,6 +99,14 @@ public class Client extends Thread {
 			case RESET:
 				int amountPlayer = (int) message.getValue();
 				System.out.println("[CLIENT] A new player has joined the lobby. " + amountPlayer+" Spieler sind nun im Spiel.");
+				break;
+			case INIT_REJECT:
+				Controller.getInstance().triggerInitRejected();
+				continueListening = false;
+				break;
+			case INIT_CONFIRM:
+				ArrayList<Player> currentPlayers = (ArrayList<Player>) message.getValue();
+				Controller.getInstance().triggerInitConfirmed(currentPlayers);
 				break;
 			case PLAYER_READY_CHANGE: 
 				ArrayList<Player> players = (ArrayList<Player>) message.getValue();
@@ -135,7 +144,8 @@ public class Client extends Thread {
 			e.printStackTrace();
 			System.exit(0);
 		}
-		handleMessage();
+		if (continueListening == true)
+			handleMessage();
 	}
 	
 	//TEST METHOD

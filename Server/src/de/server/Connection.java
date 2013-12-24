@@ -13,6 +13,8 @@ import de.shared.map.relation.ContractRequestAnswer;
 import de.shared.map.relation.MessageContractRequestAnswer;
 import de.shared.message.Message;
 import de.shared.message.MessageTypeToServer;
+import de.shared.message.server.MessageInitConfirm;
+import de.shared.message.server.MessageInitReject;
 
 public class Connection extends Thread {
 
@@ -73,23 +75,33 @@ public class Connection extends Thread {
 				
 				switch (type) {
 				case INIT: 
-					String playerName = (String) message.getValue();
-					this.player = new Player(playerName);
-					Server.getInstance().addPlayer(this.player);
+					Player newPlayer = (Player) message.getValue();
 					
-					while (Server.getInstance().getServerGame().isPinging == true);
-					Server.getInstance().pingPlayerReady();
-					
+					Message reply;
+					if (!Server.getInstance().isNameExists(newPlayer.playerName, newPlayer.companyName)) {
+						this.player = newPlayer;
+						Server.getInstance().addPlayer(newPlayer);
+						reply = new MessageInitConfirm( Server.getInstance().getServerGame().getPlayers() );
+						
+						
+						while (Server.getInstance().getServerGame().isPinging == true);
+						
+						Server.getInstance().pingPlayerReady();
+					}
+					else {
+						reply = new MessageInitReject();
+					}
+					sendMessage(reply);
 					
 					break;
 				case READY:
 					//need to do it like this - need to wait until server has finished pinging
 					while (Server.getInstance().getServerGame().isPinging == true);
 
-					if (player.ready == false) {
-						player.ready = true;
-						Server.getInstance().pingPlayerReady();
-					}
+					boolean ready = (boolean) message.getValue();
+					
+					player.ready = ready;
+					Server.getInstance().pingPlayerReady();
 					break;
 				case START_RESOURCE_REGION_BIDDING:
 					Coords regionCoords = (Coords) message.getValue();

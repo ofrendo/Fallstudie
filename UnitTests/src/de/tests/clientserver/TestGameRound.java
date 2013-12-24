@@ -21,15 +21,27 @@ public class TestGameRound {
 		
 		System.out.println("[TEST] Starting clients...");
 		Client client1 = new Client(TestUtils.getIP(), "Olli");
-		client1.start();
-		Client client2 = new Client(TestUtils.getIP(), "NoobJörn");
-		client2.start();
+		client1.setCompanyName("OlliAG");
+		client1.connectToServer();
+		client1.sendInitMessage();
 		
 		TestUtils.blockShort();
 		
+		Client client2 = new Client(TestUtils.getIP(), "Jörn");
+		client2.setCompanyName("JörnAG");
+		client2.connectToServer();
+		client2.sendInitMessage();
+		
+		TestUtils.blockLong();
+		
+		client1.start();
+		client2.start();
+		
+		TestUtils.blockLong();
+		
 		//Start game by setting all clients as ready
-		client1.sendReadyMessage();
-		client2.sendReadyMessage();
+		client1.sendReadyMessage(true);
+		client2.sendReadyMessage(true);
 		
 		TestUtils.blockLong();
 		
@@ -38,8 +50,8 @@ public class TestGameRound {
 		TestUtils.blockShort();
 		
 		//Then send ready again
-		client1.sendReadyMessage();
-		client2.sendReadyMessage();
+		client1.sendReadyMessage(true);
+		client2.sendReadyMessage(true);
 
 		TestUtils.blockLong();
 		

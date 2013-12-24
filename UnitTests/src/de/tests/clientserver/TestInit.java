@@ -20,8 +20,20 @@ public class TestInit {
 		
 		System.out.println("[TEST] Starting clients...");
 		Client client1 = new Client(TestUtils.getIP(), "Olli");
+		client1.setCompanyName("OlliAG");
+		client1.connectToServer();
+		client1.sendInitMessage();
+		
+		TestUtils.blockShort();
+		
+		Client client2 = new Client(TestUtils.getIP(), "Jörn");
+		client2.setCompanyName("JörnAG");
+		client2.connectToServer();
+		client2.sendInitMessage();
+		
+		TestUtils.blockLong();
+		
 		client1.start();
-		Client client2 = new Client(TestUtils.getIP(), "NoobJörn");
 		client2.start();
 		
 		TestUtils.blockLong();

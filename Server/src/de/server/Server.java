@@ -147,6 +147,15 @@ public class Server extends Thread {
 		this.connections.remove(connection);
 		System.out.println("[SERVER] A client has disconnected.");
 	}
+
+	public synchronized boolean isNameExists(String playerName, String companyName) {
+		for (Player player : serverGame.getPlayers()) {
+			if (player.playerName.equals(playerName) || player.companyName.equals(companyName)) {
+				return true;
+			}
+		}
+		return false;
+	}
 	
 	
 	/*public void newPlayer (String name)

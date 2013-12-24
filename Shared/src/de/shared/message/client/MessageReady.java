@@ -9,10 +9,16 @@ public class MessageReady implements Message {
 	public MessageType getType() {
 		return MessageTypeToServer.READY;
 	}
+	
+	private boolean ready;
+	
+	public MessageReady(boolean ready) {
+		this.ready = ready;
+	}
 
 	@Override
 	public Object getValue() {
-		return null;
+		return ready;
 	}
 
 }
