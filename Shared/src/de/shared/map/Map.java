@@ -37,6 +37,13 @@ public class Map implements Serializable {
 		return instance;
 	}
 	
+	public static Map getInstance(MapType mapType) {
+		if (instance == null)
+			instance = new Map(mapType);
+			
+		return instance;
+	}
+	
 	public Region getRegion(Coords coords) {
 		for (Region region : regions) {
 			if (region.coords.equals(coords)) {

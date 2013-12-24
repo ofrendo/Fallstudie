@@ -1,4 +1,4 @@
-package de.client.message;
+package de.shared.message.client;
 
 import de.shared.game.Player;
 import de.shared.map.region.Coords;

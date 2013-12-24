@@ -3,10 +3,6 @@ package de.client;
 import java.util.ArrayList;
 
 import de.client.company.Company;
-import de.client.message.MessageContractConfirm;
-import de.client.message.MessageRequestContract;
-import de.client.message.MessageResourceRegionBid;
-import de.client.message.MessageStartResourceRegionBidding;
 import de.client.optimization.Optimizer;
 import de.shared.game.Game;
 import de.shared.game.Player;
@@ -16,6 +12,10 @@ import de.shared.map.region.Coords;
 import de.shared.map.relation.CityRelation;
 import de.shared.map.relation.ContractRequest;
 import de.shared.map.relation.ContractRequestAnswer;
+import de.shared.message.client.MessageContractConfirm;
+import de.shared.message.client.MessageRequestContract;
+import de.shared.message.client.MessageResourceRegionBid;
+import de.shared.message.client.MessageStartResourceRegionBidding;
 
 public class ClientGame extends Game {
 

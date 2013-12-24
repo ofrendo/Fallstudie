@@ -1,4 +1,4 @@
-package de.client.message;
+package de.shared.message.client;
 
 import de.shared.map.relation.ContractRequest;
 import de.shared.message.Message;
