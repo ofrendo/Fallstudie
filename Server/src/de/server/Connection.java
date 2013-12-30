@@ -144,11 +144,19 @@ public class Connection extends Thread {
 		handleMessage();
 	}
 
-	public void sendMessage(Message message)	{
+	private boolean sending = false;
+	
+	public void sendMessage(Message message) {
+		while (sending == true);		
+		
 		try {
+			sending = true;
+			
 			out.writeObject(message);
 			out.flush();
 			out.reset();
+			
+			sending = false;
 		} catch (Exception e) {
 			System.out.println("Error sending a message to client:");
 			System.out.println("Type: " + message.getType());

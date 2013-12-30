@@ -26,7 +26,7 @@ public class TestContract {
 		client1.connectToServer();
 		client1.sendInitMessage();
 		
-		TestUtils.blockShort();
+		//TestUtils.blockShort();
 		
 		Client client2 = new Client(TestUtils.getIP(), "Jörn");
 		client2.setCompanyName("JörnAG");
