@@ -10,7 +10,7 @@ import de.shared.map.generate.MapTypeHexagon;
 public class RegionTestGUI {
 	
 	public static void main(String[] args) {
-		Map map = Map.getInstance(MapTypeHexagon.NORMAL);
+		Map map = new Map(MapTypeHexagon.NORMAL); //Map.getInstance(MapTypeHexagon.NORMAL);
 		
 		ArrayList<Player> emptyPlayers = new ArrayList<Player>();
 		Frame frame = new Frame(emptyPlayers);

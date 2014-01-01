@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 
 import de.shared.map.generate.MapType;
-import de.shared.map.generate.MapTypeRect;
 import de.shared.map.generate.RegionGenerator;
 import de.shared.map.region.Coords;
 import de.shared.map.region.Region;
@@ -22,27 +21,28 @@ public class Map implements Serializable {
 
 	public MapType mapType;
 	
-	private static Map instance;
-	private Map(MapType mapType) {
+	//private static Map instance;
+	
+	public Map(MapType mapType) {
 		this.mapType = mapType;
 		regions = RegionGenerator.generateRegions(mapType);
 		energyExchange = new EnergyExchange();
 		resourceMarket = new ResourceMarket();
 	}
 	
-	public static Map getInstance() {
+	/*public static Map getInstance() {
 		if (instance == null)
 			instance = new Map(MapTypeRect.NORMAL);
 		
 		return instance;
-	}
+	}*/
 	
-	public static Map getInstance(MapType mapType) {
+	/*public static Map getInstance(MapType mapType) {
 		if (instance == null)
 			instance = new Map(mapType);
 			
 		return instance;
-	}
+	}*/
 	
 	public Region getRegion(Coords coords) {
 		for (Region region : regions) {

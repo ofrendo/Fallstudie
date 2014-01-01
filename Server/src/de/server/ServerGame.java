@@ -6,7 +6,14 @@ import de.shared.game.Game;
 import de.shared.game.GamePhase;
 import de.shared.game.Player;
 import de.shared.map.Map;
-import de.shared.map.region.*;
+import de.shared.map.generate.MapTypeRect;
+import de.shared.map.region.CityRegion;
+import de.shared.map.region.Coords;
+import de.shared.map.region.Region;
+import de.shared.map.region.ResourceRegion;
+import de.shared.map.region.ResourceRegionBid;
+import de.shared.map.region.ResourceRegionStatus;
+import de.shared.map.region.ResourceType;
 import de.shared.map.relation.Contract;
 import de.shared.map.relation.ContractRequest;
 import de.shared.map.relation.ContractRequestAnswer;
@@ -23,7 +30,7 @@ public class ServerGame extends Game {
 	public ServerGame() {
 		super();
 		currentBids = new ArrayList<ResourceRegionBid>();
-		map = Map.getInstance();
+		map = new Map(MapTypeRect.NORMAL);//Map.getInstance();
 	}
 	
 	public synchronized void pingPlayerReady() {
