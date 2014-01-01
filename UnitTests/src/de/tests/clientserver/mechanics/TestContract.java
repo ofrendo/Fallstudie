@@ -9,8 +9,9 @@ import de.server.Server;
 import de.shared.game.GamePhase;
 import de.shared.map.region.CityRegion;
 import de.tests.TestUtils;
+import de.tests.clientserver.AbstractClientServerTest;
 
-public class TestContract {
+public class TestContract extends AbstractClientServerTest {
 
 	@Test
 	public void testContractRequestAndAnswer() {
@@ -26,7 +27,7 @@ public class TestContract {
 		client1.connectToServer();
 		client1.sendInitMessage();
 		
-		//TestUtils.blockShort();
+		TestUtils.blockShort();
 		
 		Client client2 = new Client(TestUtils.getIP(), "Jörn");
 		client2.setCompanyName("JörnAG");

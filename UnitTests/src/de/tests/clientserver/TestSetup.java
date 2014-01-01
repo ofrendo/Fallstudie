@@ -10,7 +10,7 @@ import de.client.Client;
 import de.server.Server;
 import de.tests.TestUtils;
 
-public class TestSetup {
+public class TestSetup extends AbstractClientServerTest {
 
 	@Test
 	public void testConnect() throws UnknownHostException {

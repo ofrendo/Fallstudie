@@ -12,7 +12,7 @@ import de.shared.message.server.MessageMapUpdate;
 
 public class Server extends Thread {
 	
-	private static Server server;
+	private static Server instance;
 	
 	//private int amountPlayer = 0;
 	//private int readyPlayer = 0;
@@ -27,11 +27,11 @@ public class Server extends Thread {
 		this.connections = new ArrayList<Connection>();
 	}
 	
-	public static Server getInstance() {
-		if (server == null) {
-			server = new Server();
+	public synchronized static Server getInstance() {
+		if (instance == null) {
+			instance = new Server();
 		}
-		return server;
+		return instance;
 	}
 	
 	@Override
@@ -101,7 +101,7 @@ public class Server extends Thread {
 		sendBroadcastMessage(new MessageMapUpdate(serverGame.getMap()));
 	}
 	
-	public void sendBroadcastMessage(Message message) {
+	public synchronized void sendBroadcastMessage(Message message) {
 		for (Connection connection : connections) {
 			connection.sendMessage(message);
 		}
@@ -156,7 +156,21 @@ public class Server extends Thread {
 		}
 		return false;
 	}
+
 	
+	/**
+	 * Used mainly for testing purposes to reset the sockets
+	 */
+	public void reset() {
+		try {
+			if (serverSocket != null)
+				serverSocket.close();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		instance = null;
+	}
 	
 	/*public void newPlayer (String name)
 	{

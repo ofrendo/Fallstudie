@@ -8,7 +8,7 @@ import de.client.Client;
 import de.server.Server;
 import de.tests.TestUtils;
 
-public class TestInit {
+public class TestInit extends AbstractClientServerTest {
 
 	@Test
 	public void testInitialize() {

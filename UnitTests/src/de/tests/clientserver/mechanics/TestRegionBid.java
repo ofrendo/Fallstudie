@@ -11,7 +11,8 @@ import de.shared.map.region.Coords;
 import de.shared.map.region.ResourceRegion;
 import de.shared.map.region.ResourceRegionStatus;
 import de.tests.TestUtils;
-public class TestRegionBid {
+import de.tests.clientserver.AbstractClientServerTest;
+public class TestRegionBid extends AbstractClientServerTest {
 
 	@Test
 	public void testRegionBid() {

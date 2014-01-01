@@ -9,7 +9,7 @@ import de.server.Server;
 import de.shared.game.GamePhase;
 import de.tests.TestUtils;
 
-public class TestReady {
+public class TestReady extends AbstractClientServerTest {
 
 	@Test
 	public synchronized void testReady() {

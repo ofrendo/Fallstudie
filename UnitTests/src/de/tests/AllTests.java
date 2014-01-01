@@ -6,7 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 import de.tests.client.optimization.OptimizeAllTests;
 import de.tests.client1.TestInvestmentDepreciation;
-import de.tests.clientserver.mechanics.TestRegionBid;
+import de.tests.clientserver.TestSuiteClientServer;
 import de.tests.shared.map.GenerateRegions;
 
 @RunWith(Suite.class)
@@ -14,7 +14,7 @@ import de.tests.shared.map.GenerateRegions;
 	OptimizeAllTests.class,
 	TestInvestmentDepreciation.class,
 	GenerateRegions.class,
-	TestRegionBid.class
+	TestSuiteClientServer.class
 })
 public class AllTests {
 }

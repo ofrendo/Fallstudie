@@ -126,15 +126,17 @@ public class Connection extends Thread {
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				try {
+				/*try {
 					if (in != null)
 						in.close();
 					if (out != null)
-						in.close();
+						out.close();
 					if (clientSocket != null)
 						clientSocket.close();
 				}
-				catch (Exception ex) {}
+				catch (Exception ex) {
+					
+				}*/
 				return;
 			} 
 		}

@@ -16,8 +16,6 @@ public class RegionTestGUI {
 		Frame frame = new Frame(emptyPlayers);
 		frame.init();
 		frame.initGame(map);
-		
-		
 	}
 	
 }

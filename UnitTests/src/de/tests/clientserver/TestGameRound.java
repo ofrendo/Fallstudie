@@ -9,7 +9,7 @@ import de.server.Server;
 import de.shared.game.GamePhase;
 import de.tests.TestUtils;
 
-public class TestGameRound {
+public class TestGameRound extends AbstractClientServerTest {
 
 	@Test
 	public void testGameRound() {
