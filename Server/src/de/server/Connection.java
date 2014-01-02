@@ -121,6 +121,10 @@ public class Connection extends Thread {
 					ContractRequestAnswer confirmation = (ContractRequestAnswer) message.getValue();
 					Server.getInstance().getServerGame().confirmContract(confirmation);
 					break;
+				case CANCEL_CONTRACT:
+					ContractRequestAnswer cancellation = (ContractRequestAnswer) message.getValue();
+					Server.getInstance().getServerGame().cancelContract(cancellation);
+					break;
 				default:
 					break;
 				}

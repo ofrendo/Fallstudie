@@ -8,6 +8,7 @@ import de.client.Client;
 import de.server.Server;
 import de.shared.game.GamePhase;
 import de.shared.map.region.CityRegion;
+import de.shared.map.relation.ContractRequestAnswer;
 import de.tests.TestUtils;
 import de.tests.clientserver.AbstractClientServerTest;
 
@@ -76,6 +77,18 @@ public class TestContract extends AbstractClientServerTest {
 		assertEquals(price1, client1.getClientGame().getCompany().getContracts().get(0).amountMoneyPerCustomer, 0.001);
 		assertEquals(price2, client2.getClientGame().getCompany().getContracts().get(0).amountMoneyPerCustomer, 0.001);
 		assertEquals(newCustomers, cityRegion.getPopulation() - cityRegion.getFreeCustomers());
+		
+		//Now cancel contracts
+		ContractRequestAnswer latestAnswer1 = client1.getLatestContractAnswer();
+		ContractRequestAnswer latestAnswer2 = client2.getLatestContractAnswer();
+		client1.getClientGame().cancelContract(latestAnswer1.coords, latestAnswer1.contract);
+		client2.getClientGame().cancelContract(latestAnswer2.coords, latestAnswer2.contract);
+		
+		TestUtils.blockShort();
+		
+		assertEquals(cityRegion.getPopulation(), cityRegion.getFreeCustomers());
+		assertEquals(0, client1.getClientGame().getCompany().getContracts().size());
+		assertEquals(0, client2.getClientGame().getCompany().getContracts().size());
 	}
 	
 }

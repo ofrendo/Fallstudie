@@ -2,9 +2,15 @@ package de.client.company;
 
 import java.util.ArrayList;
 
-import de.shared.map.relation.*;
-import de.shared.map.region.*;
-import de.shared.game.*;
+import de.shared.game.Constants;
+import de.shared.game.Game;
+import de.shared.map.region.CityRegion;
+import de.shared.map.region.Coords;
+import de.shared.map.region.Region;
+import de.shared.map.region.ResourceType;
+import de.shared.map.relation.CityRelation;
+import de.shared.map.relation.Contract;
+import de.shared.map.relation.RegionRelation;
 
 public class Company {
 	public final String companyName;
@@ -88,6 +94,20 @@ public class Company {
 		}
 		
 		return cityRelations.toArray(new CityRelation[0]);
+	}
+	
+	public boolean isPowerStationInRange(CityRelation cityRelation) {
+		for (RegionRelation regionRelation : getRegionRelations()) {
+			if (regionRelation instanceof ResourceRelation) {
+				ResourceRelation relation = (ResourceRelation) regionRelation;
+				if (relation.powerStation != null && relation.powerStation.isBuilt()) {
+					if (Game.regionDistance(relation.coords, cityRelation.coords) <= Constants.MAX_POWERSTATION_DISTANCE) {
+						return true;
+					}
+				}
+			}
+		}
+		return false;
 	}
 	
 	public void addBuilding(Building building) {

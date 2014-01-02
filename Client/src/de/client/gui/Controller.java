@@ -2,14 +2,19 @@ package de.client.gui;
 
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import de.client.Client;
 import de.client.ClientGame;
 import de.client.company.Company;
 import de.client.company.ResourceRelation;
 import de.shared.game.Player;
 import de.shared.map.Map;
+import de.shared.map.region.Coords;
 import de.shared.map.region.Region;
 import de.shared.map.region.ResourceType;
+import de.shared.map.relation.Contract;
+import de.shared.map.relation.ContractRequestAnswer;
 
 
 public class Controller {
@@ -19,6 +24,8 @@ public class Controller {
 	private Client client;
 	private Frame frame;
 	private FrameConnect frameConnect;
+	
+	public HexagonButton lastHexButton;
 	
 	private Controller() {
 		frameConnect = new FrameConnect();
@@ -135,5 +142,48 @@ public class Controller {
 
 	public ClientGame getClientGame() {
 		return client.getClientGame();
+	}
+
+	public void showContractRequestAnswer(ContractRequestAnswer answer) {
+		Object[] options = {
+				"Vertrag annehmen",
+		        "Vertrag ablehnen"
+		};
+		Contract c = answer.contract;
+		String content = "<html><table>"
+				+ "<tr>"
+				+ "<td>Anzahl Kunden:</td>"
+				+ "<td>" + c.amountCustomer + "</td>"
+				+ "</tr>"
+				+ "<tr>"
+				+ "<td>Preis pro Kunde:</td>"
+				+ "<td>" + Strings.fD(c.amountMoneyPerCustomer) + "</td>"
+				+ "</tr>"
+				+ "<tr>"
+				+ "<td>Benötigte Energie:</td>"
+				+ "<td>" + Strings.fD(c.amountEnergyNeeded) + " Mw/h</td>"
+				+ "</tr>"
+				+ "</table></html>";
+		
+		int n = JOptionPane.showOptionDialog(
+				frame,
+				content,
+				"Vertragsangebot",
+				JOptionPane.YES_NO_OPTION,
+				JOptionPane.QUESTION_MESSAGE,
+				null,     //do not use a custom Icon
+				options,  //the titles of buttons
+				options[1] //default button title
+		); 
+		
+		if (n == JOptionPane.YES_OPTION) {
+			client.getClientGame().acceptContract(answer);
+			updatePanelDetails(lastHexButton);
+		}
+	}
+	
+	public void sendCancelContract(Coords coords, Contract contract, HexagonButton hexButton) {
+		getClientGame().cancelContract(coords, contract);
+		updatePanelDetails(hexButton);
 	}
 }

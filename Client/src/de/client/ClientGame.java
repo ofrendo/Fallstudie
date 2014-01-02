@@ -10,8 +10,10 @@ import de.shared.map.Map;
 import de.shared.map.region.CityRegion;
 import de.shared.map.region.Coords;
 import de.shared.map.relation.CityRelation;
+import de.shared.map.relation.Contract;
 import de.shared.map.relation.ContractRequest;
 import de.shared.map.relation.ContractRequestAnswer;
+import de.shared.message.client.MessageContractCancel;
 import de.shared.message.client.MessageContractConfirm;
 import de.shared.message.client.MessageRequestContract;
 import de.shared.message.client.MessageResourceRegionBid;
@@ -77,6 +79,14 @@ public class ClientGame extends Game {
 	
 	public void confirmContract(ContractRequestAnswer answer) {
 		client.sendMessage(new MessageContractConfirm(answer));
+	}
+	
+	public void cancelContract(Coords coords, Contract contract) {
+		ContractRequestAnswer cancellation = new ContractRequestAnswer(coords, contract);
+		client.sendMessage(new MessageContractCancel(cancellation));
+		
+		CityRelation relation = (CityRelation) company.getRegionRelation(coords);
+		relation.setContract(null);
 	}
 	
 	public void nextRound() {

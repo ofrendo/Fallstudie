@@ -8,7 +8,7 @@ import de.client.gui.Controller;
 import de.shared.game.GamePhase;
 import de.shared.game.Player;
 import de.shared.map.Map;
-import de.shared.map.relation.*;
+import de.shared.map.relation.ContractRequestAnswer;
 import de.shared.message.Message;
 import de.shared.message.MessageTypeToClient;
 import de.shared.message.client.MessageInit;
@@ -135,8 +135,7 @@ public class Client extends Thread {
 			case CONTRACT_REQUEST_ANSWER:
 				answer = (ContractRequestAnswer) message.getValue();
 				//SHOW IN GUI HERE
-				
-				
+				Controller.getInstance().showContractRequestAnswer(answer);
 				break;
 			default:
 				break;

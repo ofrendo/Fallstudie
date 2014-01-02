@@ -16,8 +16,10 @@ import javax.swing.event.ChangeListener;
 
 import de.client.company.PowerStation;
 import de.client.company.ResourceRelation;
+import de.shared.map.region.CityRegion;
 import de.shared.map.region.Region;
 import de.shared.map.region.ResourceRegion;
+import de.shared.map.relation.CityRelation;
 import de.shared.map.relation.RegionRelation;
 
 public class PanelSubDetails extends JPanel {
@@ -39,6 +41,12 @@ public class PanelSubDetails extends JPanel {
 	public JButton buttonBuildPowerStation;
 	public JSlider sliderPowerStationMaintenanceRate;
 	public JSlider sliderPowerStationUtilization;
+	
+	public JTextField textFieldMaxCustomers;
+	public JTextField textFieldPrice;
+	public JButton buttonRequestContract;
+	
+	public JButton buttonCancelContract;
 	
 	public PanelSubDetails(HexagonButton hexButton) {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -63,7 +71,6 @@ public class PanelSubDetails extends JPanel {
 	protected JTextField getTextFieldRegionBid() {
 		if (textFieldRegionBid == null) {
 			textFieldRegionBid = new JTextField();
-			System.out.println(textFieldRegionBid.getPreferredSize());
 			textFieldRegionBid.setMaximumSize( 
 				     new Dimension(Integer.MAX_VALUE, textFieldRegionBid.getPreferredSize().height) );
 			textFieldRegionBid.setAlignmentX( Component.LEFT_ALIGNMENT );
@@ -188,6 +195,68 @@ public class PanelSubDetails extends JPanel {
 			});
 		}
 		return sliderPowerStationUtilization;
+	}
+
+	public JTextField getTextFieldMaxCustomers() {
+		if (textFieldMaxCustomers == null) {
+			textFieldMaxCustomers = new JTextField();
+			textFieldMaxCustomers.setMaximumSize( 
+				     new Dimension(Integer.MAX_VALUE, textFieldMaxCustomers.getPreferredSize().height) );
+			textFieldMaxCustomers.setAlignmentX( Component.LEFT_ALIGNMENT );
+		}
+		return textFieldMaxCustomers;
+	}
+	
+	public JTextField getTextFieldPrice() {
+		if (textFieldPrice == null) {
+			textFieldPrice = new JTextField();
+			textFieldPrice.setMaximumSize( 
+				     new Dimension(Integer.MAX_VALUE, textFieldPrice.getPreferredSize().height) );
+			textFieldPrice.setAlignmentX( Component.LEFT_ALIGNMENT );
+		}
+		return textFieldPrice;
+	}
+	
+	public JButton getButtonRequestContract() {
+		if (buttonRequestContract == null) {
+			buttonRequestContract = new JButton("Vertrag anfragen");
+			buttonRequestContract.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					try {
+						int maxCustomers = Integer.parseInt(textFieldMaxCustomers.getText());
+						double price = Double.parseDouble(textFieldPrice.getText()); 
+						
+						if (price > 0 && maxCustomers > 0) {
+							Controller.getInstance().lastHexButton = hexButton;
+							Controller.getInstance().getClientGame().requestContract((CityRegion) region, maxCustomers, price);
+						}
+						else {
+							JOptionPane.showMessageDialog(null, "Bitte Zahlen überprüfen.");
+						}
+					}
+					catch (Exception e) {
+						JOptionPane.showMessageDialog(null, "Bitte Eingaben überprüfen!");
+					}
+				}
+			});
+		}
+		return buttonRequestContract;
+	}
+
+	public JButton getButtonCancelContract() {
+		if (buttonCancelContract == null) {
+			buttonCancelContract = new JButton("Vertrag kündigen");
+			buttonCancelContract.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					CityRelation cityRelation = (CityRelation) relation;
+					Controller.getInstance().sendCancelContract(region.coords, cityRelation.getContract(), hexButton);
+					buttonCancelContract.setEnabled(false);
+				}
+			});
+		}
+		return buttonCancelContract;
 	}
 	
 }

@@ -7,12 +7,17 @@ public class CityRegion extends Region {
 	private int population;
 	private int freeCustomers;
 	private double environmentalAwareness;
+	private String cityName = "Mannheim";
 	
 	public CityRegion(int regionIDX, int regionIDY, int population) {
 		super(regionIDX, regionIDY);
 		this.population = population;
 		this.freeCustomers = population;
 		this.environmentalAwareness = Math.random();
+	}
+	
+	public String getCityName() {
+		return cityName;
 	}
 	
 	public int getPopulation() {

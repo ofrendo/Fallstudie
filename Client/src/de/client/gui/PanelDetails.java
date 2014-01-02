@@ -14,8 +14,11 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.MatteBorder;
 
 import de.client.company.ResourceRelation;
+import de.shared.game.Constants;
 import de.shared.map.region.CityRegion;
 import de.shared.map.region.ResourceRegion;
+import de.shared.map.relation.CityRelation;
+import de.shared.map.relation.Contract;
 
 public class PanelDetails extends JPanel {
 
@@ -183,11 +186,11 @@ public class PanelDetails extends JPanel {
 								+ "</tr>"
 								+ "<tr>"
 								+ "<td>lfd. Kosten:</td>"
-								+ "<td>" + relation.mine.getRunningCosts() + "</td>"
+								+ "<td>" + Strings.fD(relation.mine.getRunningCosts()) + "</td>"
 								+ "</tr>"
 								+ "<tr>"
 								+ "<td>Produktion:</td>"
-								+ "<td>" + relation.mine.getProduction() + "</td>"
+								+ "<td>" + Strings.fD(relation.mine.getProduction()) + "</td>"
 								+ "</tr>"
 								+ "<tr>"
 								+ "<td>Auslastung:</td>"
@@ -246,7 +249,7 @@ public class PanelDetails extends JPanel {
 								+ "</tr>"
 								+ "<tr>"
 								+ "<td>lfd. Kosten:</td>"
-								+ "<td>" + relation.powerStation.getRunningCosts() + "</td>"
+								+ "<td>" + Strings.fD(relation.powerStation.getRunningCosts()) + "</td>"
 								+ "</tr>"
 								+ "<tr>"
 								+ "<td>Wartungskosten:</td>"
@@ -261,11 +264,11 @@ public class PanelDetails extends JPanel {
 						String htmlText3 = "<html><table>"
 								+ "<tr>"
 								+ "<td>Produktion:</td>"
-								+ "<td>" + relation.powerStation.getProduction() + "</td>"
+								+ "<td>" + Strings.fD(relation.powerStation.getProduction()) + "</td>"
 								+ "</tr>"
 								+ "<tr>"
 								+ "<td>Verbrauch:</td>"
-								+ "<td>" + relation.powerStation.getConsumption() + "</td>"
+								+ "<td>" + Strings.fD(relation.powerStation.getConsumption()) + "</td>"
 								+ "</tr>"
 								+ "<tr>"
 								+ "<td>Auslastung:</td>"
@@ -304,7 +307,93 @@ public class PanelDetails extends JPanel {
 		}
 	}
 	
-	public void setCityRegionContent(CityRegion region, JPanel panel) {
+	public void setCityRegionContent(CityRegion region, PanelSubDetails panel) {
+		CityRelation relation = (CityRelation) Controller.getInstance().getCompany().getRegionRelation(region.coords);
+		
+		JLabel labelDetailsHTML;
+		String htmlText;
+		
+		if (relation.getContract() == null) { //no contract with city
+			htmlText = "<html>"
+					+ "<table>"
+					+ "<tr>"
+					+ "<td>Name:</td>"
+					+ "<td>" + region.getCityName() + "</td>"
+					+ "</tr>"
+					+ "<tr>"
+					+ "<td>Bevölkerung:</td>"
+					+ "<td>" + region.getPopulation() + "</td>"
+					+ "</tr>";
+			
+			if (!Controller.getInstance().getCompany().isPowerStationInRange(relation)) {
+				htmlText += "</table></html>";
+				
+				labelDetailsHTML = new JLabel(htmlText);
+				labelDetailsHTML.setFont(fontSectionPart);
+				panel.add(labelDetailsHTML);
+			}
+			else { //powerstation in range
+				htmlText += "<tr>"
+						+ "<td>Bekanntheit:</td>"
+						+ "<td>" + Strings.fD(relation.awareness) + "</td>"
+						+ "<tr>"
+						+ "<td>Beliebtheit:</td>"
+						+ "<td>" + Strings.fD(relation.popularity) + "</td>"
+						+ "</tr>"
+						+ "</table>"
+						+ "</html>";
+				
+				labelDetailsHTML = new JLabel(htmlText);
+				labelDetailsHTML.setFont(fontSectionPart);
+				panel.add(labelDetailsHTML);
+				panel.add(panel.getTextFieldMaxCustomers());
+				panel.add(panel.getTextFieldPrice());
+				panel.add(panel.getButtonRequestContract());
+			}
+		}
+		else {  //contract with city
+			Contract contract = relation.getContract();
+			htmlText = "<html><table>"
+					+ "<tr>"
+					+ "<td>Name:</td>"
+					+ "<td>" + region.getCityName() + "</td>"
+					+ "</tr>"
+					+ "<tr>"
+					+ "<td>Bevölkerung:</td>"
+					+ "<td>" + region.getPopulation() + "</td>"
+					+ "</tr>"
+					+ "<tr>"
+					+ "<td>Kunden:</td>"
+					+ "<td>" + contract.amountCustomer + "</td>"
+					+ "</tr>"
+					+ "<tr>"
+					+ "<td>Preis:</td>"
+					+ "<td>" + Strings.fD(contract.amountMoneyPerCustomer) + "</td>"
+					+ "</tr>"
+					+ "<tr>"
+					+ "<td>Kosten:</td>"
+					+ "<td>" + Strings.fD(Constants.NET_USAGE_COSTS) + "</td>"
+					+ "</tr>"
+					+ "<tr>"
+					+ "<td>Bekanntheit:</td>"
+					+ "<td>" + Strings.fD(relation.awareness) + "</td>"
+					+ "<tr>"
+					+ "<td>Beliebtheit:</td>"
+					+ "<td>" + Strings.fD(relation.popularity) + "</td>"
+					+ "</tr>"
+					+ "<tr>"
+					+ "<td>Energiebedarf:</td>"
+					+ "<td>" + Strings.fD(contract.amountEnergyNeeded) + "</td>"
+					+ "</tr>"
+					+ "</table></html>";
+			
+			labelDetailsHTML = new JLabel(htmlText);
+			labelDetailsHTML.setFont(fontSectionPart);
+			panel.add(labelDetailsHTML);
+			panel.add(panel.getButtonCancelContract());
+		}
+		
+		
 		
 	}
 	

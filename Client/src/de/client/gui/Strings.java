@@ -1,5 +1,7 @@
 package de.client.gui;
 
+import java.text.DecimalFormat;
+
 import de.shared.map.region.ResourceType;
 
 
@@ -35,6 +37,12 @@ public class Strings {
 			return "1 Runde";
 		else 
 			return number + " Runden";
+	}
+	
+	private static DecimalFormat df = new DecimalFormat("0.##");
+	
+	public static String fD(double number) {
+		return df.format(number);
 	}
 	
 }

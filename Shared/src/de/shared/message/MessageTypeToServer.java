@@ -8,6 +8,6 @@ public enum MessageTypeToServer implements MessageType {
 	RESOURCE_REGION_BID,
 	REQUEST_CONTRACT, 
 	CONFIRM_CONTRACT,
-	
+	CANCEL_CONTRACT,
 	BUILD_BUILDING;
 }
