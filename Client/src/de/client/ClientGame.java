@@ -79,4 +79,9 @@ public class ClientGame extends Game {
 		client.sendMessage(new MessageContractConfirm(answer));
 	}
 	
+	public void nextRound() {
+		incrementRound();
+		company.nextRound();
+	}
+	
 }

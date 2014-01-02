@@ -54,7 +54,14 @@ public class PanelMain extends JPanel {
 		c.ipady = 20;
 		c.fill = GridBagConstraints.BOTH;
 		this.add(panelDetails, c);
+	}
 	
+	public PanelDetails getPanelDetails() {
+		return panelDetails;
+	}
+	
+	public PanelMap getPanelMap() {
+		return panelMap;
 	}
 	
 }

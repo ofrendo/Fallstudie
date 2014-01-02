@@ -2,25 +2,25 @@ package de.client.company;
 
 import java.util.ArrayList;
 
+import de.shared.map.region.ResourceType;
 import de.shared.map.relation.CityRelation;
-import de.shared.map.region.*;
 
 public class PowerStation extends Building {
 
 	private ArrayList<PowerStationRelation> powerStationRelations;
 	
 	private final double adjustability;
-	private double maintenanceRate = 1;
-	private double maxRunningCosts;
-	private double runningCosts;
+	public double maintenanceRate = 1;
 	private final int consumption;
+	
+	private ResourceType resourceType;
 	
 	public PowerStation(ResourceType resourceType) {
 		super(resourceType.pMaxProduction, resourceType.pPurchaseValue, resourceType.pDepreciationYears, resourceType.pBuildTime);
 		this.adjustability = resourceType.pAdjustability;
-		this.maxRunningCosts = resourceType.pMaxRunningCosts;
 		this.consumption = resourceType.pConsumption;
 		this.powerStationRelations = new ArrayList<PowerStationRelation>();
+		this.resourceType = resourceType;
 	}
 	
 	public void addPowerStationRelation(CityRelation cityRelation) {
@@ -57,6 +57,14 @@ public class PowerStation extends Building {
 	
 	public void finishRound() {
 		
+	}
+
+	public double getRunningCosts() {
+		return (resourceType.pMaxRunningCosts * utilizationRate + resourceType.pMaxRunningCosts * maintenanceRate) / 2;
+	}
+
+	public int getConsumption() {
+		return (int) (utilizationRate * consumption);
 	}
 	
 }

@@ -33,6 +33,8 @@ public class HexagonButton extends JButton {
     
     private Region region;
     
+    public PanelSubDetails panel;
+    
     public HexagonButton(Region region) {
 		this.setOpaque(false);
 		this.region = region;
@@ -99,18 +101,20 @@ public class HexagonButton extends JButton {
 		}
 		
 		this.addActionListener(new ActionListener() {
-
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				System.out.println("Clicked");
+				triggerControllerClick();
 			}
-			
 		});
 		
     }
 
     public Region getRegion() {
     	return region;
+    }
+    
+    public void triggerControllerClick() {
+    	Controller.getInstance().handleMapTileClick(this);
     }
     
     @Override

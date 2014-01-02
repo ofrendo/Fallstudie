@@ -32,8 +32,6 @@ public class FrameConnect extends JFrame {
 	private JTextField textFieldCompanyName;
 	private JButton buttonConnect;
 	
-	
-	
 	public FrameConnect() {
 		setTitle("Verbinden");
 		getContentPane().setLayout(new GridLayout(4, 0, 10, 10));

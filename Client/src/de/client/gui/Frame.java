@@ -4,7 +4,6 @@ import java.awt.BorderLayout;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 import de.shared.game.Player;
 import de.shared.map.Map;
@@ -61,7 +60,7 @@ public class Frame extends JFrame {
 		getContentPane().repaint();
 	}
 	
-	private JPanel getPanelMain(Map map) {
+	public PanelMain getPanelMain(Map map) {
 		if (panelMain == null) {
 			panelMain = new PanelMain(map);
 		}

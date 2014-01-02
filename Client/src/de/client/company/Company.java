@@ -94,9 +94,19 @@ public class Company {
 		buildings.add(building);
 	}
 	
-	public void buyPowerStation(Coords coords, ResourceType resourceType){
+	public void buyMine(ResourceRelation relation, ResourceType resourceType) {
+		this.money -= resourceType.mPurchaseValue;
+		this.addMine(relation, resourceType);
+	}
+	
+	public void addMine(ResourceRelation relation, ResourceType resourceType) {
+		relation.mine = new Mine(resourceType);
+		addBuilding(relation.mine);
+	}
+	
+	public void buyPowerStation(ResourceRelation relation, ResourceType resourceType) {
 		this.money -= resourceType.pPurchaseValue;
-		this.addPowerStation(coords, resourceType);
+		this.addPowerStation(relation.coords, resourceType);
 	}
 	
 	public void addPowerStation(Coords coords, ResourceType resourceType) {
@@ -105,7 +115,7 @@ public class Company {
 		//Add ps to resourcerelation
 		ResourceRelation resourceRelation = (ResourceRelation) this.getRegionRelation(coords);
 		resourceRelation.setPowerStation(powerStation);
-		
+
 		//Add powerstationrelations to city
 		for (RegionRelation regionRelation : regionRelations) {
 			if (regionRelation instanceof CityRelation) {
@@ -118,7 +128,14 @@ public class Company {
 			}
 		}
 		
-		buildings.add(powerStation);
+		addBuilding(powerStation);
+	}
+	
+	public void nextRound() {
+		for (Building building : buildings) {
+			building.nextRound();
+			money -= building.getRunningCosts();
+		}
 	}
 
 }

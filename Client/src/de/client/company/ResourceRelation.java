@@ -4,8 +4,9 @@ import de.shared.map.relation.*;
 import de.shared.map.region.*;
 
 public class ResourceRelation extends RegionRelation {
-	private PowerStation powerStation = null;
-	private Mine mine = null;
+	
+	public PowerStation powerStation = null;
+	public Mine mine = null;
 	
 	public ResourceRelation(Coords coords) {
 		super(coords);

@@ -24,8 +24,15 @@ public class PanelMap extends JPanel {
 		setBackground(Look.COLOR_MAP_BACKGROUND);
 		this.map = map;
 	}
-
+	
+	public void setMap(Map map) {
+		this.map = map;
+		init();
+	}
+	
 	public void init() {
+		this.removeAll();
+		
 		int padding = 1;
 		
 		MapType mapType = map.mapType;
@@ -74,7 +81,8 @@ public class PanelMap extends JPanel {
 			public void mouseReleased(MouseEvent arg0) {}
 			
 		});
-		
+		this.revalidate();
+		this.repaint();
 	}
 	
 	

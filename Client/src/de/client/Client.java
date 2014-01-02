@@ -127,6 +127,7 @@ public class Client extends Thread {
 				}
 				else if (clientGame.gamePhase == GamePhase.GAME_STARTED) {
 					clientGame.incrementRound();
+					Controller.getInstance().nextRound(newMap);
 				}
 				clientGame.ownPlayer.ready = false;
 				clientGame.setMap(newMap);
