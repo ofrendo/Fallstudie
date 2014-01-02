@@ -1,5 +1,6 @@
 package de.client.gui;
 
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -61,8 +62,11 @@ public class PanelSubDetails extends JPanel {
 	
 	protected JTextField getTextFieldRegionBid() {
 		if (textFieldRegionBid == null) {
-			textFieldRegionBid = new JTextField(20);
-			textFieldRegionBid.setMaximumSize( textFieldRegionBid.getPreferredSize() );
+			textFieldRegionBid = new JTextField();
+			System.out.println(textFieldRegionBid.getPreferredSize());
+			textFieldRegionBid.setMaximumSize( 
+				     new Dimension(Integer.MAX_VALUE, textFieldRegionBid.getPreferredSize().height) );
+			textFieldRegionBid.setAlignmentX( Component.LEFT_ALIGNMENT );
 		}
 		return textFieldRegionBid;
 	}
@@ -124,6 +128,8 @@ public class PanelSubDetails extends JPanel {
 		if (sliderMineUtilization == null) {
 			int initValue = (int) (((ResourceRelation) relation).mine.utilizationRate * 100);
 			sliderMineUtilization = new JSlider(0, 100, initValue);
+			//sliderMineUtilization.setSnapToTicks(true);
+			sliderMineUtilization.setAlignmentX( Component.LEFT_ALIGNMENT );
 			sliderMineUtilization.addChangeListener(new ChangeListener() {
 				@Override
 				public void stateChanged(ChangeEvent arg0) {
@@ -143,8 +149,8 @@ public class PanelSubDetails extends JPanel {
 		if (sliderPowerStationMaintenanceRate == null) {
 			int initValue = (int) (((ResourceRelation) relation).powerStation.maintenanceRate * 100);
 			sliderPowerStationMaintenanceRate = new JSlider(0, 100, initValue);
-			sliderPowerStationMaintenanceRate.setSnapToTicks(true);
-			sliderPowerStationMaintenanceRate.setPreferredSize(new Dimension(200, 0));
+			//sliderPowerStationMaintenanceRate.setSnapToTicks(true);
+			sliderPowerStationMaintenanceRate.setAlignmentX( Component.LEFT_ALIGNMENT );
 			sliderPowerStationMaintenanceRate.addChangeListener(new ChangeListener() {
 				@Override
 				public void stateChanged(ChangeEvent arg0) {
@@ -167,7 +173,8 @@ public class PanelSubDetails extends JPanel {
 			int initValue = (int) (p.utilizationRate * steps);
 			
 			sliderPowerStationUtilization = new JSlider(0, steps, initValue);
-			sliderPowerStationUtilization.setPreferredSize(new Dimension(100, 0));
+			//sliderPowerStationUtilization.setSnapToTicks(true);
+			sliderPowerStationUtilization.setAlignmentX( Component.LEFT_ALIGNMENT );
 			sliderPowerStationUtilization.addChangeListener(new ChangeListener() {
 				@Override
 				public void stateChanged(ChangeEvent arg0) {
