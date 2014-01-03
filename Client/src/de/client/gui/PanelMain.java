@@ -11,19 +11,19 @@ public class PanelMain extends JPanel {
 
 	private static final long serialVersionUID = -5348125842643459414L;
 	
-	private PanelMenu panelMenu;
+	//private PanelMenu panelMenu;
 	private PanelMap panelMap;
 	private PanelDetails panelDetails;
 	
 	public PanelMain(Map map) {
 		this.setLayout(new GridBagLayout());
 		
-		panelMenu = new PanelMenu();
+		//panelMenu = new PanelMenu();
 		panelMap = new PanelMap(map);
 		panelDetails = new PanelDetails();
 		
 		GridBagConstraints c = new GridBagConstraints();
-		c.gridx = 0;
+		/*c.gridx = 0;
 		c.gridy = 0;
 		c.gridwidth = 2;
 		c.gridheight = 1;
@@ -31,7 +31,7 @@ public class PanelMain extends JPanel {
 		//c.fill = GridBagConstraints.VERTICAL;
 		c.weighty = 0;
 		//Dimension menuD = new Dimension(100)
-		this.add(panelMenu, c);
+		this.add(panelMenu, c);*/
 		
 		c = new GridBagConstraints();
 		c.gridx = 0;

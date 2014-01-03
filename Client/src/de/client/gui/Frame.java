@@ -21,8 +21,14 @@ public class Frame extends JFrame {
 	//private int minWidth = 1024;
 	//private int minHeight = 667;
 	
-	private PanelMain panelMain;
 	private PanelLobby panelLobby;
+	
+	private PanelMenu panelMenu;
+
+	private PanelMain panelMain; 
+	private PanelCompany panelCompany;
+	private PanelFinances panelFinances;
+	private PanelMarket panelMarket;
 	
 	public Frame(ArrayList<Player> players) {
 		//ADD LOBBY PANEL FIRST
@@ -48,11 +54,16 @@ public class Frame extends JFrame {
 	}
 	
 	public void initGame(Map map) {
-		getContentPane().removeAll();
-		this.add(getPanelMain(map), BorderLayout.CENTER);
+		setContentEmpty();
+		getContentPane().add(getPanelMain(map), BorderLayout.CENTER);
 		refresh();
 		setSize(gameWidth, gameHeight);
 		setLocationRelativeTo(null);
+	}
+	
+	public void setContentEmpty() {
+		getContentPane().removeAll();
+		getContentPane().add(getPanelMenu(), BorderLayout.NORTH);
 	}
 	
 	public void refresh() {
@@ -60,6 +71,13 @@ public class Frame extends JFrame {
 		getContentPane().repaint();
 	}
 	
+	public PanelMenu getPanelMenu() {
+		if (panelMenu == null) {
+			panelMenu = new PanelMenu();
+		}
+		return panelMenu;
+	}
+
 	public PanelMain getPanelMain(Map map) {
 		if (panelMain == null) {
 			panelMain = new PanelMain(map);
@@ -67,4 +85,49 @@ public class Frame extends JFrame {
 		return panelMain;
 	}
 	
+	public PanelCompany getPanelCompany() {
+		if (panelCompany == null) {
+			panelCompany = new PanelCompany();
+		}
+		return panelCompany;
+	}
+	
+	public PanelFinances getPanelFinances() {
+		if (panelFinances == null) {
+			panelFinances = new PanelFinances();
+		}
+		return panelFinances;
+	}
+	
+	public PanelMarket getPanelMarket() {
+		if (panelMarket == null) {
+			panelMarket = new PanelMarket();
+		}
+		return panelMarket;
+	}
+	
+	public void setPanelMain() {
+		setContentEmpty();
+		getContentPane().add(getPanelMain(null));
+		refresh();
+	}
+	
+	public void setPanelCompany() {
+		setContentEmpty();
+		getContentPane().add(getPanelCompany());
+		refresh();
+	}
+	
+	public void setPanelFinances() {
+		setContentEmpty();
+		getContentPane().add(getPanelFinances());
+		refresh();
+	}
+	
+	public void setPanelMarket() {
+		setContentEmpty();
+		getContentPane().add(getPanelMarket());
+		refresh();
+	}
+
 }

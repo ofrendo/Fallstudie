@@ -2,6 +2,8 @@ package de.client.gui;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -19,9 +21,17 @@ public class PanelMenu extends JPanel {
 		setBackground(Look.COLOR_MENU_BACKGROUND);
 		
 		buttonCompany = new JButton(Strings.MENU_BUTTON_COMPANY);
+		buttonCompany.addActionListener(new MenuButtonListener());
+		
 		buttonMap = new JButton(Strings.MENU_BUTTON_MAP);
+		buttonMap.addActionListener(new MenuButtonListener());
+		buttonMap.setEnabled(false);
+		
 		buttonFinances = new JButton(Strings.MENU_BUTTON_FINANCES);
+		buttonFinances.addActionListener(new MenuButtonListener());
+		
 		buttonMarket = new JButton(Strings.MENU_BUTTON_MARKET);
+		buttonMarket.addActionListener(new MenuButtonListener());
 		
 		setLayout(new BorderLayout());
 		
@@ -32,6 +42,34 @@ public class PanelMenu extends JPanel {
 		leftPanel.add(buttonMarket);
 		
 		this.add(leftPanel, BorderLayout.WEST);
+	}
+	
+	public void enableAllButtons() {
+		buttonCompany.setEnabled(true);
+		buttonFinances.setEnabled(true);
+		buttonMap.setEnabled(true);
+		buttonMarket.setEnabled(true);
+	}
+	
+	private class MenuButtonListener implements ActionListener {
+		@Override
+		public void actionPerformed(ActionEvent e) {
+			JButton source = (JButton) e.getSource();
+			enableAllButtons();
+			source.setEnabled(false);
+			
+			if (source == buttonCompany)
+				Controller.getInstance().getFrame().setPanelCompany();
+			
+			if (source == buttonMap)
+				Controller.getInstance().getFrame().setPanelMain();
+			
+			if (source == buttonFinances)
+				Controller.getInstance().getFrame().setPanelFinances();
+			
+			if (source == buttonMarket)
+				Controller.getInstance().getFrame().setPanelMarket();
+		}
 	}
 	
 }

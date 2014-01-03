@@ -191,4 +191,8 @@ public class Controller {
 		getClientGame().cancelContract(coords, contract);
 		updatePanelDetails(hexButton);
 	}
+
+	public Frame getFrame() {
+		return frame;
+	}
 }
