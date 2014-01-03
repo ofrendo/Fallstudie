@@ -1,7 +1,5 @@
 package de.client.gui;
 
-import java.awt.Color;
-import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -9,9 +7,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.MatteBorder;
 
 import de.client.company.ResourceRelation;
 import de.shared.game.Constants;
@@ -25,8 +20,6 @@ public class PanelDetails extends JPanel {
 	private static final long serialVersionUID = -3177233247088338481L;
 	private JLabel labelDetailsTitle;
 
-	private Font fontSectionTitle = new Font("Tahoma", Font.PLAIN, 30);
-	private Font fontSectionPart = new Font("Tahoma", Font.PLAIN, 20);
 	private JPanel panelDetails;
 	
 	private JButton buttonReady;
@@ -34,8 +27,6 @@ public class PanelDetails extends JPanel {
 	private HexagonButton currentHexButton;
 	
 	public PanelDetails() {
-		setBorder(new CompoundBorder(new MatteBorder(0, 1, 0, 0, (Color) new Color(0, 0, 0)), new EmptyBorder(5, 5, 5, 5)));
-		setBackground(Look.COLOR_MAP_BACKGROUND);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		add(getLabelDetailsTitle());
 		add(getPanelDetails());
@@ -102,7 +93,7 @@ public class PanelDetails extends JPanel {
 					+ "</html>";
 			
 			JLabel labelDetailsHTML = new JLabel(htmlText);
-			labelDetailsHTML.setFont(fontSectionPart);
+			labelDetailsHTML.setFont(Look.fontSectionPart);
 			panel.add(labelDetailsHTML);
 			panel.add(panel.getButtonStartRegionBidding());
 			break;
@@ -129,7 +120,7 @@ public class PanelDetails extends JPanel {
 					+ "</html>";
 			
 			labelDetailsHTML = new JLabel(htmlText);
-			labelDetailsHTML.setFont(fontSectionPart);
+			labelDetailsHTML.setFont(Look.fontSectionPart);
 			panel.add(labelDetailsHTML);
 			panel.add(panel.getTextFieldRegionBid());
 			panel.add(panel.getButtonRegionBid());
@@ -160,7 +151,7 @@ public class PanelDetails extends JPanel {
 							+ "</table></html>";
 					
 					JLabel labelDetailsHTML1 = new JLabel(htmlText1);
-					labelDetailsHTML1.setFont(fontSectionPart);
+					labelDetailsHTML1.setFont(Look.fontSectionPart);
 					panel.add(labelDetailsHTML1);
 					panel.add(panel.getButtonBuildMine());
 				}
@@ -176,7 +167,7 @@ public class PanelDetails extends JPanel {
 								+ "</tr>"
 								+ "</table></html>";
 						JLabel labelDetailsHTML1 = new JLabel(htmlText1);
-						labelDetailsHTML1.setFont(fontSectionPart);
+						labelDetailsHTML1.setFont(Look.fontSectionPart);
 						panel.add(labelDetailsHTML1);
 					}
 					else {
@@ -198,7 +189,7 @@ public class PanelDetails extends JPanel {
 								+ "</tr>"
 								+ "</table></html>";
 						JLabel labelDetailsHTML1 = new JLabel(htmlText1);
-						labelDetailsHTML1.setFont(fontSectionPart);
+						labelDetailsHTML1.setFont(Look.fontSectionPart);
 						panel.add(labelDetailsHTML1);
 						
 						panel.add(panel.getSliderMineUtilization());
@@ -207,7 +198,7 @@ public class PanelDetails extends JPanel {
 				else {
 					htmlText1 += "</table></html>";
 					JLabel labelDetailsHTML1 = new JLabel(htmlText1);
-					labelDetailsHTML1.setFont(fontSectionPart);
+					labelDetailsHTML1.setFont(Look.fontSectionPart);
 					panel.add(labelDetailsHTML1);
 				}
 				
@@ -226,7 +217,7 @@ public class PanelDetails extends JPanel {
 							+ "</table></html>";
 					
 					JLabel labelDetailsHTML2 = new JLabel(htmlText2);
-					labelDetailsHTML2.setFont(fontSectionPart);
+					labelDetailsHTML2.setFont(Look.fontSectionPart);
 					panel.add(labelDetailsHTML2);
 					panel.add(panel.getButtonBuildPowerStation());
 				}
@@ -241,7 +232,7 @@ public class PanelDetails extends JPanel {
 								+ "</table></html>";
 						
 						JLabel labelDetailsHTML2 = new JLabel(htmlText2);
-						labelDetailsHTML2.setFont(fontSectionPart);
+						labelDetailsHTML2.setFont(Look.fontSectionPart);
 						panel.add(labelDetailsHTML2);
 					}
 					else {
@@ -257,7 +248,7 @@ public class PanelDetails extends JPanel {
 								+ "</table></html>";
 						
 						JLabel labelDetailsHTML2 = new JLabel(htmlText2);
-						labelDetailsHTML2.setFont(fontSectionPart);
+						labelDetailsHTML2.setFont(Look.fontSectionPart);
 						panel.add(labelDetailsHTML2);
 						panel.add(panel.getSliderPowerStationMaintenanceRate());
 						
@@ -277,7 +268,7 @@ public class PanelDetails extends JPanel {
 								+ "</html>";
 						
 						JLabel labelDetailsHTML3 = new JLabel(htmlText3);
-						labelDetailsHTML3.setFont(fontSectionPart);
+						labelDetailsHTML3.setFont(Look.fontSectionPart);
 						panel.add(labelDetailsHTML3);
 						panel.add(panel.getSliderPowerStationUtilization());
 					}
@@ -298,7 +289,7 @@ public class PanelDetails extends JPanel {
 						+ "</table>"
 						+ "</html>";
 				labelDetailsHTML = new JLabel(htmlText);
-				labelDetailsHTML.setFont(fontSectionPart);
+				labelDetailsHTML.setFont(Look.fontSectionPart);
 				panel.add(labelDetailsHTML);
 			}
 			break;
@@ -329,7 +320,7 @@ public class PanelDetails extends JPanel {
 				htmlText += "</table></html>";
 				
 				labelDetailsHTML = new JLabel(htmlText);
-				labelDetailsHTML.setFont(fontSectionPart);
+				labelDetailsHTML.setFont(Look.fontSectionPart);
 				panel.add(labelDetailsHTML);
 			}
 			else { //powerstation in range
@@ -344,7 +335,7 @@ public class PanelDetails extends JPanel {
 						+ "</html>";
 				
 				labelDetailsHTML = new JLabel(htmlText);
-				labelDetailsHTML.setFont(fontSectionPart);
+				labelDetailsHTML.setFont(Look.fontSectionPart);
 				panel.add(labelDetailsHTML);
 				panel.add(panel.getTextFieldMaxCustomers());
 				panel.add(panel.getTextFieldPrice());
@@ -388,19 +379,16 @@ public class PanelDetails extends JPanel {
 					+ "</table></html>";
 			
 			labelDetailsHTML = new JLabel(htmlText);
-			labelDetailsHTML.setFont(fontSectionPart);
+			labelDetailsHTML.setFont(Look.fontSectionPart);
 			panel.add(labelDetailsHTML);
 			panel.add(panel.getButtonCancelContract());
 		}
-		
-		
-		
 	}
 	
 	private JLabel getLabelDetailsTitle() {
 		if (labelDetailsTitle == null) {
 			labelDetailsTitle = new JLabel("Feldinformationen");
-			labelDetailsTitle.setFont(fontSectionTitle);
+			labelDetailsTitle.setFont(Look.fontSectionTitle);
 		}
 		return labelDetailsTitle;
 	}

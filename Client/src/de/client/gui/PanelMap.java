@@ -21,7 +21,6 @@ public class PanelMap extends JPanel {
 	private Map map;
 	
 	public PanelMap(Map map) {
-		setBackground(Look.COLOR_MAP_BACKGROUND);
 		this.map = map;
 	}
 	
