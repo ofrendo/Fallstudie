@@ -1,5 +1,6 @@
 package de.client.gui;
 
+import java.lang.Thread.State;
 import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
@@ -55,6 +56,10 @@ public class Controller {
 	
 	public void connect() {
 		//Connect to server
+		//Test if state has already started
+		if (client.getState() != State.RUNNABLE) {
+			client = new Client(frameConnect.getIPAddress(), frameConnect.getPlayerName());
+		}
 		client.setCompanyName(frameConnect.getCompanyName());
 		client.connectToServer();
 		client.sendInitMessage();

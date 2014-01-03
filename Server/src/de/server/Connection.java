@@ -128,8 +128,11 @@ public class Connection extends Thread {
 				default:
 					break;
 				}
-			} catch (Exception e) {
-				e.printStackTrace();
+			} 
+			catch (Exception e) {
+				//Client disconnected
+				Server.getInstance().removeConnection(this);
+				//e.printStackTrace();
 				/*try {
 					if (in != null)
 						in.close();
@@ -164,9 +167,9 @@ public class Connection extends Thread {
 			
 			sending = false;
 		} catch (Exception e) {
-			System.out.println("Error sending a message to client:");
-			System.out.println("Type: " + message.getType());
-			e.printStackTrace();
+			System.out.println("[SERVER] Error sending a message to client:");
+			System.out.println("[SERVER] Type: " + message.getType());
+			//e.printStackTrace();
 		}
 	}
 	

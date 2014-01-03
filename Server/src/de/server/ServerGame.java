@@ -51,6 +51,10 @@ public class ServerGame extends Game {
 		isPinging = false;
 	}
 	
+	public synchronized void removePlayer(Player player) {
+		this.players.remove(player);
+	}
+	
 	public synchronized boolean isAllPlayersReady() {
 		for (Player player : players) {
 			if (player.ready == false) 

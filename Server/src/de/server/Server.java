@@ -144,6 +144,11 @@ public class Server extends Thread {
 	}
 
 	public void removeConnection(Connection connection) {
+		if (connection.getPlayer() != null) {
+			this.serverGame.removePlayer(connection.getPlayer());
+			this.pingPlayerReady();
+		}
+		
 		this.connections.remove(connection);
 		System.out.println("[SERVER] A client has disconnected.");
 	}
