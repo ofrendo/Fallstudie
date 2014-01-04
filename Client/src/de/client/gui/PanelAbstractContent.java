@@ -20,7 +20,7 @@ public abstract class PanelAbstractContent extends JPanel {
 		
 	}
 	
-	private final int p = 5; //Padding
+	protected final int p = 5; //Padding
 	
 	public void initLayout() {
 		this.setLayout(new GridBagLayout());

@@ -17,6 +17,8 @@ public class PanelMenu extends JPanel {
 	private JButton buttonFinances;
 	private JButton buttonMarket;
 	
+	private JButton buttonDefault;
+	
 	public PanelMenu() {
 		setBackground(Look.COLOR_MENU_BACKGROUND);
 		
@@ -25,13 +27,15 @@ public class PanelMenu extends JPanel {
 		
 		buttonMap = new JButton(Strings.MENU_BUTTON_MAP);
 		buttonMap.addActionListener(new MenuButtonListener());
-		buttonMap.setEnabled(false);
 		
 		buttonFinances = new JButton(Strings.MENU_BUTTON_FINANCES);
 		buttonFinances.addActionListener(new MenuButtonListener());
 		
 		buttonMarket = new JButton(Strings.MENU_BUTTON_MARKET);
 		buttonMarket.addActionListener(new MenuButtonListener());
+		
+		buttonDefault = buttonMap;
+		buttonDefault.setEnabled(false);
 		
 		setLayout(new BorderLayout());
 		

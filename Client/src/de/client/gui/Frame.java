@@ -30,6 +30,8 @@ public class Frame extends JFrame {
 	private PanelFinances panelFinances;
 	private PanelMarket panelMarket;
 	
+	private Map map;
+	
 	public Frame(ArrayList<Player> players) {
 		//ADD LOBBY PANEL FIRST
 		this.panelLobby = new PanelLobby(players);
@@ -54,9 +56,8 @@ public class Frame extends JFrame {
 	}
 	
 	public void initGame(Map map) {
-		setContentEmpty();
-		getContentPane().add(getPanelMain(map), BorderLayout.CENTER);
-		refresh();
+		this.map = map;
+		setPanelMain(); 
 		setSize(gameWidth, gameHeight);
 		setLocationRelativeTo(null);
 	}
@@ -108,7 +109,7 @@ public class Frame extends JFrame {
 	
 	public void setPanelMain() {
 		setContentEmpty();
-		getContentPane().add(getPanelMain(null));
+		getContentPane().add(getPanelMain(map));
 		refresh();
 	}
 	
