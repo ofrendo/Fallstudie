@@ -39,6 +39,16 @@ public class GUITestMarket {
 		Controller.getInstance().getClientGame().setMap(map);
 		Controller.getInstance().initGame(map);
 		
+		ResourceRelation relation = (ResourceRelation) Controller.getInstance().getCompany().getRegionRelation(r.coords);
+		relation.mine = new Mine(r.resourceType);
+		while (!relation.mine.isBuilt())
+			relation.mine.nextRound();
+			
+		relation.powerStation = new PowerStation(r.resourceType);
+		while (!relation.powerStation.isBuilt())
+			relation.powerStation.nextRound();
+		
+		
 		Controller.getInstance().getFrame().setPanelMarket();
 	}
 	
