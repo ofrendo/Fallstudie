@@ -136,8 +136,11 @@ public class PanelDetails extends JPanel {
 						+ "<tr>"
 						+ "<td>Inhaber:</td>"
 						+ "<td>" + region.owner.playerName + " (ME)</td>"
+						+ "</tr>"
+						+ "<tr>"
+						+ "<td>Rohstoffmenge:</td>"
+						+ "<td>" + relation.resourceAmount + "</td>"
 						+ "</tr>";
-						
 				
 				if (relation.mine == null && !region.resourceType.isRenewable) {
 					htmlText1 += "<tr>"

@@ -7,6 +7,7 @@ import de.shared.game.Game;
 import de.shared.map.region.CityRegion;
 import de.shared.map.region.Coords;
 import de.shared.map.region.Region;
+import de.shared.map.region.ResourceRegion;
 import de.shared.map.region.ResourceType;
 import de.shared.map.relation.CityRelation;
 import de.shared.map.relation.Contract;
@@ -31,7 +32,8 @@ public class Company {
 				newRegionRelation = new CityRelation(region.coords);
 			}
 			else {
-				newRegionRelation = new ResourceRelation(region.coords);
+				ResourceRegion resourceRegion = (ResourceRegion) region;
+				newRegionRelation = new ResourceRelation(region.coords, resourceRegion.resourceAmount);
 			}
 			regionRelations.add(newRegionRelation);
 		}
