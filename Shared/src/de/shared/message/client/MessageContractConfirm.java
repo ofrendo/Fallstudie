@@ -21,7 +21,6 @@ public class MessageContractConfirm implements Message {
 	
 	@Override
 	public Object getValue() {
-		// TODO Auto-generated method stub
 		return answer;
 	}
 

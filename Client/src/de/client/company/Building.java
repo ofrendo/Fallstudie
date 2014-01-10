@@ -1,5 +1,8 @@
 package de.client.company;
 
+import de.client.Client;
+
+
 
 public abstract class Building extends Investment {
 	private double productionMax;
@@ -37,11 +40,11 @@ public abstract class Building extends Investment {
 		
 		if (buildingTimeLeft == 0) {
 			isBuilt = true;
-		}
+			}
 	}
 	
 	public void nextRound() {
-		decrementBuildingTimeLeft();
+		decrementBuildingTimeLeft();	
 		performDepreciation();
 	}
 	

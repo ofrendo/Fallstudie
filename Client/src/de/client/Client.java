@@ -26,11 +26,11 @@ public class Client extends Thread {
 	
 	public Client(String ipAddress, String playerName) {
 		this.serverAddress = ipAddress;
-		this.clientGame = new ClientGame(this, new Player(playerName));
+		clientGame = new ClientGame(this, new Player(playerName));
 	}
 	
 	public void setCompanyName(String companyName) {
-		this.clientGame.getPlayer().companyName = companyName;
+		clientGame.getPlayer().companyName = companyName;
 	}
 	
 	@Override
@@ -126,7 +126,7 @@ public class Client extends Thread {
 					Controller.getInstance().initGame(newMap);
 				}
 				else if (clientGame.gamePhase == GamePhase.GAME_STARTED) {
-					clientGame.incrementRound();
+					clientGame.nextRound();
 					Controller.getInstance().nextRound(newMap);
 				}
 				clientGame.ownPlayer.ready = false;

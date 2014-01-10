@@ -6,5 +6,7 @@ public enum ResourceRegionStatus implements Serializable {
 	NEUTRAL,
 	BUYABLE,
 	OWNED,
-	POWERSTATION;
+	POWERSTATION,
+	MINE,
+	MINE_POWERSTATION;
 }

@@ -124,6 +124,8 @@ public class ServerGame extends Game {
 			
 		}
 	}
+	
+
 
 	public synchronized void addRegionBid(ResourceRegionBid regionBid) {
 		currentBids.add(regionBid);
@@ -175,6 +177,12 @@ public class ServerGame extends Game {
 	public synchronized void cancelContract(ContractRequestAnswer cancellation) {
 		CityRegion cityRegion = (CityRegion) getMap().getRegion(cancellation.coords);
 		cityRegion.setFreeCustomers(cityRegion.getFreeCustomers() + cancellation.contract.amountCustomer);
+	}
+	
+	public synchronized void finishBuilding(Coords coords, ResourceRegionStatus status)
+	{
+		ResourceRegion region = (ResourceRegion)getMap().getRegion(coords);
+		region.setResourceRegionStatus(status);
 	}
 	
 }

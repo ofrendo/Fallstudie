@@ -2,12 +2,15 @@ package de.client.company;
 
 import java.util.ArrayList;
 
+import de.client.Client;
 import de.shared.game.Constants;
 import de.shared.game.Game;
 import de.shared.map.region.CityRegion;
 import de.shared.map.region.Coords;
+import de.shared.map.region.FinishedBuilding;
 import de.shared.map.region.Region;
 import de.shared.map.region.ResourceRegion;
+import de.shared.map.region.ResourceRegionStatus;
 import de.shared.map.region.ResourceType;
 import de.shared.map.relation.CityRelation;
 import de.shared.map.relation.Contract;
@@ -17,12 +20,14 @@ public class Company {
 	public final String companyName;
 	
 	private ArrayList<RegionRelation> regionRelations = new ArrayList<RegionRelation>();
-	private ArrayList<Building> buildings = new ArrayList<Building>();
+	public ArrayList<Building> buildings = new ArrayList<Building>();
 	private double money;
+	private Client client;
 
-	public Company(String companyName) {
+	public Company(String companyName, Client client) {
 		this.companyName = companyName;
 		this.money = Constants.START_MONEY;
+		this.client = client;
 	}
 	
 	public void initRelations(ArrayList<Region> regions) {
@@ -114,6 +119,7 @@ public class Company {
 	
 	public void addBuilding(Building building) {
 		buildings.add(building);
+
 	}
 	
 	public void buyMine(ResourceRelation relation, ResourceType resourceType) {
@@ -127,6 +133,7 @@ public class Company {
 	}
 	
 	public void buyPowerStation(ResourceRelation relation, ResourceType resourceType) {
+	
 		this.money -= resourceType.pPurchaseValue;
 		this.addPowerStation(relation.coords, resourceType);
 	}
@@ -157,7 +164,58 @@ public class Company {
 		for (Building building : buildings) {
 			building.nextRound();
 			money -= building.getRunningCosts();
+			
+			if (building.getBuildingTimeLeft()==0) {
+				sendFinishBuildingMessage(building);
+			}
 		}
+	}
+
+	public void sendFinishBuildingMessage(Building building) {
+		ResourceRegionStatus status;
+		Mine mine = null;
+		PowerStation ps = null;
+		Coords coords = null;
+		//try to cast to Powerstation to determine if it is a Powerstation or a Mine
+		try {
+			ps = (PowerStation) building;
+			status = ResourceRegionStatus.POWERSTATION;
+		} catch (Exception e) {
+			mine = (Mine) building;
+			status = ResourceRegionStatus.MINE;
+
+		}
+		
+		for(RegionRelation relation : getRegionRelations())
+		{
+			try {
+				ResourceRelation resourceRelation = (ResourceRelation) relation;
+				if (status == ResourceRegionStatus.MINE) {
+					if(resourceRelation.getMine().equals(mine))
+					{
+						coords = resourceRelation.coords;
+						break;
+					}
+						
+		
+				}
+				else if (status == ResourceRegionStatus.POWERSTATION)
+				{
+					if(resourceRelation.getPowerStation().equals(ps))
+					{
+						coords = resourceRelation.coords;
+						break;
+					}
+				}
+				
+			} catch (Exception e) {
+					//no exception handling needed, just next loop
+			}			
+		}
+
+		
+		client.getClientGame().finishBuilding(new FinishedBuilding(coords, status));
+		
 	}
 
 }

@@ -9,5 +9,5 @@ public enum MessageTypeToServer implements MessageType {
 	REQUEST_CONTRACT, 
 	CONFIRM_CONTRACT,
 	CANCEL_CONTRACT,
-	BUILD_BUILDING;
+	BUILDING_FINISHED;
 }

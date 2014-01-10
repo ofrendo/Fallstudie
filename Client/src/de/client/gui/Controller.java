@@ -115,7 +115,7 @@ public class Controller {
 	}
 
 	public void nextRound(Map map) {
-		client.getClientGame().nextRound();
+		//client.getClientGame().nextRound();
 		
 		frame.getPanelMain(null).getPanelMap().setMap(map);
 		frame.getPanelMain(null).getPanelMap().init();

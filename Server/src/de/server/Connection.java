@@ -6,6 +6,7 @@ import java.net.Socket;
 
 import de.shared.game.Player;
 import de.shared.map.region.Coords;
+import de.shared.map.region.FinishedBuilding;
 import de.shared.map.region.ResourceRegionBid;
 import de.shared.map.relation.Contract;
 import de.shared.map.relation.ContractRequest;
@@ -125,6 +126,10 @@ public class Connection extends Thread {
 					ContractRequestAnswer cancellation = (ContractRequestAnswer) message.getValue();
 					Server.getInstance().getServerGame().cancelContract(cancellation);
 					break;
+				case BUILDING_FINISHED:
+					FinishedBuilding finishedBuilding = (FinishedBuilding) message.getValue();
+					Server.getInstance().getServerGame().finishBuilding(finishedBuilding.coords , finishedBuilding.status);
+					
 				default:
 					break;
 				}

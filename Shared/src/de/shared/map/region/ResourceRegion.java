@@ -18,5 +18,29 @@ public class ResourceRegion extends Region {
 		this.resourceType = resourceType;
 		this.resourceRegionStatus = ResourceRegionStatus.NEUTRAL;
 	}
+	
+	public void setResourceRegionStatus(ResourceRegionStatus status)
+	{
+		//region is owned and one building ist build
+		if (resourceRegionStatus == ResourceRegionStatus.OWNED)
+		{
+			
+			if(status == ResourceRegionStatus.MINE)
+				resourceRegionStatus = ResourceRegionStatus.MINE;
+			
+			if(status == ResourceRegionStatus.POWERSTATION)
+				resourceRegionStatus = ResourceRegionStatus.POWERSTATION;
+				
+		}
+		//if one building is already finished
+		else if((resourceRegionStatus == ResourceRegionStatus.MINE && 
+				status == ResourceRegionStatus.POWERSTATION) ||
+				(resourceRegionStatus == ResourceRegionStatus.POWERSTATION &&
+				status == ResourceRegionStatus.MINE))
+			
+			resourceRegionStatus = ResourceRegionStatus.MINE_POWERSTATION;
+			
+			
+	}
 
 }
