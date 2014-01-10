@@ -173,48 +173,35 @@ public class Company {
 
 	public void sendFinishBuildingMessage(Building building) {
 		ResourceRegionStatus status;
-		Mine mine = null;
-		PowerStation ps = null;
 		Coords coords = null;
-		//try to cast to Powerstation to determine if it is a Powerstation or a Mine
-		try {
-			ps = (PowerStation) building;
+		// cast to Powerstation to determine if it is a Powerstation or a Mine
+		if (building instanceof PowerStation) {
 			status = ResourceRegionStatus.POWERSTATION;
-		} catch (Exception e) {
-			mine = (Mine) building;
+		}
+		else {
 			status = ResourceRegionStatus.MINE;
-
 		}
 		
-		for(RegionRelation relation : getRegionRelations())
-		{
-			try {
+		for (RegionRelation relation : getRegionRelations()) {
+			if (relation instanceof ResourceRelation) {
 				ResourceRelation resourceRelation = (ResourceRelation) relation;
+				
 				if (status == ResourceRegionStatus.MINE) {
-					if(resourceRelation.getMine().equals(mine))
-					{
+					if (resourceRelation.getMine() == building) {
 						coords = resourceRelation.coords;
 						break;
 					}
-						
-		
 				}
 				else if (status == ResourceRegionStatus.POWERSTATION)
 				{
-					if(resourceRelation.getPowerStation().equals(ps))
-					{
+					if (resourceRelation.getPowerStation() == building) {
 						coords = resourceRelation.coords;
 						break;
 					}
 				}
-				
-			} catch (Exception e) {
-					//no exception handling needed, just next loop
-			}			
+			}
 		}
-
-		
-		client.getClientGame().finishBuilding(new FinishedBuilding(coords, status));
+		client.getClientGame().sendFinishBuilding(new FinishedBuilding(coords, status));
 		
 	}
 

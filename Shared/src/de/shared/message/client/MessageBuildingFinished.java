@@ -7,12 +7,11 @@ import de.shared.message.MessageTypeToServer;
 
 public class MessageBuildingFinished implements Message {
 	
-	FinishedBuilding finishedBuilding;
+	private static final long serialVersionUID = 1809751590495513514L;
 	
-	private static final long serialVersionUID = 1L;
+	private FinishedBuilding finishedBuilding;
 
 	public MessageType getType() {
-
 		return MessageTypeToServer.BUILDING_FINISHED;
 	}
 
@@ -22,7 +21,6 @@ public class MessageBuildingFinished implements Message {
 	}
 	
 	public Object getValue() {
-
 		return this.finishedBuilding;
 	}
 

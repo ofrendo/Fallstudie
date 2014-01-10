@@ -26,7 +26,7 @@ public class Client extends Thread {
 	
 	public Client(String ipAddress, String playerName) {
 		this.serverAddress = ipAddress;
-		clientGame = new ClientGame(this, new Player(playerName));
+		this.clientGame = new ClientGame(this, new Player(playerName));
 	}
 	
 	public void setCompanyName(String companyName) {
@@ -52,7 +52,7 @@ public class Client extends Thread {
 	}
 	
 	public ClientGame getClientGame() {
-		return clientGame;
+		return this.clientGame;
 	}
 	
 	public void sendMessage(Message message) {

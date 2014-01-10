@@ -32,7 +32,7 @@ public class ClientGame extends Game {
 		this.ownPlayer = player;
 		this.client = client;
 		
-		this.company = new Company(player.companyName,client);
+		this.company = new Company(player.companyName, client);
 	}
 	
 	public Company getCompany() {
@@ -90,7 +90,7 @@ public class ClientGame extends Game {
 		CityRelation relation = (CityRelation) company.getRegionRelation(coords);
 		relation.setContract(null);
 	}
-	public void finishBuilding(FinishedBuilding finishedBuilding)
+	public void sendFinishBuilding(FinishedBuilding finishedBuilding)
 	{
 		client.sendMessage(new MessageBuildingFinished(finishedBuilding));
 	}
