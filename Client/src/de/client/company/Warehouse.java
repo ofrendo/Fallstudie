@@ -2,12 +2,12 @@ package de.client.company;
 
 import java.util.ArrayList;
 
+import de.shared.game.Constants;
 import de.shared.map.region.ResourceType;
 
 public class Warehouse extends Department {
 	
 	private ArrayList<Ware> ware = new ArrayList<Ware>();
-	public final double STORING_COSTS = 100;	// how much is "1 amount"? how expensive should storing be?
 	
 	public Warehouse(){
 		super("Lagerhaus", 0);
@@ -49,7 +49,7 @@ public class Warehouse extends Department {
 		for(Ware tmpWare: ware){
 			storedAmount += tmpWare.getAmount();
 		}
-		this.setCosts(storedAmount * STORING_COSTS);
+		this.setCosts(storedAmount * Constants.STORING_COSTS);
 	}
 
 }

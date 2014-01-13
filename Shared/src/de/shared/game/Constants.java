@@ -16,6 +16,9 @@ public class Constants {
 	public static double COST_GAS = 25;
 	public static double COST_URANIUM = 50;
 	
+	// Storing costs for the warehouse per ton
+	public static double STORING_COSTS = 100;
+	
 	//Start values for energy exchange
 	public static double START_GLOBAL_ENERGY_DEMAND = 100;
 	public static double START_GLOBAL_ENERGY_OFFER = 100;
