@@ -2,41 +2,60 @@ package de.shared.map;
 
 import java.io.Serializable;
 
+import de.shared.game.Constants;
+
 public class EnergyExchange implements Serializable {
 
 	private static final long serialVersionUID = -6346571442591481630L;
 	
-	private int demand = 0;			// these variables are for the demand and offer for the players
-	private int offer = 0;			//
+	private double demand = 0;			// these variables are for the demand and offer for the players
+	private double offer = 0;			//
 	
-	private int globalDemand = 100;	// these variables are for the demand and offer from other nonplayer companies
-	private int globalOffer = 100;	// (just random values to simulate a real market; players just participate in this market)
+	private double globalDemand = Constants.START_GLOBAL_ENERGY_DEMAND;	// these variables are for the demand and offer from other nonplayer companies
+	private double globalOffer =  Constants.START_GLOBAL_ENERGY_OFFER;	// (just random values to simulate a real market; players just participate in this market)
 	
 	private double price;
-
 	
-	public void calculatePrice(){
-		price = (globalDemand + demand) / (globalOffer + offer);
+	private void calculatePrice(){
+		price = Constants.NORMAL_ENERGY_PRICE * (globalDemand + demand) / (globalOffer + offer);
 	}
 	
-	public void changeGlobalValues(){
-		globalDemand *= (1 + (0.5 - Math.random()) * 0.1);
-		globalOffer *= (1 + (0.5 - Math.random()) * 0.1);
-	}
-	
-	public void buy(int amount){
+	private void addDemand(double amount){
 		this.demand += amount;
 	}
 	
-	public void sell(int amount){
+	private void addOffer(double amount){
 		this.offer += amount;
+	}
+	
+	/**
+	 * Needs to be called once every round by the server.
+	 */
+	public void nextGlobalValues(){
+		globalDemand *= (1 + (0.5 - Math.random()) * 0.1);
+		globalOffer *= (1 + (0.5 - Math.random()) * 0.1);
+		
+		calculatePrice();
+		
+		// reset demand and offer for next quartal
+		demand = 0;
+		offer = 0;
+	}
+	
+	public void addTrade(double amountEnergy) {
+		if (amountEnergy > 0) {
+			addOffer(amountEnergy);
+		}
+		else {
+			addDemand(- amountEnergy);
+		}
 	}
 	
 	public double getCurrentEnergyPrice() {
 		return price;
 	}
 	
-	public double getPrice(int amount){
+	public double getPrice(double amount){
 		return this.price * amount; 
 	}
 	
