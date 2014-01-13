@@ -14,6 +14,7 @@ public class EnergyExchange implements Serializable {
 	
 	private double price;
 
+	
 	public void calculatePrice(){
 		price = (globalDemand + demand) / (globalOffer + offer);
 	}
