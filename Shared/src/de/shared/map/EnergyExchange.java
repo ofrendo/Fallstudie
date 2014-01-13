@@ -16,7 +16,11 @@ public class EnergyExchange implements Serializable {
 	
 	private double price;
 	
-	private void calculatePrice(){
+	public EnergyExchange(){
+		this.calculatePrice();
+	}
+	
+	public void calculatePrice(){	// should only be done on serverside
 		price = Constants.NORMAL_ENERGY_PRICE * (globalDemand + demand) / (globalOffer + offer);
 	}
 	
