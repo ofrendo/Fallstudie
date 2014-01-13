@@ -3,18 +3,18 @@ package de.shared.map.region;
 import java.io.Serializable;
 
 public enum ResourceType implements Serializable {
-	COAL(false, 10, 0.5, 1, 100000, 10000, 4, 30, 10, 50000, 5000, 4, 4),
-	GAS(false, 50, 0.05, 1, 200000, 10000, 4, 20, 5, 25000, 3000, 4, 4),
-	URANIUM(false, 100, 1, 1, 500000, 50000, 8, 35, 10, 100000, 10000, 5, 5),
-	WIND(true, 5, 1, -1, 50000, 5000, 2, 16, 0, 0, 0, 0, 0),
-	SOLAR(true, 10, 1, -1, 100000, 5000, 4, 20, 0, 0, 0, 0, 0),
-	WATER(true, 1, 0.05, -1, 200, 20, 1, 40, 0, 0, 0, 0, 0),
+	COAL(false, 10, 0.5, 1, 100000, 10000, 4, 30, 10, 50000, 5000, 4, 4, 1000),
+	GAS(false, 50, 0.05, 1, 200000, 10000, 4, 20, 5, 25000, 3000, 4, 4, 500),
+	URANIUM(false, 100, 1, 1, 500000, 50000, 8, 35, 10, 100000, 10000, 5, 5, 1000),
+	WIND(true, 5, 1, -1, 50000, 5000, 2, 16, 0, 0, 0, 0, 0, 0),
+	SOLAR(true, 10, 1, -1, 100000, 5000, 4, 20, 0, 0, 0, 0, 0, 0),
+	WATER(true, 1, 0.05, -1, 200, 20, 1, 40, 0, 0, 0, 0, 0, 0),
 	
-	EMPTY(false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
+	EMPTY(false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0),
 	
-	TEST_20(true, 20, 0.2, -1, 100000, 10000, 0, 0, 0, 0, 0, 0, 0),
-	TEST_30(true, 30, 0.2, -1, 100000, 10000, 0, 0, 0, 0, 0, 0, 0),
-	TEST_40(true, 40, 0.2, -1, 90000, 10000, 0, 0, 0, 0, 0, 0, 0);
+	TEST_20(true, 20, 0.2, -1, 100000, 10000, 0, 0, 0, 0, 0, 0, 0, 0),
+	TEST_30(true, 30, 0.2, -1, 100000, 10000, 0, 0, 0, 0, 0, 0, 0, 0),
+	TEST_40(true, 40, 0.2, -1, 90000, 10000, 0, 0, 0, 0, 0, 0, 0, 0);
 	
 	public boolean isRenewable;
 	
@@ -33,6 +33,8 @@ public enum ResourceType implements Serializable {
 	public int mBuildTime;
 	public int mDepreciationYears;
 	
+	public int mDefaultResourceAmount; 
+	
 	ResourceType(boolean isRenewable,
 			double pMaxProduction, double pAdjustability, 
 			int pConsumption, double pPurchaseValue, 
@@ -40,7 +42,8 @@ public enum ResourceType implements Serializable {
 			int pDepreciationYears, 
 			double mMaxProduction, double mPurchaseValue,
 			double mMaxRunningCosts, int mBuildTime,
-			int mDepreciationYears) {
+			int mDepreciationYears,
+			int mDefaultResourceAmount) {
 		
 		this.isRenewable = isRenewable;
 		
@@ -57,6 +60,7 @@ public enum ResourceType implements Serializable {
 		this.mMaxRunningCosts = mMaxRunningCosts;
 		this.mBuildTime = mBuildTime;
 		this.mDepreciationYears = mDepreciationYears;
+		this.mDefaultResourceAmount = mDefaultResourceAmount;
 	}
 	
 	

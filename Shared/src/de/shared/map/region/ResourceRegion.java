@@ -17,6 +17,12 @@ public class ResourceRegion extends Region {
 		super(regionIDX, regionIDY);
 		this.resourceType = resourceType;
 		this.resourceRegionStatus = ResourceRegionStatus.NEUTRAL;
+		
+		//get random factor for resource amount
+		double random = (Math.random()/2.0)+0.75;
+		
+		this.resourceAmount = (int) (random*resourceType.mDefaultResourceAmount);
+	
 	}
 	
 	public void setResourceRegionStatus(ResourceRegionStatus status) {
