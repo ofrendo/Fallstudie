@@ -106,7 +106,13 @@ public class ClientGame extends Game {
 	
 	public void nextRound() {
 		incrementRound();
-		company.nextRound();
+		//company.nextRound();
+	}
+
+	public void finishRound() {
+		company.finishRound();
+		
+		
 	}
 	
 }

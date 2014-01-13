@@ -21,6 +21,7 @@ public class Warehouse extends Department {
 			tmpWare = new Ware(resourceType, amount);
 			this.ware.add(tmpWare);
 		}
+		System.out.println(amount);
 	}
 	
 	public void reduceWare(ResourceType resourceType, double amount) throws Exception{

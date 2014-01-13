@@ -107,7 +107,7 @@ public class TestBuildingFinished extends AbstractClientServerTest {
 		ResourceRelation relation = (ResourceRelation) client2.getClientGame().getCompany().getRegionRelation(coords);
 		client2.getClientGame().getCompany().buyPowerStation(relation,region.resourceType);
 		
-		for (int i = 0; i < region.resourceType.pBuildTime+1; i++) {
+		for (int i = 0; i < region.resourceType.pBuildTime; i++) {
 			//Then send ready again
 			client1.sendReadyMessage(true);
 			client2.sendReadyMessage(true);
@@ -120,7 +120,7 @@ public class TestBuildingFinished extends AbstractClientServerTest {
 		relation = (ResourceRelation) client2.getClientGame().getCompany().getRegionRelation(coords);
 		client2.getClientGame().getCompany().buyMine(relation,region.resourceType);
 		
-		for (int i = 0; i<region.resourceType.mBuildTime+1; i++) {
+		for (int i = 0; i<region.resourceType.mBuildTime; i++) {
 			//Then send ready again
 			client1.sendReadyMessage(true);
 			client2.sendReadyMessage(true);
