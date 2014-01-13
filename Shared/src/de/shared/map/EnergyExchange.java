@@ -13,7 +13,7 @@ public class EnergyExchange implements Serializable {
 	private int globalOffer = 100;	// (just random values to simulate a real market; players just participate in this market)
 	
 	private double price;
-	
+
 	public void calculatePrice(){
 		price = (globalDemand + demand) / (globalOffer + offer);
 	}
