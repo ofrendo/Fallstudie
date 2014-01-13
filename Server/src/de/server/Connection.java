@@ -129,7 +129,11 @@ public class Connection extends Thread {
 				case BUILDING_FINISHED:
 					FinishedBuilding finishedBuilding = (FinishedBuilding) message.getValue();
 					Server.getInstance().getServerGame().finishBuilding(finishedBuilding.coords , finishedBuilding.status);
-					
+					break;
+				case TRADE_ENERGY: 
+					double amountEnergy = (double) message.getValue();
+					Server.getInstance().getServerGame().getMap().getEnergyExchange().addTrade(amountEnergy);
+					break;
 				default:
 					break;
 				}

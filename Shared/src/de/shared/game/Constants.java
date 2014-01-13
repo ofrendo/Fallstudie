@@ -7,10 +7,16 @@ public class Constants {
 	
 	public static int MAX_POWERSTATION_DISTANCE = 3;
 	
+	//Costs and prices
 	public static double NET_USAGE_COSTS = 0.06;
+	public static double NORMAL_ENERGY_PRICE = 0.20; //Normal energy price: this is the price when demand equals offers 
 	
 	//Resource Costs
 	public static double COST_COAL = 20;
 	public static double COST_GAS = 25;
 	public static double COST_URANIUM = 50;
+	
+	//Start values for energy exchange
+	public static double START_GLOBAL_ENERGY_DEMAND = 100;
+	public static double START_GLOBAL_ENERGY_OFFER = 100;
 }

@@ -70,6 +70,8 @@ public class ServerGame extends Game {
 	}
 	
 	public synchronized void finishRound() {
+		getMap().getEnergyExchange().nextGlobalValues();
+		
 		handleBids();
 		
 		setAllPlayersUnready();
