@@ -20,6 +20,7 @@ import de.shared.message.client.MessageContractConfirm;
 import de.shared.message.client.MessageRequestContract;
 import de.shared.message.client.MessageResourceRegionBid;
 import de.shared.message.client.MessageStartResourceRegionBidding;
+import de.shared.message.client.MessageTradeEnergy;
 
 public class ClientGame extends Game {
 
@@ -93,6 +94,14 @@ public class ClientGame extends Game {
 	public void sendFinishBuilding(FinishedBuilding finishedBuilding)
 	{
 		client.sendMessage(new MessageBuildingFinished(finishedBuilding));
+	}
+	
+	/**
+	 * 
+	 * @param amountEnergy POSITIVE value means an offer is made (energy is sold). NEGATIVE value means energy was bought.
+	 */
+	public void sendTradeEnergy(double amountEnergy) {
+		client.sendMessage(new MessageTradeEnergy(amountEnergy));
 	}
 	
 	public void nextRound() {
