@@ -71,7 +71,7 @@ public abstract class Game {
 		for (Region region : map.getRegions()) {
 			if (region instanceof ResourceRegion) {
 				ResourceRegion r = (ResourceRegion) region;
-				if (r.resourceRegionStatus == ResourceRegionStatus.NEUTRAL && r.resourceType != ResourceType.EMPTY) {
+				if (r.resourceRegionStatus == ResourceRegionStatus.NEUTRAL && r.resourceType != ResourceType.EMPTY && r.resourceType.isRenewable == false) {
 					//System.out.println(r.resourceType);
 					return r;
 				}

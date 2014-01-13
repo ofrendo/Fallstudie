@@ -6,6 +6,7 @@ public abstract class Building extends Investment {
 	
 	private int buildingTimeLeft = Integer.MAX_VALUE;
 	private boolean isBuilt = false;
+
 	
 	public Building(double productionMax, double purchaseValue, int depreciationYears, int buildingTimeLeft) {
 		super(purchaseValue, depreciationYears);

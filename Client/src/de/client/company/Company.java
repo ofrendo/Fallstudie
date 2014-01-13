@@ -134,7 +134,7 @@ public class Company {
 	}
 	
 	public void addMine(ResourceRelation relation, ResourceType resourceType) {
-		relation.mine = new Mine(resourceType);
+		relation.mine = new Mine(resourceType, relation);
 		addBuilding(relation.mine);
 	}
 	
@@ -202,17 +202,7 @@ public class Company {
 					if (finishRound) {
 						
 						//reduce the ResourceAmount in the resourceRaltion
-						for (RegionRelation relation : getRegionRelations()) {
-							if (relation instanceof ResourceRelation) {
-								ResourceRelation resourceRelation = (ResourceRelation) relation;
-								
-								if (resourceRelation.getMine() == building) {
-										resourceRelation.decreaseResourceAmount(mine.getProduction());
-								}
-							
-							
-							}
-						}
+						mine.getResourceRelation().decreaseResourceAmount(productionSum);
 					}
 					
 				}
