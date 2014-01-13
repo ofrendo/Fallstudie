@@ -112,6 +112,7 @@ public class ClientGame extends Game {
 	public void finishRound() {
 		company.finishRound();
 		
+		
 	}
 	
 }
