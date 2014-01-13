@@ -11,7 +11,7 @@ public class ResourceRegion extends Region {
 	
 	public Player owner;
 	public double price; //need to set this differently after buying on serverside
-	public int resourceAmount;
+	public double resourceAmount;
 	
 	public ResourceRegion(int regionIDX, int regionIDY, ResourceType resourceType) {
 		super(regionIDX, regionIDY);
@@ -21,7 +21,7 @@ public class ResourceRegion extends Region {
 		//get random factor for resource amount
 		double random = (Math.random()/2.0)+0.75;
 		
-		this.resourceAmount = (int) (random*resourceType.mDefaultResourceAmount);
+		this.resourceAmount =  (random*resourceType.mDefaultResourceAmount);
 	
 	}
 	

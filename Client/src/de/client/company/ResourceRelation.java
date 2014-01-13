@@ -7,11 +7,12 @@ public class ResourceRelation extends RegionRelation {
 	
 	public PowerStation powerStation = null;
 	public Mine mine = null;
-	public int resourceAmount;
+	public double resourceAmount;
 	
-	public ResourceRelation(Coords coords, int resourceAmount) {
+	public ResourceRelation(Coords coords, double resourceAmount) {
 		super(coords);
 		this.resourceAmount = resourceAmount;
+		//System.out.println("ResourceRelation" +resourceAmount);
 	}
 
 	public Mine getMine() {
@@ -22,7 +23,7 @@ public class ResourceRelation extends RegionRelation {
 		this.mine = mine;
 	}
 	
-	public void decreaseResourceAmount(int amount) {
+	public void decreaseResourceAmount(double amount) {
 		resourceAmount -= amount;
 	}
 

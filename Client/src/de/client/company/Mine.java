@@ -20,4 +20,9 @@ public class Mine extends Building {
 		return resourceType.mMaxProduction * utilizationRate;
 	}
 	
+	public ResourceType getResourceType()
+	{
+		return resourceType;
+	}
+	
 }

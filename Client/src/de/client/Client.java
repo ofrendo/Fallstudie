@@ -77,6 +77,7 @@ public class Client extends Thread {
 	}
 	
 	public void sendReadyMessage(boolean ready) {
+		clientGame.finishRound();
 		sendMessage(new MessageReady(ready));
 		//handleMessage();
 	}

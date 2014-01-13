@@ -166,7 +166,8 @@ public class Company {
 		addBuilding(powerStation);
 	}
 	
-	public void nextRound() {
+	public void finishRound() {
+		//check if a building has finished
 		for (Building building : buildings) {
 			building.nextRound();
 			money -= building.getRunningCosts();
@@ -175,6 +176,50 @@ public class Company {
 				sendFinishBuildingMessage(building);
 			}
 		}
+		
+		//handle production	
+		double production = getResourceProduction(ResourceType.COAL, true);
+		warehouse.addWare(ResourceType.COAL, production);
+		production = getResourceProduction(ResourceType.URANIUM, true);
+		warehouse.addWare(ResourceType.URANIUM, production);
+		production = getResourceProduction(ResourceType.GAS, true);
+		warehouse.addWare(ResourceType.GAS, production);
+		//System.out.println(production);
+		//handle energy consumption
+	}
+
+	private double getResourceProduction(ResourceType resourceType, boolean finishRound) {
+		
+		double productionSum = 0;
+		for (Building building : buildings) {
+			
+			if(building instanceof Mine)
+			{
+				
+				Mine mine = (Mine) building;
+				if (building.isBuilt() && mine.getResourceType() == resourceType) {
+					productionSum += mine.getProduction();
+					if (finishRound) {
+						
+						//reduce the ResourceAmount in the resourceRaltion
+						for (RegionRelation relation : getRegionRelations()) {
+							if (relation instanceof ResourceRelation) {
+								ResourceRelation resourceRelation = (ResourceRelation) relation;
+								
+								if (resourceRelation.getMine() == building) {
+										resourceRelation.decreaseResourceAmount(mine.getProduction());
+								}
+							
+							
+							}
+						}
+					}
+					
+				}
+			}
+		}
+		
+		return productionSum;
 	}
 
 	public void sendFinishBuildingMessage(Building building) {
