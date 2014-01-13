@@ -17,6 +17,8 @@ public class PanelMenu extends JPanel {
 	private JButton buttonFinances;
 	private JButton buttonMarket;
 	
+	private JButton buttonReady;
+	
 	private JButton buttonDefault;
 	
 	public PanelMenu() {
@@ -39,11 +41,12 @@ public class PanelMenu extends JPanel {
 		
 		setLayout(new BorderLayout());
 		
-		JPanel leftPanel = new JPanel(new GridLayout(1, 4));
+		JPanel leftPanel = new JPanel(new GridLayout(1, 5));
 		leftPanel.add(buttonCompany);
 		leftPanel.add(buttonMap);
 		leftPanel.add(buttonFinances);
 		leftPanel.add(buttonMarket);
+		leftPanel.add(getButtonReady());
 		
 		this.add(leftPanel, BorderLayout.WEST);
 	}
@@ -74,6 +77,20 @@ public class PanelMenu extends JPanel {
 			if (source == buttonMarket)
 				Controller.getInstance().getFrame().setPanelMarket();
 		}
+	}
+	
+	public JButton getButtonReady() {
+		if (buttonReady == null) {
+			buttonReady = new JButton("Runde abschlieﬂen");
+			buttonReady.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					Controller.getInstance().sendReady(true);
+					buttonReady.setEnabled(false);
+				}
+			});
+		}
+		return buttonReady;
 	}
 	
 }

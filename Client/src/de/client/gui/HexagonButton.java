@@ -71,8 +71,8 @@ public class HexagonButton extends JButton {
 				imagePath = "windrad.png";
 				break;
 			case EMPTY:
-				hexString = "#fee9cb"; 
-				imagePath = "kohle.png";
+				hexString = "#FFEEB2"; 
+				imagePath = "leer.png";
 				break;
 			default:
 				hexString = "#ffffff"; 
@@ -88,7 +88,7 @@ public class HexagonButton extends JButton {
 		
 		
 		//Set background color
-		hexString = hexString.replaceAll("#fee9cb", "");
+		hexString = hexString.replaceAll("#", "");
 		int intValue = Integer.parseInt(hexString, 16);
 		this.color = new Color(intValue);
 		

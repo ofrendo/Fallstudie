@@ -123,7 +123,7 @@ public class Controller {
 		frame.getPanelMain(null).getPanelDetails().setContentEmpty();
 		frame.getPanelMain(null).getPanelDetails().refresh();
 		
-		frame.getPanelMain(null).getPanelDetails().getButtonReady().setEnabled(true);
+		frame.getPanelMenu().getButtonReady().setEnabled(true);
 	}
 	
 	public void updatePanelDetails(HexagonButton hexButton) {
