@@ -1,10 +1,6 @@
 package de.client.gui;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.BoxLayout;
-import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -22,8 +18,6 @@ public class PanelDetails extends JPanel {
 
 	private JPanel panelDetails;
 	
-	private JButton buttonReady;
-	
 	private HexagonButton currentHexButton;
 	
 	public PanelDetails() {
@@ -39,8 +33,6 @@ public class PanelDetails extends JPanel {
 	}
 	
 	public void refresh() {
-		getPanelDetails().add(getButtonReady());
-		
 		getPanelDetails().revalidate();
 		getPanelDetails().repaint();
 	}
@@ -406,18 +398,6 @@ public class PanelDetails extends JPanel {
 	
 	
 	
-	public JButton getButtonReady() {
-		if (buttonReady == null) {
-			buttonReady = new JButton("Bereit");
-			buttonReady.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					Controller.getInstance().sendReady(true);
-					buttonReady.setEnabled(false);
-				}
-			});
-		}
-		return buttonReady;
-	}
+	
 	
 }
