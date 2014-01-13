@@ -21,6 +21,7 @@ public class EnergyExchange implements Serializable {
 
 	public EnergyExchange(){
 		this.calculatePrice();
+		this.priceHistory = new ArrayList<Double>();
 	}
 	
 	public void calculatePrice(){	// should only be done on serverside
