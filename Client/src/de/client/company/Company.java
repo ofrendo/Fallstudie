@@ -23,11 +23,17 @@ public class Company {
 	public ArrayList<Building> buildings = new ArrayList<Building>();
 	private double money;
 	private Client client;
+	private Warehouse warehouse;
 
 	public Company(String companyName, Client client) {
 		this.companyName = companyName;
 		this.money = Constants.START_MONEY;
 		this.client = client;
+		this.warehouse = new Warehouse();
+	}
+	
+	public Warehouse getWarehouse(){
+		return this.warehouse;
 	}
 	
 	public void initRelations(ArrayList<Region> regions) {
