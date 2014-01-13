@@ -190,6 +190,7 @@ public class Controller {
 		updatePanelDetails(hexButton);
 	}
 
+	
 	public Frame getFrame() {
 		return frame;
 	}
