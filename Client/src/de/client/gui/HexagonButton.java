@@ -47,7 +47,7 @@ public class HexagonButton extends JButton {
 			ResourceRegion resourceRegion = (ResourceRegion) region;
 			switch (resourceRegion.resourceType) {
 			case COAL: 
-				hexString = "#bda481"; 
+				hexString = "#a66600"; 
 				imagePath = "kohle.png";
 				break;
 			case GAS:
@@ -55,16 +55,16 @@ public class HexagonButton extends JButton {
 				imagePath = "gas.png";
 				break;
 			case SOLAR:
-				hexString = "#fce392"; 
-				imagePath = "solar.png";
+				hexString = "#b7e09c"; 
+				imagePath = "solarpanel.png";
 				break;
 			case URANIUM:
-				hexString = "#85a571"; 
+				hexString = "#ffe900"; 
 				imagePath = "kern.png";
 				break;
 			case WATER:
-				hexString = "#6385a3"; 
-				imagePath = "wassser.png";
+				hexString = "#27a9e3"; 
+				imagePath = "wassersymbol.png";
 				break;
 			case WIND:
 				hexString = "#ffffff";
@@ -82,7 +82,7 @@ public class HexagonButton extends JButton {
 		}
 		else {
 			//CityRegion
-			hexString = "#b2b1b1";
+			hexString = "#8f30bf";
 			imagePath = "stadt.png";
 		}
 		
