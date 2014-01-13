@@ -9,15 +9,18 @@ import de.shared.game.Player;
 import de.shared.map.Map;
 import de.shared.map.region.CityRegion;
 import de.shared.map.region.Coords;
+import de.shared.map.region.FinishedBuilding;
 import de.shared.map.relation.CityRelation;
 import de.shared.map.relation.Contract;
 import de.shared.map.relation.ContractRequest;
 import de.shared.map.relation.ContractRequestAnswer;
+import de.shared.message.client.MessageBuildingFinished;
 import de.shared.message.client.MessageContractCancel;
 import de.shared.message.client.MessageContractConfirm;
 import de.shared.message.client.MessageRequestContract;
 import de.shared.message.client.MessageResourceRegionBid;
 import de.shared.message.client.MessageStartResourceRegionBidding;
+import de.shared.message.client.MessageTradeEnergy;
 
 public class ClientGame extends Game {
 
@@ -30,7 +33,7 @@ public class ClientGame extends Game {
 		this.ownPlayer = player;
 		this.client = client;
 		
-		this.company = new Company(player.companyName);
+		this.company = new Company(player.companyName, client);
 	}
 	
 	public Company getCompany() {
@@ -87,6 +90,18 @@ public class ClientGame extends Game {
 		
 		CityRelation relation = (CityRelation) company.getRegionRelation(coords);
 		relation.setContract(null);
+	}
+	public void sendFinishBuilding(FinishedBuilding finishedBuilding)
+	{
+		client.sendMessage(new MessageBuildingFinished(finishedBuilding));
+	}
+	
+	/**
+	 * 
+	 * @param amountEnergy POSITIVE value means an offer is made (energy is sold). NEGATIVE value means energy was bought.
+	 */
+	public void sendTradeEnergy(double amountEnergy) {
+		client.sendMessage(new MessageTradeEnergy(amountEnergy));
 	}
 	
 	public void nextRound() {

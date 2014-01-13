@@ -2,11 +2,15 @@ package de.client.company;
 
 import java.util.ArrayList;
 
+import de.client.Client;
 import de.shared.game.Constants;
 import de.shared.game.Game;
 import de.shared.map.region.CityRegion;
 import de.shared.map.region.Coords;
+import de.shared.map.region.FinishedBuilding;
 import de.shared.map.region.Region;
+import de.shared.map.region.ResourceRegion;
+import de.shared.map.region.ResourceRegionStatus;
 import de.shared.map.region.ResourceType;
 import de.shared.map.relation.CityRelation;
 import de.shared.map.relation.Contract;
@@ -16,12 +20,20 @@ public class Company {
 	public final String companyName;
 	
 	private ArrayList<RegionRelation> regionRelations = new ArrayList<RegionRelation>();
-	private ArrayList<Building> buildings = new ArrayList<Building>();
+	public ArrayList<Building> buildings = new ArrayList<Building>();
 	private double money;
+	private Client client;
+	private Warehouse warehouse;
 
-	public Company(String companyName) {
+	public Company(String companyName, Client client) {
 		this.companyName = companyName;
 		this.money = Constants.START_MONEY;
+		this.client = client;
+		this.warehouse = new Warehouse();
+	}
+	
+	public Warehouse getWarehouse(){
+		return this.warehouse;
 	}
 	
 	public void initRelations(ArrayList<Region> regions) {
@@ -31,7 +43,8 @@ public class Company {
 				newRegionRelation = new CityRelation(region.coords);
 			}
 			else {
-				newRegionRelation = new ResourceRelation(region.coords);
+				ResourceRegion resourceRegion = (ResourceRegion) region;
+				newRegionRelation = new ResourceRelation(region.coords, resourceRegion.resourceAmount);
 			}
 			regionRelations.add(newRegionRelation);
 		}
@@ -112,6 +125,7 @@ public class Company {
 	
 	public void addBuilding(Building building) {
 		buildings.add(building);
+
 	}
 	
 	public void buyMine(ResourceRelation relation, ResourceType resourceType) {
@@ -125,6 +139,7 @@ public class Company {
 	}
 	
 	public void buyPowerStation(ResourceRelation relation, ResourceType resourceType) {
+	
 		this.money -= resourceType.pPurchaseValue;
 		this.addPowerStation(relation.coords, resourceType);
 	}
@@ -155,7 +170,45 @@ public class Company {
 		for (Building building : buildings) {
 			building.nextRound();
 			money -= building.getRunningCosts();
+			
+			if (building.getBuildingTimeLeft()==0) {
+				sendFinishBuildingMessage(building);
+			}
 		}
+	}
+
+	public void sendFinishBuildingMessage(Building building) {
+		ResourceRegionStatus status;
+		Coords coords = null;
+		// cast to Powerstation to determine if it is a Powerstation or a Mine
+		if (building instanceof PowerStation) {
+			status = ResourceRegionStatus.POWERSTATION;
+		}
+		else {
+			status = ResourceRegionStatus.MINE;
+		}
+		
+		for (RegionRelation relation : getRegionRelations()) {
+			if (relation instanceof ResourceRelation) {
+				ResourceRelation resourceRelation = (ResourceRelation) relation;
+				
+				if (status == ResourceRegionStatus.MINE) {
+					if (resourceRelation.getMine() == building) {
+						coords = resourceRelation.coords;
+						break;
+					}
+				}
+				else if (status == ResourceRegionStatus.POWERSTATION)
+				{
+					if (resourceRelation.getPowerStation() == building) {
+						coords = resourceRelation.coords;
+						break;
+					}
+				}
+			}
+		}
+		client.getClientGame().sendFinishBuilding(new FinishedBuilding(coords, status));
+		
 	}
 
 }

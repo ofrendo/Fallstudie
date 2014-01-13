@@ -9,5 +9,8 @@ public enum MessageTypeToServer implements MessageType {
 	REQUEST_CONTRACT, 
 	CONFIRM_CONTRACT,
 	CANCEL_CONTRACT,
-	BUILD_BUILDING;
+	
+	BUILDING_FINISHED, //Sent when a building has finished
+	
+	TRADE_ENERGY; //Sent when energy is bought or sold from the energyexchange
 }

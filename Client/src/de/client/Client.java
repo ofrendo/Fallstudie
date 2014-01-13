@@ -30,7 +30,7 @@ public class Client extends Thread {
 	}
 	
 	public void setCompanyName(String companyName) {
-		this.clientGame.getPlayer().companyName = companyName;
+		clientGame.getPlayer().companyName = companyName;
 	}
 	
 	@Override
@@ -52,7 +52,7 @@ public class Client extends Thread {
 	}
 	
 	public ClientGame getClientGame() {
-		return clientGame;
+		return this.clientGame;
 	}
 	
 	public void sendMessage(Message message) {
@@ -126,7 +126,7 @@ public class Client extends Thread {
 					Controller.getInstance().initGame(newMap);
 				}
 				else if (clientGame.gamePhase == GamePhase.GAME_STARTED) {
-					clientGame.incrementRound();
+					clientGame.nextRound();
 					Controller.getInstance().nextRound(newMap);
 				}
 				clientGame.ownPlayer.ready = false;

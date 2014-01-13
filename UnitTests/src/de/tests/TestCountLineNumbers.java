@@ -11,9 +11,12 @@ public class TestCountLineNumbers {
 	
 	static int fileCounter = 0;
 	static int lineCounter = 0;
+	static int emptyLineCounter = 0;
 	
 	public static void main(String[] args) throws IOException {
-		File highestDir = new File("C:/Users/D059373/git/Fallstudie");
+		//String dir = "C:/Users/D059373/Downloads/Fallstudie_Nadine/Fallstudie/sourcen";
+		String dir = "C:/Users/D059373/git/Fallstudie";
+		File highestDir = new File(dir);
 		processFileContents(highestDir);
 		
 		
@@ -25,7 +28,9 @@ public class TestCountLineNumbers {
 		//	System.out.println(f.getPath());
 		//}
 		System.out.println("File counter: " + fileCounter);
-		System.out.println(("Line counter: " + lineCounter));
+		System.out.println("Line counter: " + lineCounter);
+		System.out.println("Empty line counter: " + emptyLineCounter);
+		System.out.println("Filled lines: " + (lineCounter-emptyLineCounter));
 	}
 	
 	
@@ -42,6 +47,9 @@ public class TestCountLineNumbers {
 			String line = reader.readLine();
 			while ( line != null ) {
 			    line = reader.readLine();
+			    if (line != null && line.isEmpty())
+			    	emptyLineCounter++;
+			    
 			    lineCounter++;
 			}
 			reader.close();

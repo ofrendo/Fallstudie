@@ -1,6 +1,5 @@
 package de.client.company;
 
-
 public abstract class Building extends Investment {
 	private double productionMax;
 	public double utilizationRate = 1;
@@ -41,7 +40,7 @@ public abstract class Building extends Investment {
 	}
 	
 	public void nextRound() {
-		decrementBuildingTimeLeft();
+		decrementBuildingTimeLeft();	
 		performDepreciation();
 	}
 	
