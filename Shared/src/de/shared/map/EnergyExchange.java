@@ -1,6 +1,7 @@
 package de.shared.map;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import de.shared.game.Constants;
 
@@ -16,6 +17,8 @@ public class EnergyExchange implements Serializable {
 	
 	private double price;
 	
+	private ArrayList<Double> priceHistory;
+
 	public EnergyExchange(){
 		this.calculatePrice();
 	}
@@ -39,13 +42,14 @@ public class EnergyExchange implements Serializable {
 		globalDemand *= (1 + (0.5 - Math.random()) * 0.1);
 		globalOffer *= (1 + (0.5 - Math.random()) * 0.1);
 		
-		calculatePrice();
-		
+		calculatePrice();	
+		// store price in history
+		this.priceHistory.add(this.getCurrentEnergyPrice());
 		// reset demand and offer for next quartal
 		demand = 0;
 		offer = 0;
 	}
-	
+
 	public void addTrade(double amountEnergy) {
 		if (amountEnergy > 0) {
 			addOffer(amountEnergy);
@@ -61,6 +65,10 @@ public class EnergyExchange implements Serializable {
 	
 	public double getPrice(double amount){
 		return this.price * amount; 
+	}
+	
+	public ArrayList<Double> getPriceHistory() {
+		return priceHistory;
 	}
 	
 }
