@@ -72,7 +72,7 @@ public class Company {
 				if (cityRelation.getContract() != null) 
 					contracts.add(cityRelation.getContract());
 			}
-			
+		
 		}
 		return contracts;
 	}
