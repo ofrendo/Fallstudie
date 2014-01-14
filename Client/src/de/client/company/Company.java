@@ -24,16 +24,22 @@ public class Company {
 	private double money;
 	private Client client;
 	private Warehouse warehouse;
+	private Finances finances;
 
 	public Company(String companyName, Client client) {
 		this.companyName = companyName;
 		this.money = Constants.START_MONEY;
 		this.client = client;
-		this.warehouse = new Warehouse();
+		this.warehouse = new Warehouse(this);
+		this.finances = new Finances(this);
 	}
 	
 	public Warehouse getWarehouse(){
 		return this.warehouse;
+	}
+	
+	public Finances getFinances(){
+		return this.finances;
 	}
 	
 	public void initRelations(ArrayList<Region> regions) {
@@ -60,15 +66,19 @@ public class Company {
 	
 	public ArrayList<Contract> getContracts() {
 		ArrayList<Contract> contracts = new ArrayList<Contract>();
-		for (RegionRelation relation : regionRelations) {
-			if (relation instanceof CityRelation) {
-				CityRelation cityRelation = (CityRelation) relation;
-				if (cityRelation.getContract() != null) 
-					contracts.add(cityRelation.getContract());
+		for (Region region : client.getClientGame().getMap().getRegions()) {
+			if (region instanceof CityRegion) {
+				CityRegion cityRegion = (CityRegion) region;
+				Contract contract = cityRegion.getPlayerContract(client.getClientGame().getPlayer());
+				if (contract != null) 
+					contracts.add(contract);
 			}
-			
 		}
 		return contracts;
+	}
+	
+	public Contract[] getContractsArray() {
+		return getContracts().toArray(new Contract[0]);
 	}
 	
 	public ArrayList<RegionRelation> getRegionRelations() {
@@ -83,6 +93,10 @@ public class Company {
 		return money;
 	}
 	
+	public void setMoney(double money){
+		this.money = money;
+	}
+	
 	public PowerStation[] getPowerStations() {
 		ArrayList<PowerStation> powerStations = new ArrayList<PowerStation>();
 		for (Building building : buildings) {
@@ -93,7 +107,7 @@ public class Company {
 		return powerStations.toArray(new PowerStation[0]);
 	}
 	
-	public CityRelation[] getCityRelationsWithContract() {
+	/*public CityRelation[] getCityRelationsWithContract() {
 		ArrayList<CityRelation> cityRelations = new ArrayList<CityRelation>();
 		for (RegionRelation relation : regionRelations) {
 			if (relation instanceof CityRelation) {
@@ -107,7 +121,7 @@ public class Company {
 		}
 		
 		return cityRelations.toArray(new CityRelation[0]);
-	}
+	}*/
 	
 	public boolean isPowerStationInRange(CityRelation cityRelation) {
 		for (RegionRelation regionRelation : getRegionRelations()) {
@@ -134,7 +148,7 @@ public class Company {
 	}
 	
 	public void addMine(ResourceRelation relation, ResourceType resourceType) {
-		relation.mine = new Mine(resourceType);
+		relation.mine = new Mine(resourceType, relation);
 		addBuilding(relation.mine);
 	}
 	
@@ -185,9 +199,25 @@ public class Company {
 		production = getResourceProduction(ResourceType.GAS, true);
 		warehouse.addWare(ResourceType.GAS, production);
 		//System.out.println(production);
+		
 		//handle energy consumption
+		
+		// handle warehouse
+		warehouse.nextRound();
+		// handle finances
+		finances.nextRound();
+		
+		// after 4 quarters perform nextYear methods
+		if(client.getClientGame().getRound() % 4 == 3){
+			for (Building building : buildings) {
+				building.nextYear();
+			}
+			
+			warehouse.nextYear();
+			finances.nextYear();
+		}
 	}
-
+	
 	private double getResourceProduction(ResourceType resourceType, boolean finishRound) {
 		
 		double productionSum = 0;
@@ -202,17 +232,7 @@ public class Company {
 					if (finishRound) {
 						
 						//reduce the ResourceAmount in the resourceRaltion
-						for (RegionRelation relation : getRegionRelations()) {
-							if (relation instanceof ResourceRelation) {
-								ResourceRelation resourceRelation = (ResourceRelation) relation;
-								
-								if (resourceRelation.getMine() == building) {
-										resourceRelation.decreaseResourceAmount(mine.getProduction());
-								}
-							
-							
-							}
-						}
+						mine.getResourceRelation().decreaseResourceAmount(productionSum);
 					}
 					
 				}
