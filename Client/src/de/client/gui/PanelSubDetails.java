@@ -165,6 +165,7 @@ public class PanelSubDetails extends JPanel {
 					if (!source.getValueIsAdjusting()) {
 						double newValue = source.getValue() / 100.0;
 						((ResourceRelation) relation).powerStation.setMaintenanceRate(newValue);
+						Controller.getInstance().getCompany().optimizePowerStations();
 						Controller.getInstance().updatePanelDetails(hexButton);
 					}
 				}
@@ -189,6 +190,7 @@ public class PanelSubDetails extends JPanel {
 					if (!source.getValueIsAdjusting()) {
 						double newValue = (double) source.getValue() / (double) steps;
 						((ResourceRelation) relation).powerStation.setUtilizationRate(newValue);
+						Controller.getInstance().getCompany().optimizePowerStations();
 						Controller.getInstance().updatePanelDetails(hexButton);
 					}
 				}

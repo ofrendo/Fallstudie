@@ -3,8 +3,10 @@ package de.client.company;
 import java.util.ArrayList;
 
 import de.client.Client;
+import de.client.optimization.Optimizer;
 import de.shared.game.Constants;
 import de.shared.game.Game;
+import de.shared.game.Player;
 import de.shared.map.region.CityRegion;
 import de.shared.map.region.Coords;
 import de.shared.map.region.FinishedBuilding;
@@ -81,6 +83,30 @@ public class Company {
 		return getContracts().toArray(new Contract[0]);
 	}
 	
+	public ArrayList<Contract> getContractsWithNotEnoughEnergy() {
+		ArrayList<Contract> contracts = new ArrayList<Contract>();
+		Player ownPlayer = client.getClientGame().getPlayer();
+		for (Contract contract : getContracts()) {
+			if (contract.isOwnPlayer(ownPlayer) && 
+				contract.amountEnergySupplied < contract.amountEnergyNeeded) {
+				
+				contracts.add(contract);
+			}
+		}
+		return contracts;
+	}
+	
+	public ArrayList<CityRegion> getCityRegionsWithNotEnoughEnergy() {
+		ArrayList<Contract> contracts = getContractsWithNotEnoughEnergy();
+		ArrayList<CityRegion> cityRegions = new ArrayList<CityRegion>();
+		
+		for (Contract contract : contracts) {
+			cityRegions.add( (CityRegion) client.getClientGame().getMap().getRegion(contract.coords) );
+		}
+		
+		return cityRegions;
+	}
+	
 	public ArrayList<RegionRelation> getRegionRelations() {
 		return regionRelations;
 	}
@@ -153,9 +179,9 @@ public class Company {
 	}
 	
 	public void buyPowerStation(ResourceRelation relation, ResourceType resourceType) {
-	
 		this.money -= resourceType.pPurchaseValue;
 		this.addPowerStation(relation.coords, resourceType);
+		optimizePowerStations();
 	}
 	
 	public void addPowerStation(Coords coords, ResourceType resourceType) {
@@ -304,7 +330,7 @@ public class Company {
 		
 	}
 
-	public boolean isRoundFinishable() {
+	public boolean isEnoughResourcesAvailable() {
 		// if not enough resources are available
 		if (( getResourceProduction(ResourceType.COAL, false) + warehouse.getWare(ResourceType.COAL).getAmount() ) 
 				> getResourceConsumption(ResourceType.COAL)   || 
@@ -315,6 +341,34 @@ public class Company {
 			return false;
 		}
 		return true;
+	}
+	
+	public void optimizePowerStations() {
+		Optimizer.optimizePowerStations(getPowerStations(), getContractsArray());
+	}
+	
+	public double getEnergyProductionSum() {
+		double sum = 0;
+		
+		for (PowerStation powerStation : getPowerStations()) {
+			sum += powerStation.getProduction();
+		}
+		
+		return sum;
+	}
+	
+	public double getEnergyNeededSum() {
+		double sum = 0;
+		
+		for (Contract contract : getContracts()) {
+			sum += contract.amountEnergyNeeded;
+		}
+		
+		return sum;
+	}
+
+	public double getSuperflousEnergy() {
+		return getEnergyProductionSum() - getEnergyNeededSum();
 	}
 
 }

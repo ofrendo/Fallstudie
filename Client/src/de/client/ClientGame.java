@@ -3,7 +3,6 @@ package de.client;
 import java.util.ArrayList;
 
 import de.client.company.Company;
-import de.client.optimization.Optimizer;
 import de.shared.game.Game;
 import de.shared.game.Player;
 import de.shared.map.Map;
@@ -70,10 +69,6 @@ public class ClientGame extends Game {
 		client.sendMessage(new MessageRequestContract(request));
 	}
 	
-	public void optimizeContracts() {
-		Optimizer.optimizePowerStations(company.getPowerStations(), company.getContractsArray());
-	}
-	
 	/*public void acceptContract(ContractRequestAnswer answer) {
 		//CityRelation cityRelation = (CityRelation) getCompany().getRegionRelation(answer.coords);
 		//cityRelation.setContract(answer.contract);
@@ -109,8 +104,17 @@ public class ClientGame extends Game {
 	
 	public void nextRound() {
 		incrementRound();
+		company.optimizePowerStations();
 	}
 
+	public boolean isEnoughResourcesAvailable() {
+		return company.isEnoughResourcesAvailable();
+	}
+
+	public double getSuperflousEnergy() {
+		return company.getSuperflousEnergy();
+	}
+	
 	public void finishRound() {
 		company.finishRound();
 	}

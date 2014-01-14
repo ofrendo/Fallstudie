@@ -207,12 +207,6 @@ public class Optimizer {
 		//Do this until only positive last row
 		return iterate(matrixWrapper);
 	}
-	
-	
-	
-	
-	
-	
-	
+
 	
 }

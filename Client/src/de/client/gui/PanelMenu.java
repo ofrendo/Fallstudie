@@ -85,7 +85,7 @@ public class PanelMenu extends JPanel {
 			buttonReady.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					Controller.getInstance().sendReady(true);
+					Controller.getInstance().checkAndSendReady();
 					buttonReady.setEnabled(false);
 				}
 			});

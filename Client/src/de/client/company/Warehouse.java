@@ -13,6 +13,9 @@ public class Warehouse extends Department {
 	
 	public Warehouse(Company company){
 		super("Lagerhaus", 0, company);
+		addWare(ResourceType.COAL, 0);
+		addWare(ResourceType.GAS, 0);
+		addWare(ResourceType.URANIUM, 0);
 	}
 	
 	public void addWare(ResourceType resourceType, double amount){

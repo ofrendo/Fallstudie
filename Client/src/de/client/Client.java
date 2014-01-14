@@ -80,10 +80,6 @@ public class Client extends Thread {
 		clientGame.finishRound();
 		sendMessage(new MessageReady(ready));
 	}
-	public boolean isRoundFinishable()
-	{
-		return clientGame.getCompany().isRoundFinishable();
-	}
 	
 	public void setReady(boolean ready) {
 		clientGame.ownPlayer.ready = ready;
@@ -125,6 +121,8 @@ public class Client extends Thread {
 				break;
 			case MAP_UPDATE:
 				Map newMap = (Map) message.getValue();
+				clientGame.ownPlayer.ready = false;
+				clientGame.setMap(newMap);
 				if (clientGame.gamePhase == GamePhase.PLAYERS_JOINING) {
 					clientGame.nextGamePhase();
 					Controller.getInstance().initGame(newMap);
@@ -133,8 +131,6 @@ public class Client extends Thread {
 					clientGame.nextRound();
 					Controller.getInstance().nextRound(newMap);
 				}
-				clientGame.ownPlayer.ready = false;
-				clientGame.setMap(newMap);
 				break;
 			/*case CONTRACT_REQUEST_ANSWER:
 				answer = (ContractRequestAnswer) message.getValue();
