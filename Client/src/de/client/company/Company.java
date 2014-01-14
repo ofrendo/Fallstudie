@@ -66,19 +66,15 @@ public class Company {
 	
 	public ArrayList<Contract> getContracts() {
 		ArrayList<Contract> contracts = new ArrayList<Contract>();
-		for (Region region : client.getClientGame().getMap().getRegions()) {
-			if (region instanceof CityRegion) {
-				CityRegion cityRegion = (CityRegion) region;
-				Contract contract = cityRegion.getPlayerContract(client.getClientGame().getPlayer());
-				if (contract != null) 
-					contracts.add(contract);
+		for (RegionRelation relation : regionRelations) {
+			if (relation instanceof CityRelation) {
+				CityRelation cityRelation = (CityRelation) relation;
+				if (cityRelation.getContract() != null) 
+					contracts.add(cityRelation.getContract());
 			}
+			
 		}
 		return contracts;
-	}
-	
-	public Contract[] getContractsArray() {
-		return getContracts().toArray(new Contract[0]);
 	}
 	
 	public ArrayList<RegionRelation> getRegionRelations() {
@@ -107,7 +103,7 @@ public class Company {
 		return powerStations.toArray(new PowerStation[0]);
 	}
 	
-	/*public CityRelation[] getCityRelationsWithContract() {
+	public CityRelation[] getCityRelationsWithContract() {
 		ArrayList<CityRelation> cityRelations = new ArrayList<CityRelation>();
 		for (RegionRelation relation : regionRelations) {
 			if (relation instanceof CityRelation) {
@@ -121,7 +117,7 @@ public class Company {
 		}
 		
 		return cityRelations.toArray(new CityRelation[0]);
-	}*/
+	}
 	
 	public boolean isPowerStationInRange(CityRelation cityRelation) {
 		for (RegionRelation regionRelation : getRegionRelations()) {
