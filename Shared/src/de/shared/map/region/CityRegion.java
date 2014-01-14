@@ -58,7 +58,6 @@ public class CityRegion extends Region {
 			}
 		}
 		contracts.remove(contractToRemove);
-		System.out.println(contracts.size());
 	}
 	
 	public Contract getPlayerContract(Player player) {
