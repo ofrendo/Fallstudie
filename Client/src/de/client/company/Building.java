@@ -42,6 +42,9 @@ public abstract class Building extends Investment {
 	
 	public void nextRound() {
 		decrementBuildingTimeLeft();	
+	}
+	
+	public void nextYear(){
 		performDepreciation();
 	}
 	

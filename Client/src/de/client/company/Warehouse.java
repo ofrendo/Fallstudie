@@ -8,9 +8,11 @@ import de.shared.map.region.ResourceType;
 public class Warehouse extends Department {
 	
 	private ArrayList<Ware> ware = new ArrayList<Ware>();
+	private double lastYearStoredValue = 0;
+	private double inventoryChange = 0;
 	
-	public Warehouse(){
-		super("Lagerhaus", 0);
+	public Warehouse(Company company){
+		super("Lagerhaus", 0, company);
 	}
 	
 	public void addWare(ResourceType resourceType, double amount){
@@ -41,14 +43,45 @@ public class Warehouse extends Department {
 		return null;
 	}
 	
+	public double getInventoryChange(){	// for the profit and loss calculation
+		return inventoryChange;
+	}
+	
+	public double getStoredValue(){
+		double storedValue = 0;
+		for(Ware tmpWare: ware){
+			switch (tmpWare.getResourceType().name()) {
+			case "COAL":
+				storedValue += tmpWare.getAmount() * Constants.COST_COAL;
+				break;
+			case "GAS":
+				storedValue += tmpWare.getAmount() * Constants.COST_GAS;
+				break;
+			case "URANIUM":
+				storedValue += tmpWare.getAmount() * Constants.COST_URANIUM;
+				break;
+			default:
+				break;
+			}
+		}
+		return storedValue;
+	}
+	
 	@Override
-	public void calculateCosts() {
+	public void nextRound() {
+		// recalculate costs
 		// assumption: every ware produces the same costs for storing
 		double storedAmount = 0;
 		for(Ware tmpWare: ware){
 			storedAmount += tmpWare.getAmount();
 		}
 		this.setCosts(storedAmount * Constants.STORING_COSTS);
+	}
+	
+	public void nextYear(){
+		// recalc inventoryChange
+		inventoryChange = lastYearStoredValue - getStoredValue();
+		lastYearStoredValue = getStoredValue();
 	}
 
 }

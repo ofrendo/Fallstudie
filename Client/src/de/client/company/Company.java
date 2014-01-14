@@ -24,16 +24,22 @@ public class Company {
 	private double money;
 	private Client client;
 	private Warehouse warehouse;
+	private Finances finances;
 
 	public Company(String companyName, Client client) {
 		this.companyName = companyName;
 		this.money = Constants.START_MONEY;
 		this.client = client;
-		this.warehouse = new Warehouse();
+		this.warehouse = new Warehouse(this);
+		this.finances = new Finances(this);
 	}
 	
 	public Warehouse getWarehouse(){
 		return this.warehouse;
+	}
+	
+	public Finances getFinances(){
+		return this.finances;
 	}
 	
 	public void initRelations(ArrayList<Region> regions) {
@@ -81,6 +87,10 @@ public class Company {
 	
 	public double getMoney() {
 		return money;
+	}
+	
+	public void setMoney(double money){
+		this.money = money;
 	}
 	
 	public PowerStation[] getPowerStations() {
@@ -185,9 +195,25 @@ public class Company {
 		production = getResourceProduction(ResourceType.GAS, true);
 		warehouse.addWare(ResourceType.GAS, production);
 		//System.out.println(production);
+		
 		//handle energy consumption
+		
+		// handle warehouse
+		warehouse.nextRound();
+		// handle finances
+		finances.nextRound();
+		
+		// after 4 quarters perform nextYear methods
+		if(client.getClientGame().getRound() % 4 == 3){
+			for (Building building : buildings) {
+				building.nextYear();
+			}
+			
+			warehouse.nextYear();
+			finances.nextYear();
+		}
 	}
-
+	
 	private double getResourceProduction(ResourceType resourceType, boolean finishRound) {
 		
 		double productionSum = 0;
