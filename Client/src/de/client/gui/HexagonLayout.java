@@ -5,10 +5,18 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Insets;
 import java.awt.LayoutManager;
+import java.util.ArrayList;
+import java.util.HashMap;
 
+import de.client.company.PowerStation;
+import de.client.company.PowerStationRelation;
+import de.client.company.ResourceRelation;
 import de.shared.map.generate.MapType;
 import de.shared.map.generate.MapTypeHexagon;
 import de.shared.map.generate.MapTypeRect;
+import de.shared.map.region.CityRegion;
+import de.shared.map.region.Coords;
+import de.shared.map.region.ResourceRegion;
 
 /**
  * 
@@ -280,11 +288,71 @@ public class HexagonLayout implements LayoutManager {
 		    x = 0;
 		}
 		y = 0;
+		
 	
+		//Draw power station relations
+		//Nothing selected: Show ALL
+		//City selected: Show relations to city
+		//PowerStation selected: Show relations from PowerStation
+		//anything else: Show none
+		
+		//In loop: compare c.coords to all hashmap coords
+		//if in it: draw from there to all coords in arraylist
+		HashMap<Coords, ArrayList<Coords>> connections = new HashMap<Coords, ArrayList<Coords>>();
+		
+		HexagonButton lastHexButton = Controller.getInstance().lastHexButton;
+		if (lastHexButton == null) { //Nothing selected, show all connections
+			
+			for (PowerStation powerStation : Controller.getInstance().getCompany().getPowerStations()) {
+				ArrayList<Coords> thisPowerStationRelations = new ArrayList<Coords>();
+				for (PowerStationRelation psRelation : powerStation.getPowerStationRelations()) {
+					if (psRelation.partPowerStationProduction > 0) {
+						thisPowerStationRelations.add(psRelation.coords);
+					}
+				}
+				if (thisPowerStationRelations.size() > 0) 
+					connections.put(powerStation.coords, thisPowerStationRelations);
+			}
+			
+		}
+		else if (lastHexButton.getRegion() instanceof CityRegion) {
+			//City selected, show all connections TO this city
+			CityRegion cityRegion = (CityRegion) lastHexButton.getRegion();
+			for (PowerStation powerStation : Controller.getInstance().getCompany().getPowerStations()) {
+				
+				ArrayList<Coords> thisPowerStationRelations = new ArrayList<Coords>();
+				for (PowerStationRelation psRelation : powerStation.getPowerStationRelations()) {
+					if (psRelation.partPowerStationProduction > 0 && psRelation.coords.equals(cityRegion.coords)) {
+						thisPowerStationRelations.add(psRelation.coords);
+					}
+				}
+				if (thisPowerStationRelations.size() > 0) 
+					connections.put(powerStation.coords, thisPowerStationRelations);
+			}
+			
+		}
+		else if (lastHexButton.getRegion() instanceof ResourceRegion) {
+			ResourceRegion resourceRegion = (ResourceRegion) lastHexButton.getRegion();
+			ResourceRelation resourceRelation = (ResourceRelation) Controller.getInstance()
+						.getCompany().getRegionRelation(resourceRegion.coords);
+			
+			
+			if (resourceRelation.powerStation != null) {
+				ArrayList<Coords> thisPowerStationRelations = new ArrayList<Coords>();
+				for (PowerStationRelation psRelation : resourceRelation.powerStation.getPowerStationRelations()) {
+					if (psRelation.partPowerStationProduction > 0) {
+						thisPowerStationRelations.add(psRelation.coords);
+					}
+				}
+				connections.put(resourceRelation.powerStation.coords, thisPowerStationRelations);
+			}
+		}
+		
+		
 		int buttonsPlaced = 0;
 		int buttonsPlacedCurrentRow = 0;
 		int row = 0;
-		int rowLength;
+		int rowLength = 0;
 		for (Component c : parent.getComponents()) {
 			//int rowLength;
 			if (mapType instanceof MapTypeRect) {
@@ -307,12 +375,12 @@ public class HexagonLayout implements LayoutManager {
 			}
 			else {
 				rowLength = ((MapTypeHexagon) mapType).getAmountTilesForRow(row);
-				
+
 				if (buttonsPlacedCurrentRow % rowLength == 0 && buttonsPlaced != 0) {
 					row ++;
 					buttonsPlacedCurrentRow = 0;
 				}
-				smallRow = (row % 2 == 0); 
+				//smallRow = (row % 2 == 0); 
 				
 				int longestRowIndex = ((MapTypeHexagon) mapType).getLongestRowIndex();
 				
@@ -341,6 +409,37 @@ public class HexagonLayout implements LayoutManager {
 			
 			buttonsPlaced++;
 		}
+		
+		ArrayList<HexagonButtonLine> lines = new ArrayList<HexagonButtonLine>();
+		for (Component c : parent.getComponents()) {
+			
+			HexagonButton hexButton = (HexagonButton) c;
+			Coords currentCoords = hexButton.getRegion().coords;
+			for (java.util.Map.Entry<Coords, ArrayList<Coords>> entry : connections.entrySet()) {
+				
+				if (entry.getKey().equals(currentCoords)) {
+					
+					for (Component otherComponent : parent.getComponents()) {
+						HexagonButton otherHexButton = (HexagonButton) otherComponent;
+						Coords otherCoords = otherHexButton.getRegion().coords;
+						
+						for (Coords potentialOtherCoords : entry.getValue()) {
+							if (otherCoords.equals(potentialOtherCoords)) {
+								//NOW DRAW A LINE
+								int x1 = hexButton.getX() + boxWidth/2;
+								int y1 = hexButton.getY() + boxHeight/2;
+								int x2 = otherHexButton.getX() + boxWidth/2;
+								int y2 = otherHexButton.getY() + boxHeight/2;
+								lines.add(new HexagonButtonLine(x1, y1, x2, y2));
+							}
+						}
+					}
+					
+				}
+			}
+		}
+		
+		Controller.getInstance().getFrame().getPanelMain(null).getPanelMap().setConnections(lines);
 		
 		// Laying out each of the components in the container
 		/*for (Component c : parent.getComponents()) {

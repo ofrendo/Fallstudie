@@ -118,7 +118,7 @@ public class Controller {
 			}
 			
 			message += "</table></html>";
-			System.out.println(message);
+
 			Object[] options = {
 					"Energie dazukaufen",
 			        "Vertrag kündigen",
@@ -143,11 +143,14 @@ public class Controller {
 				
 			}
 			
+			
+			//MIGHT HAVE TO SELL SUPERFLOUS ENERGY HERE
 		}
 		
 		
 		else {
 			//No problems
+			frame.getPanelMenu().getButtonReady().setEnabled(false);
 			sendReady(true);
 		}
 	}
@@ -165,11 +168,15 @@ public class Controller {
 	}
 	
 	public void handleMapPanelClick() {
+		this.lastHexButton = null;
+		frame.getPanelMain(null).getPanelMap().refresh();
 		frame.getPanelMain(null).getPanelDetails().setContentEmpty();
 		frame.getPanelMain(null).getPanelDetails().refresh();
 	}
 	
 	public void handleMapTileClick(HexagonButton hexButton) {
+		this.lastHexButton = hexButton;
+		frame.getPanelMain(null).getPanelMap().refresh();
 		frame.getPanelMain(null).getPanelDetails().setRegionContent(hexButton);
 	}
 	
@@ -261,4 +268,13 @@ public class Controller {
 	public Frame getFrame() {
 		return frame;
 	}
+
+	//TEST METHODS for unit testing, to remove annoying popups
+	public void setUnitTestMode() {
+		if (frameConnect != null)
+			frameConnect.setVisible(false);
+		if (frame != null)
+			frame.setVisible(false);
+	}
+	
 }

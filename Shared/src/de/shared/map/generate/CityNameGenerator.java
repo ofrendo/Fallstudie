@@ -58,6 +58,10 @@ public class CityNameGenerator {
 		
 		return names[indexState][indexCity++];
 	}
+
+	public static void resetIndex() {
+		indexCity = 0;
+	}
 	
 }
 

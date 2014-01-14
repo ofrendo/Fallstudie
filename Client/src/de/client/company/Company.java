@@ -185,7 +185,7 @@ public class Company {
 	}
 	
 	public void addPowerStation(Coords coords, ResourceType resourceType) {
-		PowerStation powerStation = new PowerStation(resourceType);
+		PowerStation powerStation = new PowerStation(coords, resourceType);
 		
 		//Add ps to resourcerelation
 		ResourceRelation resourceRelation = (ResourceRelation) this.getRegionRelation(coords);
@@ -263,7 +263,7 @@ public class Company {
 				
 				PowerStation ps = (PowerStation) building;
 				if (building.isBuilt() && ps.getResourceType() == resourceType) {
-					consumptionSum += ps.getProduction();
+					consumptionSum += ps.getConsumption();
 					
 				}
 			}
@@ -333,11 +333,11 @@ public class Company {
 	public boolean isEnoughResourcesAvailable() {
 		// if not enough resources are available
 		if (( getResourceProduction(ResourceType.COAL, false) + warehouse.getWare(ResourceType.COAL).getAmount() ) 
-				> getResourceConsumption(ResourceType.COAL)   || 
+				< getResourceConsumption(ResourceType.COAL)   || 
 			( getResourceProduction(ResourceType.URANIUM, false) + warehouse.getWare(ResourceType.URANIUM).getAmount() ) 
-				> getResourceConsumption(ResourceType.URANIUM)   || 
+				< getResourceConsumption(ResourceType.URANIUM)   || 
 			( getResourceProduction(ResourceType.GAS, false) + warehouse.getWare(ResourceType.GAS).getAmount() ) 
-				> getResourceConsumption(ResourceType.GAS)) {
+				< getResourceConsumption(ResourceType.GAS)) {
 			return false;
 		}
 		return true;

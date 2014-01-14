@@ -42,12 +42,16 @@ public enum MapTypeHexagon implements MapType {
 				return hexagonLength;
 			
 			int middleRowIndex = getAmountRows() / 2;
+			int maxRowIndex = getAmountRows() - 1;
 			
 			if (rowIndex <= middleRowIndex) {
 				return 1 + getAmountTilesForRow(rowIndex-1);
 			}
-			else {
+			else if (rowIndex <= maxRowIndex) {
 				return -1 + getAmountTilesForRow(rowIndex-1);
+			}
+			else {
+				return getAmountTilesForRow(maxRowIndex);
 			}
 		}
 		

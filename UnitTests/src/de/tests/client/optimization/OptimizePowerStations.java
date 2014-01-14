@@ -25,6 +25,7 @@ public class OptimizePowerStations {
 		
 		//Check the following things:
 		//Contract energy supplied
+			
 		Contract contract1 = contracts[0];
 		Assert.assertEquals(50, contract1.amountEnergySupplied, 0);
 		

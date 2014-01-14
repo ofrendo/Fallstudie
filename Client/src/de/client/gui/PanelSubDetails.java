@@ -230,8 +230,8 @@ public class PanelSubDetails extends JPanel {
 						double price = Double.parseDouble(textFieldPrice.getText()); 
 						
 						if (price > 0 && maxCustomers > 0) {
-							Controller.getInstance().lastHexButton = hexButton;
 							Controller.getInstance().getClientGame().requestContract((CityRegion) region, maxCustomers, price);
+							buttonRequestContract.setEnabled(false);
 						}
 						else {
 							JOptionPane.showMessageDialog(null, "Bitte Zahlen überprüfen.");
