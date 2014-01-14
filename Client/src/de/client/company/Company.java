@@ -304,4 +304,17 @@ public class Company {
 		
 	}
 
+	public boolean isRoundFinishable() {
+		// if not enough resources are available
+		if (( getResourceProduction(ResourceType.COAL, false) + warehouse.getWare(ResourceType.COAL).getAmount() ) 
+				> getResourceConsumption(ResourceType.COAL)   || 
+			( getResourceProduction(ResourceType.URANIUM, false) + warehouse.getWare(ResourceType.URANIUM).getAmount() ) 
+				> getResourceConsumption(ResourceType.URANIUM)   || 
+			( getResourceProduction(ResourceType.GAS, false) + warehouse.getWare(ResourceType.GAS).getAmount() ) 
+				> getResourceConsumption(ResourceType.GAS)) {
+			return false;
+		}
+		return true;
+	}
+
 }

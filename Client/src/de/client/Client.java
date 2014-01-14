@@ -80,6 +80,10 @@ public class Client extends Thread {
 		clientGame.finishRound();
 		sendMessage(new MessageReady(ready));
 	}
+	public boolean isRoundFinishable()
+	{
+		return clientGame.getCompany().isRoundFinishable();
+	}
 	
 	public void setReady(boolean ready) {
 		clientGame.ownPlayer.ready = ready;
