@@ -182,7 +182,7 @@ public class Map implements Serializable {
 			else {
 				contractsToRemove.add(contract);
 			}
-			/*int freeCustomers = cityRegion.getFreeCustomers();
+			/*int freeCustomers = cityRegion.getFreeCustomers()
 			
 			int averagePriceCustomers = (int) (freeCustomers * request.awareness * request.popularity);
 			
