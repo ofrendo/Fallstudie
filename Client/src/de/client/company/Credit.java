@@ -27,7 +27,11 @@ public class Credit {
 	public void payQuarter(){
 		lastInterest = amountLeft * creditType.rate;
 		double repayment = creditType.amount / creditType.runtime;
+		if(repayment > amountLeft){
+			repayment = amountLeft;
+		}
 		double totalPayment = lastInterest + repayment;
 		company.setMoney(company.getMoney() - totalPayment);
+		amountLeft -= repayment;
 	}
 }
