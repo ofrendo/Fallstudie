@@ -20,6 +20,7 @@ public class TestObjectFactory {
 	
 	public PowerStation[] powerStations;
 	public CityRelation[] cityRelations;
+	public Contract[] contracts;
 	
 	public void init() {
 		double city1Demand = 50;
@@ -33,16 +34,21 @@ public class TestObjectFactory {
 		//double power3Prod = 40;
 		
 		//Make cityrelations
-		CityRelation cityRelation1 = new CityRelation(new Coords(0, 0));
-		Contract contract1 = new Contract(0, city1Demand, city1Price);
-		cityRelation1.setContract(contract1);
+		Coords coords1 = new Coords(0, 0);
+		CityRelation cityRelation1 = new CityRelation(coords1);
+		Contract contract1 = new Contract(null, coords1, 0, city1Demand, city1Price);
+		//cityRelation1.setContract(contract1);
 		
-		CityRelation cityRelation2 = new CityRelation(new Coords(1, 1));
-		Contract contract2 = new Contract(0, city2Demand, city2Price);
-		cityRelation2.setContract(contract2);
+		Coords coords2 = new Coords(1, 1);
+		CityRelation cityRelation2 = new CityRelation(coords2);
+		Contract contract2 = new Contract(null, coords2, 0, city2Demand, city2Price);
+		//cityRelation2.setContract(contract2);
 		
 		CityRelation[] cityRelations = {cityRelation1, cityRelation2};
 		this.cityRelations = cityRelations;
+		
+		Contract[] contracts = { contract1, contract2 };
+		this.contracts = contracts;
 		
 		//Make powerstations
 		PowerStation powerStation1 = new PowerStation(ResourceType.TEST_30);
@@ -62,6 +68,7 @@ public class TestObjectFactory {
 	public void destroyData() {
 		powerStations = null;
 		cityRelations = null;
+		contracts = null;
 	}
 	
 }

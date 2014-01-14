@@ -7,7 +7,6 @@ import org.junit.Test;
 
 import de.client.company.PowerStation;
 import de.client.optimization.Optimizer;
-import de.shared.map.relation.CityRelation;
 import de.shared.map.relation.Contract;
 
 public class OptimizePowerStations {
@@ -20,16 +19,16 @@ public class OptimizePowerStations {
 	@Test
 	public void test() {
 		PowerStation[] ps = TestObjectFactory.getInstance().powerStations;
-		CityRelation[] cs = TestObjectFactory.getInstance().cityRelations;
+		Contract[] contracts = TestObjectFactory.getInstance().contracts;
 		
-		Optimizer.optimizePowerStations(ps, cs);
+		Optimizer.optimizePowerStations(ps, contracts);
 		
 		//Check the following things:
 		//Contract energy supplied
-		Contract contract1 = cs[0].getContract();
+		Contract contract1 = contracts[0];
 		Assert.assertEquals(50, contract1.amountEnergySupplied, 0);
 		
-		Contract contract2 = cs[1].getContract();
+		Contract contract2 = contracts[1];
 		Assert.assertEquals(40, contract2.amountEnergySupplied, 0);
 		
 	}

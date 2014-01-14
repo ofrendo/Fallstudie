@@ -16,7 +16,6 @@ import de.shared.map.region.ResourceRegionStatus;
 import de.shared.map.region.ResourceType;
 import de.shared.map.relation.Contract;
 import de.shared.map.relation.ContractRequest;
-import de.shared.map.relation.ContractRequestAnswer;
 import de.shared.message.server.MessagePlayerReadyChange;
 
 public class ServerGame extends Game {
@@ -34,8 +33,8 @@ public class ServerGame extends Game {
 	}
 	
 	public synchronized void pingPlayerReady() {
-		isPinging = true;
-		System.out.println("[SERVER] A player is ready.");
+		//isPinging = true;
+		System.out.println("[SERVER] Pinging players ready...");
 		Server.getInstance().sendBroadcastMessage(new MessagePlayerReadyChange(players));
 		
 		if (this.isAllPlayersReady() && (players.size() >= minimumPlayers || gamePhase == GamePhase.GAME_STARTED)) {
@@ -48,7 +47,7 @@ public class ServerGame extends Game {
 				finishRound();
 			}
 		}
-		isPinging = false;
+		//isPinging = false;
 	}
 	
 	public synchronized void removePlayer(Player player) {
@@ -133,12 +132,16 @@ public class ServerGame extends Game {
 		currentBids.add(regionBid);
 	}
 	
-	public Contract calculateContract(ContractRequest request) {
+	public void calculateContract(ContractRequest request) {
+		//Calculates the contract for the given request - algorithm may modify other contracts
+		
 		CityRegion cityRegion = (CityRegion) getMap().getRegion(request.coords);
 		int freeCustomers = cityRegion.getFreeCustomers();
 		
 		int averagePriceCustomers = (int) (freeCustomers * request.awareness * request.popularity);
-		double averagePrice = map.getEnergyExchange().getCurrentEnergyPrice();
+		
+		double energyExchangePrice = map.getEnergyExchange().getCurrentEnergyPrice();
+		double averagePrice = cityRegion.getAverageEnergyPrice(energyExchangePrice);
 		
 		//int customersForClient = (maxAvailableCustomers > request.maxCustomers) ? request.maxCustomers : maxAvailableCustomers;
 		int customersForClient = customerFunction(freeCustomers, averagePriceCustomers, averagePrice, request.amountMoneyPerCustomer);
@@ -147,10 +150,15 @@ public class ServerGame extends Game {
 			customersForClient = request.maxCustomers;
 		
 		double cityDemand = customersForClient * getMap().getEnergyFactor();
-		double amountMoneyPerCustomer = request.amountMoneyPerCustomer; //CHANGE THIS, atm you could set it to whatever price you wanted
+		double amountMoneyPerCustomer = request.amountMoneyPerCustomer; 
 		
-		Contract contract = new Contract(customersForClient, cityDemand, amountMoneyPerCustomer);
-		return contract;
+		Contract newContract = null;
+		if (customersForClient > 0) {
+			newContract = new Contract(request.player, request.coords, customersForClient, cityDemand, amountMoneyPerCustomer);
+		}
+		if (newContract != null) {
+			cityRegion.addContract(newContract);
+		}
 	}
 
 	private int customerFunction(int freeCustomers, int averagePriceCustomers, double averagePrice, double price) {
@@ -171,14 +179,14 @@ public class ServerGame extends Game {
 		return result;
 	}
 	
-	public synchronized void confirmContract(ContractRequestAnswer confirmation) {
+	/*public synchronized void confirmContract(ContractRequestAnswer confirmation) {
 		CityRegion cityRegion = (CityRegion) getMap().getRegion(confirmation.coords);
 		cityRegion.setFreeCustomers(cityRegion.getFreeCustomers() - confirmation.contract.amountCustomer);
-	}
+	}*/
 	
-	public synchronized void cancelContract(ContractRequestAnswer cancellation) {
-		CityRegion cityRegion = (CityRegion) getMap().getRegion(cancellation.coords);
-		cityRegion.setFreeCustomers(cityRegion.getFreeCustomers() + cancellation.contract.amountCustomer);
+	public synchronized void cancelContract(Contract cancelledContract) {
+		CityRegion cityRegion = (CityRegion) getMap().getRegion(cancelledContract.coords);
+		cityRegion.removeContract(cancelledContract);
 	}
 	
 	public synchronized void finishBuilding(Coords coords, ResourceRegionStatus status)

@@ -10,8 +10,6 @@ import de.shared.map.region.FinishedBuilding;
 import de.shared.map.region.ResourceRegionBid;
 import de.shared.map.relation.Contract;
 import de.shared.map.relation.ContractRequest;
-import de.shared.map.relation.ContractRequestAnswer;
-import de.shared.map.relation.MessageContractRequestAnswer;
 import de.shared.message.Message;
 import de.shared.message.MessageTypeToServer;
 import de.shared.message.server.MessageInitConfirm;
@@ -98,7 +96,8 @@ public class Connection extends Thread {
 				case READY:
 					//need to do it like this - need to wait until server has finished pinging
 					while (Server.getInstance().getServerGame().isPinging == true);
-
+					
+					System.out.println("[SERVER] A player is ready.");
 					boolean ready = (boolean) message.getValue();
 					
 					player.ready = ready;
@@ -115,15 +114,15 @@ public class Connection extends Thread {
 				case REQUEST_CONTRACT: 
 					//Do contract calculations
 					ContractRequest request = (ContractRequest) message.getValue();
-					Contract contract = Server.getInstance().getServerGame().calculateContract(request);
-					sendMessage(new MessageContractRequestAnswer(new ContractRequestAnswer(request.coords, contract)));
+					Server.getInstance().getServerGame().calculateContract(request);
+					//sendMessage(new MessageContractRequestAnswer(new ContractRequestAnswer(request.coords, contract)));
 					break;
-				case CONFIRM_CONTRACT:
+				/*case CONFIRM_CONTRACT:
 					ContractRequestAnswer confirmation = (ContractRequestAnswer) message.getValue();
 					Server.getInstance().getServerGame().confirmContract(confirmation);
-					break;
+					break;*/
 				case CANCEL_CONTRACT:
-					ContractRequestAnswer cancellation = (ContractRequestAnswer) message.getValue();
+					Contract cancellation = (Contract) message.getValue();
 					Server.getInstance().getServerGame().cancelContract(cancellation);
 					break;
 				case BUILDING_FINISHED:
@@ -141,7 +140,7 @@ public class Connection extends Thread {
 			catch (Exception e) {
 				//Client disconnected
 				Server.getInstance().removeConnection(this);
-				//e.printStackTrace();
+				e.printStackTrace();
 				/*try {
 					if (in != null)
 						in.close();
@@ -162,19 +161,11 @@ public class Connection extends Thread {
 		handleMessage();
 	}
 
-	private boolean sending = false;
-	
-	public void sendMessage(Message message) {
-		while (sending == true);		
-		
+	public synchronized void sendMessage(Message message) {
 		try {
-			sending = true;
-			
 			out.writeObject(message);
 			out.flush();
 			out.reset();
-			
-			sending = false;
 		} catch (Exception e) {
 			System.out.println("[SERVER] Error sending a message to client:");
 			System.out.println("[SERVER] Type: " + message.getType());

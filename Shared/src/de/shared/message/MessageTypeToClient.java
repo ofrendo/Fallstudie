@@ -6,6 +6,5 @@ public enum MessageTypeToClient implements MessageType {
 	INIT_REJECT, 
 	INIT_CONFIRM,
 	PLAYER_READY_CHANGE,
-	MAP_UPDATE,
-	CONTRACT_REQUEST_ANSWER;
+	MAP_UPDATE;
 }

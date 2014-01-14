@@ -8,7 +8,6 @@ import de.client.gui.Controller;
 import de.shared.game.GamePhase;
 import de.shared.game.Player;
 import de.shared.map.Map;
-import de.shared.map.relation.ContractRequestAnswer;
 import de.shared.message.Message;
 import de.shared.message.MessageTypeToClient;
 import de.shared.message.client.MessageInit;
@@ -55,10 +54,11 @@ public class Client extends Thread {
 		return this.clientGame;
 	}
 	
-	public void sendMessage(Message message) {
+	public synchronized void sendMessage(Message message) {
 		try {
 			out.writeObject(message);
 			out.flush();
+			out.reset();
 			/*if (socket == null) {
 				throw new Exception("Keine Serververbindung aufgebaut");
 			}
@@ -79,7 +79,6 @@ public class Client extends Thread {
 	public void sendReadyMessage(boolean ready) {
 		clientGame.finishRound();
 		sendMessage(new MessageReady(ready));
-		//handleMessage();
 	}
 	
 	public void setReady(boolean ready) {
@@ -91,15 +90,15 @@ public class Client extends Thread {
 		boolean continueListening = true;
 		Message message = null;
 		try	{
-			System.out.println("[CLIENT] Listening for message from server...");
+			System.out.println("[CLIENT " + clientGame.ownPlayer.playerName + "] Listening for message from server...");
 			message = (Message) in.readObject();
 			MessageTypeToClient type = (MessageTypeToClient) message.getType();
-			System.out.println("[CLIENT] Recieved " + type + " message from server.");
+			System.out.println("[CLIENT " + clientGame.ownPlayer.playerName + "] Recieved " + type + " message from server.");
 			
 			switch (type) {
 			case RESET:
 				int amountPlayer = (int) message.getValue();
-				System.out.println("[CLIENT] A new player has joined the lobby. " + amountPlayer+" Spieler sind nun im Spiel.");
+				System.out.println("[CLIENT " + clientGame.ownPlayer.playerName + "] A new player has joined the lobby. " + amountPlayer+" Spieler sind nun im Spiel.");
 				break;
 			case INIT_REJECT:
 				Controller.getInstance().triggerInitRejected();
@@ -133,15 +132,16 @@ public class Client extends Thread {
 				clientGame.ownPlayer.ready = false;
 				clientGame.setMap(newMap);
 				break;
-			case CONTRACT_REQUEST_ANSWER:
+			/*case CONTRACT_REQUEST_ANSWER:
 				answer = (ContractRequestAnswer) message.getValue();
 				//SHOW IN GUI HERE
 				Controller.getInstance().showContractRequestAnswer(answer);
-				break;
+				break;*/
 			default:
 				break;
 			}
 		} catch (Exception e) {
+			System.out.println("[CLIENT " + clientGame.ownPlayer.playerName + "] Error recieving message from server. Disconnected.");
 			e.printStackTrace();
 			System.exit(0);
 		}
@@ -150,8 +150,8 @@ public class Client extends Thread {
 	}
 	
 	//TEST METHOD
-	private ContractRequestAnswer answer;
+	/*private ContractRequestAnswer answer;
 	public ContractRequestAnswer getLatestContractAnswer() {
 		return answer;
-	}
+	}*/
 }

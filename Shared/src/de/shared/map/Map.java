@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import de.shared.map.generate.MapType;
 import de.shared.map.generate.RegionGenerator;
+import de.shared.map.region.CityRegion;
 import de.shared.map.region.Coords;
 import de.shared.map.region.Region;
 
@@ -57,6 +58,14 @@ public class Map implements Serializable {
 		return regions;
 	}
 
+	public ArrayList<CityRegion> getCityRegions() {
+		ArrayList<CityRegion> cityRegions = new ArrayList<CityRegion>();
+		for (Region region : regions) {
+			if (region instanceof CityRegion) 
+				cityRegions.add( (CityRegion) region);
+		}
+		return cityRegions;
+	}
 
 	public EnergyExchange getEnergyExchange() {
 		return energyExchange;

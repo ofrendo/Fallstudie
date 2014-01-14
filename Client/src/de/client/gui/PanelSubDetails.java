@@ -19,7 +19,7 @@ import de.client.company.ResourceRelation;
 import de.shared.map.region.CityRegion;
 import de.shared.map.region.Region;
 import de.shared.map.region.ResourceRegion;
-import de.shared.map.relation.CityRelation;
+import de.shared.map.relation.Contract;
 import de.shared.map.relation.RegionRelation;
 
 public class PanelSubDetails extends JPanel {
@@ -250,8 +250,9 @@ public class PanelSubDetails extends JPanel {
 			buttonCancelContract.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					CityRelation cityRelation = (CityRelation) relation;
-					Controller.getInstance().sendCancelContract(region.coords, cityRelation.getContract(), hexButton);
+					CityRegion cityRegion = (CityRegion) region;
+					Contract c = cityRegion.getPlayerContract(Controller.getInstance().getOwnPlayer());
+					Controller.getInstance().sendCancelContract(c, hexButton);
 					buttonCancelContract.setEnabled(false);
 				}
 			});

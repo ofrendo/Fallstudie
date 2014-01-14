@@ -6,7 +6,8 @@ import de.shared.game.Constants;
 public class CityRelation extends RegionRelation {
 
 	//public CityRelation() { }
-	private Contract contract;
+	//private Contract contract;
+	
 	public double popularity = Constants.START_POPULARTIY;
 	public double awareness = Constants.START_AWARENESS;
 	
@@ -14,12 +15,12 @@ public class CityRelation extends RegionRelation {
 		super(coords);
 	}
 	
-	public Contract getContract() {
+	/*public Contract getContract() {
 		return contract;
 	}
 
 	public void setContract(Contract contract) {
 		this.contract = contract;
-	}
+	}*/
 
 }

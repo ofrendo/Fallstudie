@@ -71,7 +71,7 @@ public class PanelDetails extends JPanel {
 					+ "</tr>"
 					+ "<tr>"
 					+ "<td>Rohstoffmenge:</td>"
-					+ "<td>" + region.resourceAmount + "</td>"
+					+ "<td>" + Strings.fD(region.resourceAmount) + "</td>"
 					+ "</tr>"
 					+ "<tr>"
 					+ "<td>Inhaber:</td>"
@@ -98,7 +98,7 @@ public class PanelDetails extends JPanel {
 					+ "</tr>"
 					+ "<tr>"
 					+ "<td>Rohstoffmenge:</td>"
-					+ "<td>" + region.resourceAmount + "</td>"
+					+ "<td>" + Strings.fD(region.resourceAmount) + "</td>"
 					+ "</tr>"
 					+ "<tr>"
 					+ "<td>Inhaber:</td>"
@@ -131,7 +131,7 @@ public class PanelDetails extends JPanel {
 						+ "</tr>"
 						+ "<tr>"
 						+ "<td>Rohstoffmenge:</td>"
-						+ "<td>" + relation.resourceAmount + "</td>"
+						+ "<td>" + Strings.fD(relation.resourceAmount) + "</td>"
 						+ "</tr>";
 				
 				if (relation.mine == null && !region.resourceType.isRenewable) {
@@ -298,8 +298,9 @@ public class PanelDetails extends JPanel {
 		
 		JLabel labelDetailsHTML;
 		String htmlText;
-		
-		if (relation.getContract() == null) { //no contract with city
+		Contract contract = region.getPlayerContract(Controller.getInstance().getOwnPlayer());
+				
+		if (contract == null) { //no contract with city
 			htmlText = "<html>"
 					+ "<table>"
 					+ "<tr>"
@@ -338,7 +339,6 @@ public class PanelDetails extends JPanel {
 			}
 		}
 		else {  //contract with city
-			Contract contract = relation.getContract();
 			htmlText = "<html><table>"
 					+ "<tr>"
 					+ "<td>Name:</td>"

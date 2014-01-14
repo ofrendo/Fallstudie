@@ -3,19 +3,15 @@ package de.client.gui;
 import java.lang.Thread.State;
 import java.util.ArrayList;
 
-import javax.swing.JOptionPane;
-
 import de.client.Client;
 import de.client.ClientGame;
 import de.client.company.Company;
 import de.client.company.ResourceRelation;
 import de.shared.game.Player;
 import de.shared.map.Map;
-import de.shared.map.region.Coords;
 import de.shared.map.region.Region;
 import de.shared.map.region.ResourceType;
 import de.shared.map.relation.Contract;
-import de.shared.map.relation.ContractRequestAnswer;
 
 
 public class Controller {
@@ -147,7 +143,7 @@ public class Controller {
 		return client.getClientGame();
 	}
 
-	public void showContractRequestAnswer(ContractRequestAnswer answer) {
+	/*public void showContractRequestAnswer(ContractRequestAnswer answer) {
 		Object[] options = {
 				"Vertrag annehmen",
 		        "Vertrag ablehnen"
@@ -183,11 +179,11 @@ public class Controller {
 			client.getClientGame().acceptContract(answer);
 			updatePanelDetails(lastHexButton);
 		}
-	}
+	}*/
 	
-	public void sendCancelContract(Coords coords, Contract contract, HexagonButton hexButton) {
-		getClientGame().cancelContract(coords, contract);
-		updatePanelDetails(hexButton);
+	public void sendCancelContract(Contract contract, HexagonButton hexButton) {
+		getClientGame().cancelContract(contract);
+		//updatePanelDetails(hexButton);
 	}
 
 	

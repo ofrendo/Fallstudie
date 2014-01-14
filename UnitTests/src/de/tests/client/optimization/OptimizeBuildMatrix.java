@@ -8,7 +8,7 @@ import org.junit.Test;
 import de.client.company.PowerStation;
 import de.client.optimization.MatrixWrapper;
 import de.client.optimization.Optimizer;
-import de.shared.map.relation.CityRelation;
+import de.shared.map.relation.Contract;
 
 public class OptimizeBuildMatrix {
 
@@ -20,8 +20,9 @@ public class OptimizeBuildMatrix {
 	@Test
 	public void test() {
 		PowerStation[] ps = TestObjectFactory.getInstance().powerStations;
-		CityRelation[] cs = TestObjectFactory.getInstance().cityRelations;
-		MatrixWrapper testWrapper = Optimizer.buildMatrixWrapper(ps, cs);
+		Contract[] contracts = TestObjectFactory.getInstance().contracts;
+		
+		MatrixWrapper testWrapper = Optimizer.buildMatrixWrapper(ps, contracts);
 		
 		double[][] expectedMatrix = {
 				{1, 0, 0, 0, 1, 0, 0, 0, 0, 1},

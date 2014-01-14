@@ -1,6 +1,6 @@
 package de.shared.message.client;
 
-import de.shared.map.relation.ContractRequestAnswer;
+import de.shared.map.relation.Contract;
 import de.shared.message.Message;
 import de.shared.message.MessageType;
 import de.shared.message.MessageTypeToServer;
@@ -14,15 +14,15 @@ public class MessageContractCancel implements Message {
 		return MessageTypeToServer.CANCEL_CONTRACT;
 	}
 
-	private ContractRequestAnswer cancellation;
+	private Contract contract;
 	
-	public MessageContractCancel(ContractRequestAnswer cancellation) {
-		this.cancellation = cancellation;
+	public MessageContractCancel(Contract contract) {
+		this.contract = contract;
 	}
 	
 	@Override
 	public Object getValue() {
-		return cancellation;
+		return contract;
 	}
 
 }

@@ -13,10 +13,8 @@ import de.shared.map.region.FinishedBuilding;
 import de.shared.map.relation.CityRelation;
 import de.shared.map.relation.Contract;
 import de.shared.map.relation.ContractRequest;
-import de.shared.map.relation.ContractRequestAnswer;
 import de.shared.message.client.MessageBuildingFinished;
 import de.shared.message.client.MessageContractCancel;
-import de.shared.message.client.MessageContractConfirm;
 import de.shared.message.client.MessageRequestContract;
 import de.shared.message.client.MessageResourceRegionBid;
 import de.shared.message.client.MessageStartResourceRegionBidding;
@@ -67,30 +65,35 @@ public class ClientGame extends Game {
 		CityRelation relationToCity = (CityRelation) company.getRegionRelation(cityRegion.coords);
 		double popularity = relationToCity.popularity;
 		double awareness = relationToCity.awareness;
-		ContractRequest request = new ContractRequest(cityRegion.coords, maxCustomers, amountMoneyPerCustomer, popularity, awareness);
+		
+		ContractRequest request = new ContractRequest(ownPlayer, cityRegion.coords, maxCustomers, amountMoneyPerCustomer, popularity, awareness);
 		client.sendMessage(new MessageRequestContract(request));
 	}
 	
-	public void acceptContract(ContractRequestAnswer answer) {
-		CityRelation cityRelation = (CityRelation) getCompany().getRegionRelation(answer.coords);
-		cityRelation.setContract(answer.contract);
+	public void optimizeContracts() {
+		Optimizer.optimizePowerStations(company.getPowerStations(), company.getContractsArray());
+	}
+	
+	/*public void acceptContract(ContractRequestAnswer answer) {
+		//CityRelation cityRelation = (CityRelation) getCompany().getRegionRelation(answer.coords);
+		//cityRelation.setContract(answer.contract);
 
 		confirmContract(answer);
 		
-		Optimizer.optimizePowerStations(company.getPowerStations(), company.getCityRelationsWithContract());
+		
 	}
 	
 	public void confirmContract(ContractRequestAnswer answer) {
 		client.sendMessage(new MessageContractConfirm(answer));
+	}*/
+	
+	public void cancelContract(Contract contract) {
+		client.sendMessage(new MessageContractCancel(contract));
+		
+		//CityRelation relation = (CityRelation) company.getRegionRelation(coords);
+		//relation.setContract(null);
 	}
 	
-	public void cancelContract(Coords coords, Contract contract) {
-		ContractRequestAnswer cancellation = new ContractRequestAnswer(coords, contract);
-		client.sendMessage(new MessageContractCancel(cancellation));
-		
-		CityRelation relation = (CityRelation) company.getRegionRelation(coords);
-		relation.setContract(null);
-	}
 	public void sendFinishBuilding(FinishedBuilding finishedBuilding)
 	{
 		client.sendMessage(new MessageBuildingFinished(finishedBuilding));
@@ -106,13 +109,10 @@ public class ClientGame extends Game {
 	
 	public void nextRound() {
 		incrementRound();
-		//company.nextRound();
 	}
 
 	public void finishRound() {
 		company.finishRound();
-		
-		
 	}
 	
 }

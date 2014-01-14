@@ -2,7 +2,7 @@ package de.client.optimization;
 
 import de.client.company.PowerStation;
 import de.client.company.PowerStationRelation;
-import de.shared.map.relation.CityRelation;
+import de.shared.map.relation.Contract;
 
 /**
  * Optimizes Power Station relations.
@@ -26,12 +26,12 @@ public class Optimizer {
 	 * 
 	 */
 	
-	public static void optimizePowerStations(PowerStation[] powerStations, CityRelation[] cityRelationsWithContract) {
+	public static void optimizePowerStations(PowerStation[] powerStations, Contract[] contracts) {
 		if (powerStations.length == 0) 
 			return;
 		
 		
-		MatrixWrapper matrixWrapper = buildMatrixWrapper(powerStations, cityRelationsWithContract);
+		MatrixWrapper matrixWrapper = buildMatrixWrapper(powerStations, contracts);
 		iterate(matrixWrapper);
 		
 		//each variable in variableUsed that is NOT a string is a powerstationrelation: value is last value in that row
@@ -46,16 +46,16 @@ public class Optimizer {
 		}
 		
 		//Update contract details (how much energy is delivered)
-		for (CityRelation cityRelation : cityRelationsWithContract) {
+		for (Contract contract : contracts) {
 			
 			for (PowerStation powerStation : powerStations) {
 				for (PowerStationRelation powerStationRelation : powerStation.getPowerStationRelations()) {
-					if (cityRelation.compareRegionRelation(powerStationRelation)) { 
-						
-						cityRelation.getContract().amountEnergySupplied += 
+					
+					if (contract.coords.equals(powerStationRelation.coords)) {
+						contract.amountEnergySupplied += 
 								powerStationRelation.partPowerStationProduction * powerStation.getProduction();
-						
 					}
+					
 				}
 			}
 			
@@ -63,9 +63,9 @@ public class Optimizer {
 		
 	}
 	
-	public static MatrixWrapper buildMatrixWrapper(PowerStation[] powerStations, CityRelation[] cityRelations) {
+	public static MatrixWrapper buildMatrixWrapper(PowerStation[] powerStations, Contract[] contracts) {
 		//Aim: Create a matrix that iterate() can solve
-		int anzahlNeben = powerStations.length + cityRelations.length + 1;
+		int anzahlNeben = powerStations.length + contracts.length + 1;
 		
 		int anzahlPowerStationRelations = 0;
 		for (PowerStation powerStation : powerStations) {
@@ -106,19 +106,19 @@ public class Optimizer {
 		//Zweite nebenbedinungen: 
 		//SIGMA kraftwerkoutput * kraftwerkrelation  <= stadtbedarf
 		matrixVarColumn = 0;
-		for (CityRelation cityRelation : cityRelations) {
+		for (Contract contract : contracts) {
 			matrix[matrixRow] = new double[anzahlVariablen];
 			
 			for (PowerStation powerStation : powerStations) {
 				for (PowerStationRelation powerStationRelation : powerStation.getPowerStationRelations()) {
-					if (cityRelation.compareRegionRelation(powerStationRelation)) {
+					if (contract.coords.equals(powerStationRelation.coords)) {
 						matrix[matrixRow][matrixVarColumn] = powerStation.getProduction();
 						matrixVarColumn++;
 					}
 				}
 			}
 			
-			matrix[matrixRow][anzahlVariablen-1] = cityRelation.getContract().amountEnergyNeeded;
+			matrix[matrixRow][anzahlVariablen-1] = contract.amountEnergyNeeded;
 			matrix[matrixRow][matrixAddVarColumn] = 1;
 			matrixAddVarColumn++;
 			matrixRow++;
@@ -127,13 +127,13 @@ public class Optimizer {
 		//Zielfunktion
 		matrixVarColumn = 0;
 		matrix[matrixRow] = new double[anzahlVariablen];
-		for (CityRelation cityRelation : cityRelations) {
+		for (Contract contract : contracts) {
 			for (PowerStation powerStation : powerStations) {
 				for (PowerStationRelation powerStationRelation : powerStation.getPowerStationRelations()) {
-					if (cityRelation.compareRegionRelation(powerStationRelation)) {
+					if (contract.coords.equals(powerStationRelation.coords)) {
 						
 						matrix[matrixRow][matrixVarColumn] = 
-								- cityRelation.getContract().amountMoneyPerCustomer * powerStation.getProduction();
+								- contract.amountMoneyPerCustomer * powerStation.getProduction();
 						
 						matrixVarColumn++;
 					}

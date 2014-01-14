@@ -7,7 +7,6 @@ public enum MessageTypeToServer implements MessageType {
 	START_RESOURCE_REGION_BIDDING,
 	RESOURCE_REGION_BID,
 	REQUEST_CONTRACT, 
-	CONFIRM_CONTRACT,
 	CANCEL_CONTRACT,
 	
 	BUILDING_FINISHED, //Sent when a building has finished
