@@ -26,6 +26,8 @@ public class Balance {
 	}
 	
 	public void nextYear(){
+		// update money
+		money = company.getMoney();
 		// update profit and loss
 		profitAndLoss.nextYear();
 		// update equity

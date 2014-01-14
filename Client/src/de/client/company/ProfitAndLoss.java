@@ -58,6 +58,8 @@ public class ProfitAndLoss {
 		// 15 % Körperschaftssteuer + 3,5 % * Hebesatz Gewerbesteuer (Hebesatz durchschnittlich 390 %)
 		// = 28,65 % => ~ 30 %;
 		taxes = profitBeforeTaxes * 0.3;
+		// pay taxes
+		company.setMoney(company.getMoney() - taxes);
 		// recalculate net profit
 		profitNet = profitBeforeTaxes - taxes;
 	}
