@@ -61,12 +61,12 @@ public class ClientGame extends Game {
 		client.sendMessage(new MessageResourceRegionBid(coords, ownPlayer, amount));
 	}
 	
-	public void requestContract(CityRegion cityRegion, int maxCustomers, double amountMoneyPerCustomer) {
+	public void requestContract(CityRegion cityRegion, double maxAmountEnergyNeeded, double amountMoneyPerCustomer) {
 		CityRelation relationToCity = (CityRelation) company.getRegionRelation(cityRegion.coords);
 		double popularity = relationToCity.popularity;
 		double awareness = relationToCity.awareness;
 		
-		ContractRequest request = new ContractRequest(ownPlayer, cityRegion.coords, maxCustomers, amountMoneyPerCustomer, popularity, awareness);
+		ContractRequest request = new ContractRequest(ownPlayer, cityRegion.coords, amountMoneyPerCustomer, popularity, awareness, maxAmountEnergyNeeded);
 		client.sendMessage(new MessageRequestContract(request));
 	}
 	

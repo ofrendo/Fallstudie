@@ -114,7 +114,7 @@ public class Connection extends Thread {
 				case REQUEST_CONTRACT: 
 					//Do contract calculations
 					ContractRequest request = (ContractRequest) message.getValue();
-					Server.getInstance().getServerGame().calculateContract(request);
+					Server.getInstance().getServerGame().addContract(request);
 					//sendMessage(new MessageContractRequestAnswer(new ContractRequestAnswer(request.coords, contract)));
 					break;
 				/*case CONFIRM_CONTRACT:

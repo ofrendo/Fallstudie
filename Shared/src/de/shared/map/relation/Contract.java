@@ -11,18 +11,28 @@ public class Contract implements Serializable {
 	private Player player;
 	public Coords coords;
 	
+	public double awareness;
+	public double popularity;
+	
 	public int amountCustomer;
 	public double amountEnergyNeeded;
 	public double amountEnergySupplied;
 	public double amountMoneyPerQuarter; 
 	public double amountMoneyPerCustomer; //for example 0.39
 	
-	public Contract(Player player, Coords coords, int amountCustomer, double amountEnergyNeeded, double amountMoneyPerCustomer) {
+	public double maxAmountEnergyNeeded;
+	
+	public Contract(Player player, Coords coords, double awareness, double popularity, int amountCustomer, 
+					double amountEnergyNeeded, double maxAmountEnergyNeeded, double amountMoneyPerCustomer) {
 		this.player = player;
 		this.coords = coords;
 		
+		this.awareness = awareness;
+		this.popularity = popularity;
+		
 		this.amountCustomer = amountCustomer;
 		this.amountEnergyNeeded = amountEnergyNeeded;
+		this.maxAmountEnergyNeeded = maxAmountEnergyNeeded;
 		this.amountMoneyPerCustomer = amountMoneyPerCustomer;
 		this.amountMoneyPerQuarter = amountMoneyPerCustomer * amountCustomer;
 	}

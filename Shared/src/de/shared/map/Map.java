@@ -8,6 +8,7 @@ import de.shared.map.generate.RegionGenerator;
 import de.shared.map.region.CityRegion;
 import de.shared.map.region.Coords;
 import de.shared.map.region.Region;
+import de.shared.map.relation.Contract;
 
 public class Map implements Serializable {
 	
@@ -18,7 +19,7 @@ public class Map implements Serializable {
 	private ResourceMarket resourceMarket;
 
 	//NOTE ENERGY DEMAND PER PERSON PER CITY OR FOR THE WHOLE MAP?
-	private double energyFactor = 3.14159;
+	private double energyFactor = 400;
 
 	public MapType mapType;
 	
@@ -122,6 +123,118 @@ public class Map implements Serializable {
 	
 	public synchronized void setEnergyFactor(double energyFactor) {
 		this.energyFactor = energyFactor;
+	}
+	
+	public synchronized void finishRound() {
+		energyExchange.nextGlobalValues();
+		calculateContracts();
+	}
+	
+	public void calculateContracts() {
+		for (CityRegion cityRegion : getCityRegions()) {
+				calculateCityRegionContracts(cityRegion);
+		}
+	}
+
+	private void calculateCityRegionContracts(CityRegion cityRegion) {
+		//NEED TO SET AVERAGE ENERGY PRICE AT START OF GAME
+		//Sort contracts
+		cityRegion.sortContracts();
+		
+		ArrayList<Contract> contractsToRemove = new ArrayList<Contract>();
+		
+		final int population = cityRegion.getPopulation();
+		int remainingPopulation = cityRegion.getPopulation();
+		
+		final double averageEnergyPrice = cityRegion.getAverageEnergyPrice(); //old average price
+		double newAverageEnergyPrice = 0;
+		
+		for (Contract contract : cityRegion.getContracts()) {
+			
+			int averagePriceCustomers = (int) (population * contract.awareness * contract.popularity);
+			int customersForClient = customerFunction(population, averagePriceCustomers, averageEnergyPrice, contract.amountMoneyPerCustomer);
+			
+			if (remainingPopulation == 0) { //No customers left!
+				break;
+			}
+			else if (customersForClient > remainingPopulation) { //Not enough customers left
+				customersForClient = remainingPopulation;
+				remainingPopulation = 0;
+			}
+			else if (customersForClient <= remainingPopulation) { //Normal case
+				remainingPopulation -= customersForClient;
+			}
+			
+			double energyNeeded = customersForClient * getEnergyFactor();
+			if (energyNeeded > contract.maxAmountEnergyNeeded && contract.maxAmountEnergyNeeded > 0) { 
+				//Check if user has specified the maximum amount of energy he wants to transfer
+				customersForClient = (int) (contract.maxAmountEnergyNeeded / getEnergyFactor());
+				energyNeeded = customersForClient * getEnergyFactor();
+			}
+			
+			if (customersForClient > 0) {
+				contract.amountCustomer = customersForClient;
+				contract.amountEnergyNeeded = energyNeeded;
+				
+				newAverageEnergyPrice += customersForClient * contract.amountMoneyPerCustomer;
+				cityRegion.setFreeCustomers( cityRegion.getFreeCustomers() - customersForClient);
+			}
+			else {
+				contractsToRemove.add(contract);
+			}
+			/*int freeCustomers = cityRegion.getFreeCustomers();
+			
+			int averagePriceCustomers = (int) (freeCustomers * request.awareness * request.popularity);
+			
+			double energyExchangePrice = map.getEnergyExchange().getCurrentEnergyPrice();
+			double averagePrice = cityRegion.getAverageEnergyPrice(energyExchangePrice);
+			
+			//int customersForClient = (maxAvailableCustomers > request.maxCustomers) ? request.maxCustomers : maxAvailableCustomers;
+			int customersForClient = customerFunction(freeCustomers, averagePriceCustomers, averagePrice, request.amountMoneyPerCustomer);
+			
+			if (customersForClient > request.maxCustomers)
+				customersForClient = request.maxCustomers;
+			
+			double cityDemand = customersForClient * getMap().getEnergyFactor();
+			double amountMoneyPerCustomer = request.amountMoneyPerCustomer; 
+			
+			Contract newContract = null;
+			if (customersForClient > 0) {
+				newContract = new Contract(request.player, request.coords, request.awareness, request.popularity, 
+										   customersForClient, cityDemand, amountMoneyPerCustomer);
+			}
+			if (newContract != null) {
+				cityRegion.addContract(newContract);
+			}*/
+		}
+		for (Contract c : contractsToRemove) {
+			cityRegion.removeContract(c);
+		}
+		
+		if (remainingPopulation > 0) {
+			newAverageEnergyPrice += remainingPopulation * averageEnergyPrice;
+		}
+		
+		newAverageEnergyPrice = newAverageEnergyPrice / population;
+		cityRegion.setAverageEnergyPrice(newAverageEnergyPrice);
+	}
+	
+	private int customerFunction(int population, int averagePriceCustomers, double averagePrice, double price) {
+		/**
+		 * Zwei Parabeln: eine von 0 bis zum preis danach von 0 bis customer = 0;
+		 * Parabel in der Scheitelpunktform f(x) = a(x-d)^2 + b
+		 */
+		int b = averagePriceCustomers;
+		double a = (b+population) / averagePrice;
+		double d = averagePrice;
+		double x = price;
+		
+		if (x > d) a = -a;
+		
+		int result = (int) (a * (x-d) * (x-d) + b);
+		if (result < 0) result = 0;
+		
+		return result;
 	}
 	
 }

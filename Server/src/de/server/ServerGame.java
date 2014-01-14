@@ -30,6 +30,12 @@ public class ServerGame extends Game {
 		super();
 		currentBids = new ArrayList<ResourceRegionBid>();
 		map = new Map(MapTypeRect.NORMAL);//Map.getInstance();
+		
+		//Set average energy prices
+		double averageEnergyPrice = map.getEnergyExchange().getCurrentEnergyPrice();
+		for (CityRegion cityRegion : map.getCityRegions()) {
+			cityRegion.setAverageEnergyPrice(averageEnergyPrice);
+		}
 	}
 	
 	public synchronized void pingPlayerReady() {
@@ -69,7 +75,7 @@ public class ServerGame extends Game {
 	}
 	
 	public synchronized void finishRound() {
-		getMap().getEnergyExchange().nextGlobalValues();
+		getMap().finishRound();
 		
 		handleBids();
 		
@@ -132,51 +138,11 @@ public class ServerGame extends Game {
 		currentBids.add(regionBid);
 	}
 	
-	public void calculateContract(ContractRequest request) {
-		//Calculates the contract for the given request - algorithm may modify other contracts
-		
+	public void addContract(ContractRequest request) {
 		CityRegion cityRegion = (CityRegion) getMap().getRegion(request.coords);
-		int freeCustomers = cityRegion.getFreeCustomers();
-		
-		int averagePriceCustomers = (int) (freeCustomers * request.awareness * request.popularity);
-		
-		double energyExchangePrice = map.getEnergyExchange().getCurrentEnergyPrice();
-		double averagePrice = cityRegion.getAverageEnergyPrice(energyExchangePrice);
-		
-		//int customersForClient = (maxAvailableCustomers > request.maxCustomers) ? request.maxCustomers : maxAvailableCustomers;
-		int customersForClient = customerFunction(freeCustomers, averagePriceCustomers, averagePrice, request.amountMoneyPerCustomer);
-		
-		if (customersForClient > request.maxCustomers)
-			customersForClient = request.maxCustomers;
-		
-		double cityDemand = customersForClient * getMap().getEnergyFactor();
-		double amountMoneyPerCustomer = request.amountMoneyPerCustomer; 
-		
-		Contract newContract = null;
-		if (customersForClient > 0) {
-			newContract = new Contract(request.player, request.coords, customersForClient, cityDemand, amountMoneyPerCustomer);
-		}
-		if (newContract != null) {
-			cityRegion.addContract(newContract);
-		}
-	}
-
-	private int customerFunction(int freeCustomers, int averagePriceCustomers, double averagePrice, double price) {
-		/**
-		 * Zwei Parabeln: eine von 0 bis zum preis danach von 0 bis customer = 0;
-		 * Parabel in der Scheitelpunktform f(x) = a(x-d)^2 + b
-		 */
-		int b = averagePriceCustomers;
-		double a = (b+freeCustomers) / averagePrice;
-		double d = averagePrice;
-		double x = price;
-		
-		if (x > d) a = -a;
-		
-		int result = (int) (a * (x-d) * (x-d) + b);
-		if (result < 0) result = 0;
-		
-		return result;
+		Contract newContract = new Contract(request.player, request.coords, request.awareness, 
+				request.popularity, 0, 0.0, request.maxAmountEnergyNeeded, request.amountMoneyPerCustomer);
+		cityRegion.addContract(newContract);
 	}
 	
 	/*public synchronized void confirmContract(ContractRequestAnswer confirmation) {

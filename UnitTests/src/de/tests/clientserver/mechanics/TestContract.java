@@ -57,8 +57,8 @@ public class TestContract extends AbstractClientServerTest {
 
 		System.out.println("[TEST] Requesting contracts...");
 		
-		client1.getClientGame().requestContract(cityRegion, 100000, price1);
-		client2.getClientGame().requestContract(cityRegion, 50000, price2);
+		client1.getClientGame().requestContract(cityRegion, 0, price1);
+		client2.getClientGame().requestContract(cityRegion, 0, price2);
 		
 		TestUtils.blockLong();
 		

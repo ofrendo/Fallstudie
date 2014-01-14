@@ -36,12 +36,12 @@ public class TestObjectFactory {
 		//Make cityrelations
 		Coords coords1 = new Coords(0, 0);
 		CityRelation cityRelation1 = new CityRelation(coords1);
-		Contract contract1 = new Contract(null, coords1, 0, city1Demand, city1Price);
+		Contract contract1 = new Contract(null, coords1, 0.0, 0.0, 0, city1Demand, 0.0, city1Price);
 		//cityRelation1.setContract(contract1);
 		
 		Coords coords2 = new Coords(1, 1);
 		CityRelation cityRelation2 = new CityRelation(coords2);
-		Contract contract2 = new Contract(null, coords2, 0, city2Demand, city2Price);
+		Contract contract2 = new Contract(null, coords2, 0.0, 0.0, 0, city2Demand, 0.0, city2Price);
 		//cityRelation2.setContract(contract2);
 		
 		CityRelation[] cityRelations = {cityRelation1, cityRelation2};

@@ -1,6 +1,8 @@
 package de.shared.map.region;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import de.shared.game.Player;
 import de.shared.map.relation.Contract;
@@ -11,6 +13,9 @@ public class CityRegion extends Region {
 	
 	private int population;
 	private int freeCustomers;
+	
+	private double averageEnergyPrice; //Updated once a round
+	
 	private double environmentalAwareness;
 	private String cityName = "Mannheim";
 	
@@ -60,6 +65,10 @@ public class CityRegion extends Region {
 		contracts.remove(contractToRemove);
 	}
 	
+	public synchronized ArrayList<Contract> getContracts() {
+		return contracts;
+	}
+	
 	public Contract getPlayerContract(Player player) {
 		for (Contract contract : contracts) {
 			if (contract.isOwnPlayer(player)) {
@@ -69,7 +78,7 @@ public class CityRegion extends Region {
 		return null;
 	}
 	
-	public double getAverageEnergyPrice(double currentEnergyExchangePrice) {
+	/*public double getAverageEnergyPrice(double currentEnergyExchangePrice) {
 		//Free customers will return the price of the energy exchange
 		double average = freeCustomers * currentEnergyExchangePrice;
 		
@@ -80,5 +89,30 @@ public class CityRegion extends Region {
 		average = average / population;
 		
 		return average;
+	}*/
+
+	public double getAverageEnergyPrice() {
+		return averageEnergyPrice;
+	}
+
+	public void setAverageEnergyPrice(double averageEnergyPrice) {
+		this.averageEnergyPrice = averageEnergyPrice;
+	}
+	
+	public void sortContracts() {
+		Collections.sort(contracts, new Comparator<Contract>() {
+			@Override
+			public int compare(Contract o1, Contract o2) {
+				if (o1.amountMoneyPerCustomer > o2.amountMoneyPerCustomer) {
+					return 1;
+				}
+				else if (o1.amountMoneyPerCustomer == o2.amountMoneyPerCustomer) {
+					return 0;
+				}
+				else {
+					return -1;
+				}
+			}
+        });
 	}
 }
