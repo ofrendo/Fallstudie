@@ -5,11 +5,13 @@ import de.shared.map.region.ResourceType;
 public class Mine extends Building {
 	
 	private ResourceType resourceType;
+	private ResourceRelation relation;
 	
-	public Mine(ResourceType resourceType) {
+	public Mine(ResourceType resourceType, ResourceRelation relation) {
 		super(resourceType.mMaxProduction, resourceType.mPurchaseValue, 
 				resourceType.mDepreciationYears, resourceType.mBuildTime);
 		this.resourceType = resourceType;
+		this.relation = relation;
 	}
 
 	public double getRunningCosts() {
@@ -17,12 +19,19 @@ public class Mine extends Building {
 	}
 	
 	public double getProduction() {
-		return resourceType.mMaxProduction * utilizationRate;
+		double production =  resourceType.mMaxProduction * utilizationRate;
+		if(production > relation.resourceAmount)
+			production = relation.resourceAmount;
+		return production;
 	}
 	
 	public ResourceType getResourceType()
 	{
 		return resourceType;
+	}
+	public ResourceRelation getResourceRelation()
+	{
+		return this.relation;
 	}
 	
 }

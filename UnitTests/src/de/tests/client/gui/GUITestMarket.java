@@ -40,7 +40,7 @@ public class GUITestMarket {
 		Controller.getInstance().initGame(map);
 		
 		ResourceRelation relation = (ResourceRelation) Controller.getInstance().getCompany().getRegionRelation(r.coords);
-		relation.mine = new Mine(r.resourceType);
+		relation.mine = new Mine(r.resourceType, relation);
 		while (!relation.mine.isBuilt())
 			relation.mine.nextRound();
 			
