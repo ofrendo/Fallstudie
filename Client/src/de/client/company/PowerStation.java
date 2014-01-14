@@ -66,5 +66,9 @@ public class PowerStation extends Building {
 	public int getConsumption() {
 		return (int) (utilizationRate * consumption);
 	}
+
+	public ResourceType getResourceType() {
+		return this.resourceType;
+	}
 	
 }

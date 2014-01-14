@@ -181,7 +181,7 @@ public class Company {
 	}
 	
 	public void finishRound() {
-		//check if a building has finished
+		//handle building / check if a building has finished
 		for (Building building : buildings) {
 			building.nextRound();
 			money -= building.getRunningCosts();
@@ -191,16 +191,26 @@ public class Company {
 			}
 		}
 		
-		//handle production	
+		//handle resource production	
 		double production = getResourceProduction(ResourceType.COAL, true);
 		warehouse.addWare(ResourceType.COAL, production);
 		production = getResourceProduction(ResourceType.URANIUM, true);
 		warehouse.addWare(ResourceType.URANIUM, production);
 		production = getResourceProduction(ResourceType.GAS, true);
 		warehouse.addWare(ResourceType.GAS, production);
-		//System.out.println(production);
-		
-		//handle energy consumption
+		//handle resource consumption
+		try {
+			double consumption = getResourceConsumption(ResourceType.COAL);
+			warehouse.reduceWare(ResourceType.COAL, consumption);
+			consumption = getResourceConsumption(ResourceType.COAL);
+			warehouse.reduceWare(ResourceType.COAL, consumption);
+			consumption = getResourceConsumption(ResourceType.COAL);
+			warehouse.reduceWare(ResourceType.COAL, consumption);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+		//handle energy production / distribution
 		
 		// handle warehouse
 		warehouse.nextRound();
@@ -218,6 +228,24 @@ public class Company {
 		}
 	}
 	
+	private double getResourceConsumption(ResourceType resourceType) {
+		double consumptionSum = 0;
+		for (Building building : buildings) {
+			
+			if(building instanceof PowerStation)
+			{
+				
+				PowerStation ps = (PowerStation) building;
+				if (building.isBuilt() && ps.getResourceType() == resourceType) {
+					consumptionSum += ps.getProduction();
+					
+				}
+			}
+		
+		}
+		return consumptionSum;
+	}
+
 	private double getResourceProduction(ResourceType resourceType, boolean finishRound) {
 		
 		double productionSum = 0;
