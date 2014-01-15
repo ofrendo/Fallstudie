@@ -3,12 +3,15 @@ package de.client.gui;
 import java.lang.Thread.State;
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 import de.client.Client;
 import de.client.ClientGame;
 import de.client.company.Company;
 import de.client.company.ResourceRelation;
 import de.shared.game.Player;
 import de.shared.map.Map;
+import de.shared.map.region.CityRegion;
 import de.shared.map.region.Region;
 import de.shared.map.region.ResourceType;
 import de.shared.map.relation.Contract;
@@ -76,9 +79,80 @@ public class Controller {
 	}
 	
 	
-
 	public void sendReady(boolean ready) {
 		client.sendReadyMessage(ready);
+	}
+	
+	public void checkAndSendReady() {
+		if (!client.getClientGame().isEnoughResourcesAvailable()) {
+			//Not enough resources
+			String message = "Nicht genügend Rohstoffe vorhanden.";
+			JOptionPane.showMessageDialog(frame, message);
+		}
+		else if (client.getClientGame().getSuperflousEnergy() < 0) {
+			//Not enough energy produced
+			double amountEnergyNeeded = client.getClientGame().getSuperflousEnergy();
+			double sumPrice = amountEnergyNeeded * getClientGame().getMap().getEnergyExchange().getCurrentEnergyPrice();
+			
+			String message = "<html><table>"
+					+ "<tr>"
+					+ "<td>Nicht genug Energieproduktion!</td>"
+					+ "<td></td>"
+					+ "</tr>"
+					+ "<tr>"
+					+ "<td>" + Strings.fD(amountEnergyNeeded) + " kWh Energie dazukaufen für</td>"
+					+ "<td>" + Strings.fD(sumPrice) + " €</td>"
+					+ "</tr>"
+					+ "<tr>"
+					+ "<td>ODER alle folgenden Verträge kündigen:</td>"
+					+ "<td></td>"
+					+ "</tr>";
+
+			//All cities with not enough energy supplied
+			ArrayList<CityRegion> cityRegions = getCompany().getCityRegionsWithNotEnoughEnergy();
+			
+			for (CityRegion cityRegion : cityRegions) {
+				message += "<tr>"
+						+ "<td>" + cityRegion.getCityName() + "</td><td></td>"
+						+ "</tr>";
+			}
+			
+			message += "</table></html>";
+
+			Object[] options = {
+					"Energie dazukaufen",
+			        "Vertrag kündigen",
+			        "Abbrechen"
+			};
+			
+			int n = JOptionPane.showOptionDialog(
+					frame,
+					message,
+					"Nicht genügend Energie",
+					JOptionPane.YES_NO_CANCEL_OPTION,
+					JOptionPane.QUESTION_MESSAGE,
+					null,     //do not use a custom Icon
+					options,  //the titles of buttons
+					options[0] //default button title
+			); 
+			
+			if (n == JOptionPane.YES_OPTION) { //Buy energy
+				
+			}
+			else if (n == JOptionPane.NO_OPTION) { //Cancel contracts
+				
+			}
+			
+			
+			//MIGHT HAVE TO SELL SUPERFLOUS ENERGY HERE
+		}
+		
+		
+		else {
+			//No problems
+			frame.getPanelMenu().getButtonReady().setEnabled(false);
+			sendReady(true);
+		}
 	}
 	
 	public void sendStartRegionBidding(Region region) {
@@ -94,11 +168,15 @@ public class Controller {
 	}
 	
 	public void handleMapPanelClick() {
+		this.lastHexButton = null;
+		frame.getPanelMain(null).getPanelMap().refresh();
 		frame.getPanelMain(null).getPanelDetails().setContentEmpty();
 		frame.getPanelMain(null).getPanelDetails().refresh();
 	}
 	
 	public void handleMapTileClick(HexagonButton hexButton) {
+		this.lastHexButton = hexButton;
+		frame.getPanelMain(null).getPanelMap().refresh();
 		frame.getPanelMain(null).getPanelDetails().setRegionContent(hexButton);
 	}
 	
@@ -190,4 +268,13 @@ public class Controller {
 	public Frame getFrame() {
 		return frame;
 	}
+
+	//TEST METHODS for unit testing, to remove annoying popups
+	public void setUnitTestMode() {
+		if (frameConnect != null)
+			frameConnect.setVisible(false);
+		if (frame != null)
+			frame.setVisible(false);
+	}
+	
 }

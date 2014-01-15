@@ -2,9 +2,6 @@ package de.tests.client.gui;
 
 import java.util.ArrayList;
 
-import de.client.company.Mine;
-import de.client.company.PowerStation;
-import de.client.company.ResourceRelation;
 import de.client.gui.Controller;
 import de.shared.game.Player;
 import de.shared.map.Map;
@@ -38,16 +35,6 @@ public class GUITestMarket {
 		Controller.getInstance().initGameLobby(players);
 		Controller.getInstance().getClientGame().setMap(map);
 		Controller.getInstance().initGame(map);
-		
-		ResourceRelation relation = (ResourceRelation) Controller.getInstance().getCompany().getRegionRelation(r.coords);
-		relation.mine = new Mine(r.resourceType, relation);
-		while (!relation.mine.isBuilt())
-			relation.mine.nextRound();
-			
-		relation.powerStation = new PowerStation(r.resourceType);
-		while (!relation.powerStation.isBuilt())
-			relation.powerStation.nextRound();
-		
 		
 		Controller.getInstance().getFrame().setPanelMarket();
 	}

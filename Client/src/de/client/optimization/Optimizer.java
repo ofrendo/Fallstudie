@@ -105,6 +105,9 @@ public class Optimizer {
 		
 		//Zweite nebenbedinungen: 
 		//SIGMA kraftwerkoutput * kraftwerkrelation  <= stadtbedarf
+		//gleichzeitig Zielfunktion.
+		matrix[anzahlNeben-1] = new double[anzahlVariablen];
+		
 		matrixVarColumn = 0;
 		for (Contract contract : contracts) {
 			matrix[matrixRow] = new double[anzahlVariablen];
@@ -113,8 +116,12 @@ public class Optimizer {
 				for (PowerStationRelation powerStationRelation : powerStation.getPowerStationRelations()) {
 					if (contract.coords.equals(powerStationRelation.coords)) {
 						matrix[matrixRow][matrixVarColumn] = powerStation.getProduction();
-						matrixVarColumn++;
+						
+						//Zielfunktion einfügen
+						matrix[anzahlNeben-1][matrixVarColumn] = 
+								- contract.amountMoneyPerCustomer * powerStation.getProduction();
 					}
+					matrixVarColumn++;
 				}
 			}
 			
@@ -122,8 +129,17 @@ public class Optimizer {
 			matrix[matrixRow][matrixAddVarColumn] = 1;
 			matrixAddVarColumn++;
 			matrixRow++;
+			matrixVarColumn = 0;
 		}
 		
+		/*for (int i = 0; i < matrix.length; i++) {
+			for (int j = 0; j < matrix[i].length; j++) {
+				System.out.print(matrix[i][j] + " ");
+			}
+			System.out.println();
+		}*/
+		
+		/*
 		//Zielfunktion
 		matrixVarColumn = 0;
 		matrix[matrixRow] = new double[anzahlVariablen];
@@ -134,13 +150,13 @@ public class Optimizer {
 						
 						matrix[matrixRow][matrixVarColumn] = 
 								- contract.amountMoneyPerCustomer * powerStation.getProduction();
-						
+						System.out.println(contract.amountMoneyPerCustomer + " " + powerStation.getProduction());
 						matrixVarColumn++;
 					}
 				}
 			}
 		}
-		
+		*/
 		return new MatrixWrapper(matrix, variablesUsed, allVariables);
 	}
 	
@@ -181,11 +197,11 @@ public class Optimizer {
 		//Find pivot element
 		double pivotElement = matrix[rowIndex][columnIndex];
 		
+		//Change variables
+		matrixWrapper.variablesUsed[rowIndex] = matrixWrapper.allVariables[columnIndex];
+		
 		//Change that row first
 		for (int i = 0; i < matrix[rowIndex].length; i++) {
-			//Change variables
-			matrixWrapper.variablesUsed[rowIndex] = matrixWrapper.allVariables[columnIndex];
-			
 			double number = matrix[rowIndex][i];
 			matrix[rowIndex][i] = number / pivotElement;
 		}
@@ -207,12 +223,6 @@ public class Optimizer {
 		//Do this until only positive last row
 		return iterate(matrixWrapper);
 	}
-	
-	
-	
-	
-	
-	
-	
+
 	
 }

@@ -1,10 +1,13 @@
 package de.client.gui;
 
+import java.awt.Graphics;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JPanel;
 
@@ -80,8 +83,30 @@ public class PanelMap extends JPanel {
 			public void mouseReleased(MouseEvent arg0) {}
 			
 		});
+		refresh();
+	}
+	
+	public void refresh() {
 		this.revalidate();
 		this.repaint();
+	}
+	
+	private ArrayList<HexagonButtonLine> connections;
+	
+	@Override
+	public void paint(Graphics g) {
+		super.paint(g);
+		drawConnections(g);
+	}
+	
+	public void drawConnections(Graphics g) {
+		for (HexagonButtonLine l : connections) {
+			g.drawLine(l.x1, l.y1, l.x2, l.y2);
+		}
+	}
+	
+	public void setConnections(ArrayList<HexagonButtonLine> connections) {
+		this.connections = connections;
 	}
 	
 	

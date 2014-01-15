@@ -51,14 +51,14 @@ public class TestObjectFactory {
 		this.contracts = contracts;
 		
 		//Make powerstations
-		PowerStation powerStation1 = new PowerStation(ResourceType.TEST_30);
+		PowerStation powerStation1 = new PowerStation(new Coords(2, 2), ResourceType.TEST_30);
 		powerStation1.addPowerStationRelation(cityRelation1);
 		
-		PowerStation powerStation2 = new PowerStation(ResourceType.TEST_20);
+		PowerStation powerStation2 = new PowerStation(new Coords(3, 3), ResourceType.TEST_20);
 		powerStation2.addPowerStationRelation(cityRelation1);
 		powerStation2.addPowerStationRelation(cityRelation2);
 		
-		PowerStation powerStation3 = new PowerStation(ResourceType.TEST_40);
+		PowerStation powerStation3 = new PowerStation(new Coords(2, 3), ResourceType.TEST_40);
 		powerStation3.addPowerStationRelation(cityRelation2);
 		
 		PowerStation[] powerStations = {powerStation1, powerStation2, powerStation3};

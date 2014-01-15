@@ -3,8 +3,10 @@ package de.client.company;
 import java.util.ArrayList;
 
 import de.client.Client;
+import de.client.optimization.Optimizer;
 import de.shared.game.Constants;
 import de.shared.game.Game;
+import de.shared.game.Player;
 import de.shared.map.region.CityRegion;
 import de.shared.map.region.Coords;
 import de.shared.map.region.FinishedBuilding;
@@ -81,6 +83,30 @@ public class Company {
 		return getContracts().toArray(new Contract[0]);
 	}
 	
+	public ArrayList<Contract> getContractsWithNotEnoughEnergy() {
+		ArrayList<Contract> contracts = new ArrayList<Contract>();
+		Player ownPlayer = client.getClientGame().getPlayer();
+		for (Contract contract : getContracts()) {
+			if (contract.isOwnPlayer(ownPlayer) && 
+				contract.amountEnergySupplied < contract.amountEnergyNeeded) {
+				
+				contracts.add(contract);
+			}
+		}
+		return contracts;
+	}
+	
+	public ArrayList<CityRegion> getCityRegionsWithNotEnoughEnergy() {
+		ArrayList<Contract> contracts = getContractsWithNotEnoughEnergy();
+		ArrayList<CityRegion> cityRegions = new ArrayList<CityRegion>();
+		
+		for (Contract contract : contracts) {
+			cityRegions.add( (CityRegion) client.getClientGame().getMap().getRegion(contract.coords) );
+		}
+		
+		return cityRegions;
+	}
+	
 	public ArrayList<RegionRelation> getRegionRelations() {
 		return regionRelations;
 	}
@@ -153,13 +179,13 @@ public class Company {
 	}
 	
 	public void buyPowerStation(ResourceRelation relation, ResourceType resourceType) {
-	
 		this.money -= resourceType.pPurchaseValue;
 		this.addPowerStation(relation.coords, resourceType);
+		optimizePowerStations();
 	}
 	
 	public void addPowerStation(Coords coords, ResourceType resourceType) {
-		PowerStation powerStation = new PowerStation(resourceType);
+		PowerStation powerStation = new PowerStation(coords, resourceType);
 		
 		//Add ps to resourcerelation
 		ResourceRelation resourceRelation = (ResourceRelation) this.getRegionRelation(coords);
@@ -181,7 +207,7 @@ public class Company {
 	}
 	
 	public void finishRound() {
-		//check if a building has finished
+		//handle building / check if a building has finished
 		for (Building building : buildings) {
 			building.nextRound();
 			money -= building.getRunningCosts();
@@ -191,16 +217,26 @@ public class Company {
 			}
 		}
 		
-		//handle production	
+		//handle resource production	
 		double production = getResourceProduction(ResourceType.COAL, true);
 		warehouse.addWare(ResourceType.COAL, production);
 		production = getResourceProduction(ResourceType.URANIUM, true);
 		warehouse.addWare(ResourceType.URANIUM, production);
 		production = getResourceProduction(ResourceType.GAS, true);
 		warehouse.addWare(ResourceType.GAS, production);
-		//System.out.println(production);
-		
-		//handle energy consumption
+		//handle resource consumption
+		try {
+			double consumption = getResourceConsumption(ResourceType.COAL);
+			warehouse.reduceWare(ResourceType.COAL, consumption);
+			consumption = getResourceConsumption(ResourceType.COAL);
+			warehouse.reduceWare(ResourceType.COAL, consumption);
+			consumption = getResourceConsumption(ResourceType.COAL);
+			warehouse.reduceWare(ResourceType.COAL, consumption);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	
+		//handle energy production / distribution
 		
 		// handle warehouse
 		warehouse.nextRound();
@@ -218,6 +254,24 @@ public class Company {
 		}
 	}
 	
+	private double getResourceConsumption(ResourceType resourceType) {
+		double consumptionSum = 0;
+		for (Building building : buildings) {
+			
+			if(building instanceof PowerStation)
+			{
+				
+				PowerStation ps = (PowerStation) building;
+				if (building.isBuilt() && ps.getResourceType() == resourceType) {
+					consumptionSum += ps.getConsumption();
+					
+				}
+			}
+		
+		}
+		return consumptionSum;
+	}
+
 	private double getResourceProduction(ResourceType resourceType, boolean finishRound) {
 		
 		double productionSum = 0;
@@ -274,6 +328,47 @@ public class Company {
 		}
 		client.getClientGame().sendFinishBuilding(new FinishedBuilding(coords, status));
 		
+	}
+
+	public boolean isEnoughResourcesAvailable() {
+		// if not enough resources are available
+		if (( getResourceProduction(ResourceType.COAL, false) + warehouse.getWare(ResourceType.COAL).getAmount() ) 
+				< getResourceConsumption(ResourceType.COAL)   || 
+			( getResourceProduction(ResourceType.URANIUM, false) + warehouse.getWare(ResourceType.URANIUM).getAmount() ) 
+				< getResourceConsumption(ResourceType.URANIUM)   || 
+			( getResourceProduction(ResourceType.GAS, false) + warehouse.getWare(ResourceType.GAS).getAmount() ) 
+				< getResourceConsumption(ResourceType.GAS)) {
+			return false;
+		}
+		return true;
+	}
+	
+	public void optimizePowerStations() {
+		Optimizer.optimizePowerStations(getPowerStations(), getContractsArray());
+	}
+	
+	public double getEnergyProductionSum() {
+		double sum = 0;
+		
+		for (PowerStation powerStation : getPowerStations()) {
+			sum += powerStation.getProduction();
+		}
+		
+		return sum;
+	}
+	
+	public double getEnergyNeededSum() {
+		double sum = 0;
+		
+		for (Contract contract : getContracts()) {
+			sum += contract.amountEnergyNeeded;
+		}
+		
+		return sum;
+	}
+
+	public double getSuperflousEnergy() {
+		return getEnergyProductionSum() - getEnergyNeededSum();
 	}
 
 }

@@ -165,6 +165,7 @@ public class PanelSubDetails extends JPanel {
 					if (!source.getValueIsAdjusting()) {
 						double newValue = source.getValue() / 100.0;
 						((ResourceRelation) relation).powerStation.setMaintenanceRate(newValue);
+						Controller.getInstance().getCompany().optimizePowerStations();
 						Controller.getInstance().updatePanelDetails(hexButton);
 					}
 				}
@@ -189,6 +190,7 @@ public class PanelSubDetails extends JPanel {
 					if (!source.getValueIsAdjusting()) {
 						double newValue = (double) source.getValue() / (double) steps;
 						((ResourceRelation) relation).powerStation.setUtilizationRate(newValue);
+						Controller.getInstance().getCompany().optimizePowerStations();
 						Controller.getInstance().updatePanelDetails(hexButton);
 					}
 				}
@@ -228,8 +230,8 @@ public class PanelSubDetails extends JPanel {
 						double price = Double.parseDouble(textFieldPrice.getText()); 
 						
 						if (price > 0 && maxCustomers > 0) {
-							Controller.getInstance().lastHexButton = hexButton;
 							Controller.getInstance().getClientGame().requestContract((CityRegion) region, maxCustomers, price);
+							buttonRequestContract.setEnabled(false);
 						}
 						else {
 							JOptionPane.showMessageDialog(null, "Bitte Zahlen überprüfen.");

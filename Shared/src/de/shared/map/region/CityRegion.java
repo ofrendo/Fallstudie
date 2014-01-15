@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Comparator;
 
 import de.shared.game.Player;
+import de.shared.map.generate.CityNameGenerator;
 import de.shared.map.relation.Contract;
 
 public class CityRegion extends Region {
@@ -17,7 +18,7 @@ public class CityRegion extends Region {
 	private double averageEnergyPrice; //Updated once a round
 	
 	private double environmentalAwareness;
-	private String cityName = "Mannheim";
+	private String cityName;
 	
 	private ArrayList<Contract> contracts;
 	
@@ -25,6 +26,7 @@ public class CityRegion extends Region {
 		super(regionIDX, regionIDY);
 		this.population = population;
 		this.freeCustomers = population;
+		this.cityName = CityNameGenerator.getNextCityName();
 		this.environmentalAwareness = Math.random();
 		this.contracts = new ArrayList<Contract>();
 	}

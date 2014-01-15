@@ -2,6 +2,7 @@ package de.client.company;
 
 import java.util.ArrayList;
 
+import de.shared.map.region.Coords;
 import de.shared.map.region.ResourceType;
 import de.shared.map.relation.CityRelation;
 
@@ -13,10 +14,12 @@ public class PowerStation extends Building {
 	public double maintenanceRate = 1;
 	private final int consumption;
 	
+	public Coords coords;
 	private ResourceType resourceType;
 	
-	public PowerStation(ResourceType resourceType) {
+	public PowerStation(Coords coords, ResourceType resourceType) {
 		super(resourceType.pMaxProduction, resourceType.pPurchaseValue, resourceType.pDepreciationYears, resourceType.pBuildTime);
+		this.coords = coords;
 		this.adjustability = resourceType.pAdjustability;
 		this.consumption = resourceType.pConsumption;
 		this.powerStationRelations = new ArrayList<PowerStationRelation>();
@@ -64,7 +67,19 @@ public class PowerStation extends Building {
 	}
 
 	public int getConsumption() {
-		return (int) (utilizationRate * consumption);
+		if (getProduction() == 0) {
+			return 0;
+		}
+		
+		int result = (int) (utilizationRate * consumption);
+		if (result == 0) { //cant return 0 when still producing - always round up to 1
+			return 1;
+		}
+		return result;
+	}
+
+	public ResourceType getResourceType() {
+		return this.resourceType;
 	}
 	
 }
