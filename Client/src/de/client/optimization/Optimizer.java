@@ -47,7 +47,7 @@ public class Optimizer {
 		
 		//Update contract details (how much energy is delivered)
 		for (Contract contract : contracts) {
-			
+			contract.amountEnergySupplied = 0;
 			for (PowerStation powerStation : powerStations) {
 				for (PowerStationRelation powerStationRelation : powerStation.getPowerStationRelations()) {
 					
