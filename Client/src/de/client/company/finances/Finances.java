@@ -1,6 +1,8 @@
-package de.client.company;
+package de.client.company.finances;
 
 import java.util.ArrayList;
+
+import de.client.company.*;
 
 public class Finances extends Department {
 	private Balance balance;

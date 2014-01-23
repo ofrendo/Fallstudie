@@ -1,4 +1,4 @@
-package de.client.company;
+package de.client.company.finances;
 
 public enum CreditType {
 	CREDIT_1(500000, 5, 12),

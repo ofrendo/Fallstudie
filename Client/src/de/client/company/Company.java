@@ -3,6 +3,7 @@ package de.client.company;
 import java.util.ArrayList;
 
 import de.client.Client;
+import de.client.company.finances.Finances;
 import de.client.optimization.Optimizer;
 import de.shared.game.Constants;
 import de.shared.game.Game;

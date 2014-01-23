@@ -1,4 +1,6 @@
-package de.client.company;
+package de.client.company.finances;
+
+import de.client.company.*;
 
 public class Credit {
 	private Company company;
