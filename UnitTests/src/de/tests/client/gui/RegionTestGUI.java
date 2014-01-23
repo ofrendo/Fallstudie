@@ -40,12 +40,12 @@ public class RegionTestGUI {
 		Controller.getInstance().initGame(map);
 		
 		ResourceRelation relation = (ResourceRelation) Controller.getInstance().getCompany().getRegionRelation(r.coords);
-		Controller.getInstance().getCompany().buyMine(relation, r.resourceType);
+		Controller.getInstance().getCompany().addMine(relation, r.resourceType);
 		//relation.mine = new Mine(r.resourceType,relation);
 		while (!relation.mine.isBuilt())
 			relation.mine.nextRound();
 			
-		Controller.getInstance().getCompany().buyPowerStation(relation, r.resourceType);
+		Controller.getInstance().getCompany().addPowerStation(relation.coords, r.resourceType);
 		//relation.powerStation = new PowerStation(r.resourceType);
 		while (!relation.powerStation.isBuilt())
 			relation.powerStation.nextRound();

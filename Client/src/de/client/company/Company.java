@@ -27,7 +27,9 @@ public class Company {
 	private Client client;
 	private Warehouse warehouse;
 	private Finances finances;
-
+	
+	private double temporaryEnergyBought; //Used for adding energy after a round if ont enough has been added
+	
 	public Company(String companyName, Client client) {
 		this.companyName = companyName;
 		this.money = Constants.START_MONEY;
@@ -123,6 +125,15 @@ public class Company {
 		this.money = money;
 	}
 	
+	public void buyTemporaryEnergy(double amount) {
+		money -= client.getClientGame().getMap().getEnergyExchange().getPrice(amount);
+		addTemporaryEnergyBought(amount);
+	}
+	
+	public void addTemporaryEnergyBought(double amount) {
+		temporaryEnergyBought = amount;
+	}
+	
 	public PowerStation[] getPowerStations() {
 		ArrayList<PowerStation> powerStations = new ArrayList<PowerStation>();
 		for (Building building : buildings) {
@@ -185,7 +196,6 @@ public class Company {
 	public void buyPowerStation(ResourceRelation relation, ResourceType resourceType) {
 		this.money -= resourceType.pPurchaseValue;
 		this.addPowerStation(relation.coords, resourceType);
-		optimizePowerStations();
 	}
 	
 	public void addPowerStation(Coords coords, ResourceType resourceType) {
@@ -208,6 +218,7 @@ public class Company {
 		}
 		
 		addBuilding(powerStation);
+		optimizePowerStations();
 	}
 	
 	public void finishRound() {
@@ -228,6 +239,7 @@ public class Company {
 		warehouse.addWare(ResourceType.URANIUM, production);
 		production = getResourceProduction(ResourceType.GAS, true);
 		warehouse.addWare(ResourceType.GAS, production);
+		
 		//handle resource consumption
 		try {
 			double consumption = getResourceConsumption(ResourceType.COAL);
@@ -241,6 +253,31 @@ public class Company {
 		}
 	
 		//handle energy production / distribution
+		//There's already been a check to see whether there is enough energy. So:
+		//Sell superflous energy automatically
+		if (getSuperflousEnergy() > 0 && temporaryEnergyBought == 0) {
+			double amountMoney = client.getClientGame().getMap().getEnergyExchange()
+									   .getPrice( getSuperflousEnergy() );
+			//ADD WHERE? TO FINANCES? TO MONEY?
+			money += amountMoney;
+		}
+		
+		//Add costs of Netznutzungsgebühren
+		//Add profits from customers
+		double sumNetUsageCosts = 0;
+		double sumMoneyCustomers = 0;
+		for (Contract contract : getContracts()) {
+			sumNetUsageCosts += contract.amountCustomer * Constants.NET_USAGE_COSTS;
+			sumMoneyCustomers += contract.amountCustomer * contract.amountMoneyPerCustomer;
+			
+			money -= sumNetUsageCosts;
+			money += sumMoneyCustomers;
+		}
+		//ADD AND REDUCE WHERE?
+
+		
+		//Reset temporaryEnergyBought
+		temporaryEnergyBought = 0;
 		
 		// handle warehouse
 		warehouse.nextRound();
@@ -358,6 +395,7 @@ public class Company {
 			sum += powerStation.getProduction();
 		}
 		
+		sum += temporaryEnergyBought;
 		return sum;
 	}
 	
@@ -367,12 +405,40 @@ public class Company {
 		for (Contract contract : getContracts()) {
 			sum += contract.amountEnergyNeeded;
 		}
-		
 		return sum;
 	}
 
 	public double getSuperflousEnergy() {
 		return getEnergyProductionSum() - getEnergyNeededSum();
+	}
+
+	public double getCurrentIncome() {
+		double sum = 0;
+		for (Contract contract : getContracts()) {
+			sum += contract.amountCustomer * contract.amountMoneyPerCustomer;
+		}
+		if (getSuperflousEnergy() > 0) {
+			sum += client.getClientGame().getMap().getEnergyExchange().getPrice( getSuperflousEnergy() );
+		}
+		return sum;
+	}
+	
+	public double getCurrentExpenditures() {
+		double sum = 0;
+		
+		//Building costs
+		for (Building building : buildings) {
+			sum += building.getRunningCosts();
+		}
+		//Net usage costs
+		for (Contract contract : getContracts()) {
+			sum += contract.amountCustomer * Constants.NET_USAGE_COSTS;
+		}
+		//Costs to buy energy
+		if (getSuperflousEnergy() < 0) {
+			sum += client.getClientGame().getMap().getEnergyExchange().getPrice( getSuperflousEnergy() );
+		}
+		return sum;
 	}
 
 }
