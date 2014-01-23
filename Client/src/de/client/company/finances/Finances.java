@@ -35,8 +35,6 @@ public class Finances extends Department {
 	}
 	
 	public void nextRound() {
-		// recalculate costs
-		this.setCosts(0);	// should the department for Finances (Balance, credits, etc.) cost anything?
 		// perform payment for credits
 		for(Credit credit: credits){
 			credit.payQuarter();

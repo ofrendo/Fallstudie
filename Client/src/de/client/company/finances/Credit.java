@@ -16,8 +16,8 @@ public class Credit {
 	}
 	
 	public void recalcInterestsPerQuarter() {
-		interestsPerQuarter = amountLeft * creditType.rate / 4;	// payments divided to each quarter
-																// interests calculated on the start value; also you already repay quarter per quarter
+		interestsPerQuarter = amountLeft * (creditType.rate / 100) / 4;	// payments divided to each quarter
+																		// interests calculated on the start value; also you already repay quarter per quarter
 	}
 
 	public CreditType getCreditType(){
@@ -37,6 +37,7 @@ public class Credit {
 		if(repayment > amountLeft){
 			repayment = amountLeft;
 		}
+		System.out.println(repayment);
 		double totalPayment = interestsPerQuarter + repayment;
 		company.setMoney(company.getMoney() - totalPayment);
 		amountLeft -= repayment;
