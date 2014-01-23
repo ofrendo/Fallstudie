@@ -168,6 +168,10 @@ public class Company {
 
 	}
 	
+	public boolean isEnoughMoney(double amount) {
+		return money >= amount;
+	}
+	
 	public void buyMine(ResourceRelation relation, ResourceType resourceType) {
 		this.money -= resourceType.mPurchaseValue;
 		this.addMine(relation, resourceType);

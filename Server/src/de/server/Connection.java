@@ -161,7 +161,7 @@ public class Connection extends Thread {
 		handleMessage();
 	}
 
-	public synchronized void sendMessage(Message message) {
+	public void sendMessage(Message message) {
 		try {
 			out.writeObject(message);
 			out.flush();
