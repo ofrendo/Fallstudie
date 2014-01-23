@@ -47,6 +47,10 @@ public class Finances extends Department {
 	
 	public void nextYear(){
 		balance.nextYear();
+		// update credit interests
+		for(Credit credit: credits){
+			credit.recalcInterestsPerQuarter();
+		}
 	}
 
 }

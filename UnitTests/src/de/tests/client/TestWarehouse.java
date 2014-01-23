@@ -1,11 +1,21 @@
 package de.tests.client;
 
+import static org.junit.Assert.fail;
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+
+import de.client.company.Warehouse;
+import de.shared.map.region.*;
+
 
 public class TestWarehouse {
-	// Unittest kaputt :-D
-/*	@Test
+	
+	@Test
 	public void testAddWare() {
-		Warehouse wh = new Warehouse();
+		Warehouse wh = new Warehouse(null);
 		wh.addWare(ResourceType.GAS, 20);
 		wh.addWare(ResourceType.COAL, 50);
 		wh.addWare(ResourceType.GAS, 50);
@@ -15,7 +25,7 @@ public class TestWarehouse {
 	
 	@Test
 	public void testReduceWare() {
-		Warehouse wh = new Warehouse();
+		Warehouse wh = new Warehouse(null);
 		wh.addWare(ResourceType.GAS, 100);
 		wh.addWare(ResourceType.COAL, 100);
 		// reduce ware
@@ -36,11 +46,11 @@ public class TestWarehouse {
 	
 	@Test
 	public void testCalculateCosts() {
-		Warehouse wh = new Warehouse();
+		Warehouse wh = new Warehouse(null);
 		wh.addWare(ResourceType.GAS, 150);
 		wh.addWare(ResourceType.COAL, 100);
-		wh.calculateCosts();
+		wh.nextRound();
 		Assert.assertEquals(25000, wh.getCosts(), 0.000000001);
-	}*/
+	}
 
 }

@@ -277,9 +277,6 @@ public class Company {
 		//ADD AND REDUCE WHERE?
 
 		
-		//Reset temporaryEnergyBought
-		temporaryEnergyBought = 0;
-		
 		// handle warehouse
 		warehouse.nextRound();
 		// handle finances
@@ -294,6 +291,9 @@ public class Company {
 			warehouse.nextYear();
 			finances.nextYear();
 		}
+		
+		//Reset temporaryEnergyBought
+		temporaryEnergyBought = 0;
 	}
 	
 	private double getResourceConsumption(ResourceType resourceType) {
