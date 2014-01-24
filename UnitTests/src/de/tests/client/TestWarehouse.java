@@ -2,13 +2,11 @@ package de.tests.client;
 
 import static org.junit.Assert.fail;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import de.client.company.Warehouse;
-import de.shared.map.region.*;
+import de.shared.map.region.ResourceType;
 
 
 public class TestWarehouse {

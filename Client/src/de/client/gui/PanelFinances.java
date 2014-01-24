@@ -25,7 +25,7 @@ public class PanelFinances extends PanelAbstractContent {
 	
 	public JPanel getPanelBalance() {
 		if (panelLeft == null) {
-			panelLeft = new JPanel();
+			panelLeft = new JPanel(new BorderLayout());
 			
 			Balance balance = company.getFinances().getBalance();
 			PanelFinancesBalance panelBalance = new PanelFinancesBalance(balance);
