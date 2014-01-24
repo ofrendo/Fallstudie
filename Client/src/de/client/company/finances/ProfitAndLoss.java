@@ -15,23 +15,46 @@ public class ProfitAndLoss {
 	private double profitBeforeTaxes = 0;
 	private double taxes = 0;
 	private double profitNet = 0;
+	private double energyMarketCosts = 0;	// Aufwendungen zum Kauf von zusätzlicher Energie
+	private double buildingRunningCosts = 0;// Betriebskosten aller Minen und Kraftwerke zusammen
+	private double resourceCosts = 0;		// Rohstoffkosten (entstehen bei Entnahme eines Rohstoffes aus dem Warehouse! keine Rohstoffkosten beim Kauf!!!!)
 	
 	// values for next calculation
 	private double nextRevenue = 0;
 	private double nextFinanceCosts = 0;
 	private double nextDepartmentCosts = 0;
+	private double nextEnergyMarketCosts = 0;
+	private double nextBuildingRunningCosts = 0;
+	private double nextResourceCosts = 0;
 	
 	public ProfitAndLoss(Company company){
 		this.company = company;
 	}
 	
+	public void addEnergyMarketCosts(double amount){	// has to be called somewhere!
+		nextEnergyMarketCosts += amount;
+	}
+	
+	public void addRevenue(double amount){
+		nextRevenue += amount;
+	}
+	
+	public void addResourceCosts(double amount){
+		nextResourceCosts += amount;
+	}
+	
 	public void nextRound(){
-		nextRevenue += 0;										// REVENUE MUSS NOCH HINZUGEFÜGT WERDEN
+		// add costs for credits
 		ArrayList<Credit> credits = company.getFinances().getCredits();
 		for(Credit credit: credits){
 			nextFinanceCosts += credit.getInterestsPerQuarter();
 		}
+		// add costs for departments
 		nextDepartmentCosts += company.getWarehouse().getCosts() + company.getFinances().getCosts();
+		// add running costs of buildings (mines and powerstations)
+		for(Building building: company.getBuildings()){
+			nextBuildingRunningCosts += building.getRunningCosts();
+		}
 	}
 	
 	public void nextYear(){
@@ -39,10 +62,16 @@ public class ProfitAndLoss {
 		revenue = nextRevenue;
 		financeCosts = nextFinanceCosts;
 		departmentCosts = nextDepartmentCosts;
+		energyMarketCosts = nextEnergyMarketCosts;
+		buildingRunningCosts = nextBuildingRunningCosts;
+		resourceCosts = nextResourceCosts;
 		// reset those variables 
 		nextRevenue = 0;
 		nextFinanceCosts = 0;
 		nextDepartmentCosts = 0;
+		nextEnergyMarketCosts = 0;
+		nextBuildingRunningCosts = 0;
+		nextResourceCosts = 0;
 		// recalculate depreciation
 		depreciation = 0;
 		ArrayList<Building> buildings = company.getBuildings();
@@ -55,7 +84,10 @@ public class ProfitAndLoss {
 				+ getInventoryChange() 
 				- getDepreciation() 
 				- getDepartmentCosts() 
-				- getFinanceCosts();
+				- getFinanceCosts()
+				- getEnergyMarketCosts()
+				- getResourceCosts()
+				- getBuildingRunningCosts();
 		// recalculate taxes
 		// 15 % Körperschaftssteuer + 3,5 % * Hebesatz Gewerbesteuer (Hebesatz durchschnittlich 390 %)
 		// = 28,65 % => ~ 30 %;
@@ -96,6 +128,18 @@ public class ProfitAndLoss {
 	
 	public double getTaxes(){
 		return taxes;
+	}
+	
+	public double getResourceCosts(){
+		return resourceCosts;
+	}
+	
+	public double getEnergyMarketCosts(){
+		return energyMarketCosts;
+	}
+	
+	public double getBuildingRunningCosts(){
+		return buildingRunningCosts;
 	}
 	
 	public double getProfitNet(){

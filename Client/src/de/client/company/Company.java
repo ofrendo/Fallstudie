@@ -29,7 +29,7 @@ public class Company {
 	private Warehouse warehouse;
 	private Finances finances;
 	
-	private double temporaryEnergyBought; //Used for adding energy after a round if ont enough has been added
+	private double temporaryEnergyBought; //Used for adding energy after a round if not enough has been added
 	
 	public Company(String companyName, Client client) {
 		this.companyName = companyName;

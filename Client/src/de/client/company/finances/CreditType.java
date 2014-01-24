@@ -5,8 +5,8 @@ public enum CreditType {
 	CREDIT_2(1000000, 5, 20),
 	CREDIT_3(3000000, 5, 40),
 	
-	TEST_1(500000, 5, 8),
-	TEST_2(1000000, 10, 12);
+	TEST_1(500000, 5, 8),		// values for unittest
+	TEST_2(1000000, 10, 12);	// do not change!!!
 	
 	public double rate;	// per year
 	public double amount;
