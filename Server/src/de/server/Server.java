@@ -41,7 +41,7 @@ public class Server extends Thread {
 	
 	public void init() {
 		try {
-			serverSocket = new ServerSocket(8989, 10, InetAddress.getLoopbackAddress()); //InetAddress.getLocalHost()
+			serverSocket = new ServerSocket(8989, 10, InetAddress.getLocalHost()); //InetAddress.getLocalHost()
 			
 			this.serverGame = new ServerGame();
 			

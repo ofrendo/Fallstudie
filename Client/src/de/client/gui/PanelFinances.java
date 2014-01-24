@@ -5,8 +5,8 @@ import java.awt.BorderLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import de.client.company.Balance;
 import de.client.company.Company;
+import de.client.company.finances.Balance;
 
 
 public class PanelFinances extends PanelAbstractContent {

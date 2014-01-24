@@ -1,18 +1,20 @@
-package de.client.company;
+package de.client.company.finances;
 
 import java.util.ArrayList;
+
+import de.client.company.*;
 
 public class ProfitAndLoss {
 	private Company company;
 	
 	// values for calculation
-	private double revenue = 0;
-	private double departmentCosts = 0;
-	private double financeCosts = 0;
-	private double depreciation = 0;
+	private double revenue = 0;				// UefeE
+	private double departmentCosts = 0;		// Aufwendungen für Departments (Löhne, Gehälter, ...)
+	private double financeCosts = 0;		// Zinsaufwendungen
+	private double depreciation = 0;		// Aufwendungen für Abschreibungen
 	private double profitBeforeTaxes = 0;
 	private double taxes = 0;
-	private double profitNet;
+	private double profitNet = 0;
 	
 	// values for next calculation
 	private double nextRevenue = 0;
@@ -27,7 +29,7 @@ public class ProfitAndLoss {
 		nextRevenue += 0;										// REVENUE MUSS NOCH HINZUGEFÜGT WERDEN
 		ArrayList<Credit> credits = company.getFinances().getCredits();
 		for(Credit credit: credits){
-			nextFinanceCosts += credit.getLastInterest();
+			nextFinanceCosts += credit.getInterestsPerQuarter();
 		}
 		nextDepartmentCosts += company.getWarehouse().getCosts() + company.getFinances().getCosts();
 	}
@@ -57,7 +59,11 @@ public class ProfitAndLoss {
 		// recalculate taxes
 		// 15 % Körperschaftssteuer + 3,5 % * Hebesatz Gewerbesteuer (Hebesatz durchschnittlich 390 %)
 		// = 28,65 % => ~ 30 %;
-		taxes = profitBeforeTaxes * 0.3;
+		if(profitBeforeTaxes > 0){
+			taxes = profitBeforeTaxes * 0.3;
+		} else {
+			taxes = 0;
+		}
 		// pay taxes
 		company.setMoney(company.getMoney() - taxes);
 		// recalculate net profit

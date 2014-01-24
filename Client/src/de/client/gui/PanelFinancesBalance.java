@@ -2,7 +2,7 @@ package de.client.gui;
 
 import javax.swing.JPanel;
 
-import de.client.company.Balance;
+import de.client.company.finances.Balance;
 
 import java.awt.GridLayout;
 

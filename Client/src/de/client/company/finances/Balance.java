@@ -1,7 +1,9 @@
-package de.client.company;
+package de.client.company.finances;
 
 import java.util.ArrayList;
 
+import de.client.company.Building;
+import de.client.company.Company;
 import de.shared.game.Constants;
 import de.shared.map.relation.RegionRelation;
 
