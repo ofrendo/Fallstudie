@@ -120,28 +120,44 @@ public class ClientGame extends Game {
 			}
 			
 			if (region instanceof CityRegion) {
-				
+				//get new and old city region
+				Contract contractOld=null;
 				CityRegion cityRegionNew = (CityRegion) region;
 				int index = regionsNew.indexOf(region);
 				CityRegion cityRegionOld = (CityRegion) regionsOld.get(index);
 				
+				//get all contracts from each region
 				ArrayList<Contract> contractsNew = cityRegionNew.getContracts();
 				for (Contract contractNew : contractsNew) {
 					if (contractNew.getPlayer().equals(ownPlayer)) {
-						int contractIndex = contractsNew.indexOf(contractNew);
-						if (cityRegionOld.getContracts().size()>contractIndex) {
-							
-							Contract contractOld = cityRegionOld.getContracts().get(contractIndex);
+						
+						//get the old contract
+						for (Contract contract : cityRegionOld.getContracts()) {
+							if(contract.getPlayer().equals(contractNew.getPlayer()))
+							{
+								contractOld = contract;
+								break;
+							}
+						}
+						
+						//compare both contracts
+						if (contractOld != null) {						
 							if (contractNew.amountCustomer>contractOld.amountCustomer) {
+								
 								events.add(new EventMessage("wir haben neue kunden hinzugewonnen", cityRegionNew.coords));
 							}
 							else if (contractNew.amountCustomer<contractOld.amountCustomer) {
 								events.add(new EventMessage("wir haben einige kunden verloren", cityRegionNew.coords));
 							}
 						}
+						else
+						{
+
+							events.add(new EventMessage("wir haben neue kunden hinzugewonnen", cityRegionNew.coords));
+						}
 						
-						
-						
+						contractOld = null;
+							
 					}
 				}
 				
