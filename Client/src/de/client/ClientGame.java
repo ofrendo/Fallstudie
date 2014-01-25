@@ -73,13 +73,11 @@ public class ClientGame extends Game {
 				if (resRegionNew.resourceRegionStatus == ResourceRegionStatus.BUYABLE ) {
 					//region steht zum verkauf
 					events.add(new EventMessage("Region steht zum Verkauf", resRegionNew.coords));
-					System.out.println("Region wird zum Verkauf angeboten");
 				}
 				//compare owned status
 				if (resRegionNew.resourceRegionStatus == ResourceRegionStatus.OWNED &&
 						resRegionOld.resourceRegionStatus == ResourceRegionStatus.BUYABLE) {
 					events.add(new EventMessage("Eine Region wurde gekauft" , resRegionNew.coords));
-					System.out.println("eine region wurde gekauft");
 				}
 				
 				//compare map related to own buildings
@@ -93,7 +91,6 @@ public class ClientGame extends Game {
 							resRegionOld.resourceRegionStatus == ResourceRegionStatus.POWERSTATION )))
 					{
 						events.add(new EventMessage("Eine Mine wurde gebaut", resRegionNew.coords));
-						System.out.println("Eine mine wurde gebaut");
 					}
 					
 					//get new Powerstation
@@ -105,7 +102,6 @@ public class ClientGame extends Game {
 							resRegionOld.resourceRegionStatus == ResourceRegionStatus.MINE )))
 					{
 						events.add(new EventMessage("Ein Kraftwerk wurde gebaut", resRegionNew.coords));
-						System.out.println("Ein Kraftwerk wurde gebaut");
 					}
 					
 				}
