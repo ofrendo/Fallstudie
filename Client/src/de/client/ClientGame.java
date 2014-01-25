@@ -128,11 +128,12 @@ public class ClientGame extends Game {
 				
 				//get all contracts from each region
 				ArrayList<Contract> contractsNew = cityRegionNew.getContracts();
+				ArrayList<Contract> contractsOld = cityRegionOld.getContracts();
 				for (Contract contractNew : contractsNew) {
 					if (contractNew.getPlayer().equals(ownPlayer)) {
 						
 						//get the old contract
-						for (Contract contract : cityRegionOld.getContracts()) {
+						for (Contract contract : contractsOld) {
 							if(contract.getPlayer().equals(contractNew.getPlayer()))
 							{
 								contractOld = contract;
@@ -159,6 +160,21 @@ public class ClientGame extends Game {
 						contractOld = null;
 							
 					}
+				}
+				//check if there is an old contract , but not a new one
+				boolean contractDeleted = true;
+				for (Contract contract : contractsOld) {
+					for (Contract contractNew : contractsNew) {
+						if (contract.getPlayer().equals(contractNew.getPlayer())) {
+							contractDeleted = false;
+							break;
+						}
+					}
+					
+					if (contractDeleted) {
+						events.add(new EventMessage("Wir haben in eienr Stadt alle Kunden verloren", contract.coords));
+					}
+			
 				}
 				
 			}
