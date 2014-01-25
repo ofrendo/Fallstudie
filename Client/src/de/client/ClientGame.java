@@ -101,6 +101,15 @@ public class ClientGame extends Game {
 						events.add(new EventMessage("Ein Kraftwerk wurde gebaut", resRegionNew.coords));
 					}
 					
+					//get new Powerstation AND mine
+					if ( 	resRegionNew.resourceRegionStatus == ResourceRegionStatus.MINE_POWERSTATION &&
+							resRegionOld.resourceRegionStatus == ResourceRegionStatus.OWNED	) 
+					{
+						events.add(new EventMessage("Eine Mine wurde gebaut", resRegionNew.coords));
+						events.add(new EventMessage("Ein Kraftwerk wurde gebaut", resRegionNew.coords));
+					}
+					
+					
 				}
 				
 				
