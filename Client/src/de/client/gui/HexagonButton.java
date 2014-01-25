@@ -15,8 +15,11 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 
+import de.shared.map.region.CityRegion;
 import de.shared.map.region.Region;
 import de.shared.map.region.ResourceRegion;
+import de.shared.map.relation.Contract;
+import de.shared.map.relation.RegionRelation;
 
 /**
  * Simple hexagonal button class.
@@ -71,7 +74,8 @@ public class HexagonButton extends JButton {
 				imagePath = "windrad.png";
 				break;
 			case EMPTY:
-				hexString = "#FFEEB2"; 
+				//hexString = "#FFEEB2"; 
+				hexString = "#fffffff";
 				imagePath = "leer.png";
 				break;
 			default:
@@ -85,7 +89,6 @@ public class HexagonButton extends JButton {
 			hexString = "#8f30bf";
 			imagePath = "stadt.png";
 		}
-		
 		
 		//Set background color
 		hexString = hexString.replaceAll("#", "");
@@ -113,6 +116,10 @@ public class HexagonButton extends JButton {
     	return region;
     }
     
+    public RegionRelation getRegionRelation() {
+    	return Controller.getInstance().getCompany().getRegionRelation(region.coords);
+    }
+    
     public void triggerControllerClick() {
     	Controller.getInstance().handleMapTileClick(this);
     }
@@ -130,18 +137,7 @@ public class HexagonButton extends JButton {
      * @return Polygon with the buttons hexagonal shape.
      */
     private Polygon getHexPolygon() {
-		Polygon hex = new Polygon();
-		int w = getWidth() - 1;
-		int h = getHeight() - 1;
-		int ratio = (int) (h * .25);
-	
-		hex.addPoint(w / 2, 0);
-		hex.addPoint(w, ratio);
-		hex.addPoint(w, h - ratio);
-		hex.addPoint(w / 2, h);
-		hex.addPoint(0, h - ratio);
-		hex.addPoint(0, ratio);
-	return hex;
+		return buildHexagon(0);
     }
 
     /*
@@ -150,7 +146,7 @@ public class HexagonButton extends JButton {
      */
     @Override
     public boolean contains(Point p) {
-	return hexagonalShape.contains(p);
+    	return hexagonalShape.contains(p);
     }
 
     /*
@@ -159,7 +155,7 @@ public class HexagonButton extends JButton {
      */
     @Override
     public boolean contains(int x, int y) {
-	return hexagonalShape.contains(x, y);
+    	return hexagonalShape.contains(x, y);
     }
 
     /*
@@ -168,8 +164,8 @@ public class HexagonButton extends JButton {
      */
     @Override
     public void setSize(Dimension d) {
-	super.setSize(d);
-	hexagonalShape = getHexPolygon();
+		super.setSize(d);
+		hexagonalShape = getHexPolygon();
     }
 
     /*
@@ -178,8 +174,8 @@ public class HexagonButton extends JButton {
      */
     @Override
     public void setSize(int w, int h) {
-	super.setSize(w, h);
-	hexagonalShape = getHexPolygon();
+		super.setSize(w, h);
+		hexagonalShape = getHexPolygon();
     }
 
     /*
@@ -188,8 +184,8 @@ public class HexagonButton extends JButton {
      */
     @Override
     public void setBounds(int x, int y, int width, int height) {
-	super.setBounds(x, y, width, height);
-	hexagonalShape = getHexPolygon();
+		super.setBounds(x, y, width, height);
+		hexagonalShape = getHexPolygon();
     }
 
     /*
@@ -198,8 +194,8 @@ public class HexagonButton extends JButton {
      */
     @Override
     public void setBounds(Rectangle r) {
-	super.setBounds(r);
-	hexagonalShape = getHexPolygon();
+		super.setBounds(r);
+		hexagonalShape = getHexPolygon();
     }
 
     /*
@@ -218,12 +214,48 @@ public class HexagonButton extends JButton {
      */
     @Override
     protected void paintComponent(Graphics g) {
-    	g.setColor(new Color(0.0f, 0.0f, 0.0f, 0.0f));
-		//g.fillRect(0, 0, getWidth(), getHeight());
-		g.setColor(color);
-		g.drawPolygon(hexagonalShape);
-		g.fillPolygon(hexagonalShape);
+    	//Draw the border
+		//Check each border possiblity so that no empty border is there
+		int radius = 0;
 		
+		if (region instanceof CityRegion) {
+			//Check if have contract with city
+			CityRegion cityRegion = (CityRegion) region;
+			Contract contract = cityRegion.getPlayerContract(Controller.getInstance().getOwnPlayer());
+			if (contract != null) {
+				//Make a 2px big border
+				drawCompletePolygon(g, Look.COLOR_MAP_BORDER_CITY_CONTRACT, hexagonalShape);
+				radius = - Look.BORDER_WIDTH_CITYCONTRACT;
+			}
+		}
+		else {
+			ResourceRegion resourceRegion = (ResourceRegion) region;
+			switch (resourceRegion.resourceRegionStatus) {
+			case BUYABLE:
+				drawCompletePolygon(g, Look.COLOR_MAP_BORDER_BUYABLE, hexagonalShape);
+				radius = - Look.BORDER_WIDTH_CITYCONTRACT;
+				break;
+			case OWNED:
+				break;
+			default: break;
+			}
+		}
+    	
+    	//g.setColor(new Color(0.0f, 0.0f, 0.0f, 0.0f));
+		//g.fillRect(0, 0, getWidth(), getHeight());
+		
+		//g.setColor(color);
+		//g.drawPolygon(hexagonalShape);
+		//g.fillPolygon(hexagonalShape);
+		Color background;
+		if (this == Controller.getInstance().lastHexButton) 
+			background = Look.COLOR_MAP_BORDER_CURRENTSELECTED;
+		else 
+			background = color;
+		
+		drawCompletePolygon(g, background, buildHexagon(radius));
+		
+		//Draw image
 		int wantedImageWidth = (int) (this.getWidth() / 1.5);
 		int wantedImageHeight = (int) (this.getHeight() / 1.5);
 		
@@ -231,6 +263,28 @@ public class HexagonButton extends JButton {
 		int y = (this.getHeight() - wantedImageHeight) / 2;
 		
 		g.drawImage(image, x, y, wantedImageWidth, wantedImageHeight, null);
+    }
+    
+    private void drawCompletePolygon(Graphics g, Color color, Polygon polygon) {
+    	g.setColor(color);
+		g.drawPolygon(polygon);
+		g.fillPolygon(polygon);
+    }
+    
+    private Polygon buildHexagon(int radius) {
+    	Polygon hex = new Polygon();
+		int w = getWidth() - 1;
+		int h = getHeight() - 1;
+		int ratio = (int) (h * .25);
+		int ratioRadius = (int) (radius * .25);
+		
+		hex.addPoint(w / 2, 0 - radius);
+		hex.addPoint(w + radius, ratio - ratioRadius);
+		hex.addPoint(w + radius, h - ratio + ratioRadius);
+		hex.addPoint(w / 2, h + radius);
+		hex.addPoint(0 - radius, h - ratio + ratioRadius);
+		hex.addPoint(0 - radius, ratio - ratioRadius);
+		return hex;
     }
 
     /*

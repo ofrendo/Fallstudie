@@ -26,7 +26,7 @@ public abstract class PanelAbstractContent extends JPanel {
 		this.setLayout(new GridBagLayout());
 		
 		panelLeft.setBackground(Look.COLOR_MAP_BACKGROUND);
-		panelLeft.setBorder(new EmptyBorder(p, p, p, p));
+		//panelLeft.setBorder(new EmptyBorder(p, p, p, p));
 		
 		panelRight.setBackground(Look.COLOR_MAP_BACKGROUND);
 		panelRight.setBorder(new CompoundBorder(new MatteBorder(0, 1, 0, 0, (Color) new Color(0, 0, 0)), new EmptyBorder(p, p, p, p)));

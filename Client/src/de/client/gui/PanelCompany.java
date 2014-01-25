@@ -1,6 +1,5 @@
 package de.client.gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
@@ -8,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -42,10 +42,15 @@ public class PanelCompany extends PanelAbstractContent {
 			panelLeft = new JPanel(new GridLayout(2, 2));
 			panelLeft.setBackground(Look.COLOR_MAP_BACKGROUND);
 			
+			JLabel labelAccountInformation = new JLabel(Controller.getInstance().getHtmlAccountInformation());
+			labelAccountInformation.setFont(Look.fontSectionPart);
+			
+			panelLeft.add(labelAccountInformation);
 			panelLeft.add(new JLabel("A"));
 			panelLeft.add(new JLabel("A"));
 			panelLeft.add(new JLabel("A"));
-			panelLeft.add(new JLabel("A"));
+			int padding = Look.PANEL_LEFT_PADDING;
+			panelLeft.setBorder(new EmptyBorder(padding, padding, padding, padding));
 		}
 		return panelLeft;
 	}
@@ -73,7 +78,7 @@ public class PanelCompany extends PanelAbstractContent {
 					}
 				}
 				
-				Controller.getInstance().getClientGame().getEventMessages().remove(eventMessage);
+				//Controller.getInstance().getClientGame().getEventMessages().remove(eventMessage);
 			}
 		});
 		buttonLook.setMaximumSize(new Dimension(Integer.MAX_VALUE, buttonLook.getPreferredSize().height));
@@ -92,6 +97,7 @@ public class PanelCompany extends PanelAbstractContent {
 		
 		
 		panel.add(panelInnerLeft);
+		panel.add(Box.createRigidArea(new Dimension(5,0)));
 		
 		JLabel labelMessage = new JLabel("<html>" + eventMessage.message + "</html>");
 		labelMessage.setFont(Look.fontSectionPart);
@@ -129,11 +135,6 @@ public class PanelCompany extends PanelAbstractContent {
 			panelRight.setPreferredSize(new Dimension(350, Integer.MAX_VALUE));
 		}
 		return panelRight;
-	}
-	
-	private void refresh() {
-		this.revalidate();
-		this.repaint();
 	}
 	
 	private void refreshPanelNews() {

@@ -271,6 +271,10 @@ public class Controller {
 		
 		String htmlAccountInformation = "<html><table>"
 				+ "<tr>"
+				+ "<td>" + getOwnPlayer().companyName + "</td><td></td>"
+				+ "</tr>"
+				+ "<tr></tr>"
+				+ "<tr>"
 				+ "<td>Konto: </td>"
 				+ "<td>" + Strings.fD(getCompany().getMoney()) + "€</td>"
 				+ "</tr>"

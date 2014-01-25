@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class Player implements Serializable {
 	private static final long serialVersionUID = -2244058085130643635L;
 	public String playerName;
-	public String companyName;
+	public String companyName = "";
 	public boolean ready = false;	
 	
 	public Player(String playerName) {

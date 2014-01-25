@@ -39,6 +39,7 @@ public class GUITestCompany {
 		Controller.getInstance().initGameLobby(players);
 		Controller.getInstance().getClientGame().setMap(map);
 		Controller.getInstance().initGame(map);
+		Controller.getInstance().getOwnPlayer().companyName = "Olli AG";
 		
 		ResourceRelation relation = (ResourceRelation) Controller.getInstance().getCompany().getRegionRelation(r.coords);
 		Controller.getInstance().getCompany().addMine(relation, r.resourceType);
