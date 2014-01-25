@@ -20,9 +20,11 @@ public class PanelMap extends JPanel {
 
 	private static final long serialVersionUID = 2211410456715150941L;
 	
+	private ArrayList<HexagonButton> hexButtons;
 	private Map map;
 	
 	public PanelMap(Map map) {
+		hexButtons = new ArrayList<HexagonButton>();
 		this.map = map;
 	}
 	
@@ -31,8 +33,13 @@ public class PanelMap extends JPanel {
 		init();
 	}
 	
+	public ArrayList<HexagonButton> getHexButtons() {
+		return hexButtons;
+	}
+	
 	public void init() {
 		this.removeAll();
+		hexButtons.clear();
 		
 		int padding = 1;
 		
@@ -64,6 +71,7 @@ public class PanelMap extends JPanel {
 				
 			});
 			this.add(button);
+			hexButtons.add(button);
 		}
 		
 		//HexagonButton testButton = new HexagonButton(testRegions.get(10));
@@ -107,7 +115,5 @@ public class PanelMap extends JPanel {
 	public void setConnections(ArrayList<HexagonButtonLine> connections) {
 		this.connections = connections;
 	}
-	
-	
 	
 }

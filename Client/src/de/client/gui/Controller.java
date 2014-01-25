@@ -263,7 +263,33 @@ public class Controller {
 		getClientGame().cancelContract(contract);
 		//updatePanelDetails(hexButton);
 	}
-
+	
+	public String getHtmlAccountInformation() {
+		double currentIncome = getCompany().getCurrentIncome();
+		double currentExpenditures = getCompany().getCurrentExpenditures();
+		String differenceString = (currentIncome > currentExpenditures) ? "Gewinn: " : "Verlust: ";
+		
+		String htmlAccountInformation = "<html><table>"
+				+ "<tr>"
+				+ "<td>Konto: </td>"
+				+ "<td>" + Strings.fD(getCompany().getMoney()) + "€</td>"
+				+ "</tr>"
+				+ "<tr>"
+				+ "<td>Einnahmen: </td>"
+				+ "<td>" + Strings.fD(currentIncome) + "€</td>"
+				+ "</tr>"
+				+ "<tr>"
+				+ "<td>Ausgaben: </td>"
+				+ "<td>" + Strings.fD(currentExpenditures) + "€</td>"
+				+ "</tr>"
+				+ "<tr>"
+				+ "<td>" + differenceString + "</td>"
+				+ "<td>" + Strings.fD(Math.abs(currentIncome-currentExpenditures)) + "€</td>"
+				+ "</tr>"
+				+ "</table></html>";
+		
+		return htmlAccountInformation;
+	}
 	
 	public Frame getFrame() {
 		return frame;
@@ -276,5 +302,5 @@ public class Controller {
 		if (frame != null)
 			frame.setVisible(false);
 	}
-	
+
 }

@@ -27,7 +27,7 @@ public class ClientGame extends Game {
 	public Player ownPlayer;
 	private Client client;
 	private Company company;
-	public ArrayList <EventMessage> events;
+	private ArrayList <EventMessage> events;
 	
 	public ClientGame(Client client, Player player) {
 		super();
@@ -50,6 +50,10 @@ public class ClientGame extends Game {
 			compareMap(newMap);
 		}
 		this.map = newMap;
+	}
+	
+	public ArrayList<EventMessage> getEventMessages() {
+		return events;
 	}
 	
 	private void compareMap(Map newMap) {

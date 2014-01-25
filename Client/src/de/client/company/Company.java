@@ -329,7 +329,7 @@ public class Company {
 					if (finishRound) {
 						
 						if (mine.getProduction()>0.0 && mine.getProduction() == mine.getResourceRelation().resourceAmount) {
-							client.getClientGame().events.add(new EventMessage("Ein Rohstoffvorkommen wurde aufgebraucht", mine.getResourceRelation().coords));
+							client.getClientGame().getEventMessages().add(new EventMessage("Ein Rohstoffvorkommen wurde aufgebraucht", mine.getResourceRelation().coords));
 						}
 						//reduce the ResourceAmount in the resourceRaltion
 						mine.getResourceRelation().decreaseResourceAmount(productionSum);

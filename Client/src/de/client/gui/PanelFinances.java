@@ -40,30 +40,8 @@ public class PanelFinances extends PanelAbstractContent {
 		if (panelRight == null) {
 			panelRight = new JPanel();
 
-			double currentIncome = company.getCurrentIncome();
-			double currentExpenditures = company.getCurrentExpenditures();
-			String differenceString = (currentIncome > currentExpenditures) ? "Gewinn: " : "Verlust: ";
-			
-			String htmlAccountInformation = "<html><table>"
-					+ "<tr>"
-					+ "<td>Konto: </td>"
-					+ "<td>" + Strings.fD(company.getMoney()) + "€</td>"
-					+ "</tr>"
-					+ "<tr>"
-					+ "<td>Einnahmen: </td>"
-					+ "<td>" + Strings.fD(currentIncome) + "€</td>"
-					+ "</tr>"
-					+ "<tr>"
-					+ "<td>Ausgaben: </td>"
-					+ "<td>" + Strings.fD(currentExpenditures) + "€</td>"
-					+ "</tr>"
-					+ "<tr>"
-					+ "<td>" + differenceString + "</td>"
-					+ "<td>" + Strings.fD(Math.abs(currentIncome-currentExpenditures)) + "€</td>"
-					+ "</tr>"
-					+ "</table></html>";
-			
-			JLabel labelAccountInformation = new JLabel(htmlAccountInformation);
+			JLabel labelAccountInformation = new JLabel(Controller.getInstance().getHtmlAccountInformation());
+			labelAccountInformation.setFont(Look.fontSectionPart);
 			panelRight.add(labelAccountInformation);
 			
 		}

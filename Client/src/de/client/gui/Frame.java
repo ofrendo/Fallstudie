@@ -114,6 +114,7 @@ public class Frame extends JFrame {
 	}
 	
 	public void setPanelCompany() {
+		panelCompany = null;
 		setContentEmpty();
 		getContentPane().add(getPanelCompany());
 		refresh();
