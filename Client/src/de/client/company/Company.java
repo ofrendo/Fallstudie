@@ -3,6 +3,7 @@ package de.client.company;
 import java.util.ArrayList;
 
 import de.client.Client;
+import de.client.EventMessage;
 import de.client.company.finances.Finances;
 import de.client.optimization.Optimizer;
 import de.shared.game.Constants;
@@ -327,8 +328,12 @@ public class Company {
 					productionSum += mine.getProduction();
 					if (finishRound) {
 						
+						if (mine.getProduction()>0.0 && mine.getProduction() == mine.getResourceRelation().resourceAmount) {
+							client.getClientGame().events.add(new EventMessage("Ein Rohstoffvorkommen wurde aufgebraucht", mine.getResourceRelation().coords));
+						}
 						//reduce the ResourceAmount in the resourceRaltion
 						mine.getResourceRelation().decreaseResourceAmount(productionSum);
+					
 					}
 					
 				}
