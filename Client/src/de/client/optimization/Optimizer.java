@@ -27,6 +27,13 @@ public class Optimizer {
 	 */
 	
 	public static void optimizePowerStations(PowerStation[] powerStations, Contract[] contracts) {
+		//Reset from previous in case a contract was cancelled
+		for (PowerStation powerStation : powerStations) {
+			for (PowerStationRelation p : powerStation.getPowerStationRelations()) {
+				p.partPowerStationProduction = 0;
+			}
+		}
+		
 		if (powerStations.length == 0) 
 			return;
 		

@@ -33,7 +33,7 @@ public class ClientGame extends Game {
 		super();
 		this.ownPlayer = player;
 		this.client = client;
-		
+		this.events = new ArrayList<EventMessage>();
 		this.company = new Company(player.companyName, client);
 	}
 	
@@ -47,9 +47,6 @@ public class ClientGame extends Game {
 		}
 		else
 		{
-			if (events == null) {
-				events = new ArrayList<>();
-			}
 			compareMap(newMap);
 		}
 		this.map = newMap;
@@ -187,7 +184,6 @@ public class ClientGame extends Game {
 	
 	public void cancelContract(Contract contract) {
 		client.sendMessage(new MessageContractCancel(contract));
-		
 		//CityRelation relation = (CityRelation) company.getRegionRelation(coords);
 		//relation.setContract(null);
 	}

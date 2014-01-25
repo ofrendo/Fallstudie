@@ -38,7 +38,7 @@ public class ServerGame extends Game {
 		}
 	}
 	
-	public synchronized void pingPlayerReady() {
+	public void pingPlayerReady() {
 		//isPinging = true;
 		System.out.println("[SERVER] Pinging players ready...");
 		Server.getInstance().sendBroadcastMessage(new MessagePlayerReadyChange(players));
