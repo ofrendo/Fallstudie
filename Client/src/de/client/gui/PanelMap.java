@@ -41,7 +41,7 @@ public class PanelMap extends JPanel {
 		this.removeAll();
 		hexButtons.clear();
 		
-		int padding = 4;
+		int padding = 1;
 		
 		MapType mapType = map.mapType;
 		

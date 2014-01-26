@@ -276,23 +276,64 @@ public class Controller {
 				+ "<tr></tr>"
 				+ "<tr>"
 				+ "<td>Konto: </td>"
-				+ "<td>" + Strings.fD(getCompany().getMoney()) + "€</td>"
+				+ "<td align='right'>" + Strings.fD(getCompany().getMoney()) + "€</td>"
 				+ "</tr>"
 				+ "<tr>"
 				+ "<td>Einnahmen: </td>"
-				+ "<td>" + Strings.fD(currentIncome) + "€</td>"
+				+ "<td align='right'>" + Strings.fD(currentIncome) + "€</td>"
 				+ "</tr>"
 				+ "<tr>"
 				+ "<td>Ausgaben: </td>"
-				+ "<td>" + Strings.fD(currentExpenditures) + "€</td>"
+				+ "<td align='right'>" + Strings.fD(currentExpenditures) + "€</td>"
 				+ "</tr>"
 				+ "<tr>"
 				+ "<td>" + differenceString + "</td>"
-				+ "<td>" + Strings.fD(Math.abs(currentIncome-currentExpenditures)) + "€</td>"
+				+ "<td align='right'>" + Strings.fD(Math.abs(currentIncome-currentExpenditures)) + "€</td>"
 				+ "</tr>"
 				+ "</table></html>";
 		
 		return htmlAccountInformation;
+	}
+	
+	public String getHtmlResourceInformation() {
+		String htmlResourceInformation = "<html><table>"
+				+ getHtmlResourceRow(ResourceType.COAL)
+				+ getHtmlResourceRow(ResourceType.GAS)
+				+ getHtmlResourceRow(ResourceType.URANIUM)
+				+ "</table></html>"; 
+		return htmlResourceInformation;
+	}
+	
+	private String getHtmlResourceRow(ResourceType resourceType) {
+		String resourceAmount = Strings.fD(getCompany().getWarehouse()
+									   .getWare(resourceType).getAmount());
+		String rAPerRound = Strings.fD(getCompany().getResourceProduction(resourceType, false));
+		String unit = Strings.getResourceUnit(resourceType);
+		return "<tr>"
+				+ "<td>" + Strings.getResourceString(resourceType) + ": </td>"
+				+ "<td align='right'>" + resourceAmount + unit + "</td>"
+				+ "<td align='right'> +" + rAPerRound + unit + " pro Quartal</td>"
+				+ "</tr>";
+	}
+	
+	public String getHtmlEnergyInformation() {
+		return "<html><table>"
+				+ "<tr>"
+				+ "<td>Stromproduktion:</td>"
+				+ "<td align='right'>" + Strings.fD(getCompany().getEnergyProductionSum()) + " " 
+						 + Strings.ENERGY_UNIT + "</td>"
+				+ "</tr>"
+				+ "<tr>"
+				+ "<td>Stromverbrauch:</td>"
+				+ "<td align='right'>" + Strings.fD(getCompany().getEnergyNeededSum()) + " "  
+						 + Strings.ENERGY_UNIT + "</td>"
+				+ "</tr>"
+				+ "<tr>"
+				+ "<td>Strombilanz:</td>"
+				+ "<td align='right'>" + Strings.fD(getCompany().getSuperflousEnergy()) + " "
+						 + Strings.ENERGY_UNIT + "</td>"
+				+ "</tr>"
+				+ "</table></html>";
 	}
 	
 	public Frame getFrame() {

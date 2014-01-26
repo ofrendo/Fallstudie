@@ -145,7 +145,7 @@ public class PanelDetails extends JPanel {
 				if (relation.mine == null && !region.resourceType.isRenewable) {
 					htmlText1 += "<tr>"
 							+ "<td>Mine:</td>"
-							+ "<td>" + region.resourceType.mPurchaseValue + "€</td>"
+							+ "<td>" + Strings.fD(region.resourceType.mPurchaseValue) + "€</td>"
 							+ "</tr>"
 							+ "<tr>"
 							+ "<td>Bauzeit:</td>"
@@ -211,7 +211,7 @@ public class PanelDetails extends JPanel {
 				
 				if (relation.powerStation == null) {
 					int buildTime = region.resourceType.pBuildTime;
-					htmlText2 += "<td>" + region.resourceType.pPurchaseValue + "€</td>"
+					htmlText2 += "<td>" + Strings.fD(region.resourceType.pPurchaseValue) + "€</td>"
 							+ "</tr>"
 							+ "<tr>"
 							+ "<td>Bauzeit:</td>"
@@ -317,7 +317,7 @@ public class PanelDetails extends JPanel {
 					+ "</tr>"
 					+ "<tr>"
 					+ "<td>Bevölkerung:</td>"
-					+ "<td>" + region.getPopulation() + "</td>"
+					+ "<td>" + Strings.fD(region.getPopulation()) + "</td>"
 					+ "</tr>";
 			
 			if (!Controller.getInstance().getCompany().isPowerStationInRange(relation)) {
@@ -354,11 +354,11 @@ public class PanelDetails extends JPanel {
 					+ "</tr>"
 					+ "<tr>"
 					+ "<td>Bevölkerung:</td>"
-					+ "<td>" + region.getPopulation() + "</td>"
+					+ "<td>" + Strings.fD(region.getPopulation()) + "</td>"
 					+ "</tr>"
 					+ "<tr>"
 					+ "<td>Kunden:</td>"
-					+ "<td>" + contract.amountCustomer + "</td>"
+					+ "<td>" + Strings.fD(contract.amountCustomer) + "</td>"
 					+ "</tr>"
 					+ "<tr>"
 					+ "<td>Preis:</td>"

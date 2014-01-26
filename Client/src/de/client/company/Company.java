@@ -315,7 +315,7 @@ public class Company {
 		return consumptionSum;
 	}
 
-	private double getResourceProduction(ResourceType resourceType, boolean finishRound) {
+	public double getResourceProduction(ResourceType resourceType, boolean finishRound) {
 		
 		double productionSum = 0;
 		for (Building building : buildings) {
@@ -447,4 +447,27 @@ public class Company {
 		return sum;
 	}
 
+	public int getNumberPowerStations(ResourceType resourceType) {
+		int result = 0;
+		for (PowerStation powerStation : getPowerStations()) {
+			if (powerStation.isBuilt() && powerStation.getResourceType() == resourceType) {
+				result++;
+			}
+		}
+		return result;
+	}
+
+	public int getNumberMines(ResourceType resourceType) {
+		int result = 0;
+		for (Building building : buildings)  {
+			if (building instanceof Mine) {
+				Mine mine = (Mine) building;
+				if (mine.isBuilt() && mine.getResourceType() == resourceType) {
+					result++;
+				}
+			}
+		}
+		return result;
+	}
+	
 }

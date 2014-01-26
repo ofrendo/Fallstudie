@@ -1,6 +1,7 @@
 package de.client.gui;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 
 import de.shared.map.region.ResourceType;
 
@@ -12,6 +13,8 @@ public class Strings {
 	public static final String MENU_BUTTON_MAP = "Karte";
 	public static final String MENU_BUTTON_FINANCES = "Finanzen";
 	public static final String MENU_BUTTON_MARKET = "Markt";
+
+	public static final String ENERGY_UNIT = "kWh";
 	
 	public static String getResourceString(ResourceType type) {
 		switch (type) {
@@ -32,6 +35,18 @@ public class Strings {
 		}
 	}
 	
+	public static String getResourceUnit(ResourceType type) {
+		switch (type) {
+		case URANIUM:
+		case COAL:
+			return "t";
+		case GAS:
+			return "m³";
+		default: 
+			return "";
+		}
+	}
+	
 	public static String getRemainingRoundString(int number) {
 		if (number == 1)
 			return "1 Runde";
@@ -39,10 +54,15 @@ public class Strings {
 			return number + " Runden";
 	}
 	
-	private static DecimalFormat df = new DecimalFormat("0.##");
+	private static DecimalFormatSymbols symbols = DecimalFormatSymbols.getInstance();
+	
+	//private static DecimalFormat df = new DecimalFormat("0.##");
 	
 	public static String fD(double number) {
-		return df.format(number);
+		symbols.setGroupingSeparator('.');
+		DecimalFormat formatter = new DecimalFormat("###,###.##", symbols);
+		
+		return formatter.format(number);
 	}
 	
 }

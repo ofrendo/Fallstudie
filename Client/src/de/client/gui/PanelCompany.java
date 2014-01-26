@@ -18,6 +18,7 @@ import javax.swing.border.MatteBorder;
 
 import de.client.EventMessage;
 import de.client.company.Company;
+import de.shared.map.region.ResourceType;
 
 public class PanelCompany extends PanelAbstractContent {
 
@@ -39,20 +40,96 @@ public class PanelCompany extends PanelAbstractContent {
 	
 	public JPanel getPanelInformation() {
 		if (panelLeft == null) {
-			panelLeft = new JPanel(new GridLayout(2, 2));
+			int padding = Look.PANEL_LEFT_PADDING;
+			panelLeft = new JPanel(new GridLayout(2, 2, padding, padding));
 			panelLeft.setBackground(Look.COLOR_MAP_BACKGROUND);
 			
+			//ACCOUNT INFORMATION
 			JLabel labelAccountInformation = new JLabel(Controller.getInstance().getHtmlAccountInformation());
 			labelAccountInformation.setFont(Look.fontSectionPart);
 			
+			//POWERSTATION INFORMATION
+			JLabel labelPowerStationInformation = new JLabel(getHtmlPowerStations());
+			labelPowerStationInformation.setFont(Look.fontSectionPart);
+			
+			//RESOURCE AND PRODUCTION INFORMATION
+			JPanel panelLeftBottom = new JPanel(new GridLayout(2, 1));
+			panelLeftBottom.setBackground(Look.COLOR_MAP_BACKGROUND);
+			
+			JLabel labelResourceInformation = new JLabel(Controller.getInstance().getHtmlResourceInformation());
+			labelResourceInformation.setFont(Look.fontSectionPart);
+			
+			JLabel labelEnergyInformation = new JLabel(Controller.getInstance().getHtmlEnergyInformation());
+			labelEnergyInformation.setFont(Look.fontSectionPart);
+			
+			panelLeftBottom.add(labelResourceInformation);
+			panelLeftBottom.add(labelEnergyInformation);
+			
+			//MINE INFORMATION
+			JLabel labelMineInformation = new JLabel(getHtmlMines());
+			labelMineInformation.setFont(Look.fontSectionPart);
+			
 			panelLeft.add(labelAccountInformation);
-			panelLeft.add(new JLabel("A"));
-			panelLeft.add(new JLabel("A"));
-			panelLeft.add(new JLabel("A"));
-			int padding = Look.PANEL_LEFT_PADDING;
+			panelLeft.add(labelPowerStationInformation);
+			panelLeft.add(panelLeftBottom);
+			panelLeft.add(labelMineInformation);
+			
 			panelLeft.setBorder(new EmptyBorder(padding, padding, padding, padding));
 		}
 		return panelLeft;
+	}
+	
+	private String getHtmlPowerStations() {
+		String result = "<html><table>"
+				+ "<tr>"
+				+ "<td>Kraftwerke</td><td></td>"
+				+ "</tr>"
+				+ getHtmlPowerStationRow(ResourceType.COAL)
+				+ getHtmlPowerStationRow(ResourceType.GAS)
+				+ getHtmlPowerStationRow(ResourceType.URANIUM)
+				+ getHtmlPowerStationRow(ResourceType.WIND)
+				+ getHtmlPowerStationRow(ResourceType.SOLAR)
+				+ getHtmlPowerStationRow(ResourceType.WATER)
+		 		+ "</table></html>";
+
+		return result;
+	}
+	
+	private String getHtmlPowerStationRow(ResourceType resourceType) {
+		if (company.getNumberPowerStations(resourceType) > 0) {
+			return "<tr>"
+					+ "<td>" + Strings.getResourceString(resourceType) + "</td>"
+					+ "<td>" + company.getNumberPowerStations(resourceType) + "x</td>"
+					+ "</tr>";
+		}
+		else {
+			return "";
+		}
+	}
+
+	private String getHtmlMines() {
+		String result = "<html><table>"
+				+ "<tr>"
+				+ "<td>Minen</td><td></td>"
+				+ "</tr>"
+				+ getHtmlMineRow(ResourceType.COAL)
+				+ getHtmlMineRow(ResourceType.GAS)
+				+ getHtmlMineRow(ResourceType.URANIUM)
+		 		+ "</table></html>";
+
+		return result;
+	}
+	
+	private String getHtmlMineRow(ResourceType resourceType) {
+		if (company.getNumberMines(resourceType) > 0) {
+			return "<tr>"
+					+ "<td>" + Strings.getResourceString(resourceType) + "</td>"
+					+ "<td>" + company.getNumberMines(resourceType) + "x</td>"
+					+ "</tr>";
+		}
+		else {
+			return "";
+		}
 	}
 	
 	public JPanel buildPanelEventMessage(final EventMessage eventMessage) {
