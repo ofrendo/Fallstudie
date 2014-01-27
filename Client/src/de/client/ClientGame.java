@@ -74,7 +74,7 @@ public class ClientGame extends Game {
 				//compare buyable status
 				if (resRegionNew.resourceRegionStatus == ResourceRegionStatus.BUYABLE ) {
 					//region steht zum verkauf
-					events.add(new EventMessage("Region steht zum Verkauf", resRegionNew.coords));
+					events.add(new EventMessage("Eine Region steht zum Verkauf", resRegionNew.coords));
 				}
 				//compare owned status
 				if (resRegionNew.resourceRegionStatus == ResourceRegionStatus.OWNED &&
@@ -93,7 +93,7 @@ public class ClientGame extends Game {
 							resourceRelation.bid = 0;
 						}
 						else {
-							message = "Eine Region wurde gekauft.";
+							message = "Ein anderer Spieler hat eine Region gekauft.";
 						}
 					}
 					
@@ -110,7 +110,7 @@ public class ClientGame extends Game {
 							(resRegionNew.resourceRegionStatus == ResourceRegionStatus.MINE_POWERSTATION && 
 							resRegionOld.resourceRegionStatus == ResourceRegionStatus.POWERSTATION )))
 					{
-						events.add(new EventMessage("Eine Mine wurde gebaut", resRegionNew.coords));
+						events.add(new EventMessage("Wir haben eine Mine gebaut", resRegionNew.coords));
 					}
 					
 					//get new Powerstation
@@ -121,15 +121,15 @@ public class ClientGame extends Game {
 							(resRegionNew.resourceRegionStatus == ResourceRegionStatus.MINE_POWERSTATION && 
 							resRegionOld.resourceRegionStatus == ResourceRegionStatus.MINE )))
 					{
-						events.add(new EventMessage("Ein Kraftwerk wurde gebaut", resRegionNew.coords));
+						events.add(new EventMessage("Wir haben ein Kraftwerk gebaut", resRegionNew.coords));
 					}
 					
 					//get new Powerstation AND mine
 					if ( 	resRegionNew.resourceRegionStatus == ResourceRegionStatus.MINE_POWERSTATION &&
 							resRegionOld.resourceRegionStatus == ResourceRegionStatus.OWNED	) 
 					{
-						events.add(new EventMessage("Eine Mine wurde gebaut", resRegionNew.coords));
-						events.add(new EventMessage("Ein Kraftwerk wurde gebaut", resRegionNew.coords));
+						events.add(new EventMessage("Wir haben eine Mine gebaut", resRegionNew.coords));
+						events.add(new EventMessage("Wir haben ein Kraftwerk gebaut", resRegionNew.coords));
 					}
 				}
 			}
@@ -160,16 +160,16 @@ public class ClientGame extends Game {
 						if (contractOld != null) {						
 							if (contractNew.amountCustomer>contractOld.amountCustomer) {
 								
-								events.add(new EventMessage("wir haben neue kunden hinzugewonnen", cityRegionNew.coords));
+								events.add(new EventMessage("Wir haben in "+cityRegionNew.getCityName()+" einige Kunden hinzugewonnen", cityRegionNew.coords));
 							}
 							else if (contractNew.amountCustomer<contractOld.amountCustomer) {
-								events.add(new EventMessage("wir haben einige kunden verloren", cityRegionNew.coords));
+								events.add(new EventMessage("Wir haben in "+cityRegionNew.getCityName()+" einige Kunden verloren", cityRegionNew.coords));
 							}
 						}
 						else
 						{
 
-							events.add(new EventMessage("wir haben neue kunden hinzugewonnen", cityRegionNew.coords));
+							events.add(new EventMessage("Wir haben in "+cityRegionNew.getCityName()+" neue Kunden hinzugewonnen", cityRegionNew.coords));
 						}
 						
 						contractOld = null;
@@ -187,7 +187,7 @@ public class ClientGame extends Game {
 					}
 					
 					if (contractDeleted) {
-						events.add(new EventMessage("Wir haben in eienr Stadt alle Kunden verloren", contract.coords));
+						events.add(new EventMessage("Wir haben in "+cityRegionNew.getCityName()+" alle Kunden verloren", contract.coords));
 					}
 			
 				}
