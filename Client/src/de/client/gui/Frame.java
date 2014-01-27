@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
 
 import de.shared.game.Player;
 import de.shared.map.Map;
@@ -29,6 +30,8 @@ public class Frame extends JFrame {
 	private PanelCompany panelCompany;
 	private PanelFinances panelFinances;
 	private PanelMarket panelMarket;
+	
+	private JPanel panelActive;
 	
 	private Map map;
 	
@@ -110,6 +113,7 @@ public class Frame extends JFrame {
 	public void setPanelMain() {
 		setContentEmpty();
 		getContentPane().add(getPanelMain(map));
+		panelActive = panelMain;
 		refresh();
 	}
 	
@@ -117,23 +121,51 @@ public class Frame extends JFrame {
 		panelCompany = null;
 		setContentEmpty();
 		getContentPane().add(getPanelCompany());
+		panelActive = panelCompany;
 		refresh();
 	}
 	
 	public void setPanelFinances() {
+		panelFinances = null;
 		setContentEmpty();
 		getContentPane().add(getPanelFinances());
+		panelActive = panelFinances;
 		refresh();
 	}
 	
 	public void setPanelMarket() {
+		panelMarket = null;
 		setContentEmpty();
 		getContentPane().add(getPanelMarket());
+		panelActive = panelMarket;
 		refresh();
 	}
 
-	public void resetPanelFinances() {
+	public void resetActivePanel(Map map) {
+		this.map = map;
+		
+		getPanelMain(null).getPanelMap().setMap(map);
+		getPanelMain(null).getPanelMap().init();
+		
+		getPanelMain(null).getPanelDetails().setContentEmpty();
+		getPanelMain(null).getPanelDetails().refresh();
+		
+		if (panelActive == panelCompany) 
+			setPanelCompany();
+		else if (panelActive == panelFinances)
+			setPanelFinances();
+		else if (panelActive == panelMarket)
+			setPanelMarket();
+
+		getPanelMenu().getButtonReady().setEnabled(true);
+	}
+
+	/*public void resetPanelFinances() {
 		panelFinances = null;
 	}
+
+	public void resetPanelCompany() {
+		panelCompany = null;
+	}*/
 
 }

@@ -189,15 +189,8 @@ public class Controller {
 	}
 
 	public void nextRound(Map map) {
-		frame.getPanelMain(null).getPanelMap().setMap(map);
-		frame.getPanelMain(null).getPanelMap().init();
-		
-		frame.getPanelMain(null).getPanelDetails().setContentEmpty();
-		frame.getPanelMain(null).getPanelDetails().refresh();
-		
-		frame.getPanelMenu().getButtonReady().setEnabled(true);
-		
-		frame.resetPanelFinances();
+		resetPanelMenuInformation();
+		frame.resetActivePanel(map);
 	}
 	
 	public void updatePanelDetails(HexagonButton hexButton) {
@@ -207,12 +200,17 @@ public class Controller {
 	
 	public void buildMine(ResourceRelation relation, ResourceType resourceType) {
 		getCompany().buyMine(relation, resourceType);
+		resetPanelMenuInformation();
 	}
 	
 	public void buildPowerStation(ResourceRelation relation, ResourceType resourceType) {
 		getCompany().buyPowerStation(relation, resourceType);
+		resetPanelMenuInformation();
 	}
 	
+	public void resetPanelMenuInformation() {
+		getFrame().getPanelMenu().getPanelMenuInformation().reset();
+	}
 	
 	public static void main(String[] args) {
 		//For testing
@@ -299,23 +297,24 @@ public class Controller {
 	
 	public String getHtmlResourceInformation() {
 		String htmlResourceInformation = "<html><table>"
-				+ getHtmlResourceRow(ResourceType.COAL)
-				+ getHtmlResourceRow(ResourceType.GAS)
-				+ getHtmlResourceRow(ResourceType.URANIUM)
+				+ "<tr>" +  getHtmlResourceRow(ResourceType.COAL) + "</tr>"
+				+ "<tr>" +  getHtmlResourceRow(ResourceType.GAS) + "</tr>"
+				+ "<tr>" +  getHtmlResourceRow(ResourceType.URANIUM) + "</tr>"
 				+ "</table></html>"; 
 		return htmlResourceInformation;
 	}
 	
-	private String getHtmlResourceRow(ResourceType resourceType) {
+	public String getHtmlResourceRow(ResourceType resourceType) {
 		String resourceAmount = Strings.fD(getCompany().getWarehouse()
 									   .getWare(resourceType).getAmount());
-		String rAPerRound = Strings.fD(getCompany().getResourceProduction(resourceType, false));
+		
+		double resourceProduction = getCompany().getResourceProduction(resourceType, false);
+		String rAPerRound = Strings.fD(resourceProduction);
+		String symbol = (resourceProduction >= 0) ? "+" : "";
 		String unit = Strings.getResourceUnit(resourceType);
-		return "<tr>"
-				+ "<td>" + Strings.getResourceString(resourceType) + ": </td>"
+		return "<td>" + Strings.getResourceString(resourceType) + ": </td>"
 				+ "<td align='right'>" + resourceAmount + unit + "</td>"
-				+ "<td align='right'> +" + rAPerRound + unit + " pro Quartal</td>"
-				+ "</tr>";
+				+ "<td align='right'> " + symbol + " " + rAPerRound + unit + " pro Quartal</td>";
 	}
 	
 	public String getHtmlEnergyInformation() {

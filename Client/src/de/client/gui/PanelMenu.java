@@ -21,6 +21,8 @@ public class PanelMenu extends JPanel {
 	
 	private JButton buttonDefault;
 	
+	private PanelMenuInformation panelMenuInformation;
+	
 	public PanelMenu() {
 		setBackground(Look.COLOR_MENU_BACKGROUND);
 		
@@ -49,6 +51,7 @@ public class PanelMenu extends JPanel {
 		leftPanel.add(getButtonReady());
 		
 		this.add(leftPanel, BorderLayout.WEST);
+		this.add(getPanelMenuInformation(), BorderLayout.EAST);
 	}
 	
 	public void enableAllButtons() {
@@ -60,6 +63,13 @@ public class PanelMenu extends JPanel {
 	
 	public JButton getButtonMap() {
 		return buttonMap;
+	}
+	
+	public PanelMenuInformation getPanelMenuInformation() {
+		if (panelMenuInformation == null) {
+			panelMenuInformation = new PanelMenuInformation();
+		}
+		return panelMenuInformation;
 	}
 	
 	private class MenuButtonListener implements ActionListener {

@@ -145,6 +145,7 @@ public class PanelSubDetails extends JPanel {
 						double newValue = source.getValue() / 100.0;
 						((ResourceRelation) relation).mine.setUtilizationRate(newValue);
 						Controller.getInstance().updatePanelDetails(hexButton);
+						Controller.getInstance().resetPanelMenuInformation();
 					}
 				}
 			});
@@ -167,6 +168,7 @@ public class PanelSubDetails extends JPanel {
 						((ResourceRelation) relation).powerStation.setMaintenanceRate(newValue);
 						Controller.getInstance().getCompany().optimizePowerStations();
 						Controller.getInstance().updatePanelDetails(hexButton);
+						Controller.getInstance().resetPanelMenuInformation();
 					}
 				}
 			});
@@ -192,6 +194,7 @@ public class PanelSubDetails extends JPanel {
 						((ResourceRelation) relation).powerStation.setUtilizationRate(newValue);
 						Controller.getInstance().getCompany().optimizePowerStations();
 						Controller.getInstance().updatePanelDetails(hexButton);
+						Controller.getInstance().resetPanelMenuInformation();
 					}
 				}
 			});

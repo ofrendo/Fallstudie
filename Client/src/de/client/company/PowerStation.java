@@ -71,6 +71,10 @@ public class PowerStation extends Building {
 			return 0;
 		}
 		
+		if (resourceType.isRenewable == true) {
+			return 0;
+		}
+		
 		int result = (int) (utilizationRate * consumption);
 		if (result == 0) { //cant return 0 when still producing - always round up to 1
 			return 1;

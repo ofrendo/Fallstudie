@@ -76,16 +76,19 @@ public class PanelDetails extends JPanel {
 		
 		switch (region.resourceRegionStatus) {
 		case NEUTRAL:
+			String resourceRow = (region.resourceAmount > 0) ? 
+					"<tr>"
+					+ "<td>Rohstoffmenge:</td>"
+					+ "<td>" + Strings.fD(region.resourceAmount) + "</td>"
+					+ "</tr>" : "";
+			
 			String htmlText = "<html>"
 					+ "<table>"
 					+ "<tr>"
 					+ "<td>Typ:</td>"
 					+ "<td>" + Strings.getResourceString(region.resourceType) + "</td>"
 					+ "</tr>"
-					+ "<tr>"
-					+ "<td>Rohstoffmenge:</td>"
-					+ "<td>" + Strings.fD(region.resourceAmount) + "</td>"
-					+ "</tr>"
+					+ resourceRow
 					+ "<tr>"
 					+ "<td>Inhaber:</td>"
 					+ "<td>-</td>"
@@ -103,6 +106,12 @@ public class PanelDetails extends JPanel {
 			panel.add(panel.getButtonStartRegionBidding());
 			break;
 		case BUYABLE:
+			resourceRow = (region.resourceAmount > 0) ? 
+					"<tr>"
+					+ "<td>Rohstoffmenge:</td>"
+					+ "<td>" + Strings.fD(region.resourceAmount) + "</td>"
+					+ "</tr>" : "";
+			
 			htmlText = "<html>"
 					+ "<table>"
 					+ "<tr>"
@@ -110,10 +119,7 @@ public class PanelDetails extends JPanel {
 					+ "<td>" + Strings.getResourceString(region.resourceType) + "</td>"
 					+ "</tr>"
 					+ "<tr>"
-					+ "<td>Rohstoffmenge:</td>"
-					+ "<td>" + Strings.fD(region.resourceAmount) + "</td>"
-					+ "</tr>"
-					+ "<tr>"
+					+ resourceRow
 					+ "<td>Inhaber:</td>"
 					+ "<td>-</td>"
 					+ "</tr>"
@@ -135,6 +141,12 @@ public class PanelDetails extends JPanel {
 		case MINE_POWERSTATION:
 		case OWNED:
 			if (region.owner.equals(Controller.getInstance().getOwnPlayer())) {
+				resourceRow = (region.resourceAmount > 0) ? 
+						"<tr>"
+						+ "<td>Rohstoffmenge:</td>"
+						+ "<td>" + Strings.fD(region.resourceAmount) + "</td>"
+						+ "</tr>" : "";
+				
 				String htmlText1 = "<html>"
 						+ "<table>"
 						+ "<tr>"
@@ -145,10 +157,7 @@ public class PanelDetails extends JPanel {
 						+ "<td>Inhaber:</td>"
 						+ "<td>" + region.owner.playerName + " (ME)</td>"
 						+ "</tr>"
-						+ "<tr>"
-						+ "<td>Rohstoffmenge:</td>"
-						+ "<td>" + Strings.fD(relation.resourceAmount) + "</td>"
-						+ "</tr>";
+						+ resourceRow;
 				
 				if (relation.mine == null && !region.resourceType.isRenewable) {
 					htmlText1 += "<tr>"
@@ -251,7 +260,7 @@ public class PanelDetails extends JPanel {
 								+ "</tr>"
 								+ "<tr>"
 								+ "<td>lfd. Kosten:</td>"
-								+ "<td>" + Strings.fD(relation.powerStation.getRunningCosts()) + "</td>"
+								+ "<td>" + Strings.fD(relation.powerStation.getRunningCosts()) + "€</td>"
 								+ "</tr>"
 								+ "<tr>"
 								+ "<td>Wartungskosten:</td>"
@@ -266,13 +275,14 @@ public class PanelDetails extends JPanel {
 						String htmlText3 = "<html><table>"
 								+ "<tr>"
 								+ "<td>Produktion:</td>"
-								+ "<td>" + Strings.fD(relation.powerStation.getProduction()) + "</td>"
+								+ "<td>" + Strings.fD(relation.powerStation.getProduction()) + Strings.ENERGY_UNIT + "</td>"
 								+ "</tr>";
 						
-						if (relation.powerStation.getConsumption() >= 0) {
+						if (relation.powerStation.getConsumption() > 0) {
 							htmlText3 += "<tr>"
 									+ "<td>Verbrauch:</td>"
-									+ "<td>" + Strings.fD(relation.powerStation.getConsumption()) + "</td>"
+									+ "<td>" + Strings.fD(relation.powerStation.getConsumption()) 
+											 + Strings.getResourceUnit(relation.powerStation.getResourceType()) + "</td>"
 									+ "</tr>";
 						}
 						

@@ -197,10 +197,11 @@ public class Company {
 	
 	public void buyPowerStation(ResourceRelation relation, ResourceType resourceType) {
 		this.money -= resourceType.pPurchaseValue;
-		this.addPowerStation(relation.coords, resourceType);
+		this.addPowerStation(relation, resourceType);
 	}
 	
-	public void addPowerStation(Coords coords, ResourceType resourceType) {
+	public void addPowerStation(ResourceRelation relation, ResourceType resourceType) {
+		Coords coords = relation.coords;
 		PowerStation powerStation = new PowerStation(coords, resourceType);
 		
 		//Add ps to resourcerelation
@@ -398,7 +399,8 @@ public class Company {
 		double sum = 0;
 		
 		for (PowerStation powerStation : getPowerStations()) {
-			sum += powerStation.getProduction();
+			if (powerStation.isBuilt()) 
+				sum += powerStation.getProduction();
 		}
 		
 		sum += temporaryEnergyBought;
@@ -434,7 +436,8 @@ public class Company {
 		
 		//Building costs
 		for (Building building : buildings) {
-			sum += building.getRunningCosts();
+			if (building.isBuilt()) 
+				sum += building.getRunningCosts();
 		}
 		//Net usage costs
 		for (Contract contract : getContracts()) {
@@ -445,6 +448,10 @@ public class Company {
 			sum += client.getClientGame().getMap().getEnergyExchange().getPrice( getSuperflousEnergy() );
 		}
 		return sum;
+	}
+	
+	public double getNetIncome() {
+		return getCurrentIncome() - getCurrentExpenditures();
 	}
 
 	public int getNumberPowerStations(ResourceType resourceType) {

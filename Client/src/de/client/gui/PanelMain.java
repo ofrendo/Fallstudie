@@ -1,5 +1,7 @@
 package de.client.gui;
 
+import java.awt.Dimension;
+
 import de.shared.map.Map;
 
 public class PanelMain extends PanelAbstractContent {
@@ -13,6 +15,7 @@ public class PanelMain extends PanelAbstractContent {
 		((PanelMap) panelLeft).init();
 		
 		panelRight = new PanelDetails();
+		panelRight.setMinimumSize(new Dimension(300, panelRight.getPreferredSize().height));
 		
 		super.initLayout();
 	}
