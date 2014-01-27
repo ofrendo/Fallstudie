@@ -2,8 +2,11 @@ package de.client;
 
 import java.util.ArrayList;
 
+import de.client.company.Building;
 import de.client.company.Company;
+import de.client.company.PowerStation;
 import de.client.company.ResourceRelation;
+import de.shared.game.Constants;
 import de.shared.game.Game;
 import de.shared.game.Player;
 import de.shared.map.Map;
@@ -261,7 +264,34 @@ public class ClientGame extends Game {
 	
 	public void nextRound() {
 		incrementRound();
+		triggerEvents();
 		company.optimizePowerStations();
+	}
+
+	public void triggerEvents() {
+		double triggerModificator = 0.0; // Platzhalter für spätere prozentuelle Warscheinlichkeiten von Events
+		
+		ArrayList<Building> buildings = company.getBuildings();
+		for (Building building : buildings) {
+			if(building.isBuilt())
+			{
+				if(building instanceof PowerStation)
+				{
+					PowerStation ps = (PowerStation) building;
+					if(ps.maintenanceRate < 1.0 && ps.maintenanceRate > 0.5)  // if maintenance rate is less than 100% but more than 50%
+					{
+						triggerModificator = (1.0 - ps.maintenanceRate ) / 10;    // between 0 % and 5 %
+						if(Math.random()<triggerModificator)
+						{
+							//Small Meintenece Problem
+							events.add(new EventMessage("Eine notwendige Reparatur in einem Kraftwerk kostete dir Geld", ps.coords));
+							company.setMoney(company.getMoney()-(ps.getResourceType().pPurchaseValue*Constants.MAINTENANCE_ACCIDENT_SMALL));  
+						}
+					}
+				}
+			}
+		}
+		
 	}
 
 	public boolean isEnoughResourcesAvailable() {

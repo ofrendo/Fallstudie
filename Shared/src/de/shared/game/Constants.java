@@ -22,4 +22,10 @@ public class Constants {
 	//Start values for energy exchange
 	public static double START_GLOBAL_ENERGY_DEMAND = 100;
 	public static double START_GLOBAL_ENERGY_OFFER = 100;
+	
+	//EventCosts
+	public static double MAINTENANCE_ACCIDENT_SMALL = 0.05;
+	public static double MAINTENANCE_ACCIDENT_MEDIUM = 0.15;
+	public static double MAINTENANCE_ACCIDENT_LARGE = 0.30; //with fries ;)
+	
 }
