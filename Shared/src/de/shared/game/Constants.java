@@ -15,6 +15,7 @@ public class Constants {
 	public static double COST_COAL = 20;
 	public static double COST_GAS = 25;
 	public static double COST_URANIUM = 50;
+	public static double MINIMUM_REGION_BID = 100000;
 	
 	// Storing costs for the warehouse per ton
 	public static double STORING_COSTS = 100;

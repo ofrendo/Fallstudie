@@ -95,7 +95,7 @@ public class PanelDetails extends JPanel {
 					+ "</tr>"
 					+ "<tr>"
 					+ "<td>Mindestgebot:</td>"
-					+ "<td>100000€</td>"
+					+ "<td>" + Strings.fD(Constants.MINIMUM_REGION_BID) + " + €</td>"
 					+ "</tr>"
 					+ "</table>"
 					+ "</html>";
