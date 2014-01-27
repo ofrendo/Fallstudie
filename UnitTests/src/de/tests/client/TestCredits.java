@@ -14,52 +14,35 @@ import de.client.company.finances.CreditType;
 import de.server.Server;
 import de.shared.game.Constants;
 import de.tests.TestUtils;
+import de.tests.clientserver.AbstractClientServerTest;
 
-public class TestFinances {
+public class TestCredits extends AbstractClientServerTest {
 	
 	private Client client1;
 	private Client client2;
-	
-	@Before
-	public void setUp() throws Exception {
-		System.out.println("[TEST] Starting server...");
+
+	@Test
+	public void testCredits() {
 		Server server = Server.getInstance();
 		server.start();
-		
 		TestUtils.blockLong();
-		
-		System.out.println("[TEST] Starting clients...");
 		client1 = new Client(TestUtils.getIP(), "Olli");
 		client1.setCompanyName("OlliAG");
 		client1.connectToServer();
 		client1.sendInitMessage();
-		
 		TestUtils.blockShort();
-		
 		client2 = new Client(TestUtils.getIP(), "Jörn");
 		client2.setCompanyName("JörnAG");
 		client2.connectToServer();
 		client2.sendInitMessage();
-		
 		TestUtils.blockLong();
-		
 		client1.start();
 		client2.start();
-		
 		TestUtils.blockLong();
-		
 		client1.sendReadyMessage(true);
 		client2.sendReadyMessage(true);
-		
 		TestUtils.blockLong();
-	}
-
-	@After
-	public void tearDown() throws Exception {
-	}
-
-	@Test
-	public void testCredits() {
+		
 		Company company = client1.getClientGame().getCompany();
 		// add 2 credits
 		company.getFinances().addCredit(CreditType.TEST_1);
