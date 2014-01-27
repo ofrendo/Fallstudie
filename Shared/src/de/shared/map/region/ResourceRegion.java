@@ -29,6 +29,10 @@ public class ResourceRegion extends Region {
 		return owner;
 	}
 	
+	public double getPrice(){
+		return price;
+	}
+	
 	public void setResourceRegionStatus(ResourceRegionStatus status) {
 		//region is owned and one building ist build
 		if (resourceRegionStatus == ResourceRegionStatus.OWNED) {

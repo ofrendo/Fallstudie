@@ -8,7 +8,7 @@ public class ProfitAndLoss {
 	private Company company;
 	
 	// values for calculation
-	private double revenue = 0;				// UefeE
+	private double revenue = 0;				// UefeE (Energie & Rohstoffe)
 	private double departmentCosts = 0;		// Aufwendungen für Departments (Löhne, Gehälter, ...)
 	private double financeCosts = 0;		// Zinsaufwendungen
 	private double depreciation = 0;		// Aufwendungen für Abschreibungen
@@ -18,6 +18,7 @@ public class ProfitAndLoss {
 	private double energyMarketCosts = 0;	// Aufwendungen zum Kauf von zusätzlicher Energie
 	private double buildingRunningCosts = 0;// Betriebskosten aller Minen und Kraftwerke zusammen
 	private double resourceCosts = 0;		// Rohstoffkosten (entstehen direkt beim Kauf von Rohstoffen)
+	private double netUsageCosts = 0;
 	
 	// values for next calculation
 	private double nextRevenue = 0;
@@ -26,16 +27,21 @@ public class ProfitAndLoss {
 	private double nextEnergyMarketCosts = 0;
 	private double nextBuildingRunningCosts = 0;
 	private double nextResourceCosts = 0;
+	private double nextNetUsageCosts = 0;
 	
 	public ProfitAndLoss(Company company){
 		this.company = company;
+	}
+	
+	public void addNetUsageCosts(double amount){		// has to be called somewhere
+		nextNetUsageCosts += amount;
 	}
 	
 	public void addEnergyMarketCosts(double amount){	// has to be called somewhere!
 		nextEnergyMarketCosts += amount;
 	}
 	
-	public void addRevenue(double amount){
+	public void addRevenue(double amount){				// has to be called somewhere!
 		nextRevenue += amount;
 	}
 	
@@ -65,6 +71,7 @@ public class ProfitAndLoss {
 		energyMarketCosts = nextEnergyMarketCosts;
 		buildingRunningCosts = nextBuildingRunningCosts;
 		resourceCosts = nextResourceCosts;
+		netUsageCosts = nextNetUsageCosts;
 		// reset those variables 
 		nextRevenue = 0;
 		nextFinanceCosts = 0;
@@ -72,6 +79,7 @@ public class ProfitAndLoss {
 		nextEnergyMarketCosts = 0;
 		nextBuildingRunningCosts = 0;
 		nextResourceCosts = 0;
+		nextNetUsageCosts = 0;
 		// recalculate depreciation
 		depreciation = 0;
 		ArrayList<Building> buildings = company.getBuildings();
@@ -87,7 +95,8 @@ public class ProfitAndLoss {
 				- getFinanceCosts()
 				- getEnergyMarketCosts()
 				- getResourceCosts()
-				- getBuildingRunningCosts();
+				- getBuildingRunningCosts()
+				- getNetUsageCosts();
 		// recalculate taxes
 		// 15 % Körperschaftssteuer + 3,5 % * Hebesatz Gewerbesteuer (Hebesatz durchschnittlich 390 %)
 		// = 28,65 % => ~ 30 %;
@@ -140,6 +149,10 @@ public class ProfitAndLoss {
 	
 	public double getBuildingRunningCosts(){
 		return buildingRunningCosts;
+	}
+	
+	public double getNetUsageCosts(){
+		return netUsageCosts;
 	}
 	
 	public double getProfitNet(){

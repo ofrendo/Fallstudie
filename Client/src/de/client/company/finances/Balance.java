@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import de.client.company.Building;
 import de.client.company.Company;
 import de.shared.game.Constants;
+import de.shared.map.region.ResourceRegion;
 import de.shared.map.relation.RegionRelation;
 
 public class Balance {
@@ -14,7 +15,7 @@ public class Balance {
 	private double equity = Constants.START_MONEY;
 	private double debtCapital = 0;
 	private double buildingsValue = 0;
-	private double plotValue;
+	private double plotValue = 0;
 	private double money = Constants.START_MONEY;
 	private double inventoryValue = 0;
 	
@@ -44,10 +45,9 @@ public class Balance {
 		}
 		// update plot value
 		plotValue = 0;
-		ArrayList<RegionRelation> regionRelations = company.getRegionRelations();
-		for(RegionRelation regionRelation: regionRelations){
-			// 											PLOTVALUE MUSS NOCH HINZUGEFÜGT WERDEN
-			// plotValue += ????????????????????????
+		ArrayList<ResourceRegion> regions = company.getClient().getClientGame().getMap().getOwnedResourceRegions(company.getClient().getClientGame().getPlayer());
+		for(ResourceRegion region: regions){
+			plotValue += region.getPrice();
 		}
 		// update inventory value
 		company.getWarehouse().getStoredValue();
