@@ -132,12 +132,16 @@ public class Company {
 	}
 	
 	public void buyTemporaryEnergy(double amount) {
-		money -= client.getClientGame().getMap().getEnergyExchange().getPrice(amount);
+		double costs = client.getClientGame().getMap().getEnergyExchange().getPrice(amount);
+		money -= costs;
+		finances.getBalance().getProfitAndLoss().addEnergyMarketCosts(costs);
 		temporaryEnergyBought += amount;
 	}
 
 	public void sellSuperflousEnergy(double amount) {
-		money += client.getClientGame().getMap().getEnergyExchange().getPrice(amount);
+		double price = client.getClientGame().getMap().getEnergyExchange().getPrice(amount);
+		money += price;
+		finances.getBalance().getProfitAndLoss().addRevenue(price);
 		temporaryEnergyBought -= amount;
 	}
 	
@@ -284,6 +288,8 @@ public class Company {
 			money += sumMoneyCustomers;
 		}
 		//ADD AND REDUCE WHERE?
+		finances.getBalance().getProfitAndLoss().addRevenue(sumMoneyCustomers);
+		finances.getBalance().getProfitAndLoss().addNetUsageCosts(sumNetUsageCosts);
 
 		
 		// handle warehouse
