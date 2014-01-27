@@ -239,7 +239,7 @@ public class Company {
 		for (Building building : buildings) {
 			building.nextRound();
 			money -= building.getRunningCosts();
-			
+			// Aufwendungen für laufende Kosten werden bereits automatisch der GuV hinzugefügt
 			if (building.getBuildingTimeLeft()==0) {
 				sendFinishBuildingMessage(building);
 			}
@@ -271,7 +271,6 @@ public class Company {
 		double superflousEnergy = getSuperflousEnergy();
 		if (superflousEnergy > 0 && temporaryEnergyBought == 0) {
 			sellSuperflousEnergy(superflousEnergy);
-			//ADD WHERE? TO FINANCES? TO MONEY?
 			client.getClientGame().sendTradeEnergy( superflousEnergy );
 			
 		}
@@ -283,11 +282,9 @@ public class Company {
 		for (Contract contract : getContracts()) {
 			sumNetUsageCosts += contract.amountCustomer * Constants.NET_USAGE_COSTS;
 			sumMoneyCustomers += contract.amountCustomer * contract.amountMoneyPerCustomer;
-			
-			money -= sumNetUsageCosts;
-			money += sumMoneyCustomers;
 		}
-		//ADD AND REDUCE WHERE?
+		money -= sumNetUsageCosts;
+		money += sumMoneyCustomers;
 		finances.getBalance().getProfitAndLoss().addRevenue(sumMoneyCustomers);
 		finances.getBalance().getProfitAndLoss().addNetUsageCosts(sumNetUsageCosts);
 
