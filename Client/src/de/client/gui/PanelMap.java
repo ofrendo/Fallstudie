@@ -108,6 +108,7 @@ public class PanelMap extends JPanel {
 	
 	public void drawConnections(Graphics g) {
 		for (HexagonButtonLine l : connections) {
+			g.setColor(Look.COLOR_MAP_POWERLINE);
 			g.drawLine(l.x1, l.y1, l.x2, l.y2);
 		}
 	}
