@@ -103,19 +103,19 @@ public class Client extends Thread {
 				System.out.println("[CLIENT " + clientGame.ownPlayer.playerName + "] A new player has joined the lobby. " + amountPlayer+" Spieler sind nun im Spiel.");
 				break;
 			case INIT_REJECT:
-				Controller.getInstance().triggerInitRejected();
+				if (!unitTesting) Controller.getInstance().triggerInitRejected();
 				continueListening = false;
 				break;
 			case INIT_CONFIRM:
 				ArrayList<Player> currentPlayers = (ArrayList<Player>) message.getValue();
-				Controller.getInstance().triggerInitConfirmed(currentPlayers);
+				if (!unitTesting) Controller.getInstance().triggerInitConfirmed(currentPlayers);
 				break;
 			case PLAYER_READY_CHANGE: 
 				ArrayList<Player> players = (ArrayList<Player>) message.getValue();
 				clientGame.setPlayers(players);
 				
 				if (clientGame.gamePhase == GamePhase.PLAYERS_JOINING) {
-					Controller.getInstance().updateGameLobby(players);
+					if (!unitTesting) Controller.getInstance().updateGameLobby(players);
 				}
 				else if (clientGame.gamePhase == GamePhase.GAME_STARTED) {
 					
@@ -127,11 +127,11 @@ public class Client extends Thread {
 				clientGame.setMap(newMap);
 				if (clientGame.gamePhase == GamePhase.PLAYERS_JOINING) {
 					clientGame.nextGamePhase();
-					Controller.getInstance().initGame(newMap);
+					if (!unitTesting) Controller.getInstance().initGame(newMap);
 				}
 				else if (clientGame.gamePhase == GamePhase.GAME_STARTED) {
 					clientGame.nextRound();
-					Controller.getInstance().nextRound(newMap);
+					if (!unitTesting) Controller.getInstance().nextRound(newMap);
 				}
 				break;
 			/*case CONTRACT_REQUEST_ANSWER:
@@ -156,4 +156,9 @@ public class Client extends Thread {
 	public ContractRequestAnswer getLatestContractAnswer() {
 		return answer;
 	}*/
+	private boolean unitTesting = false;
+	public void TEST_setUnitTestMode() {
+		unitTesting = true;
+	}
+	
 }
