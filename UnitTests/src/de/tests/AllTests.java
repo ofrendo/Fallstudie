@@ -17,4 +17,5 @@ import de.tests.shared.map.TestEnergyExchange;
 	TestSuiteClientServer.class
 })
 public class AllTests {
+	
 }
