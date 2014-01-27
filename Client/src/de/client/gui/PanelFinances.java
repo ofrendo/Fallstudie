@@ -43,7 +43,7 @@ public class PanelFinances extends PanelAbstractContent {
 			JLabel labelAccountInformation = new JLabel(Controller.getInstance().getHtmlAccountInformation());
 			labelAccountInformation.setFont(Look.fontSectionPart);
 			panelRight.add(labelAccountInformation);
-			
+		
 		}
 		return panelRight;
 	}
