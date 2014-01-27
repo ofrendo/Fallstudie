@@ -430,6 +430,24 @@ public class HexagonLayout implements LayoutManager {
 								int y1 = hexButton.getY() + boxHeight/2;
 								int x2 = otherHexButton.getX() + boxWidth/2;
 								int y2 = otherHexButton.getY() + boxHeight/2;
+								
+								/*if (x1 < x2) {
+									x1 += boxWidth/2;
+									x2 -= boxWidth/2;
+								}
+								else {
+									x1 -= boxWidth/2;
+									x2 += boxWidth/2;
+								}
+								if (y1 < x2) {
+									y1 += boxHeight/2;
+									y2 -= boxHeight/2;
+								}
+								else {
+									y1 -= boxHeight/2;
+									y2 += boxHeight/2;
+								}*/
+								
 								lines.add(new HexagonButtonLine(x1, y1, x2, y2));
 							}
 						}
