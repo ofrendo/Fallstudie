@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 
 public class Look {
-
+	
 	public static Font fontSectionTitle = new Font("Tahoma", Font.PLAIN, 30);
 	public static Font fontSectionPart = new Font("Tahoma", Font.PLAIN, 20);
 	
@@ -15,12 +15,12 @@ public class Look {
 	public static Color COLOR_MAP_BORDER_POWERSTATION = Color.blue;
 	public static Color COLOR_MAP_BORDER_OTHEROWNED = Color.red;
 	
-	public static Color COLOR_MAP_BORDER_CURRENTSELECTED = Color.green;
+	public static Color COLOR_MAP_BACKGROUND_CURRENTSELECTED = Color.green;
 	public static final int BORDER_WIDTH_CURRENT_SELECTED = 4;
 	
 	public static Color COLOR_MAP_BORDER_CITY_CONTRACT = Color.black;
 	public static final int BORDER_WIDTH_CITYCONTRACT = 4;
-	
+
 	public static final Color COLOR_MAP_BORDER_BUYABLE = Color.white;
 	
 	public static final int PANEL_LEFT_PADDING = 20;

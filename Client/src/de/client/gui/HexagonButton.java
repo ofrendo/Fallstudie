@@ -15,6 +15,7 @@ import java.io.InputStream;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 
+import de.client.company.ResourceRelation;
 import de.shared.map.region.CityRegion;
 import de.shared.map.region.Region;
 import de.shared.map.region.ResourceRegion;
@@ -35,6 +36,7 @@ public class HexagonButton extends JButton {
     private Color color;
     
     private Region region;
+    private RegionRelation regionRelation;
     
     public PanelSubDetails panel;
     
@@ -117,7 +119,10 @@ public class HexagonButton extends JButton {
     }
     
     public RegionRelation getRegionRelation() {
-    	return Controller.getInstance().getCompany().getRegionRelation(region.coords);
+    	if (regionRelation == null) {
+    		regionRelation = Controller.getInstance().getCompany().getRegionRelation(region.coords);
+    	}
+    	return regionRelation; 
     }
     
     public void triggerControllerClick() {
@@ -233,9 +238,30 @@ public class HexagonButton extends JButton {
 			switch (resourceRegion.resourceRegionStatus) {
 			case BUYABLE:
 				drawCompletePolygon(g, Look.COLOR_MAP_BORDER_BUYABLE, hexagonalShape);
-				radius = - Look.BORDER_WIDTH_CITYCONTRACT;
+				radius -= Look.BORDER_WIDTH_CITYCONTRACT;
 				break;
 			case OWNED:
+				if (Controller.getInstance().getOwnPlayer().equals(resourceRegion.owner)) {
+					//Test if building is on it
+					ResourceRelation resourceRelation = (ResourceRelation) getRegionRelation();
+					if (resourceRelation.powerStation != null) {
+						drawCompletePolygon(g, Look.COLOR_MAP_BORDER_POWERSTATION, hexagonalShape);
+						radius -= Look.BORDER_WIDTH_CITYCONTRACT;
+					}
+					if (resourceRelation.mine != null) {
+						drawCompletePolygon(g, Look.COLOR_MAP_BORDER_MINE, buildHexagon(radius));
+						radius -= Look.BORDER_WIDTH_CITYCONTRACT;
+					}
+					if (resourceRelation.powerStation == null && resourceRelation.mine == null) {
+						drawCompletePolygon(g, Look.COLOR_MAP_BORDER_POWERSTATION, hexagonalShape);
+						radius -= Look.BORDER_WIDTH_CITYCONTRACT;
+					}
+				}
+				else {
+					//Region belongs to someone else
+					drawCompletePolygon(g, Look.COLOR_MAP_BORDER_OTHEROWNED, hexagonalShape);
+					radius = - Look.BORDER_WIDTH_CITYCONTRACT;
+				}
 				break;
 			default: break;
 			}
@@ -249,7 +275,7 @@ public class HexagonButton extends JButton {
 		//g.fillPolygon(hexagonalShape);
 		Color background;
 		if (this == Controller.getInstance().lastHexButton) 
-			background = Look.COLOR_MAP_BORDER_CURRENTSELECTED;
+			background = Look.COLOR_MAP_BACKGROUND_CURRENTSELECTED;
 		else 
 			background = color;
 		
