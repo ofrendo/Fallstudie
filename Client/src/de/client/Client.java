@@ -14,7 +14,7 @@ import de.shared.message.client.MessageInit;
 import de.shared.message.client.MessageReady;
 
 public class Client extends Thread {
-	
+
 	private Socket socket;
 	private ObjectOutputStream out;
 	private ObjectInputStream in;
