@@ -34,24 +34,43 @@ public class Warehouse extends Department {
 			if(tmpWare.getAmount() >= amount){
 				// reduce amount
 				tmpWare.reduceAmount(amount);
-				// add costs for used resources
-				double costs = 0;
-				switch (tmpWare.getResourceType().name()) {
-				case "COAL":
-					costs = amount * Constants.COST_COAL;
-					break;
-				case "GAS":
-					costs = amount * Constants.COST_GAS;
-					break;
-				case "URANIUM":
-					costs = amount * Constants.COST_URANIUM;
-					break;
-				default:
-					throw new Exception("Illegal resourceType!");
-				}
-				getCompany().getFinances().getBalance().getProfitAndLoss().addResourceCosts(costs);
 			} else throw new Exception("Not enough ware stored for the specified resourceType");
 		} else throw new Exception("No ware of the specified resourceType stored!");
+	}
+	
+	public double getResourcePrice(ResourceType resourceType) {
+		switch(resourceType) {
+		case COAL: 
+			return Constants.COST_COAL;
+		case GAS:
+			return Constants.COST_GAS;
+		case URANIUM:
+			return Constants.COST_URANIUM;
+		default:
+			return -1;
+		}
+	}
+	
+	public void buyWare(ResourceType resourceType, double amount) throws Exception{
+		double price = getResourcePrice(resourceType) * amount;
+		if(price < 0) throw new Exception("Invalid resource type!");
+		// pay money
+		getCompany().setMoney(getCompany().getMoney() - price);
+		// get resource
+		addWare(resourceType, amount);
+		// add costs to profit calculation
+		getCompany().getFinances().getBalance().getProfitAndLoss().addResourceCosts(price);
+	}
+	
+	public void sellWare(ResourceType resourceType, double amount) throws Exception{
+		double price = getResourcePrice(resourceType) * amount;
+		if(price < 0) throw new Exception("Invalid resource type!");
+		// get money
+		getCompany().setMoney(getCompany().getMoney() + price);
+		// reduce resource
+		reduceWare(resourceType, amount);
+		// add revenue to profit calculation
+		getCompany().getFinances().getBalance().getProfitAndLoss().addRevenue(price);
 	}
 	
 	public Ware getWare(ResourceType resourceType){

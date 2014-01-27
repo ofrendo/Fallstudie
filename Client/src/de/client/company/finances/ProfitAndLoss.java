@@ -17,7 +17,7 @@ public class ProfitAndLoss {
 	private double profitNet = 0;
 	private double energyMarketCosts = 0;	// Aufwendungen zum Kauf von zusätzlicher Energie
 	private double buildingRunningCosts = 0;// Betriebskosten aller Minen und Kraftwerke zusammen
-	private double resourceCosts = 0;		// Rohstoffkosten (entstehen bei Entnahme eines Rohstoffes aus dem Warehouse! keine Rohstoffkosten beim Kauf!!!!)
+	private double resourceCosts = 0;		// Rohstoffkosten (entstehen direkt beim Kauf von Rohstoffen)
 	
 	// values for next calculation
 	private double nextRevenue = 0;
