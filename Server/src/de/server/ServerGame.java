@@ -106,6 +106,7 @@ public class ServerGame extends Game {
 				if (highestPlayer != null && highestBid > 0 && resourceRegion.resourceRegionStatus == ResourceRegionStatus.BUYABLE) {
 					resourceRegion.owner = highestPlayer;
 					resourceRegion.resourceRegionStatus = ResourceRegionStatus.OWNED;
+					resourceRegion.winningBid = highestBid;
 				}
 			}
 			

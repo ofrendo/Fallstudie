@@ -3,6 +3,7 @@ package de.client;
 import java.util.ArrayList;
 
 import de.client.company.Company;
+import de.client.company.ResourceRelation;
 import de.shared.game.Game;
 import de.shared.game.Player;
 import de.shared.map.Map;
@@ -78,7 +79,25 @@ public class ClientGame extends Game {
 				//compare owned status
 				if (resRegionNew.resourceRegionStatus == ResourceRegionStatus.OWNED &&
 						resRegionOld.resourceRegionStatus == ResourceRegionStatus.BUYABLE) {
-					events.add(new EventMessage("Eine Region wurde gekauft" , resRegionNew.coords));
+					
+					String message;
+					if (resRegionNew.owner.equals(ownPlayer)) {
+						message = "Du hast die Auktion einer Region gewonnen!";
+					}
+					else {
+						ResourceRelation resourceRelation = (ResourceRelation) company.getRegionRelation(resRegionNew.coords);
+						if (resourceRelation.bid > 0) {
+							message = "Du hast die Auktion einer Region verloren!";
+							//Give money back
+							company.setMoney(company.getMoney() + resourceRelation.bid);
+							resourceRelation.bid = 0;
+						}
+						else {
+							message = "Eine Region wurde gekauft.";
+						}
+					}
+					
+					events.add(new EventMessage(message , resRegionNew.coords));
 				}
 				
 				//compare map related to own buildings
@@ -112,15 +131,7 @@ public class ClientGame extends Game {
 						events.add(new EventMessage("Eine Mine wurde gebaut", resRegionNew.coords));
 						events.add(new EventMessage("Ein Kraftwerk wurde gebaut", resRegionNew.coords));
 					}
-					
-					
 				}
-				
-				
-			
-			
-
-				
 			}
 			
 			if (region instanceof CityRegion) {
@@ -202,6 +213,8 @@ public class ClientGame extends Game {
 	}
 	
 	public void bidForResourceRegion(Coords coords, double amount) {
+		((ResourceRelation) company.getRegionRelation(coords)).bid = amount;
+		company.setMoney(company.getMoney() - amount);
 		client.sendMessage(new MessageResourceRegionBid(coords, ownPlayer, amount));
 	}
 	

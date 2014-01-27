@@ -6,7 +6,6 @@ import de.client.company.Building;
 import de.client.company.Company;
 import de.shared.game.Constants;
 import de.shared.map.region.ResourceRegion;
-import de.shared.map.relation.RegionRelation;
 
 public class Balance {
 	private Company company;
@@ -47,7 +46,7 @@ public class Balance {
 		plotValue = 0;
 		ArrayList<ResourceRegion> regions = company.getClient().getClientGame().getMap().getOwnedResourceRegions(company.getClient().getClientGame().getPlayer());
 		for(ResourceRegion region: regions){
-			plotValue += region.getPrice();
+			plotValue += region.winningBid;
 		}
 		// update inventory value
 		company.getWarehouse().getStoredValue();

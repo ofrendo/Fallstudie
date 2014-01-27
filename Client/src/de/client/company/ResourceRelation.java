@@ -9,6 +9,8 @@ public class ResourceRelation extends RegionRelation {
 	public Mine mine = null;
 	public double resourceAmount;
 	
+	public double bid;
+	
 	public ResourceRelation(Coords coords, double resourceAmount) {
 		super(coords);
 		this.resourceAmount = resourceAmount;

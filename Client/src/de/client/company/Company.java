@@ -262,10 +262,12 @@ public class Company {
 		//handle energy production / distribution
 		//There's already been a check to see whether there is enough energy. So:
 		//Sell superflous energy automatically
-		if (getSuperflousEnergy() > 0 && temporaryEnergyBought == 0) {
+		double superflousEnergy = getSuperflousEnergy();
+		if (superflousEnergy > 0 && temporaryEnergyBought == 0) {
 			double amountMoney = client.getClientGame().getMap().getEnergyExchange()
-									   .getPrice( getSuperflousEnergy() );
+									   .getPrice( superflousEnergy );
 			//ADD WHERE? TO FINANCES? TO MONEY?
+			client.getClientGame().sendTradeEnergy( superflousEnergy );
 			money += amountMoney;
 		}
 		

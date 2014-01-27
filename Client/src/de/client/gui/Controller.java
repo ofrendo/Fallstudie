@@ -161,6 +161,7 @@ public class Controller {
 	
 	public void sendRegionBid(Region region, double amount) {
 		client.getClientGame().bidForResourceRegion(region.coords, amount);
+		resetPanelMenuInformation();
 	}
 	
 	public void initGame(Map map) {
