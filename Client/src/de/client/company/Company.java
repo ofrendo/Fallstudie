@@ -133,12 +133,14 @@ public class Company {
 	
 	public void buyTemporaryEnergy(double amount) {
 		money -= client.getClientGame().getMap().getEnergyExchange().getPrice(amount);
-		addTemporaryEnergyBought(amount);
+		temporaryEnergyBought += amount;
+	}
+
+	public void sellSuperflousEnergy(double amount) {
+		money += client.getClientGame().getMap().getEnergyExchange().getPrice(amount);
+		temporaryEnergyBought -= amount;
 	}
 	
-	public void addTemporaryEnergyBought(double amount) {
-		temporaryEnergyBought = amount;
-	}
 	
 	public PowerStation[] getPowerStations() {
 		ArrayList<PowerStation> powerStations = new ArrayList<PowerStation>();
@@ -264,11 +266,10 @@ public class Company {
 		//Sell superflous energy automatically
 		double superflousEnergy = getSuperflousEnergy();
 		if (superflousEnergy > 0 && temporaryEnergyBought == 0) {
-			double amountMoney = client.getClientGame().getMap().getEnergyExchange()
-									   .getPrice( superflousEnergy );
+			sellSuperflousEnergy(superflousEnergy);
 			//ADD WHERE? TO FINANCES? TO MONEY?
 			client.getClientGame().sendTradeEnergy( superflousEnergy );
-			money += amountMoney;
+			
 		}
 		
 		//Add costs of Netznutzungsgebühren
@@ -304,7 +305,7 @@ public class Company {
 		temporaryEnergyBought = 0;
 	}
 	
-	private double getResourceConsumption(ResourceType resourceType) {
+	public double getResourceConsumption(ResourceType resourceType) {
 		double consumptionSum = 0;
 		for (Building building : buildings) {
 			

@@ -310,7 +310,9 @@ public class Controller {
 									   .getWare(resourceType).getAmount());
 		
 		double resourceProduction = getCompany().getResourceProduction(resourceType, false);
-		String rAPerRound = Strings.fD(resourceProduction);
+		double resourceConsumption = getCompany().getResourceConsumption(resourceType);
+		
+		String rAPerRound = Strings.fD(resourceProduction - resourceConsumption);
 		String symbol = (resourceProduction >= 0) ? "+" : "";
 		String unit = Strings.getResourceUnit(resourceType);
 		return "<td>" + Strings.getResourceString(resourceType) + ": </td>"
