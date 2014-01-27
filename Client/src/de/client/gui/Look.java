@@ -20,7 +20,7 @@ public class Look {
 	
 	public static Color COLOR_MAP_BORDER_CITY_CONTRACT = Color.black;
 	public static final int BORDER_WIDTH_CITYCONTRACT = 4;
-	
+
 	public static final Color COLOR_MAP_BORDER_BUYABLE = Color.white;
 	
 	public static final int PANEL_LEFT_PADDING = 20;
