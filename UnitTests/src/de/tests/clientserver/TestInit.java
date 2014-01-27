@@ -26,7 +26,7 @@ public class TestInit extends AbstractClientServerTest {
 		client1.sendInitMessage();
 		
 		TestUtils.blockShort();
-		
+	
 		Client client2 = new Client(TestUtils.getIP(), "Jörn");
 		client2.TEST_setUnitTestMode();
 		client2.setCompanyName("JörnAG");
