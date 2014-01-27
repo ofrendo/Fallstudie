@@ -257,12 +257,13 @@ public class Company {
 		try {
 			double consumption = getResourceConsumption(ResourceType.COAL);
 			warehouse.reduceWare(ResourceType.COAL, consumption);
-			consumption = getResourceConsumption(ResourceType.COAL);
-			warehouse.reduceWare(ResourceType.COAL, consumption);
-			consumption = getResourceConsumption(ResourceType.COAL);
-			warehouse.reduceWare(ResourceType.COAL, consumption);
+			consumption = getResourceConsumption(ResourceType.URANIUM);
+			warehouse.reduceWare(ResourceType.URANIUM, consumption);
+			consumption = getResourceConsumption(ResourceType.GAS);
+			warehouse.reduceWare(ResourceType.GAS, consumption);
 		} catch (Exception e) {
 			e.printStackTrace();
+
 		}
 	
 		//handle energy production / distribution
