@@ -19,6 +19,7 @@ public class ProfitAndLoss {
 	private double buildingRunningCosts = 0;// Betriebskosten aller Minen und Kraftwerke zusammen
 	private double resourceCosts = 0;		// Rohstoffkosten (entstehen direkt beim Kauf von Rohstoffen)
 	private double netUsageCosts = 0;
+	private double otherCosts = 0;
 	
 	// values for next calculation
 	private double nextRevenue = 0;
@@ -28,6 +29,7 @@ public class ProfitAndLoss {
 	private double nextBuildingRunningCosts = 0;
 	private double nextResourceCosts = 0;
 	private double nextNetUsageCosts = 0;
+	private double nextOtherCosts = 0;
 	
 	public ProfitAndLoss(Company company){
 		this.company = company;
@@ -47,6 +49,10 @@ public class ProfitAndLoss {
 	
 	public void addResourceCosts(double amount){
 		nextResourceCosts += amount;
+	}
+	
+	public void addOtherCosts(double amount){
+		nextOtherCosts += amount;
 	}
 	
 	public void nextRound(){
@@ -72,6 +78,7 @@ public class ProfitAndLoss {
 		buildingRunningCosts = nextBuildingRunningCosts;
 		resourceCosts = nextResourceCosts;
 		netUsageCosts = nextNetUsageCosts;
+		otherCosts = nextOtherCosts;
 		// reset those variables 
 		nextRevenue = 0;
 		nextFinanceCosts = 0;
@@ -80,6 +87,7 @@ public class ProfitAndLoss {
 		nextBuildingRunningCosts = 0;
 		nextResourceCosts = 0;
 		nextNetUsageCosts = 0;
+		nextOtherCosts = 0;
 		// recalculate depreciation
 		depreciation = 0;
 		ArrayList<Building> buildings = company.getBuildings();
@@ -96,7 +104,8 @@ public class ProfitAndLoss {
 				- getEnergyMarketCosts()
 				- getResourceCosts()
 				- getBuildingRunningCosts()
-				- getNetUsageCosts();
+				- getNetUsageCosts()
+				- getOtherCosts();
 		// recalculate taxes
 		// 15 % Körperschaftssteuer + 3,5 % * Hebesatz Gewerbesteuer (Hebesatz durchschnittlich 390 %)
 		// = 28,65 % => ~ 30 %;
@@ -157,5 +166,9 @@ public class ProfitAndLoss {
 	
 	public double getProfitNet(){
 		return profitNet;
+	}
+	
+	public double getOtherCosts(){
+		return otherCosts;
 	}
 }

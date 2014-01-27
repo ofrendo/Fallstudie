@@ -270,6 +270,7 @@ public class ClientGame extends Game {
 
 	public void triggerEvents() {
 		double triggerModificator = 0.0; // Platzhalter für spätere prozentuelle Warscheinlichkeiten von Events
+		double eventCosts = 0.0 ;
 		
 		ArrayList<Building> buildings = company.getBuildings();
 		for (Building building : buildings) {
@@ -281,11 +282,14 @@ public class ClientGame extends Game {
 					if(ps.maintenanceRate < 1.0 && ps.maintenanceRate > 0.5)  // if maintenance rate is less than 100% but more than 50%
 					{
 						triggerModificator = (1.0 - ps.maintenanceRate ) / 10;    // between 0 % and 5 %
-						if(Math.random()<triggerModificator)
+						if(Math.random()<=triggerModificator)
 						{
 							//Small Meintenece Problem
-							events.add(new EventMessage("Eine notwendige Reparatur in einem Kraftwerk kostete dir Geld", ps.coords));
-							company.setMoney(company.getMoney()-(ps.getResourceType().pPurchaseValue*Constants.MAINTENANCE_ACCIDENT_SMALL));  
+							eventCosts = ps.getResourceType().pPurchaseValue*Constants.MAINTENANCE_ACCIDENT_SMALL;
+							events.add(new EventMessage("Eine notwendige Reparatur in einem Kraftwerk kostete dir "+eventCosts+" Euro", ps.coords));
+							//pay costs and add them to balance
+							company.setMoney(company.getMoney()-eventCosts);  
+							company.getFinances().getBalance().getProfitAndLoss().addOtherCosts(eventCosts);
 						}
 					}
 				}

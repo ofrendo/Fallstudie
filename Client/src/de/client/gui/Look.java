@@ -11,16 +11,18 @@ public class Look {
 	public static Color COLOR_MAP_BACKGROUND = getColor("#FFEEB2");
 	public static Color COLOR_MENU_BACKGROUND = getColor("#C38537");
 	
-	public static Color COLOR_MAP_BORDER_MINE = Color.black;
-	public static Color COLOR_MAP_BORDER_POWERSTATION = Color.blue;
+	public static Color COLOR_MAP_BORDER_MINE = getColor("#FF0000");
+	public static Color COLOR_MAP_BORDER_POWERSTATION = getColor("#000000");
 	public static Color COLOR_MAP_BORDER_OTHEROWNED = Color.red;
 	
 	public static Color COLOR_MAP_BACKGROUND_CURRENTSELECTED = Color.green;
 	public static final int BORDER_WIDTH_CURRENT_SELECTED = 4;
 	
-	public static Color COLOR_MAP_BORDER_CITY_CONTRACT = Color.black;
+	public static Color COLOR_MAP_BORDER_CITY_CONTRACT = getColor("#FF00FF");
 	public static final int BORDER_WIDTH_CITYCONTRACT = 4;
 
+	public static Color COLOR_MAP_POWERLINE = getColor("A65353");
+	
 	public static final Color COLOR_MAP_BORDER_BUYABLE = Color.white;
 	
 	public static final int PANEL_LEFT_PADDING = 20;

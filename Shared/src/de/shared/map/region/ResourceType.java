@@ -35,13 +35,19 @@ public enum ResourceType implements Serializable {
 	
 	public double mDefaultResourceAmount; 
 	
-	ResourceType(boolean isRenewable,
-			double pMaxProduction, double pAdjustability, 
-			int pConsumption, double pPurchaseValue, 
-			double pMaxRunningCosts, int pBuildTime, 
+	ResourceType(
+			boolean isRenewable,
+			double pMaxProduction, 
+			double pAdjustability, 
+			int pConsumption, 
+			double pPurchaseValue, 
+			double pMaxRunningCosts, 
+			int pBuildTime, 
 			int pDepreciationYears, 
-			double mMaxProduction, double mPurchaseValue,
-			double mMaxRunningCosts, int mBuildTime,
+			double mMaxProduction, 
+			double mPurchaseValue,
+			double mMaxRunningCosts, 
+			int mBuildTime,
 			int mDepreciationYears,
 			double mDefaultResourceAmount) {
 		
