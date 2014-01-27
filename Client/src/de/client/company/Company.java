@@ -264,6 +264,7 @@ public class Company {
 		} catch (Exception e) {
 			e.printStackTrace();
 
+			
 		}
 	
 		//handle energy production / distribution
