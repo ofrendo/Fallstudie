@@ -44,6 +44,7 @@ public class Balance {
 		}
 		// update plot value
 		plotValue = 0;
+		company.getClient().getClientGame().getPlayer();
 		ArrayList<ResourceRegion> regions = company.getClient().getClientGame().getMap().getOwnedResourceRegions(company.getClient().getClientGame().getPlayer());
 		for(ResourceRegion region: regions){
 			plotValue += region.winningBid;
