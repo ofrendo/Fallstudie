@@ -16,6 +16,7 @@ import javax.swing.event.ChangeListener;
 
 import de.client.company.PowerStation;
 import de.client.company.ResourceRelation;
+import de.shared.game.Constants;
 import de.shared.map.region.CityRegion;
 import de.shared.map.region.Region;
 import de.shared.map.region.ResourceRegion;
@@ -74,6 +75,7 @@ public class PanelSubDetails extends JPanel {
 			textFieldRegionBid.setMaximumSize( 
 				     new Dimension(Integer.MAX_VALUE, textFieldRegionBid.getPreferredSize().height) );
 			textFieldRegionBid.setAlignmentX( Component.LEFT_ALIGNMENT );
+			textFieldRegionBid.setText(Constants.MINIMUM_REGION_BID + "");
 		}
 		return textFieldRegionBid;
 	}
@@ -86,12 +88,12 @@ public class PanelSubDetails extends JPanel {
 				public void actionPerformed(ActionEvent arg0) {
 					try {
 						double bid = Double.parseDouble(textFieldRegionBid.getText()); 
-						if (bid >= 100000) {
+						if (bid >= Constants.MINIMUM_REGION_BID) {
 							Controller.getInstance().sendRegionBid(region, bid);
 							buttonRegionBid.setEnabled(false);
 						}
 						else {
-							JOptionPane.showMessageDialog(null, "Mindestgebot ist 100000€.");
+							JOptionPane.showMessageDialog(null, "Mindestgebot ist " + Strings.fD(Constants.MINIMUM_REGION_BID) + "€.");
 						}
 					}
 					catch (Exception e) {
