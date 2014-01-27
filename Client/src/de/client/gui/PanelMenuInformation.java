@@ -38,7 +38,7 @@ public class PanelMenuInformation extends JPanel {
 			double energyNetIncome = company.getSuperflousEnergy();
 			String energySymbol = (energyNetIncome >= 0) ? "+" : "";
 			
-			String htmlInfo = "<html><table cellpadding=0 cellspacing=0>"
+			String htmlInfo = "<html><table cellpadding=2 cellspacing=0>"
 					+ "<tr>"
 					+ "<td>Konto:</td>"
 					+ "<td align='right'>" + Strings.fD(money) + "€"
