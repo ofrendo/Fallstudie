@@ -62,13 +62,13 @@ public class Map implements Serializable {
 	}
 	
 	public ArrayList<ResourceRegion> getOwnedResourceRegions(Player player){
-		ArrayList<ResourceRegion> resourceRegion = new ArrayList<ResourceRegion>();
-		for(ResourceRegion region: getResourceRegions()){
-			if(region.getOwner() == player){
-				resourceRegion.add(region);
+		ArrayList<ResourceRegion> resourceRegions = new ArrayList<ResourceRegion>();
+		for(ResourceRegion region: getResourceRegions()) {
+			if (region.getOwner() != null && region.getOwner().equals(player)) {
+				resourceRegions.add(region);
 			}
 		}
-		return resourceRegion;
+		return resourceRegions;
 	}
 
 	public ArrayList<CityRegion> getCityRegions() {
