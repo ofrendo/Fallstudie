@@ -132,12 +132,16 @@ public class Company {
 	}
 	
 	public void buyTemporaryEnergy(double amount) {
-		money -= client.getClientGame().getMap().getEnergyExchange().getPrice(amount);
+		double costs = client.getClientGame().getMap().getEnergyExchange().getPrice(amount);
+		money -= costs;
+		finances.getBalance().getProfitAndLoss().addEnergyMarketCosts(costs);
 		temporaryEnergyBought += amount;
 	}
 
 	public void sellSuperflousEnergy(double amount) {
-		money += client.getClientGame().getMap().getEnergyExchange().getPrice(amount);
+		double price = client.getClientGame().getMap().getEnergyExchange().getPrice(amount);
+		money += price;
+		finances.getBalance().getProfitAndLoss().addRevenue(price);
 		temporaryEnergyBought -= amount;
 	}
 	
@@ -235,7 +239,7 @@ public class Company {
 		for (Building building : buildings) {
 			building.nextRound();
 			money -= building.getRunningCosts();
-			
+			// Aufwendungen für laufende Kosten werden bereits automatisch der GuV hinzugefügt
 			if (building.getBuildingTimeLeft()==0) {
 				sendFinishBuildingMessage(building);
 			}
@@ -267,7 +271,6 @@ public class Company {
 		double superflousEnergy = getSuperflousEnergy();
 		if (superflousEnergy > 0 && temporaryEnergyBought == 0) {
 			sellSuperflousEnergy(superflousEnergy);
-			//ADD WHERE? TO FINANCES? TO MONEY?
 			client.getClientGame().sendTradeEnergy( superflousEnergy );
 			
 		}
@@ -279,11 +282,11 @@ public class Company {
 		for (Contract contract : getContracts()) {
 			sumNetUsageCosts += contract.amountCustomer * Constants.NET_USAGE_COSTS;
 			sumMoneyCustomers += contract.amountCustomer * contract.amountMoneyPerCustomer;
-			
-			money -= sumNetUsageCosts;
-			money += sumMoneyCustomers;
 		}
-		//ADD AND REDUCE WHERE?
+		money -= sumNetUsageCosts;
+		money += sumMoneyCustomers;
+		finances.getBalance().getProfitAndLoss().addRevenue(sumMoneyCustomers);
+		finances.getBalance().getProfitAndLoss().addNetUsageCosts(sumNetUsageCosts);
 
 		
 		// handle warehouse
