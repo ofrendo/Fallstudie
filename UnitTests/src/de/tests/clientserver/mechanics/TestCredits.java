@@ -1,10 +1,8 @@
-package de.tests.client;
+package de.tests.clientserver.mechanics;
 
 import java.util.ArrayList;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import de.client.Client;
@@ -27,11 +25,13 @@ public class TestCredits extends AbstractClientServerTest {
 		server.start();
 		TestUtils.blockLong();
 		client1 = new Client(TestUtils.getIP(), "Olli");
+		client1.TEST_setUnitTestMode();
 		client1.setCompanyName("OlliAG");
 		client1.connectToServer();
 		client1.sendInitMessage();
 		TestUtils.blockShort();
 		client2 = new Client(TestUtils.getIP(), "Jörn");
+		client2.TEST_setUnitTestMode();
 		client2.setCompanyName("JörnAG");
 		client2.connectToServer();
 		client2.sendInitMessage();

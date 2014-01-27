@@ -22,8 +22,10 @@ public class TestSetup extends AbstractClientServerTest {
 		
 		System.out.println("[TEST] Starting clients...");
 		Client client1 = new Client(TestUtils.getIP(), "Olli");
+		client1.TEST_setUnitTestMode();
 		client1.connectToServer();
 		Client client2 = new Client(TestUtils.getIP(), "Jörn");
+		client2.TEST_setUnitTestMode();
 		client2.connectToServer();
 		
 		TestUtils.blockLong();

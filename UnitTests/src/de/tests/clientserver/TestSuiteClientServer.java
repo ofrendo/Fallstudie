@@ -6,6 +6,7 @@ import org.junit.runners.Suite.SuiteClasses;
 
 import de.tests.clientserver.mechanics.TestBuildingFinished;
 import de.tests.clientserver.mechanics.TestContract;
+import de.tests.clientserver.mechanics.TestCredits;
 import de.tests.clientserver.mechanics.TestRegionBid;
 
 @RunWith(Suite.class)
@@ -16,6 +17,7 @@ import de.tests.clientserver.mechanics.TestRegionBid;
 	TestGameStart.class,
 	TestGameRound.class,
 	TestContract.class,
+	TestCredits.class,
 	TestRegionBid.class,
 	TestBuildingFinished.class
 })

@@ -20,6 +20,7 @@ public class TestInit extends AbstractClientServerTest {
 		
 		System.out.println("[TEST] Starting clients...");
 		Client client1 = new Client(TestUtils.getIP(), "Olli");
+		client1.TEST_setUnitTestMode();
 		client1.setCompanyName("OlliAG");
 		client1.connectToServer();
 		client1.sendInitMessage();
