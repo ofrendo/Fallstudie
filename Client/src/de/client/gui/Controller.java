@@ -303,7 +303,7 @@ public class Controller {
 				+ "<tr>" +  getHtmlResourceRow(ResourceType.URANIUM) + "</tr>"
 				+ "</table></html>"; 
 		return htmlResourceInformation;
-	}
+	} 
 	
 	public String getHtmlResourceRow(ResourceType resourceType) {
 		String resourceAmount = Strings.fD(getCompany().getWarehouse()
