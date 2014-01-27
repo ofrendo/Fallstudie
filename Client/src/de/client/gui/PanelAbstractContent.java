@@ -1,4 +1,4 @@
-package de.client.gui;
+ package de.client.gui;
 
 import java.awt.Color;
 import java.awt.GridBagConstraints;
@@ -20,13 +20,13 @@ public abstract class PanelAbstractContent extends JPanel {
 		
 	}
 	
-	protected final int p = 5; //Padding
+	protected final int p = 0; //Padding
 	
 	public void initLayout() {
 		this.setLayout(new GridBagLayout());
 		
 		panelLeft.setBackground(Look.COLOR_MAP_BACKGROUND);
-		panelLeft.setBorder(new EmptyBorder(p, p, p, p));
+		//panelLeft.setBorder(new EmptyBorder(p, p, p, p));
 		
 		panelRight.setBackground(Look.COLOR_MAP_BACKGROUND);
 		panelRight.setBorder(new CompoundBorder(new MatteBorder(0, 1, 0, 0, (Color) new Color(0, 0, 0)), new EmptyBorder(p, p, p, p)));

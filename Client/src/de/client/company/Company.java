@@ -3,6 +3,7 @@ package de.client.company;
 import java.util.ArrayList;
 
 import de.client.Client;
+import de.client.EventMessage;
 import de.client.company.finances.Finances;
 import de.client.optimization.Optimizer;
 import de.shared.game.Constants;
@@ -29,7 +30,7 @@ public class Company {
 	private Warehouse warehouse;
 	private Finances finances;
 	
-	private double temporaryEnergyBought; //Used for adding energy after a round if ont enough has been added
+	private double temporaryEnergyBought; //Used for adding energy after a round if not enough has been added
 	
 	public Company(String companyName, Client client) {
 		this.companyName = companyName;
@@ -314,7 +315,7 @@ public class Company {
 		return consumptionSum;
 	}
 
-	private double getResourceProduction(ResourceType resourceType, boolean finishRound) {
+	public double getResourceProduction(ResourceType resourceType, boolean finishRound) {
 		
 		double productionSum = 0;
 		for (Building building : buildings) {
@@ -327,8 +328,12 @@ public class Company {
 					productionSum += mine.getProduction();
 					if (finishRound) {
 						
+						if (mine.getProduction()>0.0 && mine.getProduction() == mine.getResourceRelation().resourceAmount) {
+							client.getClientGame().getEventMessages().add(new EventMessage("Ein Rohstoffvorkommen wurde aufgebraucht", mine.getResourceRelation().coords));
+						}
 						//reduce the ResourceAmount in the resourceRaltion
 						mine.getResourceRelation().decreaseResourceAmount(productionSum);
+					
 					}
 					
 				}
@@ -442,4 +447,27 @@ public class Company {
 		return sum;
 	}
 
+	public int getNumberPowerStations(ResourceType resourceType) {
+		int result = 0;
+		for (PowerStation powerStation : getPowerStations()) {
+			if (powerStation.isBuilt() && powerStation.getResourceType() == resourceType) {
+				result++;
+			}
+		}
+		return result;
+	}
+
+	public int getNumberMines(ResourceType resourceType) {
+		int result = 0;
+		for (Building building : buildings)  {
+			if (building instanceof Mine) {
+				Mine mine = (Mine) building;
+				if (mine.isBuilt() && mine.getResourceType() == resourceType) {
+					result++;
+				}
+			}
+		}
+		return result;
+	}
+	
 }

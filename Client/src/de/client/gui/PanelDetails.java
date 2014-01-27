@@ -1,8 +1,15 @@
 package de.client.gui;
 
+import java.awt.Color;
+import java.awt.Component;
+import java.awt.Dimension;
+
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.MatteBorder;
 
 import de.client.company.ResourceRelation;
 import de.shared.game.Constants;
@@ -15,6 +22,7 @@ import de.shared.map.relation.Contract;
 public class PanelDetails extends JPanel {
 
 	private static final long serialVersionUID = -3177233247088338481L;
+	private JPanel panelDetailsTitle;
 	private JLabel labelDetailsTitle;
 
 	private JPanel panelDetails;
@@ -23,7 +31,7 @@ public class PanelDetails extends JPanel {
 	
 	public PanelDetails() {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		add(getLabelDetailsTitle());
+		add(getPanelDetailsTitle());
 		add(getPanelDetails());
 	}
 	
@@ -145,7 +153,7 @@ public class PanelDetails extends JPanel {
 				if (relation.mine == null && !region.resourceType.isRenewable) {
 					htmlText1 += "<tr>"
 							+ "<td>Mine:</td>"
-							+ "<td>" + region.resourceType.mPurchaseValue + "€</td>"
+							+ "<td>" + Strings.fD(region.resourceType.mPurchaseValue) + "€</td>"
 							+ "</tr>"
 							+ "<tr>"
 							+ "<td>Bauzeit:</td>"
@@ -211,7 +219,7 @@ public class PanelDetails extends JPanel {
 				
 				if (relation.powerStation == null) {
 					int buildTime = region.resourceType.pBuildTime;
-					htmlText2 += "<td>" + region.resourceType.pPurchaseValue + "€</td>"
+					htmlText2 += "<td>" + Strings.fD(region.resourceType.pPurchaseValue) + "€</td>"
 							+ "</tr>"
 							+ "<tr>"
 							+ "<td>Bauzeit:</td>"
@@ -321,7 +329,7 @@ public class PanelDetails extends JPanel {
 					+ "</tr>"
 					+ "<tr>"
 					+ "<td>Bevölkerung:</td>"
-					+ "<td>" + region.getPopulation() + "</td>"
+					+ "<td>" + Strings.fD(region.getPopulation()) + "</td>"
 					+ "</tr>";
 			
 			if (!Controller.getInstance().getCompany().isPowerStationInRange(relation)) {
@@ -358,11 +366,11 @@ public class PanelDetails extends JPanel {
 					+ "</tr>"
 					+ "<tr>"
 					+ "<td>Bevölkerung:</td>"
-					+ "<td>" + region.getPopulation() + "</td>"
+					+ "<td>" + Strings.fD(region.getPopulation()) + "</td>"
 					+ "</tr>"
 					+ "<tr>"
 					+ "<td>Kunden:</td>"
-					+ "<td>" + contract.amountCustomer + "</td>"
+					+ "<td>" + Strings.fD(contract.amountCustomer) + "</td>"
 					+ "</tr>"
 					+ "<tr>"
 					+ "<td>Preis:</td>"
@@ -392,6 +400,18 @@ public class PanelDetails extends JPanel {
 		}
 	}
 	
+	private JPanel getPanelDetailsTitle() {
+		if (panelDetailsTitle == null) {
+			panelDetailsTitle = new JPanel();
+			panelDetailsTitle.add(getLabelDetailsTitle());
+			panelDetailsTitle.setBorder(new CompoundBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)), new EmptyBorder(0, 0, 5, 0)));
+			panelDetailsTitle.setBackground(Look.COLOR_MAP_BACKGROUND);
+			panelDetailsTitle.setMaximumSize(new Dimension(Integer.MAX_VALUE, getLabelDetailsTitle().getPreferredSize().height + 2 * 5 ));
+			panelDetailsTitle.setAlignmentX( Component.LEFT_ALIGNMENT );
+		}
+		return panelDetailsTitle;
+	}
+	
 	private JLabel getLabelDetailsTitle() {
 		if (labelDetailsTitle == null) {
 			labelDetailsTitle = new JLabel("Feldinformationen");
@@ -404,6 +424,8 @@ public class PanelDetails extends JPanel {
 			panelDetails = new JPanel();
 			panelDetails.setLayout(new BoxLayout(panelDetails, BoxLayout.Y_AXIS));
 			panelDetails.setBackground(Look.COLOR_MAP_BACKGROUND);
+			panelDetails.setAlignmentX( Component.LEFT_ALIGNMENT );
+			panelDetails.setBorder(new EmptyBorder(5, 5, 5, 5));
 		}
 		return panelDetails;
 	}

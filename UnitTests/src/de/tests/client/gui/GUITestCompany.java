@@ -2,20 +2,21 @@ package de.tests.client.gui;
 
 import java.util.ArrayList;
 
+import de.client.EventMessage;
 import de.client.company.ResourceRelation;
 import de.client.gui.Controller;
 import de.shared.game.Player;
 import de.shared.map.Map;
 import de.shared.map.generate.MapTypeHexagon;
 import de.shared.map.region.CityRegion;
+import de.shared.map.region.Coords;
 import de.shared.map.region.Region;
 import de.shared.map.region.ResourceRegion;
 import de.shared.map.region.ResourceRegionStatus;
 import de.shared.map.region.ResourceType;
 import de.shared.map.relation.Contract;
 
-public class GUITestFinances {
-	
+public class GUITestCompany {
 	public static void main(String[] args) {
 		Map map = new Map(MapTypeHexagon.NORMAL); //Map.getInstance(MapTypeHexagon.NORMAL);
 		Player ownPlayer = new Player("Olli");
@@ -56,8 +57,9 @@ public class GUITestFinances {
 		
 		Controller.getInstance().getCompany().optimizePowerStations();
 		
-		Controller.getInstance().getFrame().setPanelFinances();
+		Controller.getInstance().getClientGame().getEventMessages().add(new EventMessage("Test Nachricht mit einem langen langen langen langen langen langen langen Inhalt", new Coords(0,0)));
+		Controller.getInstance().getClientGame().getEventMessages().add(new EventMessage("Test Nachricht mit einem kurzen Inhalt", new Coords(1,1)));
+		
+		Controller.getInstance().getFrame().setPanelCompany();
 	}
-	
-	
 }

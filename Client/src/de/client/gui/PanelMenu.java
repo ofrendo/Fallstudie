@@ -58,6 +58,10 @@ public class PanelMenu extends JPanel {
 		buttonMarket.setEnabled(true);
 	}
 	
+	public JButton getButtonMap() {
+		return buttonMap;
+	}
+	
 	private class MenuButtonListener implements ActionListener {
 		@Override
 		public void actionPerformed(ActionEvent e) {

@@ -20,7 +20,8 @@ public class PanelFinancesBalance extends JPanel {
 	private ProfitAndLoss profitAndLoss;
 	
 	public PanelFinancesBalance(Balance balance) {
-		setBorder(new EmptyBorder(20, 20, 20, 20));
+		int padding = Look.PANEL_LEFT_PADDING;
+		setBorder(new EmptyBorder(padding, padding, padding, padding));
 		this.balance = balance;
 		this.profitAndLoss = balance.getProfitAndLoss();
 		

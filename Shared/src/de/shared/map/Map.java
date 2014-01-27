@@ -8,6 +8,7 @@ import de.shared.map.generate.RegionGenerator;
 import de.shared.map.region.CityRegion;
 import de.shared.map.region.Coords;
 import de.shared.map.region.Region;
+import de.shared.map.region.ResourceRegion;
 import de.shared.map.relation.Contract;
 
 public class Map implements Serializable {
@@ -234,6 +235,15 @@ public class Map implements Serializable {
 		int result = (int) (a * (x-d) * (x-d) + b);
 		if (result < 0) result = 0;
 		
+		return result;
+	}
+
+	public ArrayList<ResourceRegion> getResourceRegions() {
+		ArrayList<ResourceRegion> result = new ArrayList<ResourceRegion>();
+		for (Region region : getRegions()) {
+			if (region instanceof ResourceRegion) 
+				result.add((ResourceRegion) region);
+		}
 		return result;
 	}
 	

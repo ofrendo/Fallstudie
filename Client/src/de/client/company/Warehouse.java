@@ -32,7 +32,24 @@ public class Warehouse extends Department {
 		Ware tmpWare = this.getWare(resourceType);
 		if(tmpWare != null){
 			if(tmpWare.getAmount() >= amount){
+				// reduce amount
 				tmpWare.reduceAmount(amount);
+				// add costs for used resources
+				double costs = 0;
+				switch (tmpWare.getResourceType().name()) {
+				case "COAL":
+					costs = amount * Constants.COST_COAL;
+					break;
+				case "GAS":
+					costs = amount * Constants.COST_GAS;
+					break;
+				case "URANIUM":
+					costs = amount * Constants.COST_URANIUM;
+					break;
+				default:
+					throw new Exception("Illegal resourceType!");
+				}
+				getCompany().getFinances().getBalance().getProfitAndLoss().addResourceCosts(costs);
 			} else throw new Exception("Not enough ware stored for the specified resourceType");
 		} else throw new Exception("No ware of the specified resourceType stored!");
 	}

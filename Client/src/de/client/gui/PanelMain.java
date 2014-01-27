@@ -18,12 +18,10 @@ public class PanelMain extends PanelAbstractContent {
 	}
 	
 	public PanelDetails getPanelDetails() {
-		//return panelDetails;
 		return (PanelDetails) panelRight;
 	}
 	
 	public PanelMap getPanelMap() {
-		//return panelMap;
 		return (PanelMap) panelLeft;
 	}
 	
