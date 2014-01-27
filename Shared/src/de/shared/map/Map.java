@@ -3,6 +3,7 @@ package de.shared.map;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import de.shared.game.Player;
 import de.shared.map.generate.MapType;
 import de.shared.map.generate.RegionGenerator;
 import de.shared.map.region.CityRegion;
@@ -58,6 +59,16 @@ public class Map implements Serializable {
 	
 	public ArrayList<Region> getRegions() {
 		return regions;
+	}
+	
+	public ArrayList<ResourceRegion> getOwnedResourceRegions(Player player){
+		ArrayList<ResourceRegion> resourceRegion = new ArrayList<ResourceRegion>();
+		for(ResourceRegion region: getResourceRegions()){
+			if(region.getOwner() == player){
+				resourceRegion.add(region);
+			}
+		}
+		return resourceRegion;
 	}
 
 	public ArrayList<CityRegion> getCityRegions() {

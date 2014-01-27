@@ -25,6 +25,10 @@ public class ResourceRegion extends Region {
 	
 	}
 	
+	public Player getOwner(){
+		return owner;
+	}
+	
 	public void setResourceRegionStatus(ResourceRegionStatus status) {
 		//region is owned and one building ist build
 		if (resourceRegionStatus == ResourceRegionStatus.OWNED) {
