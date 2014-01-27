@@ -62,6 +62,10 @@ public class Company {
 		}
 	}
 	
+	public Client getClient(){
+		return client;
+	}
+	
 	public RegionRelation getRegionRelation(Coords coords) {
 		for (RegionRelation relation : regionRelations) {
 			if (relation.coords.equals(coords))
