@@ -15,7 +15,7 @@ public class Look {
 	public static Color COLOR_MAP_BORDER_POWERSTATION = Color.blue;
 	public static Color COLOR_MAP_BORDER_OTHEROWNED = Color.red;
 	
-	public static Color COLOR_MAP_BORDER_CURRENTSELECTED = Color.green;
+	public static Color COLOR_MAP_BACKGROUND_CURRENTSELECTED = Color.green;
 	public static final int BORDER_WIDTH_CURRENT_SELECTED = 4;
 	
 	public static Color COLOR_MAP_BORDER_CITY_CONTRACT = Color.black;

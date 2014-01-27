@@ -249,7 +249,7 @@ public class HexagonButton extends JButton {
 		//g.fillPolygon(hexagonalShape);
 		Color background;
 		if (this == Controller.getInstance().lastHexButton) 
-			background = Look.COLOR_MAP_BORDER_CURRENTSELECTED;
+			background = Look.COLOR_MAP_BACKGROUND_CURRENTSELECTED;
 		else 
 			background = color;
 		
