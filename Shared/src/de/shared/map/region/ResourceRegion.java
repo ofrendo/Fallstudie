@@ -11,6 +11,8 @@ public class ResourceRegion extends Region {
 	
 	public Player owner;
 	public double price; //need to set this differently after buying on serverside
+	public double winningBid;
+	
 	public double resourceAmount;
 	
 	public ResourceRegion(int regionIDX, int regionIDY, ResourceType resourceType) {
@@ -24,7 +26,7 @@ public class ResourceRegion extends Region {
 		this.resourceAmount =  (random*resourceType.mDefaultResourceAmount);
 	
 	}
-	
+
 	public Player getOwner(){
 		return owner;
 	}

@@ -4,16 +4,16 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
-import de.tests.client.TestInvestmentDepreciation;
-import de.tests.client.optimization.OptimizeAllTests;
+import de.tests.client.TestSuiteClient;
 import de.tests.clientserver.TestSuiteClientServer;
 import de.tests.shared.map.GenerateRegions;
+import de.tests.shared.map.TestEnergyExchange;
 
 @RunWith(Suite.class)
 @SuiteClasses({ 
-	OptimizeAllTests.class,
-	TestInvestmentDepreciation.class,
+	TestSuiteClient.class,
 	GenerateRegions.class,
+	TestEnergyExchange.class,
 	TestSuiteClientServer.class
 })
 public class AllTests {
