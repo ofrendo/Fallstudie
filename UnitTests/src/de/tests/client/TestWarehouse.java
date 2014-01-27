@@ -62,8 +62,6 @@ public class TestWarehouse {
 		wh.buyWare(ResourceType.COAL, 10);
 		Assert.assertEquals(Constants.START_MONEY - Constants.COST_COAL * 10, company.getMoney(), 0.001);
 		Assert.assertEquals(10, company.getWarehouse().getWare(ResourceType.COAL).getAmount(), 0.001);
-		company.getFinances().getBalance().nextYear();
-		Assert.assertEquals(Constants.COST_COAL * 10, company.getFinances().getBalance().getProfitAndLoss().getResourceCosts(), 0.001);
 	}
 	
 	@Test
@@ -76,8 +74,6 @@ public class TestWarehouse {
 		Assert.assertEquals(50, wh.getWare(ResourceType.COAL).getAmount(), 0.001);
 		Assert.assertEquals(10, wh.getWare(ResourceType.GAS).getAmount(), 0.001);
 		Assert.assertEquals(Constants.START_MONEY + Constants.COST_COAL * 50, company.getMoney(), 0.001);
-		company.getFinances().getBalance().nextYear();
-		Assert.assertEquals(Constants.COST_COAL * 50, company.getFinances().getBalance().getProfitAndLoss().getRevenue(), 0.001);
 		// try to sell more than existent
 		try {
 			wh.sellWare(ResourceType.COAL, 60);
