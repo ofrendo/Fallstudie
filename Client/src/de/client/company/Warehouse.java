@@ -119,7 +119,7 @@ public class Warehouse extends Department {
 	
 	public void nextYear(){
 		// recalc inventoryChange
-		inventoryChange = lastYearStoredValue - getStoredValue();
+		inventoryChange = getStoredValue() - lastYearStoredValue;
 		lastYearStoredValue = getStoredValue();
 	}
 
