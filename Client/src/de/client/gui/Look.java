@@ -5,6 +5,7 @@ import java.awt.Font;
 
 public class Look {
 
+	
 	public static Font fontSectionTitle = new Font("Tahoma", Font.PLAIN, 30);
 	public static Font fontSectionPart = new Font("Tahoma", Font.PLAIN, 20);
 	
