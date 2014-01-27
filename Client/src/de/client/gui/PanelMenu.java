@@ -43,12 +43,14 @@ public class PanelMenu extends JPanel {
 		
 		setLayout(new BorderLayout());
 		
-		JPanel leftPanel = new JPanel(new GridLayout(1, 5));
+		JPanel leftPanel = new JPanel(new GridLayout(1, 0));
 		leftPanel.add(buttonCompany);
 		leftPanel.add(buttonMap);
 		leftPanel.add(buttonFinances);
 		leftPanel.add(buttonMarket);
-		leftPanel.add(getButtonReady());
+		
+		
+		this.add(getButtonReady(), BorderLayout.CENTER);
 		
 		this.add(leftPanel, BorderLayout.WEST);
 		this.add(getPanelMenuInformation(), BorderLayout.EAST);
