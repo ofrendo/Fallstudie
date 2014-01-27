@@ -131,4 +131,8 @@ public class Frame extends JFrame {
 		refresh();
 	}
 
+	public void resetPanelFinances() {
+		panelFinances = null;
+	}
+
 }

@@ -8,6 +8,7 @@ import de.client.company.ResourceRelation;
 import de.shared.game.Constants;
 import de.shared.map.region.CityRegion;
 import de.shared.map.region.ResourceRegion;
+import de.shared.map.region.ResourceType;
 import de.shared.map.relation.CityRelation;
 import de.shared.map.relation.Contract;
 
@@ -61,6 +62,10 @@ public class PanelDetails extends JPanel {
 	
 	public void setResourceRegionContent(ResourceRegion region, PanelSubDetails panel) {
 		ResourceRelation relation = (ResourceRelation) currentHexButton.panel.relation;
+		
+		if (region.resourceType == ResourceType.EMPTY) 
+			return;
+		
 		switch (region.resourceRegionStatus) {
 		case NEUTRAL:
 			String htmlText = "<html>"
@@ -117,6 +122,9 @@ public class PanelDetails extends JPanel {
 			panel.add(panel.getTextFieldRegionBid());
 			panel.add(panel.getButtonRegionBid());
 			break;
+		case MINE:
+		case POWERSTATION:
+		case MINE_POWERSTATION:
 		case OWNED:
 			if (region.owner.equals(Controller.getInstance().getOwnPlayer())) {
 				String htmlText1 = "<html>"
@@ -251,12 +259,16 @@ public class PanelDetails extends JPanel {
 								+ "<tr>"
 								+ "<td>Produktion:</td>"
 								+ "<td>" + Strings.fD(relation.powerStation.getProduction()) + "</td>"
-								+ "</tr>"
-								+ "<tr>"
-								+ "<td>Verbrauch:</td>"
-								+ "<td>" + Strings.fD(relation.powerStation.getConsumption()) + "</td>"
-								+ "</tr>"
-								+ "<tr>"
+								+ "</tr>";
+						
+						if (relation.powerStation.getConsumption() >= 0) {
+							htmlText3 += "<tr>"
+									+ "<td>Verbrauch:</td>"
+									+ "<td>" + Strings.fD(relation.powerStation.getConsumption()) + "</td>"
+									+ "</tr>";
+						}
+						
+						htmlText3 += "<tr>"
 								+ "<td>Auslastung:</td>"
 								+ "<td></td>"
 								+ "</table>"

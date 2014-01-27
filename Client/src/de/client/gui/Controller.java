@@ -196,6 +196,8 @@ public class Controller {
 		frame.getPanelMain(null).getPanelDetails().refresh();
 		
 		frame.getPanelMenu().getButtonReady().setEnabled(true);
+		
+		frame.resetPanelFinances();
 	}
 	
 	public void updatePanelDetails(HexagonButton hexButton) {

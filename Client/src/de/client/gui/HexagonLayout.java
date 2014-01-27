@@ -345,6 +345,7 @@ public class HexagonLayout implements LayoutManager {
 					}
 				}
 				connections.put(resourceRelation.powerStation.coords, thisPowerStationRelations);
+				System.out.println("Number connections: " + thisPowerStationRelations.size());
 			}
 		}
 		
