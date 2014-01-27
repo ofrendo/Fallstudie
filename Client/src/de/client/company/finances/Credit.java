@@ -37,7 +37,6 @@ public class Credit {
 		if(repayment > amountLeft){
 			repayment = amountLeft;
 		}
-		System.out.println(repayment);
 		double totalPayment = interestsPerQuarter + repayment;
 		company.setMoney(company.getMoney() - totalPayment);
 		amountLeft -= repayment;
