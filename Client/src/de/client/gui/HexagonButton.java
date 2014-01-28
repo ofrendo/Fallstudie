@@ -72,12 +72,12 @@ public class HexagonButton extends JButton {
 				imagePath = "wassersymbol.png";
 				break;
 			case WIND:
-				hexString = "#ffffff";
+				hexString = "#DCDCDC";
 				imagePath = "windrad.png";
 				break;
 			case EMPTY:
 				//hexString = "#FFEEB2"; 
-				hexString = "#fffffff";
+				hexString = "#FFF6D5";
 				imagePath = "leer.png";
 				break;
 			default:

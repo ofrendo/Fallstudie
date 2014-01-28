@@ -95,7 +95,7 @@ public class PanelDetails extends JPanel {
 					+ "</tr>"
 					+ "<tr>"
 					+ "<td>Mindestgebot:</td>"
-					+ "<td>" + Strings.fD(Constants.MINIMUM_REGION_BID) + " + €</td>"
+					+ "<td>" + Strings.fD(Constants.MINIMUM_REGION_BID) + " €</td>"
 					+ "</tr>"
 					+ "</table>"
 					+ "</html>";
@@ -125,7 +125,7 @@ public class PanelDetails extends JPanel {
 					+ "</tr>"
 					+ "<tr>"
 					+ "<td>Mindestgebot:</td>"
-					+ "<td>100000€</td>"
+					+ "<td>" + Strings.fD(Constants.MINIMUM_REGION_BID) + "€</td>"
 					+ "</tr>"
 					+ "</table>"
 					+ "</html>";
@@ -144,7 +144,7 @@ public class PanelDetails extends JPanel {
 				resourceRow = (region.resourceAmount > 0) ? 
 						"<tr>"
 						+ "<td>Rohstoffmenge:</td>"
-						+ "<td>" + Strings.fD(region.resourceAmount) + "</td>"
+						+ "<td>" + Strings.fD(relation.resourceAmount) + "</td>"
 						+ "</tr>" : "";
 				
 				String htmlText1 = "<html>"

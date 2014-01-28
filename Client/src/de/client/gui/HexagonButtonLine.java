@@ -14,5 +14,6 @@ public class HexagonButtonLine {
 		this.y2 = y2;
 	}
 	
+	
 }
 
