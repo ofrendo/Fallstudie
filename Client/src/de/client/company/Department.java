@@ -27,5 +27,7 @@ public abstract class Department {
 		return name;
 	}
 
-	public abstract void nextRound();
+	public void nextRound(){
+		company.setMoney(company.getMoney() - costs);
+	}
 }

@@ -35,6 +35,7 @@ public class Finances extends Department {
 	}
 	
 	public void nextRound() {
+		super.nextRound();
 		// perform payment for credits
 		for(Credit credit: credits){
 			credit.payQuarter();

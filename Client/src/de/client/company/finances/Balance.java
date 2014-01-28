@@ -28,10 +28,10 @@ public class Balance {
 	}
 	
 	public void nextYear(){
-		// update money
-		money = company.getMoney();
 		// update profit and loss
 		profitAndLoss.nextYear();
+		// update money
+		money = company.getMoney();
 		// update equity
 		equity += profitAndLoss.getProfitNet();
 		// update debt capital
@@ -50,7 +50,7 @@ public class Balance {
 			plotValue += region.winningBid;
 		}
 		// update inventory value
-		company.getWarehouse().getStoredValue();
+		inventoryValue = company.getWarehouse().getStoredValue();
 	}
 	
 	public ProfitAndLoss getProfitAndLoss(){

@@ -115,6 +115,7 @@ public class Warehouse extends Department {
 			storedAmount += tmpWare.getAmount();
 		}
 		this.setCosts(storedAmount * Constants.STORING_COSTS);
+		super.nextRound();
 	}
 	
 	public void nextYear(){
