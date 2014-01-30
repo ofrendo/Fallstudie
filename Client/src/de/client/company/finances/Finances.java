@@ -18,6 +18,10 @@ public class Finances extends Department {
 		getCompany().setMoney(getCompany().getMoney() + creditType.amount);
 	}
 	
+	public boolean isCreditWorthyFor(CreditType creditType){
+		return (creditType.amount + getDebtCapital()) / getBalance().getEquity() <= 2;
+	}
+	
 	public double getDebtCapital(){
 		double cap = 0;
 		for(Credit credit: credits){
@@ -28,6 +32,10 @@ public class Finances extends Department {
 	
 	public ArrayList<Credit> getCredits(){
 		return credits;
+	}
+	
+	public double getDebtEquityRatio(){
+		return getDebtCapital() / getBalance().getEquity();
 	}
 	
 	public Balance getBalance(){
