@@ -286,7 +286,7 @@ public class ClientGame extends Game {
 						{
 							//Small Meintenece Problem
 							eventCosts = ps.getResourceType().pPurchaseValue*Constants.MAINTENANCE_ACCIDENT_SMALL;
-							events.add(new EventMessage("Eine notwendige Reparatur in einem Kraftwerk kostete dir "+eventCosts+" Euro", ps.coords));
+							events.add(new EventMessage("Eine notwendige Reparatur in einem Kraftwerk kostete dir "+eventCosts+" €.", ps.coords));
 							//pay costs and add them to balance
 							company.setMoney(company.getMoney()-eventCosts);  
 							company.getFinances().getBalance().getProfitAndLoss().addOtherCosts(eventCosts);
