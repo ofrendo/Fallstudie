@@ -316,6 +316,9 @@ public class TestBalance extends AbstractClientServerTest {
 				+ b.getMoneyValue(),
 				b.getEquity()
 				+ b.getDebtCapital(), 0.001);
+		
+		// the same using the functions provided by the balance
+		Assert.assertEquals(b.getAssetsSum(), b.getLiabilitiesSum(), 0.001);
 	}
 
 }

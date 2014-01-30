@@ -57,6 +57,18 @@ public class Balance {
 		return profitAndLoss;
 	}
 	
+	public double getAssetsSum(){
+		return getPlotValue()
+			+ getBuildingsValue()
+			+ getInventoryValue()
+			+ getMoneyValue();
+	}
+	
+	public double getLiabilitiesSum(){
+		return getEquity()
+			+ getDebtCapital();
+	}
+	
 	public double getBuildingsValue(){
 		return buildingsValue;
 	}
