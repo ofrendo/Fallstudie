@@ -298,6 +298,7 @@ public class Controller {
 				+ "<td>" + differenceString + "</td>"
 				+ "<td align='right'>" + Strings.fD(Math.abs(currentIncome-currentExpenditures)) + "€</td>"
 				+ "</tr>"
+				+ "<tr><td>Schulden: </td><td align='right'>" + Strings.fD(getCompany().getFinances().getDebtCapital()) + "€</td></tr>"
 				+ "</table></html>";
 		
 		return htmlAccountInformation;
