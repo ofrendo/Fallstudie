@@ -43,11 +43,12 @@ public class Controller {
 	
 	public void initGameLobby(ArrayList<Player> newPlayers) {
 		frame = new Frame(newPlayers);
-		frame.init();
+		frame.init(newPlayers);
 	}
 	
 	public void updateGameLobby(ArrayList<Player> newPlayers) {
 		if (frame != null)	{
+			frame.setInitPlayers(newPlayers);
 			frame.getPanelLobby().updateReadyStatus(newPlayers);
 			frame.refresh();
 		}
@@ -142,9 +143,6 @@ public class Controller {
 			else if (n == JOptionPane.NO_OPTION) { //Cancel contracts
 				
 			}
-			
-			
-			//MIGHT HAVE TO SELL SUPERFLOUS ENERGY HERE
 		}
 		
 		
@@ -192,6 +190,7 @@ public class Controller {
 	public void nextRound(Map map) {
 		resetPanelMenuInformation();
 		frame.resetActivePanel(map);
+		getFrame().getPanelGlobalLeft().updatePanelRoundTitle(getClientGame().getRound());
 	}
 	
 	public void updatePanelDetails(HexagonButton hexButton) {
@@ -218,6 +217,10 @@ public class Controller {
 		Controller.getInstance();
 	}
 
+	public Client getClient() {
+		return client;
+	}
+	
 	public ClientGame getClientGame() {
 		return client.getClientGame();
 	}
@@ -259,6 +262,10 @@ public class Controller {
 			updatePanelDetails(lastHexButton);
 		}
 	}*/
+	
+	public void addChatMessage(String stringMessage) {
+		frame.getPanelGlobalLeft().addChatMessage(stringMessage);
+	}
 	
 	public void sendCancelContract(Contract contract, HexagonButton hexButton) {
 		getClientGame().cancelContract(contract);

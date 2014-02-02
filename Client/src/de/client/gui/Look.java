@@ -5,8 +5,8 @@ import java.awt.Font;
 
 public class Look {
 	
-	public static Font fontSectionTitle = new Font("Tahoma", Font.PLAIN, 30);
-	public static Font fontSectionPart = new Font("Tahoma", Font.PLAIN, 20);
+	public static Font fontSectionTitle = new Font("Dialog", Font.PLAIN, 30);
+	public static Font fontSectionPart = new Font("Dialog", Font.PLAIN, 20);
 	
 	public static Color COLOR_MAP_BACKGROUND = getColor("#FFEEB2");
 	public static Color COLOR_MENU_BACKGROUND = getColor("#C38537");
@@ -33,5 +33,8 @@ public class Look {
 		return new Color(intValue);
 	}
 	
+	public static String getReadySymbol(boolean ready) {
+		return ready ? "\u2713" : "\u00D7"; //Cross and checkmark
+	}
 
 }

@@ -12,6 +12,7 @@ import de.shared.map.relation.Contract;
 import de.shared.map.relation.ContractRequest;
 import de.shared.message.Message;
 import de.shared.message.MessageTypeToServer;
+import de.shared.message.server.MessageChatBroadcast;
 import de.shared.message.server.MessageInitConfirm;
 import de.shared.message.server.MessageInitReject;
 
@@ -132,6 +133,10 @@ public class Connection extends Thread {
 				case TRADE_ENERGY: 
 					double amountEnergy = (double) message.getValue();
 					Server.getInstance().getServerGame().getMap().getEnergyExchange().addTrade(amountEnergy);
+					break;
+				case CHAT_MESSAGE:
+					String stringMessage = (String) message.getValue();
+					Server.getInstance().sendBroadcastMessage(new MessageChatBroadcast(stringMessage));
 					break;
 				default:
 					break;

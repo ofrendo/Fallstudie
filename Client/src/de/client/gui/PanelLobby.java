@@ -33,7 +33,8 @@ public class PanelLobby extends JPanel {
 		this.setLayout(new GridLayout(players.size() + 1, 0));
 		
 		for (Player p : players) {
-			this.add(new JLabel(p.playerName + ": " + p.ready));
+			String ready = Look.getReadySymbol(p.ready);
+			this.add(new JLabel(p.playerName + ": " + ready));
 		}
 		
 		this.add(getButtonReady());

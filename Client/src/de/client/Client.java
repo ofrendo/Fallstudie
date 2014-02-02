@@ -10,6 +10,7 @@ import de.shared.game.Player;
 import de.shared.map.Map;
 import de.shared.message.Message;
 import de.shared.message.MessageTypeToClient;
+import de.shared.message.client.MessageChat;
 import de.shared.message.client.MessageInit;
 import de.shared.message.client.MessageReady;
 
@@ -87,6 +88,10 @@ public class Client extends Thread {
 		clientGame.ownPlayer.ready = ready;
 	}
 
+	public void sendChatMessage(String message) {
+		sendMessage(new MessageChat(clientGame.getPlayer().playerName + ": " + message));
+	}
+	
 	@SuppressWarnings("unchecked")
 	public void handleMessage() {
 		boolean continueListening = true;
@@ -118,7 +123,7 @@ public class Client extends Thread {
 					if (!unitTesting) Controller.getInstance().updateGameLobby(players);
 				}
 				else if (clientGame.gamePhase == GamePhase.GAME_STARTED) {
-					
+					if (!unitTesting) Controller.getInstance().getFrame().getPanelGlobalLeft().updatePlayerList(players);
 				}
 				break;
 			case MAP_UPDATE:
@@ -139,6 +144,10 @@ public class Client extends Thread {
 				//SHOW IN GUI HERE
 				Controller.getInstance().showContractRequestAnswer(answer);
 				break;*/
+			case CHAT_BROADCAST:
+				String stringMessage = (String) message.getValue();
+				if (!unitTesting) Controller.getInstance().addChatMessage(stringMessage);
+				break;
 			default:
 				break;
 			}

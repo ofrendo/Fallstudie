@@ -25,7 +25,9 @@ public class Frame extends JFrame {
 	private PanelLobby panelLobby;
 	
 	private PanelMenu panelMenu;
-
+	private PanelGlobalLeft panelGlobalLeft;
+	private ArrayList<Player> initPlayers;
+	
 	private PanelMain panelMain; 
 	private PanelCompany panelCompany;
 	private PanelFinances panelFinances;
@@ -50,12 +52,17 @@ public class Frame extends JFrame {
 		return panelLobby;
 	}
 	
-	public void init() {
+	public void init(ArrayList<Player> players) {
+		this.initPlayers = players;
 		setSize(lobbyWidth, lobbyHeight);
 		//setMinimumSize(new Dimension(minWidth, minHeight));
 		setLocationRelativeTo(null);
 		setVisible(true);
 		//pack();
+	}
+	
+	public void setInitPlayers(ArrayList<Player> players) {
+		this.initPlayers = players;
 	}
 	
 	public void initGame(Map map) {
@@ -68,6 +75,7 @@ public class Frame extends JFrame {
 	public void setContentEmpty() {
 		getContentPane().removeAll();
 		getContentPane().add(getPanelMenu(), BorderLayout.NORTH);
+		getContentPane().add(getPanelGlobalLeft(), BorderLayout.WEST);
 	}
 	
 	public void refresh() {
@@ -80,6 +88,17 @@ public class Frame extends JFrame {
 			panelMenu = new PanelMenu();
 		}
 		return panelMenu;
+	}
+	
+	public PanelGlobalLeft getPanelGlobalLeft()  {
+		if (panelGlobalLeft == null) {
+			panelGlobalLeft = new PanelGlobalLeft();
+			for (Player player : initPlayers) {
+				player.ready = false;
+			}
+			panelGlobalLeft.updatePlayerList(initPlayers);
+		}
+		return panelGlobalLeft;
 	}
 
 	public PanelMain getPanelMain(Map map) {
