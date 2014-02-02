@@ -238,7 +238,10 @@ public class Company {
 		//handle building / check if a building has finished
 		for (Building building : buildings) {
 			building.nextRound();
-			money -= building.getRunningCosts();
+			if (building.isBuilt()) {
+				money -= building.getRunningCosts();
+			}
+			
 			// Aufwendungen für laufende Kosten werden bereits automatisch der GuV hinzugefügt
 			if (building.getBuildingTimeLeft()==0) {
 				sendFinishBuildingMessage(building);
