@@ -21,8 +21,8 @@ public class Constants {
 	public static double STORING_COSTS = 100;
 	
 	//Start values for energy exchange
-	public static double START_GLOBAL_ENERGY_DEMAND = 100;
-	public static double START_GLOBAL_ENERGY_OFFER = 100;
+	public static double START_GLOBAL_ENERGY_DEMAND = 10000000;
+	public static double START_GLOBAL_ENERGY_OFFER = 10000000;
 	
 	//EventCosts
 	public static double MAINTENANCE_ACCIDENT_SMALL = 0.05;
