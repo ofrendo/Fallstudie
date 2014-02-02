@@ -98,14 +98,7 @@ public class ProfitAndLoss {
 		profitBeforeTaxes = 
 				+ getRevenue() 
 				+ getInventoryChange() 
-				- getDepreciation() 
-				- getDepartmentCosts() 
-				- getFinanceCosts()
-				- getEnergyMarketCosts()
-				- getResourceCosts()
-				- getBuildingRunningCosts()
-				- getNetUsageCosts()
-				- getOtherCosts();
+				- getTotalCosts();
 		// recalculate taxes
 		// 15 % Körperschaftssteuer + 3,5 % * Hebesatz Gewerbesteuer (Hebesatz durchschnittlich 390 %)
 		// = 28,65 % => ~ 30 %;
@@ -170,5 +163,16 @@ public class ProfitAndLoss {
 	
 	public double getOtherCosts(){
 		return otherCosts;
+	}
+
+	public double getTotalCosts() {
+		return getDepreciation() 
+		+ getDepartmentCosts() 
+		+ getFinanceCosts()
+		+ getEnergyMarketCosts()
+		+ getResourceCosts()
+		+ getBuildingRunningCosts()
+		+ getNetUsageCosts()
+		+ getOtherCosts();
 	}
 }

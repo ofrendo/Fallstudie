@@ -63,7 +63,8 @@ public class PowerStation extends Building {
 	}
 
 	public double getRunningCosts() {
-		return (resourceType.pMaxRunningCosts * utilizationRate + resourceType.pMaxRunningCosts * maintenanceRate) / 2;
+		if(this.isBuilt()) return (resourceType.pMaxRunningCosts * utilizationRate + resourceType.pMaxRunningCosts * maintenanceRate) / 2;
+		else return 0;
 	}
 
 	public int getConsumption() {

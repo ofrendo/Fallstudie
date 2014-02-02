@@ -243,9 +243,9 @@ public class TestBalance extends AbstractClientServerTest {
 		
 		// buy resources
 		try {
-			company.getWarehouse().buyWare(ResourceType.COAL, 10);
-			company.getWarehouse().buyWare(ResourceType.URANIUM, 5);
-			company.getWarehouse().buyWare(ResourceType.GAS, 2);
+			company.getWarehouse().buyWare(ResourceType.COAL, 100);
+			company.getWarehouse().buyWare(ResourceType.URANIUM, 100);
+			company.getWarehouse().buyWare(ResourceType.GAS, 100);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail("An error occurred when buying resources!");

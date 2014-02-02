@@ -24,6 +24,8 @@ public class Investment {
 			}
 			bookValue -= lastDepreciation;
 			depreciationYearsLeft--;
+		} else {
+			lastDepreciation = 0;
 		}
 	}
 
