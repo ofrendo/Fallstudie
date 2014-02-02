@@ -434,7 +434,7 @@ public class PanelFinancesBalance extends JPanel {
 		if (labelIncomeTaxesTitle == null) {
 			labelIncomeTaxesTitle = new JLabel("Steuern");
 		}
-		return labelIncomeEnergyMarketCostsTitle;
+		return labelIncomeTaxesTitle;
 	}
 	private Component getLabelIncomeTaxesValue() {
 		if (labelIncomeTaxesValue == null) {
@@ -580,9 +580,10 @@ public class PanelFinancesBalance extends JPanel {
 			panelIncomeTableRight = new JPanel();
 			panelIncomeTableRight.setBorder(new EmptyBorder(2, 3, 2, 2));
 			panelIncomeTableRight.setLayout(new GridLayout(2, 2, 0, 0));
+			if(profitAndLoss.getProfitNet() > 0) panelIncomeTableRight.setLayout(new GridLayout(1, 2, 0, 0)); 
 			panelIncomeTableRight.add(getLabelIncomeTurnoverTitle());
 			panelIncomeTableRight.add(getLabelIncomeTurnover());
-			if(profitAndLoss.getProfitNet() < 0){
+			if(profitAndLoss.getProfitNet() <= 0){
 				panelIncomeTableRight.add(getLabelIncomeLossTitle());
 				panelIncomeTableRight.add(getLabelIncomeLoss());
 			}
