@@ -17,6 +17,7 @@ public class Balance {
 	private double plotValue = 0;
 	private double money = Constants.START_MONEY;
 	private double inventoryValue = 0;
+	private int year = 0;
 	
 	public Balance(Company company){
 		this.company = company;
@@ -28,6 +29,7 @@ public class Balance {
 	}
 	
 	public void nextYear(){
+		year++;
 		// update profit and loss
 		profitAndLoss.nextYear();
 		// update money
@@ -91,5 +93,9 @@ public class Balance {
 	
 	public double getDebtCapital(){
 		return debtCapital;
+	}
+	
+	public int getYear(){
+		return year;
 	}
 }
