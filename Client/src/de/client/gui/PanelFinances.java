@@ -1,8 +1,8 @@
 package de.client.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -41,17 +41,20 @@ public class PanelFinances extends PanelAbstractContent {
 	public JPanel getPanelAccountInformation() {
 		if (panelRight == null) {
 			panelRight = new JPanel();
-
+			panelRight.setLayout(new BoxLayout(panelRight, BoxLayout.Y_AXIS));
+			JPanel panelAccountInformation = new JPanel();
+			panelAccountInformation.setBackground(Look.COLOR_MAP_BACKGROUND);
 			JLabel labelAccountInformation = new JLabel(Controller.getInstance().getHtmlAccountInformation());
-			labelAccountInformation.setFont(Look.fontSectionPart);
-			panelRight.add(labelAccountInformation);
+			panelAccountInformation.add(labelAccountInformation);
+			//labelAccountInformation.setFont(Look.fontSectionPart);
+			panelRight.add(panelAccountInformation);
 			panelRight.add(getPanelCredits());
 		
 		}
 		return panelRight;
 	}
 
-	private Component getPanelCredits() {
+	private PanelCredits getPanelCredits() {
 		if(panelCredits == null){
 			panelCredits = new PanelCredits(company);
 		}
