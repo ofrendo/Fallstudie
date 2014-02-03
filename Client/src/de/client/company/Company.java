@@ -418,7 +418,7 @@ public class Company {
 		}
 		Optimizer.optimizePowerStations((PowerStation[]) builtStations.toArray(), getContractsArray());
 	}
-	
+
 	public double getEnergyProductionSum() {
 		double sum = 0;
 		
