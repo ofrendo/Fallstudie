@@ -156,6 +156,7 @@ public class Map implements Serializable {
 		ArrayList<Contract> contractsToRemove = new ArrayList<Contract>();
 		
 		final int population = cityRegion.getPopulation();
+		cityRegion.setFreeCustomers(population);
 		int remainingPopulation = cityRegion.getPopulation();
 		
 		final double averageEnergyPrice = cityRegion.getAverageEnergyPrice(); //old average price
