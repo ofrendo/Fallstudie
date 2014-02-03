@@ -155,7 +155,7 @@ public class PanelDetails extends JPanel {
 						+ "</tr>"
 						+ "<tr>"
 						+ "<td>Inhaber:</td>"
-						+ "<td>" + region.owner.playerName + " (ME)</td>"
+						+ "<td>" + region.owner.playerName + "</td>"
 						+ "</tr>"
 						+ resourceRow;
 				
@@ -309,7 +309,7 @@ public class PanelDetails extends JPanel {
 						+ "</tr>"
 						+ "<tr>"
 						+ "<td>Inhaber:</td>"
-						+ "<td>" + region.owner.playerName + "(NICHT ICH)</td>"
+						+ "<td>" + region.owner.playerName + "</td>"
 						+ "</tr>"
 						+ "</table>"
 						+ "</html>";
@@ -363,7 +363,7 @@ public class PanelDetails extends JPanel {
 						+ "</html>";*/
 				htmlText += "<tr>"
 						+ "<td>Durchschnittspreis:</td>"
-						+ "<td>" + Strings.fD(region.getAverageEnergyPrice()) + "€</td>"
+						+ "<td>" + Strings.fD(region.getAverageEnergyPrice()) + "€ / " + Strings.ENERGY_UNIT + "</td>"
 						+ "</tr>"
 						+ "</table></html>";
 				
@@ -397,11 +397,11 @@ public class PanelDetails extends JPanel {
 					+ "</tr>"
 					+ "<tr>"
 					+ "<td>Dein Preis:</td>"
-					+ "<td>" + Strings.fD(contract.amountMoneyPerCustomer) + "</td>"
+					+ "<td>" + Strings.fD(contract.amountMoneyPerCustomer) + "€</td>"
 					+ "</tr>"
 					+ "<tr>"
 					+ "<td>Durchschnittspreis:</td>"
-					+ "<td>" + Strings.fD(region.getAverageEnergyPrice()) + "€</td>"
+					+ "<td>" + Strings.fD(region.getAverageEnergyPrice()) + "€ / " + Strings.ENERGY_UNIT + "</td>"
 					+ "</tr>"
 					+ "<tr>"
 					+ "<td>Netznutzungskosten:</td>"

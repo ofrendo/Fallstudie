@@ -142,7 +142,7 @@ public class ServerGame extends Game {
 		currentBids.add(regionBid);
 	}
 	
-	public void addContract(ContractRequest request) {
+	public synchronized void addContract(ContractRequest request) {
 		CityRegion cityRegion = (CityRegion) getMap().getRegion(request.coords);
 		Contract newContract = new Contract(request.player, request.coords, request.awareness, 
 				request.popularity, 0, 0.0, request.maxAmountEnergyNeeded, request.amountMoneyPerCustomer);

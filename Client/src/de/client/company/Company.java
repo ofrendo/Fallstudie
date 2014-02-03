@@ -467,8 +467,7 @@ public class Company {
 			sum += client.getClientGame().getMap().getEnergyExchange().getPrice( getSuperflousEnergy() );
 		}
 		//Storage costs
-		double storeagaCosts = 0;
-		
+		sum += warehouse.getCosts();
 		return sum;
 	}
 	

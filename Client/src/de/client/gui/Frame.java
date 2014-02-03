@@ -16,8 +16,8 @@ public class Frame extends JFrame {
 	private int lobbyWidth = 500;
 	private int lobbyHeight = 400;
 	
-	private int gameWidth = 1280;
-	private int gameHeight = 667;
+	private int gameWidth = (int) (java.awt.Toolkit.getDefaultToolkit().getScreenSize().width * 0.9);
+	private int gameHeight = (int) (java.awt.Toolkit.getDefaultToolkit().getScreenSize().height * 0.9);
 	
 	//private int minWidth = 1024;
 	//private int minHeight = 667;
