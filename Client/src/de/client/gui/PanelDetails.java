@@ -79,7 +79,7 @@ public class PanelDetails extends JPanel {
 			String resourceRow = (region.resourceAmount > 0) ? 
 					"<tr>"
 					+ "<td>Rohstoffmenge:</td>"
-					+ "<td>" + Strings.fD(region.resourceAmount) + "</td>"
+					+ "<td>" + Strings.fD(region.resourceAmount) + Strings.getResourceUnit(region.resourceType) + "</td>"
 					+ "</tr>" : "";
 			
 			String htmlText = "<html>"
@@ -109,7 +109,7 @@ public class PanelDetails extends JPanel {
 			resourceRow = (region.resourceAmount > 0) ? 
 					"<tr>"
 					+ "<td>Rohstoffmenge:</td>"
-					+ "<td>" + Strings.fD(region.resourceAmount) + "</td>"
+					+ "<td>" + Strings.fD(region.resourceAmount) + Strings.getResourceUnit(region.resourceType) + "</td>"
 					+ "</tr>" : "";
 			
 			htmlText = "<html>"
@@ -144,7 +144,7 @@ public class PanelDetails extends JPanel {
 				resourceRow = (region.resourceAmount > 0) ? 
 						"<tr>"
 						+ "<td>Rohstoffmenge:</td>"
-						+ "<td>" + Strings.fD(relation.resourceAmount) + "</td>"
+						+ "<td>" + Strings.fD(relation.resourceAmount) + Strings.getResourceUnit(region.resourceType) + "</td>"
 						+ "</tr>" : "";
 				
 				String htmlText1 = "<html>"
