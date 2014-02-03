@@ -470,7 +470,7 @@ public class Company {
 		sum += warehouse.getCosts();
 		return sum;
 	}
-	
+
 	public double getNetIncome() {
 		return getCurrentIncome() - getCurrentExpenditures();
 	}
