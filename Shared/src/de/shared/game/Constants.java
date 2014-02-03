@@ -22,6 +22,7 @@ public class Constants {
 	// Storing costs for the warehouse per ton
 	public static double STORING_COSTS = 100;
 	
+	
 	//Start values for energy exchange
 	public static double START_GLOBAL_ENERGY_DEMAND = 10000000;
 	public static double START_GLOBAL_ENERGY_OFFER = 10000000;
