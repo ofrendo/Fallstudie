@@ -15,8 +15,8 @@ public class PanelMain extends PanelAbstractContent {
 		((PanelMap) panelLeft).init();
 		
 		panelRight = new PanelDetails();
-		panelRight.setPreferredSize(new Dimension(1000, panelRight.getPreferredSize().height));
-		
+		panelRight.setMinimumSize(new Dimension(300, panelRight.getPreferredSize().height));
+		panelRight.setPreferredSize(new Dimension(300, panelRight.getPreferredSize().height));
 		super.initLayout();
 	}
 	

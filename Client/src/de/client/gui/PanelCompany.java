@@ -139,7 +139,7 @@ public class PanelCompany extends PanelAbstractContent {
 		JPanel panelInnerLeft = new JPanel();
 		panelInnerLeft.setLayout(new BoxLayout(panelInnerLeft, BoxLayout.Y_AXIS));
 		
-		JButton buttonLook = new JButton("LUPE");
+		JButton buttonLook = new JButton("\uD83D\uDD0E");
 		buttonLook.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Controller.getInstance().getFrame().getPanelMenu().enableAllButtons();
