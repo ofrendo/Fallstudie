@@ -1,9 +1,9 @@
 package de.client.company.finances;
 
 public enum CreditType {
-	CREDIT_1(500000, 5, 12),
-	CREDIT_2(1000000, 5, 20),
-	CREDIT_3(3000000, 5, 40),
+	CREDIT_1(100000000, 5, 12),
+	CREDIT_2(500000000, 5, 20),
+	CREDIT_3(1000000000, 5, 40),
 	
 	TEST_1(500000, 5, 8),		// values for unittest
 	TEST_2(1000000, 10, 12);	// do not change!!!
