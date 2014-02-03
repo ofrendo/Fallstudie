@@ -13,10 +13,9 @@ public class PanelGameEnd extends JPanel {
 		setLayout(new BorderLayout());
 		JLabel messageLabel = new JLabel(message);
 		messageLabel.setFont(Look.fontSectionTitle);
-		messageLabel.setAlignmentX(CENTER_ALIGNMENT);
-		
+		messageLabel.setHorizontalAlignment(JLabel.CENTER);
 		setBackground(Look.COLOR_MAP_BACKGROUND);
-		
+	
 		add(messageLabel, BorderLayout.CENTER);
 	}
 	
