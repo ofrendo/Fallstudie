@@ -78,6 +78,7 @@ public class PanelSubDetails extends JPanel {
 			textFieldRegionBid.setText(Strings.fD(Constants.MINIMUM_REGION_BID).replace(".", "") );
 		}
 		return textFieldRegionBid;
+		
 	}
 	
 	protected JButton getButtonRegionBid() {
