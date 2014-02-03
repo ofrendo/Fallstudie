@@ -356,14 +356,22 @@ public class PanelDetails extends JPanel {
 						+ "<tr>"
 						+ "<td>Beliebtheit:</td>"
 						+ "<td>" + Strings.fD(relation.popularity) + "</td>"
+						
 						+ "</tr>"
+						+ "<tr> <td>  </td></tr>"
 						+ "</table>"
 						+ "</html>";
 				
 				labelDetailsHTML = new JLabel(htmlText);
 				labelDetailsHTML.setFont(Look.fontSectionPart);
 				panel.add(labelDetailsHTML);
+				JLabel maxVerbrauch = new JLabel(" Maximaler Energieverbauch:");
+				maxVerbrauch.setFont(Look.fontSectionPart);
+				panel.add(maxVerbrauch);
 				panel.add(panel.getTextFieldMaxCustomers());
+				JLabel preis = new JLabel(" Preis pro kwh:");
+				preis.setFont(Look.fontSectionPart);
+				panel.add(preis);
 				panel.add(panel.getTextFieldPrice());
 				panel.add(panel.getButtonRequestContract());
 			}
