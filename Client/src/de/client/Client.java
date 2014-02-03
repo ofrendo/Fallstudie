@@ -141,6 +141,7 @@ public class Client extends Thread {
 				break;
 			case GAME_END:
 				boolean isWin = (boolean) message.getValue();
+				clientGame.nextGamePhase();
 				endGame(isWin);
 				disconnect();
 				continueListening = false;

@@ -46,7 +46,7 @@ public class Server extends Thread {
 			//serverSocket = new ServerSocket(8989, 10, InetAddress.getLoopbackAddress());
 			
 			this.serverGame = new ServerGame();
-			
+		
 			System.out.println("[SERVER] SERVER IS LISTENING on " + serverSocket.getLocalSocketAddress());
 			listenForPlayers();
 		} catch (Exception e) {
@@ -129,7 +129,7 @@ public class Server extends Thread {
 	}*/
 	
 	public void finishGame() {
-		
+		serverGame.nextGamePhase();
 	}
 	
 	public synchronized void addPlayer(Player player) {
@@ -192,6 +192,7 @@ public class Server extends Thread {
 			}
 			connection.sendMessage(message);
 		}
+		finishGame();
 	}
 	
 	/*public void newPlayer (String name)

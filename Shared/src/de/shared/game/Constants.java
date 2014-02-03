@@ -32,7 +32,7 @@ public class Constants {
 	public static double MAINTENANCE_ACCIDENT_LARGE = 0.30; //with fries ;)
 	
 	//Server constants for ending a game
-	public static double GAME_END_MIN_ROUNDS = 100;
+	public static double GAME_END_MIN_ROUNDS = 5;
 	public static double GAME_END_MIN_MARKETSHARE = 0.5;
 	
 }

@@ -1,12 +1,10 @@
 package de.tests.clientserver.mechanics;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 
-import org.junit.After;
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Test;
 
 import de.client.Client;
@@ -14,7 +12,6 @@ import de.client.company.Building;
 import de.client.company.Company;
 import de.client.company.ResourceRelation;
 import de.client.company.finances.Balance;
-import de.client.company.finances.Credit;
 import de.client.company.finances.CreditType;
 import de.client.company.finances.ProfitAndLoss;
 import de.server.Server;
@@ -101,7 +98,6 @@ public class TestBalance extends AbstractClientServerTest {
 			company.getWarehouse().buyWare(ResourceType.URANIUM, 5);
 			company.getWarehouse().buyWare(ResourceType.GAS, 2);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			fail("An error occurred when buying resources!");
 		}
@@ -235,7 +231,8 @@ public class TestBalance extends AbstractClientServerTest {
 		
 		// get a credit
 		company.getFinances().addCredit(CreditType.TEST_1);
-		Credit credit = company.getFinances().getCredits().get(0);
+		//Credit credit = company.getFinances().getCredits().get(0);
+		company.getFinances().getCredits().get(0);
 		Assert.assertEquals(Constants.START_MONEY - 250000 - region.resourceType.pPurchaseValue - region.resourceType.mPurchaseValue + CreditType.TEST_1.amount, company.getMoney(), 0.001);
 		
 		// get resource price
