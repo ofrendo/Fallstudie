@@ -363,7 +363,7 @@ public class PanelDetails extends JPanel {
 						+ "</html>";*/
 				htmlText += "<tr>"
 						+ "<td>Durchschnittspreis:</td>"
-						+ "<td>" + Strings.fD(region.getAverageEnergyPrice()) + "</td>"
+						+ "<td>" + Strings.fD(region.getAverageEnergyPrice()) + "€</td>"
 						+ "</tr>"
 						+ "</table></html>";
 				
@@ -401,7 +401,7 @@ public class PanelDetails extends JPanel {
 					+ "</tr>"
 					+ "<tr>"
 					+ "<td>Durchschnittspreis:</td>"
-					+ "<td>" + Strings.fD(region.getAverageEnergyPrice()) + "</td>"
+					+ "<td>" + Strings.fD(region.getAverageEnergyPrice()) + "€</td>"
 					+ "</tr>"
 					+ "<tr>"
 					+ "<td>Netznutzungskosten:</td>"
