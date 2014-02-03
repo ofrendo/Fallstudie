@@ -38,10 +38,10 @@ public class PanelMenuInformation extends JPanel {
 			double energyNetIncome = company.getSuperflousEnergy();
 			String energySymbol = (energyNetIncome >= 0) ? "+" : "";
 			
-			String temporaryEnergyCells = (company.getTemporaryEnergyBought() <= 0) ? 
+			String temporaryEnergyCells = "<td></td><td></td><td></td>"; /*(company.getTemporaryEnergyBought() <= 0) ? 
 					"<td></td><td></td><td></td>" :
 					"<td>Gekaufte Energie:</td><td></td>"
-					+ "<td>" + Strings.fD(company.getTemporaryEnergyBought()) + Strings.ENERGY_UNIT + "</td>";
+					+ "<td>" + Strings.fD(company.getTemporaryEnergyBought()) + " " + Strings.ENERGY_UNIT + "</td>";*/
 			
 			
 			//String htmlInfo = "<html><table cellpadding=2 cellspacing=0>"
