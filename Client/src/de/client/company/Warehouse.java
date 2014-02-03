@@ -109,12 +109,12 @@ public class Warehouse extends Department {
 	@Override
 	public void nextRound() {
 		// recalculate costs
-		// assumption: every ware produces the same costs for storing
-		double storedAmount = 0;
+		double costs = 0;
 		for(Ware tmpWare: ware){
-			storedAmount += tmpWare.getAmount();
+			double price = getResourcePrice(tmpWare.getResourceType());
+			costs += tmpWare.getAmount() * price * Constants.STORING_COSTS_RATIO;
 		}
-		this.setCosts(storedAmount * Constants.STORING_COSTS);
+		this.setCosts(costs);
 		super.nextRound();
 	}
 	

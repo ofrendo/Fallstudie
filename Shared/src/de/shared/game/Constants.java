@@ -19,8 +19,8 @@ public class Constants {
 	public static double COST_URANIUM = 250000;
 	public static double MINIMUM_REGION_BID = 10000000;
 	
-	// Storing costs for the warehouse per ton
-	public static double STORING_COSTS = 100;
+	// Storing costs for the warehouse per buying costs
+	public static double STORING_COSTS_RATIO = 0.01;
 	
 	
 	//Start values for energy exchange
