@@ -14,9 +14,9 @@ public class Constants {
 	public static double NORMAL_ENERGY_PRICE = 200; //Normal energy price: this is the price when demand equals offers 
 	
 	//Resource Costs
-	public static double COST_COAL = 20;
-	public static double COST_GAS = 25;
-	public static double COST_URANIUM = 50;
+	public static double COST_COAL = 70;
+	public static double COST_GAS = 3;
+	public static double COST_URANIUM = 250000;
 	public static double MINIMUM_REGION_BID = 10000000;
 	
 	// Storing costs for the warehouse per ton
