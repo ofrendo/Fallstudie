@@ -236,7 +236,7 @@ public class PanelSubDetails extends JPanel {
 		}
 		return textFieldMaxCustomers;
 	}
-	
+
 	public JTextField getTextFieldPrice() {
 		if (textFieldPrice == null) {
 			textFieldPrice = new JTextField();
