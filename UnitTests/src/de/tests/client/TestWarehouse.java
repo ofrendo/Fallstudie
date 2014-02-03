@@ -47,15 +47,6 @@ public class TestWarehouse {
 	}
 	
 	@Test
-	public void testCalculateCosts() {
-		Warehouse wh = new Warehouse(null);
-		wh.addWare(ResourceType.GAS, 150);
-		wh.addWare(ResourceType.COAL, 100);
-		wh.nextRound();
-		Assert.assertEquals(25000, wh.getCosts(), 0.000000001);
-	}
-	
-	@Test
 	public void testBuyWare() throws Exception{
 		Company company = new Company(null, null);
 		Warehouse wh = company.getWarehouse();
