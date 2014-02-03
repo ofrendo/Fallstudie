@@ -269,7 +269,7 @@ public class ClientGame extends Game {
 		company.optimizePowerStations();
 		
 		//Check if player has lost the round
-		if (company.getMoney() < 0) {
+		if (company.getFinances().isInsolvent()) {
 			client.endGame(false);
 		}
 		
