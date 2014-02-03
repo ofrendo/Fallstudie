@@ -426,7 +426,7 @@ public class Company {
 			if (powerStation.isBuilt()) 
 				sum += powerStation.getProduction();
 		}
-		
+	
 		sum += temporaryEnergyBought;
 		return sum;
 	}
