@@ -225,7 +225,7 @@ public class Map implements Serializable {
 		}
 		
 		if (remainingPopulation > 0) {
-			newSumEnergyPrice += remainingPopulation * Constants.NORMAL_ENERGY_PRICE;
+			newSumEnergyPrice += remainingPopulation * Constants.NORMAL_ENERGY_PRICE * 1.25;
 		}
 		
 		double newAverageEnergyPrice = newSumEnergyPrice / population;

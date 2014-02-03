@@ -416,7 +416,7 @@ public class Company {
 			if (p.isBuilt()) 
 				builtStations.add(p);
 		}
-		Optimizer.optimizePowerStations((PowerStation[]) builtStations.toArray(), getContractsArray());
+		Optimizer.optimizePowerStations(builtStations.toArray(new PowerStation[0]), getContractsArray());
 	}
 
 	public double getEnergyProductionSum() {
