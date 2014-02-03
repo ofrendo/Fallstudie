@@ -74,6 +74,10 @@ public class Company {
 		return null;
 	}
 	
+	public double getTemporaryEnergyBought() {
+		return temporaryEnergyBought;
+	}
+	
 	public ArrayList<Contract> getContracts() {
 		ArrayList<Contract> contracts = new ArrayList<Contract>();
 		for (Region region : client.getClientGame().getMap().getRegions()) {
@@ -488,5 +492,5 @@ public class Company {
 		}
 		return result;
 	}
-	
+
 }

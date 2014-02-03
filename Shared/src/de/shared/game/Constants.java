@@ -1,6 +1,8 @@
 package de.shared.game;
 
 public class Constants {
+	public static final double ENERGY_FACTOR = 0.4;
+	
 	public static double START_POPULARTIY = 0.5;
 	public static double START_AWARENESS = 0.1;
 	public static double START_MONEY = 5000000;	// Leute, macht euch mal Gedanken, mit wie viel "money in the tasche" man starten soll
@@ -28,5 +30,9 @@ public class Constants {
 	public static double MAINTENANCE_ACCIDENT_SMALL = 0.05;
 	public static double MAINTENANCE_ACCIDENT_MEDIUM = 0.15;
 	public static double MAINTENANCE_ACCIDENT_LARGE = 0.30; //with fries ;)
+	
+	//Server constants for ending a game
+	public static double GAME_END_MIN_ROUNDS = 100;
+	public static double GAME_END_MIN_MARKETSHARE = 0.5;
 	
 }

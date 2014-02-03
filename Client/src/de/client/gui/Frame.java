@@ -31,6 +31,8 @@ public class Frame extends JFrame {
 	private PanelFinances panelFinances;
 	private PanelMarket panelMarket;
 	
+	private PanelGameEnd panelGameEnd;
+	
 	private JPanel panelActive;
 	
 	private Map map;
@@ -141,6 +143,12 @@ public class Frame extends JFrame {
 		refresh();
 	}
 
+	public void setPanelGameEnd(String message) {
+		getContentPane().removeAll();
+		getContentPane().add(getPanelGameEnd(message));
+		refresh();
+	}
+	
 	public void resetActivePanel(Map map) {
 		this.map = map;
 		
@@ -160,6 +168,13 @@ public class Frame extends JFrame {
 		getPanelMenu().getButtonReady().setEnabled(true);
 	}
 
+	public PanelGameEnd getPanelGameEnd(String message) {
+		if (panelGameEnd == null) {
+			panelGameEnd = new PanelGameEnd(message);
+		}
+		return panelGameEnd;
+	}
+	
 	/*public void resetPanelFinances() {
 		panelFinances = null;
 	}

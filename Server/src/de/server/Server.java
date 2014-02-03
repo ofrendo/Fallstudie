@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import de.shared.game.GamePhase;
 import de.shared.game.Player;
 import de.shared.message.Message;
+import de.shared.message.server.MessageGameEnd;
 import de.shared.message.server.MessageMapUpdate;
 
 public class Server extends Thread {
@@ -42,6 +43,7 @@ public class Server extends Thread {
 	public void init() {
 		try {
 			serverSocket = new ServerSocket(8989, 10, InetAddress.getLocalHost()); //InetAddress.getLocalHost()
+			//serverSocket = new ServerSocket(8989, 10, InetAddress.getLoopbackAddress());
 			
 			this.serverGame = new ServerGame();
 			
@@ -151,6 +153,8 @@ public class Server extends Thread {
 		
 		this.connections.remove(connection);
 		System.out.println("[SERVER] A client has disconnected.");
+		
+		serverGame.checkGameEnd();
 	}
 
 	public synchronized boolean isNameExists(String playerName, String companyName) {
@@ -175,6 +179,19 @@ public class Server extends Thread {
 			e.printStackTrace();
 		}
 		instance = null;
+	}
+
+	public void sendGameEndMessage(Player winningPlayer) {
+		for (Connection connection : connections) {
+			Message message;
+			if (connection.getPlayer().equals(winningPlayer)) {
+				message = new MessageGameEnd(true);
+			}
+			else {
+				message = new MessageGameEnd(false);
+			}
+			connection.sendMessage(message);
+		}
 	}
 	
 	/*public void newPlayer (String name)

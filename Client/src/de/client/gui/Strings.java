@@ -14,7 +14,9 @@ public class Strings {
 	public static final String MENU_BUTTON_FINANCES = "Finanzen";
 	public static final String MENU_BUTTON_MARKET = "Markt";
 
-	public static final String ENERGY_UNIT = "kWh";
+	public static final String ENERGY_UNIT = "mWh";
+	
+	public static final String NOT_ENOUGH_MONEY = "Nicht genug Geld vorhanden.";
 	
 	public static String getResourceString(ResourceType type) {
 		switch (type) {

@@ -340,6 +340,10 @@ public class Controller {
 				+ "</table></html>";
 	}
 	
+	public void showMessageDialog(String message) {
+		JOptionPane.showMessageDialog(null, message);
+	}
+	
 	public Frame getFrame() {
 		return frame;
 	}

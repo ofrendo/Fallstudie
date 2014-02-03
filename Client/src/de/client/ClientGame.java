@@ -266,6 +266,12 @@ public class ClientGame extends Game {
 		incrementRound();
 		triggerEvents();
 		company.optimizePowerStations();
+		
+		//Check if player has lost the round
+		if (company.getMoney() <= 0) {
+			client.endGame(false);
+		}
+		
 	}
 
 	public void triggerEvents() {
