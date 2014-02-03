@@ -6,48 +6,48 @@ public enum ResourceType implements Serializable {
 	COAL(false, 
 			600 * 90 * 24, //produktion
 			0.5, //adjustabiltiy
-			10, //pconsumption
-			100000, //pPurchaseValue
-			10000, //pMaxRunningCosts
+			990000, //pconsumption
+			480000000, //pPurchaseValue
+			170000000, //pMaxRunningCosts
 			4, //mBuildTime
-			30, //pDepreciationYears
-			10, //mMaxProduction
-			50000, //mPurchaseValue,
-			5000, //mMaxRunningCosts, 
-			4, //mBuildTime,
-			4, //mDepreciationYears,
-			1000.0), //mDefaultResourceAmount
+			15, //pDepreciationYears
+			990000, //mMaxProduction
+			100000000, //mPurchaseValue,
+			55000000, //mMaxRunningCosts, 
+			2, //mBuildTime,
+			15, //mDepreciationYears,
+			79200000), //mDefaultResourceAmount
 	GAS(false, 
 			300 * 90 * 24,
 			0.05,
-			10,
-			200000,
-			10000,
+			12600000,
+			150000000,
+			80000000,
 			2, 
-			20,
-			5,
-			25000,
-			3000,
+			15,
+			12600000,
+			200000000,
+			35000000,
 			4,
-			4,
-			500.0),
+			15,
+			1008000000),
 	URANIUM(false,
 			1500 * 90 * 24,
 			1, 
 			10,
-			500000,
-			50000,
+			3100000000.0,
+			50000000,
 			10, 
-			35, 
+			20, 
 			10, 
-			100000,
-			10000,
-			5, 
-			5, 
-			1000.0),
-	WIND(true, 80 * 90 * 24, 1, -1, 50000, 5000, 2, 16, 0, 0, 0, 0, 0, 0.0),
-	SOLAR(true, 30 * 90 * 24, 1, -1, 100000, 5000, 4, 20, 0, 0, 0, 0, 0, 0.0),
-	WATER(true, 150 * 90 * 24, 0.05, -1, 200, 20, 1, 40, 0, 0, 0, 0, 0, 0.0),
+			150000000,
+			40000000,
+			3, 
+			15, 
+			800),
+	WIND(true, 80 * 90 * 24, 1, -1, 144000000, 10000000, 2, 15, 0, 0, 0, 0, 0, 0.0),
+	SOLAR(true, 30 * 90 * 24, 1, -1, 45000000, 7000000, 1, 15, 0, 0, 0, 0, 0, 0.0),
+	WATER(true, 150 * 90 * 24, 0.05, -1, 180000000, 25000000, 6, 15, 0, 0, 0, 0, 0, 0.0),
 	
 	EMPTY(false, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.0),
 	

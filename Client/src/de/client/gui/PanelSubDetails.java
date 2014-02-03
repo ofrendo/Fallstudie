@@ -89,15 +89,22 @@ public class PanelSubDetails extends JPanel {
 					try {
 						double bid = Double.parseDouble(textFieldRegionBid.getText()); 
 						if (bid >= Constants.MINIMUM_REGION_BID) {
-							Controller.getInstance().sendRegionBid(region, bid);
-							buttonRegionBid.setEnabled(false);
+							
+							if (Controller.getInstance().getCompany().getMoney() >= bid) {
+								Controller.getInstance().sendRegionBid(region, bid);
+								buttonRegionBid.setEnabled(false);
+							}
+							else {
+								Controller.getInstance().showMessageDialog(Strings.NOT_ENOUGH_MONEY);
+							}
+							
 						}
 						else {
-							JOptionPane.showMessageDialog(null, "Mindestgebot ist " + Strings.fD(Constants.MINIMUM_REGION_BID) + "€.");
+							Controller.getInstance().showMessageDialog("Mindestgebot ist " + Strings.fD(Constants.MINIMUM_REGION_BID) + "€.");
 						}
 					}
 					catch (Exception e) {
-						JOptionPane.showMessageDialog(null, "Bitte Eingaben überprüfen!");
+						Controller.getInstance().showMessageDialog("Bitte Eingaben überprüfen!");
 					}
 				}
 			});
@@ -111,8 +118,16 @@ public class PanelSubDetails extends JPanel {
 			buttonBuildMine.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					Controller.getInstance().buildMine((ResourceRelation) relation, ((ResourceRegion) region).resourceType);
-					buttonBuildMine.setEnabled(false);
+					
+					double price = ((ResourceRegion) region).resourceType.mPurchaseValue;
+					if (Controller.getInstance().getCompany().getMoney() >= price) {
+						Controller.getInstance().buildMine((ResourceRelation) relation, ((ResourceRegion) region).resourceType);
+						buttonBuildMine.setEnabled(false);
+					}
+					else {
+						Controller.getInstance().showMessageDialog(Strings.NOT_ENOUGH_MONEY);
+					}
+					
 				}
 			});
 		}
@@ -125,8 +140,16 @@ public class PanelSubDetails extends JPanel {
 			buttonBuildPowerStation.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent arg0) {
-					Controller.getInstance().buildPowerStation((ResourceRelation) relation, ((ResourceRegion) region).resourceType);
-					buttonBuildPowerStation.setEnabled(false);
+					
+					double price = ((ResourceRegion) region).resourceType.pPurchaseValue;
+					if (Controller.getInstance().getCompany().getMoney() >= price) {
+						Controller.getInstance().buildPowerStation((ResourceRelation) relation, ((ResourceRegion) region).resourceType);
+						buttonBuildPowerStation.setEnabled(false);
+					}
+					else {
+						Controller.getInstance().showMessageDialog(Strings.NOT_ENOUGH_MONEY);
+					}
+					
 				}
 			});
 		}
@@ -213,7 +236,7 @@ public class PanelSubDetails extends JPanel {
 		}
 		return textFieldMaxCustomers;
 	}
-	
+
 	public JTextField getTextFieldPrice() {
 		if (textFieldPrice == null) {
 			textFieldPrice = new JTextField();

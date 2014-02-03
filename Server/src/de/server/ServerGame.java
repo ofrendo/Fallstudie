@@ -2,6 +2,7 @@ package de.server;
 
 import java.util.ArrayList;
 
+import de.shared.game.Constants;
 import de.shared.game.Game;
 import de.shared.game.GamePhase;
 import de.shared.game.Player;
@@ -38,7 +39,7 @@ public class ServerGame extends Game {
 		}
 	}
 	
-	public void pingPlayerReady() {
+	public synchronized void pingPlayerReady() {
 		//isPinging = true;
 		System.out.println("[SERVER] Pinging players ready...");
 		Server.getInstance().sendBroadcastMessage(new MessagePlayerReadyChange(players));
@@ -60,7 +61,7 @@ public class ServerGame extends Game {
 		this.players.remove(player);
 	}
 	
-	public synchronized boolean isAllPlayersReady() {
+	public boolean isAllPlayersReady() {
 		for (Player player : players) {
 			if (player.ready == false) 
 				return false;
@@ -74,7 +75,7 @@ public class ServerGame extends Game {
 		}
 	}
 	
-	public synchronized void finishRound() {
+	public void finishRound() {
 		getMap().finishRound();
 		
 		handleBids();
@@ -85,6 +86,8 @@ public class ServerGame extends Game {
 		
 		Server.getInstance().sendMapUpdate();
 		Server.getInstance().sendBroadcastMessage(new MessagePlayerReadyChange(players)); //is this needed?
+		
+		checkGameEnd();
 	}
 	
 	public synchronized void handleBids() {
@@ -160,6 +163,42 @@ public class ServerGame extends Game {
 	{
 		ResourceRegion region = (ResourceRegion)getMap().getRegion(coords);
 		region.setResourceRegionStatus(status);
+	}
+
+	public void checkGameEnd() {
+		boolean gameEnd = false;
+		
+		int amountAllCustomers = 0;
+		for (CityRegion cityRegion : getMap().getCityRegions()) {
+			amountAllCustomers += cityRegion.getPopulation();
+		}
+		
+		//Cycle through all cities to see if one player has more than x% of market share
+		Player winningPlayer = null;
+		for (Player player : players) {
+			double marketShare = 0.0;
+			
+			for (CityRegion cityRegion : getMap().getCityRegions()) {
+				Contract contract;
+				if ( (contract = cityRegion.getPlayerContract(player)) != null) {
+					marketShare += contract.amountCustomer / amountAllCustomers;
+				}
+			}
+			
+			if (marketShare >= Constants.GAME_END_MIN_MARKETSHARE) {
+				gameEnd = true;
+				winningPlayer = player;
+			}
+			
+		}
+		if (players.size() == 1 && getRound() >= Constants.GAME_END_MIN_ROUNDS) {
+			gameEnd = true;
+			winningPlayer = players.get(0);
+		}
+		
+		if (gameEnd == true) {
+			Server.getInstance().sendGameEndMessage(winningPlayer);
+		}
 	}
 	
 }

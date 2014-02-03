@@ -7,6 +7,7 @@ public enum MessageTypeToClient implements MessageType {
 	INIT_CONFIRM,
 	PLAYER_READY_CHANGE,
 	MAP_UPDATE, 
-	
+	GAME_END,
+
 	CHAT_BROADCAST;
 }

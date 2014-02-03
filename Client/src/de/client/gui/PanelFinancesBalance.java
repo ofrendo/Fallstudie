@@ -136,7 +136,6 @@ public class PanelFinancesBalance extends JPanel {
 	}
 	private JLabel getLabelBalanceTitle() {
 		if (labelBalanceTitle == null) {
-			int year = 0; //NEED TO GET THE YEAR FROM SOMEWHERE
 			labelBalanceTitle = new JLabel("Bilanz zum Jahr " + balance.getYear());
 			labelBalanceTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		}

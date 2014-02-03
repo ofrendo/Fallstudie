@@ -4,6 +4,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -70,9 +71,10 @@ public class PanelGlobalLeft extends JPanel {
 			panelPlayersReady = new JPanel();
 			panelPlayersReady.setBorder(new EmptyBorder(5, 5, 5, 5));
 			panelPlayersReady.setAlignmentX(Component.RIGHT_ALIGNMENT);
-			panelPlayersReady.setLayout(new BoxLayout(panelPlayersReady, BoxLayout.Y_AXIS));
+			//panelPlayersReady.setLayout(new BoxLayout(panelPlayersReady, BoxLayout.Y_AXIS));
 			panelPlayersReady.setBackground(Look.COLOR_MAP_BACKGROUND);
 			//panelPlayersReady.setPreferredSize(new Dimension(250, Integer.MAX_VALUE));
+			panelPlayersReady.setLayout(new GridLayout(1, 1));
 		}
 		return panelPlayersReady;
 	}
@@ -90,7 +92,8 @@ public class PanelGlobalLeft extends JPanel {
 			//labelPlayer.setAlignmentX(Component.RIGHT_ALIGNMENT);
 			panelPlayersReady.add(labelPlayer);
 		}
-		panelPlayersReady.setPreferredSize(new Dimension(150, labelPlayer.getPreferredSize().height));
+		panelPlayersReady.setLayout(new GridLayout(players.size(), 1));
+		panelPlayersReady.setPreferredSize(new Dimension(150, labelPlayer.getPreferredSize().height * players.size()));
 		panelPlayersReady.revalidate();
 		panelPlayersReady.repaint();
 	}

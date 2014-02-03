@@ -2,6 +2,8 @@ package de.client.gui;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -17,17 +19,14 @@ public class PanelMarketResource extends JPanel {
 
 	private static final long serialVersionUID = 313952039768658438L;
 	private JLabel labelResourceName;
-	private JLabel labelEmpty1;
 	private JLabel labelEmpty2;
 	private JLabel labelResourcePrice;
 	private JLabel labelBuyTitle;
 	private JTextField textFieldBuyAmount;
 	private JButton buttonBuy;
-	private JLabel labelBuyPrice;
 	private JLabel labelSellTitle;
 	private JTextField textFieldSellAmount;
 	private JButton buttonSell;
-	private JLabel labelSellPrice;
 	
 	private BuyableResource buyableResource;
 	
@@ -36,19 +35,16 @@ public class PanelMarketResource extends JPanel {
 		this.buyableResource = buyableResource;
 		
 		setBackground(Look.COLOR_MAP_BACKGROUND);
-		setLayout(new GridLayout(3, 4, 5, 5));
+		setLayout(new GridLayout(0, 3, 5, 5));
 		add(getLabelResourceName());
 		add(getLabelResourcePrice());
-		add(getLabelEmpty1());
 		add(getLabelEmpty2());
 		add(getLabelBuyTitle());
 		add(getTextFieldBuyAmount());
 		add(getButtonBuy());
-		add(getLabelBuyPrice());
 		add(getLabelSellTitle());
 		add(getTextFieldSellAmount());
 		add(getButtonSell());
-		add(getLabelSellPrice());
 
 		setMaximumSize(new Dimension(Integer.MAX_VALUE, getButtonBuy().getPreferredSize().height*6));
 	}
@@ -79,12 +75,6 @@ public class PanelMarketResource extends JPanel {
 		}
 		return labelResourceName;
 	}
-	private JLabel getLabelEmpty1() {
-		if (labelEmpty1 == null) {
-			labelEmpty1 = new JLabel("");
-		}
-		return labelEmpty1;
-	}
 	private JLabel getLabelEmpty2() {
 		if (labelEmpty2 == null) {
 			labelEmpty2 = new JLabel("");
@@ -113,14 +103,44 @@ public class PanelMarketResource extends JPanel {
 	private JButton getButtonBuy() {
 		if (buttonBuy == null) {
 			buttonBuy = new JButton("Kaufen");
+			buttonBuy.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent arg0) {
+					try {
+						double amount = Double.parseDouble(getTextFieldBuyAmount().getText());
+						
+						if (buyableResource == BuyableResource.ENERGY) {
+							double sumPrice = Controller.getInstance().getClientGame().getMap()
+											  .getEnergyExchange().getCurrentEnergyPrice() * amount;
+							
+							if (Controller.getInstance().getCompany().getMoney() >= sumPrice) {
+								Controller.getInstance().getCompany().buyTemporaryEnergy(amount);
+								Controller.getInstance().resetPanelMenuInformation();
+							}
+							else {
+								Controller.getInstance().showMessageDialog("Nicht genug Geld vorhanden.");
+							}
+						}
+						else {
+							double sumPrice = Controller.getInstance().getCompany()
+									.getWarehouse().getResourcePrice(buyableResource.resourceType) * amount;
+				
+							if (Controller.getInstance().getCompany().getMoney() >= sumPrice) {
+								Controller.getInstance().getCompany().getWarehouse().buyWare(buyableResource.resourceType, amount);
+								Controller.getInstance().resetPanelMenuInformation();
+							}
+							else {
+								Controller.getInstance().showMessageDialog("Nicht genug Geld vorhanden.");
+							}
+						}
+					}
+					catch (Exception e) {
+						Controller.getInstance().showMessageDialog("Bitte Eingaben überorüfen!");
+					}
+				}
+			});
 		}
 		return buttonBuy;
-	}
-	private JLabel getLabelBuyPrice() {
-		if (labelBuyPrice == null) {
-			labelBuyPrice = new JLabel("Brauchen?");
-		}
-		return labelBuyPrice;
 	}
 	private JLabel getLabelSellTitle() {
 		if (labelSellTitle == null) {
@@ -138,13 +158,36 @@ public class PanelMarketResource extends JPanel {
 	private JButton getButtonSell() {
 		if (buttonSell == null) {
 			buttonSell = new JButton("Verkaufen");
+			buttonSell.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent event) {
+					try {
+						double amount = Double.parseDouble(getTextFieldSellAmount().getText());
+						if (buyableResource == BuyableResource.ENERGY) {
+							if (Controller.getInstance().getCompany().getEnergyProductionSum() >= amount) {
+								Controller.getInstance().getCompany().sellSuperflousEnergy(amount);
+								Controller.getInstance().resetPanelMenuInformation();
+							}
+							else {
+								Controller.getInstance().showMessageDialog("Nicht genügend Energie vorhanden.");
+							}
+						}
+						else {
+							if (Controller.getInstance().getCompany().getWarehouse().getWare(buyableResource.resourceType).getAmount() >= amount) {
+								Controller.getInstance().getCompany().getWarehouse().sellWare(buyableResource.resourceType, amount);
+								Controller.getInstance().resetPanelMenuInformation();
+							}
+							else {
+								Controller.getInstance().showMessageDialog("Nicht genügend Rohstoffe vorhanden.");
+							}
+						}
+					}
+					catch (Exception e) {
+						Controller.getInstance().showMessageDialog("Bitte Eingaben überorüfen!");
+					} 
+				}
+			});
 		}
 		return buttonSell;
-	}
-	private JLabel getLabelSellPrice() {
-		if (labelSellPrice == null) {
-			labelSellPrice = new JLabel("Brauchen?");
-		}
-		return labelSellPrice;
 	}
 }

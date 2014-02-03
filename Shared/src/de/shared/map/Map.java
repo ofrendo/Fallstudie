@@ -3,6 +3,7 @@ package de.shared.map;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+import de.shared.game.Constants;
 import de.shared.game.Player;
 import de.shared.map.generate.MapType;
 import de.shared.map.generate.RegionGenerator;
@@ -21,7 +22,7 @@ public class Map implements Serializable {
 	private ResourceMarket resourceMarket;
 
 	//NOTE ENERGY DEMAND PER PERSON PER CITY OR FOR THE WHOLE MAP?
-	private double energyFactor = 400;
+	private double energyFactor = Constants.ENERGY_FACTOR;
 
 	public MapType mapType;
 	

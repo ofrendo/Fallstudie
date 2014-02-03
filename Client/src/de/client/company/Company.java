@@ -74,6 +74,10 @@ public class Company {
 		return null;
 	}
 	
+	public double getTemporaryEnergyBought() {
+		return temporaryEnergyBought;
+	}
+	
 	public ArrayList<Contract> getContracts() {
 		ArrayList<Contract> contracts = new ArrayList<Contract>();
 		for (Region region : client.getClientGame().getMap().getRegions()) {
@@ -136,6 +140,7 @@ public class Company {
 		money -= costs;
 		finances.getBalance().getProfitAndLoss().addEnergyMarketCosts(costs);
 		temporaryEnergyBought += amount;
+		client.getClientGame().sendTradeEnergy( - amount );
 	}
 
 	public void sellSuperflousEnergy(double amount) {
@@ -143,6 +148,7 @@ public class Company {
 		money += price;
 		finances.getBalance().getProfitAndLoss().addRevenue(price);
 		temporaryEnergyBought -= amount;
+		client.getClientGame().sendTradeEnergy( amount );
 	}
 	
 	
@@ -276,8 +282,6 @@ public class Company {
 		double superflousEnergy = getSuperflousEnergy();
 		if (superflousEnergy > 0 && temporaryEnergyBought == 0) {
 			sellSuperflousEnergy(superflousEnergy);
-			client.getClientGame().sendTradeEnergy( superflousEnergy );
-			
 		}
 		
 		//Add costs of Netznutzungsgebühren
@@ -462,6 +466,9 @@ public class Company {
 		if (getSuperflousEnergy() < 0) {
 			sum += client.getClientGame().getMap().getEnergyExchange().getPrice( getSuperflousEnergy() );
 		}
+		//Storage costs
+		double storeagaCosts = 0;
+		
 		return sum;
 	}
 	
@@ -491,5 +498,5 @@ public class Company {
 		}
 		return result;
 	}
-	
+
 }

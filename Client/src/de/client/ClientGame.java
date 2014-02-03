@@ -267,6 +267,12 @@ public class ClientGame extends Game {
 		incrementRound();
 		triggerEvents();
 		company.optimizePowerStations();
+		
+		//Check if player has lost the round
+		if (company.getMoney() <= 0) {
+			client.endGame(false);
+		}
+		
 	}
 
 	public void triggerEvents() {
@@ -277,7 +283,7 @@ public class ClientGame extends Game {
 		for (Building building : buildings) {
 			if(building.isBuilt())
 			{
-				if(building instanceof PowerStation)
+				if(building instanceof PowerStation && building.utilizationRate>0.0) // if it is turned off , then don't trigger events
 				{
 					PowerStation ps = (PowerStation) building;
 					if(ps.maintenanceRate < 1.0 && ps.maintenanceRate > 0.5)  // if maintenance rate is less than 100% but more than 50%

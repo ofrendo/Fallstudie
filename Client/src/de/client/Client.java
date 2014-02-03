@@ -139,6 +139,13 @@ public class Client extends Thread {
 					if (!unitTesting) Controller.getInstance().nextRound(newMap);
 				}
 				break;
+			case GAME_END:
+				boolean isWin = (boolean) message.getValue();
+				clientGame.nextGamePhase();
+				endGame(isWin);
+				disconnect();
+				continueListening = false;
+				break;
 			/*case CONTRACT_REQUEST_ANSWER:
 				answer = (ContractRequestAnswer) message.getValue();
 				//SHOW IN GUI HERE
@@ -160,6 +167,26 @@ public class Client extends Thread {
 			handleMessage();
 	}
 	
+	private void disconnect() {
+		try {
+			if (in != null) 
+				in.close();
+			if (out != null)
+				out.close();
+			if (socket != null)
+				socket.close();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public void endGame(boolean isWin) {
+		String value = (isWin) ? "won" : "lost";
+		String message = "You have " + value + " the game.";
+		if (!unitTesting) Controller.getInstance().getFrame().setPanelGameEnd(message);
+	}
+	
 	//TEST METHOD
 	/*private ContractRequestAnswer answer;
 	public ContractRequestAnswer getLatestContractAnswer() {
@@ -169,5 +196,5 @@ public class Client extends Thread {
 	public void TEST_setUnitTestMode() {
 		unitTesting = true;
 	}
-	
+
 }

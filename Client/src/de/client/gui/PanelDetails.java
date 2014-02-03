@@ -342,7 +342,7 @@ public class PanelDetails extends JPanel {
 					+ "<td>" + Strings.fD(region.getPopulation()) + "</td>"
 					+ "</tr>";
 			
-			if (!Controller.getInstance().getCompany().isPowerStationInRange(relation)) {
+			if (!Controller.getInstance().getCompany().isPowerStationInRange(relation)) { //if power station not in range
 				htmlText += "</table></html>";
 				
 				labelDetailsHTML = new JLabel(htmlText);
@@ -350,20 +350,33 @@ public class PanelDetails extends JPanel {
 				panel.add(labelDetailsHTML);
 			}
 			else { //powerstation in range
-				htmlText += "<tr>"
+				/*htmlText += "<tr>"
 						+ "<td>Bekanntheit:</td>"
 						+ "<td>" + Strings.fD(relation.awareness) + "</td>"
 						+ "<tr>"
 						+ "<td>Beliebtheit:</td>"
 						+ "<td>" + Strings.fD(relation.popularity) + "</td>"
+						
 						+ "</tr>"
+						+ "<tr> <td>  </td></tr>"
 						+ "</table>"
-						+ "</html>";
+						+ "</html>";*/
+				htmlText += "<tr>"
+						+ "<td>Durchschnittspreis:</td>"
+						+ "<td>" + Strings.fD(region.getAverageEnergyPrice()) + "€</td>"
+						+ "</tr>"
+						+ "</table></html>";
 				
 				labelDetailsHTML = new JLabel(htmlText);
 				labelDetailsHTML.setFont(Look.fontSectionPart);
 				panel.add(labelDetailsHTML);
+				JLabel maxVerbrauch = new JLabel(" Maximaler Energieverbauch:");
+				maxVerbrauch.setFont(Look.fontSectionPart);
+				panel.add(maxVerbrauch);
 				panel.add(panel.getTextFieldMaxCustomers());
+				JLabel preis = new JLabel(" Preis pro " + Strings.ENERGY_UNIT + " :");
+				preis.setFont(Look.fontSectionPart);
+				panel.add(preis);
 				panel.add(panel.getTextFieldPrice());
 				panel.add(panel.getButtonRequestContract());
 			}
@@ -383,20 +396,24 @@ public class PanelDetails extends JPanel {
 					+ "<td>" + Strings.fD(contract.amountCustomer) + "</td>"
 					+ "</tr>"
 					+ "<tr>"
-					+ "<td>Preis:</td>"
+					+ "<td>Dein Preis:</td>"
 					+ "<td>" + Strings.fD(contract.amountMoneyPerCustomer) + "</td>"
 					+ "</tr>"
 					+ "<tr>"
-					+ "<td>Kosten:</td>"
-					+ "<td>" + Strings.fD(Constants.NET_USAGE_COSTS) + "</td>"
+					+ "<td>Durchschnittspreis:</td>"
+					+ "<td>" + Strings.fD(region.getAverageEnergyPrice()) + "€</td>"
 					+ "</tr>"
 					+ "<tr>"
+					+ "<td>Netznutzungskosten:</td>"
+					+ "<td>" + Strings.fD(Constants.NET_USAGE_COSTS * contract.amountCustomer) + "</td>"
+					+ "</tr>"
+					/*+ "<tr>"
 					+ "<td>Bekanntheit:</td>"
 					+ "<td>" + Strings.fD(relation.awareness) + "</td>"
 					+ "<tr>"
 					+ "<td>Beliebtheit:</td>"
 					+ "<td>" + Strings.fD(relation.popularity) + "</td>"
-					+ "</tr>"
+					+ "</tr>"*/
 					+ "<tr>"
 					+ "<td>Energiebedarf:</td>"
 					+ "<td>" + Strings.fD(contract.amountEnergyNeeded) + "</td>"

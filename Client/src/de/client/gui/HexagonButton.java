@@ -241,6 +241,9 @@ public class HexagonButton extends JButton {
 				radius -= Look.BORDER_WIDTH_CITYCONTRACT;
 				break;
 			case OWNED:
+			case MINE:
+			case POWERSTATION:
+			case MINE_POWERSTATION:
 				if (Controller.getInstance().getOwnPlayer().equals(resourceRegion.owner)) {
 					//Test if building is on it
 					ResourceRelation resourceRelation = (ResourceRelation) getRegionRelation();

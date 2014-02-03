@@ -38,6 +38,13 @@ public class PanelMenuInformation extends JPanel {
 			double energyNetIncome = company.getSuperflousEnergy();
 			String energySymbol = (energyNetIncome >= 0) ? "+" : "";
 			
+			String temporaryEnergyCells = "<td></td><td></td><td></td>"; /*(company.getTemporaryEnergyBought() <= 0) ? 
+					"<td></td><td></td><td></td>" :
+					"<td>Gekaufte Energie:</td><td></td>"
+					+ "<td>" + Strings.fD(company.getTemporaryEnergyBought()) + " " + Strings.ENERGY_UNIT + "</td>";*/
+			
+			
+			//String htmlInfo = "<html><table cellpadding=2 cellspacing=0>"
 			String htmlInfo = "<html><table cellpadding='3' cellspacing='3'>"
 					+ "<tr>"
 					+ "<td>Konto:</td>"
@@ -52,7 +59,7 @@ public class PanelMenuInformation extends JPanel {
 					+ " " + Controller.getInstance().getHtmlResourceRow(ResourceType.GAS)
 					+ "</tr>"
 					+ "<tr>"
-					+ "<td></td><td></td><td></td>"
+					+ temporaryEnergyCells
 					+ " " + Controller.getInstance().getHtmlResourceRow(ResourceType.URANIUM)
 					+ "</tr>"
 					+ "</table></html>";

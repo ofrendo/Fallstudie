@@ -17,6 +17,8 @@ import de.client.company.finances.CreditType;
 
 
 public class PanelNewCredit extends JPanel {
+
+	private static final long serialVersionUID = -8268787475063054536L;
 	private Company company;
 	private CreditType crType;
 	
@@ -48,6 +50,7 @@ public class PanelNewCredit extends JPanel {
 					if(company.getFinances().isCreditWorthyFor(crType)){
 						company.getFinances().addCredit(crType);
 						Controller.getInstance().getFrame().setPanelFinances();
+						Controller.getInstance().resetPanelMenuInformation();
 					} else {
 						 JOptionPane.showMessageDialog(null,
                                  "Dieser Kredit würde Ihren maximalen Verschuldungsgrad (2:1) übersteigen!",
@@ -70,6 +73,7 @@ public class PanelNewCredit extends JPanel {
 			panelCreditInfo.add(getLabelRateValue());
 			panelCreditInfo.add(getLabelRuntimeTitle());
 			panelCreditInfo.add(getLabelRuntimeValue());
+			panelCreditInfo.setBackground(Look.COLOR_MAP_BACKGROUND);
 		}
 		return panelCreditInfo;
 	}
