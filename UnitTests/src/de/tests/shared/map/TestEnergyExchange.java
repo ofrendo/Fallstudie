@@ -20,7 +20,7 @@ public class TestEnergyExchange {
 	@Test
 	public void testGetEnergy(){
 		EnergyExchange energyExchange = new EnergyExchange();
-		Assert.assertEquals(5, energyExchange.getPrice(25), 0.005);
+		Assert.assertEquals(5*1000, energyExchange.getPrice(25), 0.005);
 	}
 	
 	
