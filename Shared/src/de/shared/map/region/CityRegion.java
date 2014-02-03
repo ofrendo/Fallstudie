@@ -43,7 +43,7 @@ public class CityRegion extends Region {
 		return freeCustomers;
 	}
 	
-	public synchronized void setFreeCustomers(int n) {
+	public void setFreeCustomers(int n) {
 		this.freeCustomers = n;
 	}
 	
@@ -52,7 +52,7 @@ public class CityRegion extends Region {
 	}
 	
 	public synchronized void addContract(Contract contract) {
-		freeCustomers -= contract.amountCustomer;
+		//freeCustomers -= contract.amountCustomer;
 		this.contracts.add(contract);
 	}
 	

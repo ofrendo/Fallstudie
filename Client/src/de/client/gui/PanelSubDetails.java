@@ -75,9 +75,10 @@ public class PanelSubDetails extends JPanel {
 			textFieldRegionBid.setMaximumSize( 
 				     new Dimension(Integer.MAX_VALUE, textFieldRegionBid.getPreferredSize().height) );
 			textFieldRegionBid.setAlignmentX( Component.LEFT_ALIGNMENT );
-			textFieldRegionBid.setText(Constants.MINIMUM_REGION_BID + "");
+			textFieldRegionBid.setText(Strings.fD(Constants.MINIMUM_REGION_BID).replace(".", "") );
 		}
 		return textFieldRegionBid;
+		
 	}
 	
 	protected JButton getButtonRegionBid() {

@@ -150,7 +150,6 @@ public class Map implements Serializable {
 	}
 
 	private void calculateCityRegionContracts(CityRegion cityRegion) {
-		//NEED TO SET AVERAGE ENERGY PRICE AT START OF GAME
 		//Sort contracts
 		cityRegion.sortContracts();
 		
@@ -160,7 +159,7 @@ public class Map implements Serializable {
 		int remainingPopulation = cityRegion.getPopulation();
 		
 		final double averageEnergyPrice = cityRegion.getAverageEnergyPrice(); //old average price
-		double newAverageEnergyPrice = 0;
+		double newSumEnergyPrice = 0;
 		
 		for (Contract contract : cityRegion.getContracts()) {
 			
@@ -169,13 +168,6 @@ public class Map implements Serializable {
 			
 			if (remainingPopulation == 0) { //No customers left!
 				break;
-			}
-			else if (customersForClient > remainingPopulation) { //Not enough customers left
-				customersForClient = remainingPopulation;
-				remainingPopulation = 0;
-			}
-			else if (customersForClient <= remainingPopulation) { //Normal case
-				remainingPopulation -= customersForClient;
 			}
 			
 			double energyNeeded = customersForClient * getEnergyFactor();
@@ -189,8 +181,16 @@ public class Map implements Serializable {
 				contract.amountCustomer = customersForClient;
 				contract.amountEnergyNeeded = energyNeeded;
 				
-				newAverageEnergyPrice += customersForClient * contract.amountMoneyPerCustomer;
+				newSumEnergyPrice += customersForClient * contract.amountMoneyPerCustomer;
 				cityRegion.setFreeCustomers( cityRegion.getFreeCustomers() - customersForClient);
+				
+				if (customersForClient > remainingPopulation) { //Not enough customers left
+					customersForClient = remainingPopulation;
+					remainingPopulation = 0;
+				}
+				else if (customersForClient <= remainingPopulation) { //Normal case
+					remainingPopulation -= customersForClient;
+				}
 			}
 			else {
 				contractsToRemove.add(contract);
@@ -225,10 +225,10 @@ public class Map implements Serializable {
 		}
 		
 		if (remainingPopulation > 0) {
-			newAverageEnergyPrice += remainingPopulation * averageEnergyPrice;
+			newSumEnergyPrice += remainingPopulation * Constants.NORMAL_ENERGY_PRICE;
 		}
 		
-		newAverageEnergyPrice = newAverageEnergyPrice / population;
+		double newAverageEnergyPrice = newSumEnergyPrice / population;
 		cityRegion.setAverageEnergyPrice(newAverageEnergyPrice);
 	}
 	

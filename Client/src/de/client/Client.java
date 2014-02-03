@@ -185,6 +185,7 @@ public class Client extends Thread {
 		String value = (isWin) ? "won" : "lost";
 		String message = "You have " + value + " the game.";
 		if (!unitTesting) Controller.getInstance().getFrame().setPanelGameEnd(message);
+		disconnect();
 	}
 	
 	//TEST METHOD
