@@ -44,7 +44,8 @@ public class PanelMenuInformation extends JPanel {
 					+ "<td>" + Strings.fD(company.getTemporaryEnergyBought()) + Strings.ENERGY_UNIT + "</td>";
 			
 			
-			String htmlInfo = "<html><table cellpadding=2 cellspacing=0>"
+			//String htmlInfo = "<html><table cellpadding=2 cellspacing=0>"
+			String htmlInfo = "<html><table cellpadding='3' cellspacing='3'>"
 					+ "<tr>"
 					+ "<td>Konto:</td>"
 					+ "<td align='right'>" + Strings.fD(money) + "€"

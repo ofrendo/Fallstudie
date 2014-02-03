@@ -15,7 +15,8 @@ public class Mine extends Building {
 	}
 
 	public double getRunningCosts() {
-		return resourceType.mMaxRunningCosts * utilizationRate;
+		if(this.isBuilt()) return resourceType.mMaxRunningCosts * utilizationRate;
+		else return 0;
 	}
 	
 	public double getProduction() {

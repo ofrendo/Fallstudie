@@ -28,6 +28,7 @@ public abstract class Department {
 	}
 
 	public void nextRound(){
-		company.setMoney(company.getMoney() - costs);
+		if (company != null)
+			company.setMoney(company.getMoney() - costs);
 	}
 }

@@ -3,9 +3,48 @@ package de.shared.map.region;
 import java.io.Serializable;
 
 public enum ResourceType implements Serializable {
-	COAL(false, 600 * 90 * 24, 0.5, 1, 100000, 10000, 4, 30, 10, 50000, 5000, 4, 4, 1000.0),
-	GAS(false, 300 * 90 * 24, 0.05, 1, 200000, 10000, 4, 20, 5, 25000, 3000, 4, 4, 500.0),
-	URANIUM(false, 1500 * 90 * 24, 1, 1, 500000, 50000, 8, 35, 10, 100000, 10000, 5, 5, 1000.0),
+	COAL(false, 
+			600 * 90 * 24, //produktion
+			0.5, //adjustabiltiy
+			10, //pconsumption
+			100000, //pPurchaseValue
+			10000, //pMaxRunningCosts
+			4, //mBuildTime
+			30, //pDepreciationYears
+			10, //mMaxProduction
+			50000, //mPurchaseValue,
+			5000, //mMaxRunningCosts, 
+			4, //mBuildTime,
+			4, //mDepreciationYears,
+			1000.0), //mDefaultResourceAmount
+	GAS(false, 
+			300 * 90 * 24,
+			0.05,
+			10,
+			200000,
+			10000,
+			2, 
+			20,
+			5,
+			25000,
+			3000,
+			4,
+			4,
+			500.0),
+	URANIUM(false,
+			1500 * 90 * 24,
+			1, 
+			10,
+			500000,
+			50000,
+			10, 
+			35, 
+			10, 
+			100000,
+			10000,
+			5, 
+			5, 
+			1000.0),
 	WIND(true, 80 * 90 * 24, 1, -1, 50000, 5000, 2, 16, 0, 0, 0, 0, 0, 0.0),
 	SOLAR(true, 30 * 90 * 24, 1, -1, 100000, 5000, 4, 20, 0, 0, 0, 0, 0, 0.0),
 	WATER(true, 150 * 90 * 24, 0.05, -1, 200, 20, 1, 40, 0, 0, 0, 0, 0, 0.0),

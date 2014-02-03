@@ -11,5 +11,7 @@ public enum MessageTypeToServer implements MessageType {
 	
 	BUILDING_FINISHED, //Sent when a building has finished
 	
-	TRADE_ENERGY; //Sent when energy is bought or sold from the energyexchange
+	TRADE_ENERGY, //Sent when energy is bought or sold from the energyexchange
+	
+	CHAT_MESSAGE; 
 }

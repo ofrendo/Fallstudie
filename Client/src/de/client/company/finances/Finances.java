@@ -1,7 +1,6 @@
 package de.client.company.finances;
 
 import java.util.ArrayList;
-
 import de.client.company.*;
 
 public class Finances extends Department {
@@ -19,6 +18,7 @@ public class Finances extends Department {
 	}
 	
 	public boolean isCreditWorthyFor(CreditType creditType){
+		// can get a new credit if the debt equity ratio doesn't exceed 2:1
 		return (creditType.amount + getDebtCapital()) / getBalance().getEquity() <= 2;
 	}
 	
@@ -28,6 +28,14 @@ public class Finances extends Department {
 			cap += credit.getAmountLeft();
 		}
 		return cap;
+	}
+	
+	public double getInterestsPerQuarterSum(){
+		double interests = 0;
+		for(Credit credit: credits){
+			interests += credit.getInterestsPerQuarter();
+		}
+		return interests;
 	}
 	
 	public ArrayList<Credit> getCredits(){

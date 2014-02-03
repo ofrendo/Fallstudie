@@ -2,6 +2,7 @@ package de.client.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.GridLayout;
 
 import javax.swing.JLabel;
@@ -41,8 +42,16 @@ public class PanelFinancesBalance extends JPanel {
 	private JPanel panelLeftMiddle;
 	private JLabel labelAVTitle;
 	private JLabel labelAV;
+	private JLabel labelPlotTitle;
+	private JLabel labelPlotValue;
+	private JLabel labelBuildingsTitle;
+	private JLabel labelBuildingsValue;
 	private JLabel labelUVTitle;
 	private JLabel labelUV;
+	private JLabel labelMoneyTitle;
+	private JLabel labelMoneyValue;
+	private JLabel labelInventoryTitle;
+	private JLabel labelInventoryValue;
 	private JPanel panelRightMiddle;
 	private JLabel labelEKTitle;
 	private JLabel labelEK;
@@ -62,6 +71,26 @@ public class PanelFinancesBalance extends JPanel {
 	private JPanel panelIncomeTableLeft;
 	private JLabel labelIncomeTitleAufw;
 	private JLabel labelIncomeAufw;
+	private JLabel labelIncomeDepCostsTitle;
+	private JLabel labelIncomeDepCostsValue;
+	private JLabel labelIncomeDepreciationTitle;
+	private JLabel labelIncomeDepreciationValue;
+	private JLabel labelIncomeInventoryChangeTitle;
+	private JLabel labelIncomeInventoryChangeValue;
+	private JLabel labelIncomeFinanceCostsTitle;
+	private JLabel labelIncomeFinanceCostsValue;
+	private JLabel labelIncomeResourceCostsTitle;
+	private JLabel labelIncomeResourceCostsValue;
+	private JLabel labelIncomeEnergyMarketCostsValue;
+	private JLabel labelIncomeEnergyMarketCostsTitle;
+	private JLabel labelIncomeBuildingRunningCostsTitle;
+	private JLabel labelIncomeBuildingRunningCostsValue;
+	private JLabel labelIncomeNetUsageCostsTitle;
+	private JLabel labelIncomeNetUsageCostsValue;
+	private JLabel labelIncomeOtherCostsTitle;
+	private JLabel labelIncomeOtherCostsValue;
+	private JLabel labelIncomeTaxesTitle;
+	private JLabel labelIncomeTaxesValue;
 	private JLabel labelIncomeProfitTitle;
 	private JLabel labelIncomeProfit;
 	private JPanel panelIncomeTableRight;
@@ -108,7 +137,7 @@ public class PanelFinancesBalance extends JPanel {
 	private JLabel getLabelBalanceTitle() {
 		if (labelBalanceTitle == null) {
 			int year = 0; //NEED TO GET THE YEAR FROM SOMEWHERE
-			labelBalanceTitle = new JLabel("Bilanz zum Jahr " + 0);
+			labelBalanceTitle = new JLabel("Bilanz zum Jahr " + balance.getYear());
 			labelBalanceTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		}
 		return labelBalanceTitle;
@@ -134,14 +163,74 @@ public class PanelFinancesBalance extends JPanel {
 		if (panelLeftMiddle == null) {
 			panelLeftMiddle = new JPanel();
 			panelLeftMiddle.setBorder(new CompoundBorder(new MatteBorder(0, 0, 0, 1, (Color) new Color(0, 0, 0)), new EmptyBorder(2, 2, 2, 2)));
-			panelLeftMiddle.setLayout(new GridLayout(2, 2, 0, 0));
+			panelLeftMiddle.setLayout(new GridLayout(6, 2, 0, 0));
 			panelLeftMiddle.add(getLabelAVTitle());
 			panelLeftMiddle.add(getLabelAV());
+			panelLeftMiddle.add(getLabelPlotTitle());
+			panelLeftMiddle.add(getLapelPlotValue());
+			panelLeftMiddle.add(getLapelBuildingsTitle());
+			panelLeftMiddle.add(getLapelBuildingsValue());
 			panelLeftMiddle.add(getLabelUVTitle());
 			panelLeftMiddle.add(getLabelUV());
+			panelLeftMiddle.add(getLabelMoneyTitle());
+			panelLeftMiddle.add(getLabelMoneyValue());
+			panelLeftMiddle.add(getLabelInventoryTitle());
+			panelLeftMiddle.add(getLabelInventoryValue());
 			panelLeftMiddle.setBackground(Look.COLOR_MAP_BACKGROUND);
 		}
 		return panelLeftMiddle;
+	}
+	private Component getLabelInventoryValue() {
+		if(labelInventoryValue == null){
+			labelInventoryValue = new JLabel(Strings.fD(balance.getInventoryValue()) + "\u20AC");
+			labelInventoryValue.setHorizontalAlignment(SwingConstants.TRAILING);
+		}
+		return labelInventoryValue;
+	}
+	private Component getLabelInventoryTitle() {
+		if(labelInventoryTitle == null){
+			labelInventoryTitle = new JLabel("    Erzeugnisse");
+		}
+		return labelInventoryTitle;
+	}
+	private Component getLabelMoneyTitle() {
+		if(labelMoneyTitle == null){
+			labelMoneyTitle = new JLabel("    Kasse");
+		}
+		return labelMoneyTitle;
+	}
+	private Component getLabelMoneyValue() {
+		if(labelMoneyValue == null){
+			labelMoneyValue = new JLabel(Strings.fD(balance.getMoneyValue()) + "\u20AC");
+			labelMoneyValue.setHorizontalAlignment(SwingConstants.TRAILING);
+		}
+		return labelMoneyValue;
+	}
+	private Component getLapelBuildingsValue() {
+		if(labelBuildingsValue == null){
+			labelBuildingsValue = new JLabel(Strings.fD(balance.getBuildingsValue()) + "\u20AC");
+			labelBuildingsValue.setHorizontalAlignment(SwingConstants.TRAILING);
+		}
+		return labelBuildingsValue;
+	}
+	private Component getLapelBuildingsTitle() {
+		if(labelBuildingsTitle == null){
+			labelBuildingsTitle = new JLabel("    Gebäude");
+		}
+		return labelBuildingsTitle;
+	}
+	private Component getLapelPlotValue() {
+		if(labelPlotValue == null){
+			labelPlotValue = new JLabel(Strings.fD(balance.getPlotValue()) + "\u20AC");
+			labelPlotValue.setHorizontalAlignment(SwingConstants.TRAILING);
+		}
+		return labelPlotValue;
+	}
+	private Component getLabelPlotTitle() {
+		if(labelPlotTitle == null){
+			labelPlotTitle = new JLabel("    Grundstücke");
+		}
+		return labelPlotTitle;
 	}
 	private JLabel getLabelAVTitle() {
 		if (labelAVTitle == null) {
@@ -212,8 +301,7 @@ public class PanelFinancesBalance extends JPanel {
 	}
 	private JLabel getLabelSumLeft() {
 		if (labelSumLeft == null) {
-			double sum = balance.getBuildingsValue() + balance.getInventoryValue()
-					   + balance.getMoneyValue() + balance.getPlotValue();
+			double sum = balance.getAssetsSum();
 			labelSumLeft = new JLabel(Strings.fD(sum) + "\u20AC");
 			labelSumLeft.setHorizontalAlignment(SwingConstants.TRAILING);
 		}
@@ -221,7 +309,7 @@ public class PanelFinancesBalance extends JPanel {
 	}
 	private JLabel getLabelSumRight() {
 		if (labelSumRight == null) {
-			double sum = balance.getDebtCapital() + balance.getEquity();
+			double sum = balance.getLiabilitiesSum();
 			labelSumRight = new JLabel(Strings.fD(sum) + "\u20AC");
 			labelSumRight.setHorizontalAlignment(SwingConstants.TRAILING);
 		}
@@ -313,14 +401,151 @@ public class PanelFinancesBalance extends JPanel {
 		if (panelIncomeTableLeft == null) {
 			panelIncomeTableLeft = new JPanel();
 			panelIncomeTableLeft.setBorder(new CompoundBorder(new MatteBorder(0, 0, 0, 1, (Color) new Color(0, 0, 0)), new EmptyBorder(2, 2, 2, 2)));
-			panelIncomeTableLeft.setLayout(new GridLayout(2, 2, 0, 0));
-			panelIncomeTableLeft.add(getLabelIncomeTitleAufw());
-			panelIncomeTableLeft.add(getLabelIncomeAufw());
-			panelIncomeTableLeft.add(getLabelIncomeProfitTitle());
-			panelIncomeTableLeft.add(getLabelIncomeProfit());
+			panelIncomeTableLeft.setLayout(new GridLayout(10, 2, 0, 0));
+			//panelIncomeTableLeft.add(getLabelIncomeTitleAufw());
+			//panelIncomeTableLeft.add(getLabelIncomeAufw());
+			panelIncomeTableLeft.add(getLabelIncomeDepCostsTitle());
+			panelIncomeTableLeft.add(getLabelIncomeDepCostsValue());
+			panelIncomeTableLeft.add(getLabelIncomeDepreciationTitle());
+			panelIncomeTableLeft.add(getLabelIncomeDepreciationValue());
+			panelIncomeTableLeft.add(getLabelIncomeBuildingRunningCostsTitle());
+			panelIncomeTableLeft.add(getLabelIncomeBuildingRunningCostsValue());
+			panelIncomeTableLeft.add(getLabelIncomeFinanceCostsTitle());
+			panelIncomeTableLeft.add(getLabelIncomeFinanceCostsValue());
+			panelIncomeTableLeft.add(getLabelIncomeResourceCostsTitle());
+			panelIncomeTableLeft.add(getLabelIncomeResourceCostsValue());
+			panelIncomeTableLeft.add(getLabelIncomeNetUsageCostsTitle());
+			panelIncomeTableLeft.add(getLabelIncomeNetUsageCostsValue());
+			panelIncomeTableLeft.add(getLabelIncomeEnergyMarketCostsTitle());
+			panelIncomeTableLeft.add(getLabelIncomeEnergyMarketCostsValue());
+			panelIncomeTableLeft.add(getLabelIncomeOtherCostsTitle());
+			panelIncomeTableLeft.add(getLabelIncomeOtherCostsValue());
+			if(profitAndLoss.getProfitNet() > 0){
+				panelIncomeTableLeft.add(getLabelIncomeTaxesTitle());
+				panelIncomeTableLeft.add(getLabelIncomeTaxesValue());
+				panelIncomeTableLeft.add(getLabelIncomeProfitTitle());
+				panelIncomeTableLeft.add(getLabelIncomeProfit());
+			}
 			panelIncomeTableLeft.setBackground(Look.COLOR_MAP_BACKGROUND);
 		}
 		return panelIncomeTableLeft;
+	}
+	private Component getLabelIncomeTaxesTitle() {
+		if (labelIncomeTaxesTitle == null) {
+			labelIncomeTaxesTitle = new JLabel("Steuern");
+		}
+		return labelIncomeTaxesTitle;
+	}
+	private Component getLabelIncomeTaxesValue() {
+		if (labelIncomeTaxesValue == null) {
+			labelIncomeTaxesValue = new JLabel(Strings.fD(profitAndLoss.getTaxes()) + "\u20AC");
+			labelIncomeTaxesValue.setHorizontalAlignment(SwingConstants.TRAILING);
+		}
+		return labelIncomeTaxesValue;
+	}
+	private Component getLabelIncomeEnergyMarketCostsValue() {
+		if (labelIncomeEnergyMarketCostsValue == null) {
+			labelIncomeEnergyMarketCostsValue = new JLabel(Strings.fD(profitAndLoss.getEnergyMarketCosts()) + "\u20AC");
+			labelIncomeEnergyMarketCostsValue.setHorizontalAlignment(SwingConstants.TRAILING);
+		}
+		return labelIncomeEnergyMarketCostsValue;
+	}
+	private Component getLabelIncomeEnergyMarketCostsTitle() {
+		if (labelIncomeEnergyMarketCostsTitle == null) {
+			labelIncomeEnergyMarketCostsTitle = new JLabel("Energiekäufe");
+		}
+		return labelIncomeEnergyMarketCostsTitle;
+	}
+	private Component getLabelIncomeOtherCostsValue() {
+		if (labelIncomeOtherCostsValue == null) {
+			labelIncomeOtherCostsValue = new JLabel(Strings.fD(profitAndLoss.getOtherCosts()) + "\u20AC");
+			labelIncomeOtherCostsValue.setHorizontalAlignment(SwingConstants.TRAILING);
+		}
+		return labelIncomeOtherCostsValue;
+	}
+	private Component getLabelIncomeOtherCostsTitle() {
+		if (labelIncomeOtherCostsTitle == null) {
+			labelIncomeOtherCostsTitle = new JLabel("Sonstige Kosten");
+		}
+		return labelIncomeOtherCostsTitle;
+	}
+	private Component getLabelIncomeNetUsageCostsValue() {
+		if (labelIncomeNetUsageCostsValue == null) {
+			labelIncomeNetUsageCostsValue = new JLabel(Strings.fD(profitAndLoss.getNetUsageCosts()) + "\u20AC");
+			labelIncomeNetUsageCostsValue.setHorizontalAlignment(SwingConstants.TRAILING);
+		}
+		return labelIncomeNetUsageCostsValue;
+	}
+	private Component getLabelIncomeNetUsageCostsTitle() {
+		if (labelIncomeNetUsageCostsTitle == null) {
+			labelIncomeNetUsageCostsTitle = new JLabel("Netznutzungskosten");
+		}
+		return labelIncomeNetUsageCostsTitle;
+	}
+	private Component getLabelIncomeBuildingRunningCostsValue() {
+		if (labelIncomeBuildingRunningCostsValue == null) {
+			labelIncomeBuildingRunningCostsValue = new JLabel(Strings.fD(profitAndLoss.getBuildingRunningCosts()) + "\u20AC");
+			labelIncomeBuildingRunningCostsValue.setHorizontalAlignment(SwingConstants.TRAILING);
+		}
+		return labelIncomeBuildingRunningCostsValue;
+	}
+	private Component getLabelIncomeBuildingRunningCostsTitle() {
+		if (labelIncomeBuildingRunningCostsTitle == null) {
+			labelIncomeBuildingRunningCostsTitle = new JLabel("Gebäude lfd. Kosten");
+		}
+		return labelIncomeBuildingRunningCostsTitle;
+	}
+	private Component getLabelIncomeResourceCostsValue() {
+		if (labelIncomeResourceCostsValue == null) {
+			labelIncomeResourceCostsValue = new JLabel(Strings.fD(profitAndLoss.getResourceCosts()) + "\u20AC");
+			labelIncomeResourceCostsValue.setHorizontalAlignment(SwingConstants.TRAILING);
+		}
+		return labelIncomeResourceCostsValue;
+	}
+	private Component getLabelIncomeResourceCostsTitle() {
+		if (labelIncomeResourceCostsTitle == null) {
+			labelIncomeResourceCostsTitle = new JLabel("Rohstoffkäufe");
+		}
+		return labelIncomeResourceCostsTitle;
+	}
+	private Component getLabelIncomeFinanceCostsValue() {
+		if (labelIncomeFinanceCostsValue == null) {
+			labelIncomeFinanceCostsValue = new JLabel(Strings.fD(profitAndLoss.getFinanceCosts()) + "\u20AC");
+			labelIncomeFinanceCostsValue.setHorizontalAlignment(SwingConstants.TRAILING);
+		}
+		return labelIncomeFinanceCostsValue;
+	}
+	private Component getLabelIncomeFinanceCostsTitle() {
+		if (labelIncomeFinanceCostsTitle == null) {
+			labelIncomeFinanceCostsTitle = new JLabel("Zinsen");
+		}
+		return labelIncomeFinanceCostsTitle;
+	}
+	private Component getLabelIncomeDepreciationValue() {
+		if (labelIncomeDepreciationValue == null) {
+			labelIncomeDepreciationValue = new JLabel(Strings.fD(profitAndLoss.getDepreciation()) + "\u20AC");
+			labelIncomeDepreciationValue.setHorizontalAlignment(SwingConstants.TRAILING);
+		}
+		return labelIncomeDepreciationValue;
+	}
+	private Component getLabelIncomeDepreciationTitle() {
+		if (labelIncomeDepreciationTitle == null) {
+			labelIncomeDepreciationTitle = new JLabel("Abschreibungen");
+		}
+		return labelIncomeDepreciationTitle;
+	}
+	private Component getLabelIncomeDepCostsValue() {
+		if (labelIncomeDepCostsValue == null) {
+			labelIncomeDepCostsValue = new JLabel(Strings.fD(profitAndLoss.getDepartmentCosts()) + "\u20AC");
+			labelIncomeDepCostsValue.setHorizontalAlignment(SwingConstants.TRAILING);
+		}
+		return labelIncomeDepCostsValue;
+	}
+	private Component getLabelIncomeDepCostsTitle() {
+		if (labelIncomeDepCostsTitle == null) {
+			labelIncomeDepCostsTitle = new JLabel("Lagerkosten");
+		}
+		return labelIncomeDepCostsTitle;
 	}
 	private JLabel getLabelIncomeTitleAufw() {
 		if (labelIncomeTitleAufw == null) {
@@ -339,13 +564,13 @@ public class PanelFinancesBalance extends JPanel {
 	}
 	private JLabel getLabelIncomeProfitTitle() {
 		if (labelIncomeProfitTitle == null) {
-			labelIncomeProfitTitle = new JLabel("");
+			labelIncomeProfitTitle = new JLabel("Gewinn");
 		}
 		return labelIncomeProfitTitle;
 	}
 	private JLabel getLabelIncomeProfit() {
 		if (labelIncomeProfit == null) {
-			labelIncomeProfit = new JLabel("");
+			labelIncomeProfit = new JLabel(Strings.fD(profitAndLoss.getProfitNet()) + "\u20AC");
 			labelIncomeProfit.setHorizontalAlignment(SwingConstants.TRAILING);
 		}
 		return labelIncomeProfit;
@@ -355,10 +580,13 @@ public class PanelFinancesBalance extends JPanel {
 			panelIncomeTableRight = new JPanel();
 			panelIncomeTableRight.setBorder(new EmptyBorder(2, 3, 2, 2));
 			panelIncomeTableRight.setLayout(new GridLayout(2, 2, 0, 0));
+			if(profitAndLoss.getProfitNet() > 0) panelIncomeTableRight.setLayout(new GridLayout(1, 2, 0, 0)); 
 			panelIncomeTableRight.add(getLabelIncomeTurnoverTitle());
 			panelIncomeTableRight.add(getLabelIncomeTurnover());
-			panelIncomeTableRight.add(getLabelIncomeLossTitle());
-			panelIncomeTableRight.add(getLabelIncomeLoss());
+			if(profitAndLoss.getProfitNet() <= 0){
+				panelIncomeTableRight.add(getLabelIncomeLossTitle());
+				panelIncomeTableRight.add(getLabelIncomeLoss());
+			}
 			panelIncomeTableRight.setBackground(Look.COLOR_MAP_BACKGROUND);
 		}
 		return panelIncomeTableRight;
@@ -371,7 +599,7 @@ public class PanelFinancesBalance extends JPanel {
 	}
 	private JLabel getLabelIncomeTurnover() {
 		if (labelIncomeTurnover == null) {
-			labelIncomeTurnover = new JLabel("0\u20AC");
+			labelIncomeTurnover = new JLabel(Strings.fD(profitAndLoss.getRevenue()) + "\u20AC");
 			labelIncomeTurnover.setHorizontalAlignment(SwingConstants.TRAILING);
 		}
 		return labelIncomeTurnover;
@@ -384,7 +612,7 @@ public class PanelFinancesBalance extends JPanel {
 	}
 	private JLabel getLabelIncomeLoss() {
 		if (labelIncomeLoss == null) {
-			labelIncomeLoss = new JLabel("0\u20AC");
+			labelIncomeLoss = new JLabel(Strings.fD(-profitAndLoss.getProfitNet()) + "\u20AC");
 			labelIncomeLoss.setHorizontalAlignment(SwingConstants.TRAILING);
 		}
 		return labelIncomeLoss;
@@ -411,7 +639,7 @@ public class PanelFinancesBalance extends JPanel {
 	}
 	private JLabel getLabelIncomeSumsLeft() {
 		if (labelIncomeSumsLeft == null) {
-			labelIncomeSumsLeft = new JLabel("0\u20AC");
+			labelIncomeSumsLeft = new JLabel("");
 			labelIncomeSumsLeft.setHorizontalAlignment(SwingConstants.TRAILING);
 		}
 		return labelIncomeSumsLeft;
@@ -428,7 +656,7 @@ public class PanelFinancesBalance extends JPanel {
 	}
 	private JLabel getLabelIncomeSumsRight() {
 		if (labelIncomeSumsRight == null) {
-			labelIncomeSumsRight = new JLabel("0\u20AC");
+			labelIncomeSumsRight = new JLabel("");
 			labelIncomeSumsRight.setHorizontalAlignment(SwingConstants.TRAILING);
 		}
 		return labelIncomeSumsRight;

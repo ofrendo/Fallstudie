@@ -16,6 +16,7 @@ import de.shared.map.region.FinishedBuilding;
 import de.shared.map.region.Region;
 import de.shared.map.region.ResourceRegion;
 import de.shared.map.region.ResourceRegionStatus;
+import de.shared.map.region.ResourceType;
 import de.shared.map.relation.CityRelation;
 import de.shared.map.relation.Contract;
 import de.shared.map.relation.ContractRequest;
@@ -292,11 +293,48 @@ public class ClientGame extends Game {
 						{
 							//Small Meintenece Problem
 							eventCosts = ps.getResourceType().pPurchaseValue*Constants.MAINTENANCE_ACCIDENT_SMALL;
+							events.add(new EventMessage("Eine kleinere Reparatur in einem Kraftwerk kostete dir "+eventCosts+" €.", ps.coords));
+							//pay costs and add them to balance
+							company.setMoney(company.getMoney()-eventCosts);  
+							company.getFinances().getBalance().getProfitAndLoss().addOtherCosts(eventCosts);
+						}
+					}
+					else if(ps.maintenanceRate <= 0.5 && ps.maintenanceRate > 0.25)
+					{
+						triggerModificator = ((0.6 - (ps.maintenanceRate-0.25) ) / 10 ); // between 3,5 % and 6 %
+						if(Math.random()<=triggerModificator)
+						{
+							//medium Meintenece Problem
+							eventCosts = ps.getResourceType().pPurchaseValue*Constants.MAINTENANCE_ACCIDENT_MEDIUM;
 							events.add(new EventMessage("Eine notwendige Reparatur in einem Kraftwerk kostete dir "+eventCosts+" €.", ps.coords));
 							//pay costs and add them to balance
 							company.setMoney(company.getMoney()-eventCosts);  
 							company.getFinances().getBalance().getProfitAndLoss().addOtherCosts(eventCosts);
 						}
+					}
+					else if(ps.maintenanceRate <= 0.25)
+					{
+						triggerModificator = ((0.6 - (ps.maintenanceRate) ) / 10 ); // between 3,5 % and 6 %
+						double random = Math.random();
+						if(Math.random()>(0.97+ps.maintenanceRate )&& ps.getResourceType() == ResourceType.URANIUM) //between 0.5 and 3 %
+						{
+							//SUPER GAU
+							eventCosts = ps.getResourceType().pPurchaseValue*Constants.MAINTENANCE_ACCIDENT_LARGE*5;
+							events.add(new EventMessage("Eine Kernschmelze in einem Kernkraftwerk kostete dir "+eventCosts+" €.", ps.coords));
+							//pay costs and add them to balance
+							company.setMoney(company.getMoney()-eventCosts);  
+							company.getFinances().getBalance().getProfitAndLoss().addOtherCosts(eventCosts);
+						}
+						else if(random<=triggerModificator)
+						{
+							//medium Meintenece Problem
+							eventCosts = ps.getResourceType().pPurchaseValue*Constants.MAINTENANCE_ACCIDENT_LARGE;
+							events.add(new EventMessage("Eine schwerwiegende Reparatur in einem Kraftwerk kostete dir "+eventCosts+" €.", ps.coords));
+							//pay costs and add them to balance
+							company.setMoney(company.getMoney()-eventCosts);  
+							company.getFinances().getBalance().getProfitAndLoss().addOtherCosts(eventCosts);
+						}
+						
 					}
 				}
 			}
