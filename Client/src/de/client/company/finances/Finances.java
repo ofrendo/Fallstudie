@@ -22,6 +22,13 @@ public class Finances extends Department {
 		return (creditType.amount + getDebtCapital()) / getBalance().getEquity() <= 2;
 	}
 	
+	public boolean isInsolvent(){
+		if(getDebtEquityRatio() >= 2 && getCompany().getMoney() <= 0){
+			return true;
+		}
+		return false;
+	}
+	
 	public double getDebtCapital(){
 		double cap = 0;
 		for(Credit credit: credits){
