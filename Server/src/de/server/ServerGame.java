@@ -185,7 +185,7 @@ public class ServerGame extends Game {
 				}
 			}
 			
-			if (marketShare >= Constants.GAME_END_MIN_MARKETSHARE) {
+			if (marketShare >= Constants.GAME_END_MIN_MARKETSHARE && getRound() >= Constants.GAME_END_MIN_ROUNDS) {
 				gameEnd = true;
 				winningPlayer = player;
 			}

@@ -60,7 +60,7 @@ public class CityRegion extends Region {
 		Contract contractToRemove = null;
 		for (Contract contract : contracts) {
 			if (contract.getPlayer().equals(cancelledContract.getPlayer())) {
-				freeCustomers += cancelledContract.amountCustomer;
+				//freeCustomers += cancelledContract.amountCustomer;
 				contractToRemove = contract;
 			}
 		}

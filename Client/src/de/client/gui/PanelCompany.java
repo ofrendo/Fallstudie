@@ -138,8 +138,9 @@ public class PanelCompany extends PanelAbstractContent {
 		
 		JPanel panelInnerLeft = new JPanel();
 		panelInnerLeft.setLayout(new BoxLayout(panelInnerLeft, BoxLayout.Y_AXIS));
+		panelInnerLeft.setBackground(Look.COLOR_MAP_BACKGROUND);
 		
-		JButton buttonLook = new JButton("\uD83D\uDD0E");
+		JButton buttonLook = new JButton("\u2192");
 		buttonLook.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Controller.getInstance().getFrame().getPanelMenu().enableAllButtons();
@@ -158,20 +159,19 @@ public class PanelCompany extends PanelAbstractContent {
 				//Controller.getInstance().getClientGame().getEventMessages().remove(eventMessage);
 			}
 		});
-		buttonLook.setMaximumSize(new Dimension(Integer.MAX_VALUE, buttonLook.getPreferredSize().height));
+		
 		panelInnerLeft.add(buttonLook);
 		
-		JButton buttonDismiss = new JButton("KREUZ");
+		JButton buttonDismiss = new JButton(Look.getReadySymbol(false));
 		buttonDismiss.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				Controller.getInstance().getClientGame().getEventMessages().remove(eventMessage);
 				refreshPanelNews();
 			}
 		});
-		buttonDismiss.setPreferredSize(buttonDismiss.getPreferredSize());
+		buttonDismiss.setMinimumSize(new Dimension(buttonLook.getPreferredSize().width, buttonDismiss.getPreferredSize().height));
 		panelInnerLeft.add(buttonDismiss);
 		//panel.setMaximumSize(new Dimension(Integer.MAX_VALUE, labelMessage.getPreferredSize().height + 2 * PADDING));
-		
 		
 		panel.add(panelInnerLeft);
 		panel.add(Box.createRigidArea(new Dimension(5,0)));
@@ -179,7 +179,7 @@ public class PanelCompany extends PanelAbstractContent {
 		JLabel labelMessage = new JLabel("<html>" + eventMessage.message + "</html>");
 		labelMessage.setFont(Look.fontSectionPart);
 		panel.add(labelMessage);
-		
+			
 		panel.setBorder(new CompoundBorder(new MatteBorder(0, 0, 1, 0, (Color) new Color(0, 0, 0)), new EmptyBorder(PADDING, PADDING, PADDING, PADDING)));
 		panel.setBackground(Look.COLOR_MAP_BACKGROUND);
 		return panel;
