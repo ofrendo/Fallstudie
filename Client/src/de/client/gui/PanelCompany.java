@@ -184,7 +184,7 @@ public class PanelCompany extends PanelAbstractContent {
 		panel.setBackground(Look.COLOR_MAP_BACKGROUND);
 		return panel;
 	}
-	
+
 	private JPanel getPanelDetailsTitle() {
 		if (panelNewsTitle == null) {
 			panelNewsTitle = new JPanel();
