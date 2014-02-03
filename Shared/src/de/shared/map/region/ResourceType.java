@@ -4,44 +4,44 @@ import java.io.Serializable;
 
 public enum ResourceType implements Serializable {
 	COAL(false, 
-			600 * 90 * 24, //produktion
+			60 * 90 * 24, //produktion
 			0.5, //adjustabiltiy
-			990000, //pconsumption
+			99000, //pconsumption
 			480000000, //pPurchaseValue
-			170000000, //pMaxRunningCosts
+			17000000, //pMaxRunningCosts
 			4, //mBuildTime
 			15, //pDepreciationYears
-			990000, //mMaxProduction
+			99000, //mMaxProduction
 			100000000, //mPurchaseValue,
-			55000000, //mMaxRunningCosts, 
+			5500000, //mMaxRunningCosts, 
 			2, //mBuildTime,
 			15, //mDepreciationYears,
-			79200000), //mDefaultResourceAmount
+			7920000), //mDefaultResourceAmount
 	GAS(false, 
-			300 * 90 * 24,
+			30 * 90 * 24,
 			0.05,
-			12600000,
+			1260000,
 			150000000,
-			80000000,
+			8000000,
 			2, 
 			15,
-			12600000,
+			1260000,
 			200000000,
-			35000000,
+			3500000,
 			4,
 			15,
-			1008000000),
+			100800000),
 	URANIUM(false,
-			1500 * 90 * 24,
+			150 * 90 * 24,
 			1, 
 			10,
 			3100000000.0,
-			50000000,
+			5000000,
 			10, 
 			20, 
 			10, 
-			150000000,
-			40000000,
+			15000000,
+			4000000,
 			3, 
 			15, 
 			800),
