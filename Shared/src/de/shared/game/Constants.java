@@ -11,7 +11,7 @@ public class Constants {
 	
 	//Costs and prices
 	public static double NET_USAGE_COSTS = 0.06;
-	public static double NORMAL_ENERGY_PRICE = 0.20; //Normal energy price: this is the price when demand equals offers 
+	public static double NORMAL_ENERGY_PRICE = 200; //Normal energy price: this is the price when demand equals offers 
 	
 	//Resource Costs
 	public static double COST_COAL = 20;
@@ -32,7 +32,7 @@ public class Constants {
 	public static double MAINTENANCE_ACCIDENT_LARGE = 0.30; //with fries ;)
 	
 	//Server constants for ending a game
-	public static double GAME_END_MIN_ROUNDS = 5;
+	public static double GAME_END_MIN_ROUNDS = 50;
 	public static double GAME_END_MIN_MARKETSHARE = 0.5;
 	
 }
