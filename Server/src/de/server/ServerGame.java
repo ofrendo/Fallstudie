@@ -69,7 +69,7 @@ public class ServerGame extends Game {
 		return true;
 	}
 	
-	public synchronized void setAllPlayersUnready() {
+	public void setAllPlayersUnready() {
 		for (Player player : players) {
 			player.ready = false;
 		}
