@@ -82,7 +82,7 @@ dozent=Gregor Tielsch
 % Achtung: Das Kommando erzeugt nur dann eine Ausgabe, wenn \seWaSprache den Wert englisch besitzt
 %
 %
-\seAbstract{} % dieses Kommando sollte standardm\"assig verwendet werden
+%\seAbstract{} % dieses Kommando sollte standardm\"assig verwendet werden
 
 %\seAbstract[\LaTeX-Vorlage zur Anfertigung \seThemaWaArbeit{} (Version \version{})]
 
@@ -97,7 +97,8 @@ dozent=Gregor Tielsch
 %
 %\seKurzfassung{} % dieses Kommando sollte standardm\"assig verwendet werden
 
-\seKurzfassung[\LaTeX-Vorlage zur Anfertigung einer Seminararbeit (Version \version{})]
+%\seKurzfassung[\LaTeX-Vorlage zur Anfertigung einer Seminararbeit (Version
+% \version{})]
 
 
 % Beispiel f\"ur ein Kapitel, dass vor dem Einleitungskapitel kommt, z. B. ein Vorwort oder eine Danksagung
@@ -159,24 +160,7 @@ gliederungsebenen=4
 % Erstes eigentliches Kapitel der Arbeit; typischerweise das Einleitungskapitel;
 % hier muss wieder auf die Nummierung mit arabischen Seitenzahlen umgestellt werden
 %
-\chapter{Einleitung}\pagenumbering{arabic}
-
-\seChaptersWithoutNewpage{}
-
-Hier kommt jetzt ein ein wenig Text.
-
-\seChapterEndSkip{}
-
-
-% Erstes Hauptkapitel der Arbeit 
-%
-%
-%
-\chapter{Der formale Aufbau einer Seminararbeit}
-% Mit markright kann eine verk\"urzte Version der \"Uberschrift f\"ur den Seitenkopf generiert werden
-%
-%
-%\markright{Formaler Aufbau}
+\input{parts/patrick}
 
 
 % Anhang der Arbeit
@@ -191,7 +175,7 @@ Hier kommt jetzt ein ein wenig Text.
 \seChaptersNewpage
 \seAppendix{}
 
-\input{\seWaPathText/se-anhang}
+
 
 %
 %  Erzeugung eines Glossars
@@ -215,7 +199,7 @@ Hier kommt jetzt ein ein wenig Text.
 %\newpage
 \sePrintBibliography{}
 
-\input{\seWaPathText/se-test-literaturverzeichnis}
+%\input{\seWaPathText/se-test-literaturverzeichnis}
 
 
 %
