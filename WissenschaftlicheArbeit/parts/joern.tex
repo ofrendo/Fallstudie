@@ -1,1 +1,92 @@
+\newpage
 \section{OOA-Klassenmodell}
+
+Im Folgenden wird unser, auf Basis der Anforderungen unseres Planspiels,
+erstelltes Klassendiagramm der Analysephase aus \ref{OOA-Client} und
+\ref{OOA-Server} auf \pageref{OOA-Client} und \pageref{OOA-Server} näher
+erläutert. 
+
+Das Klassendiagramm ist in zwei Hälften aufgeteilt. In dem ersten Teil werden
+die Klassen für den Clienten und die Klassen, die für die ründliche Kommunikation
+zwischen Server und Client genutzt werden, abgebildet. Der zweite Teil enthält
+die Klassen des Servers und Klassen und Interfaces, die für die
+außerordentliche Kommunikation zwischen Server und Client vorgesehen sind.
+
+Das Herzstück des Unternehmens, dass auf Client-Seite vorgesehen ist, ist die
+'Company' -Klasse. In ihr werden alle Entscheidungen des Spielers bearbeitet
+und sie enthält alle Informationen, die der Spieler über sein Unternehmen
+benötigt.
+Dies sind die Mitarbeiter, die einzelnen Abteilungen und die Beziehungen, die zu
+den einzelnen Regionen bestehen.
+
+In den Beziehungen zu den Regionen werden entweder in einer 'ResourceRelation'
+der Besitztum dieser Region erlangt und, sollte man schon eine solche Region
+besitzen, auch die vorhandenen Gebäude dieser Region gespeichert. Die
+'CityRelation' enthält alle Informationen über die Bewohner einer Stadt und mit
+dem 'Contract' auch über die Kunden des Unternehmens.
+
+Die Abteilungen des Unternehmens umfassen das 'Warehouse', das
+'InvestmentManagement', den 'Research', die 'Finances' und das 'Marketing'. In
+dem Warehouse werden die Rohstoffe gelagert, die in Minen produziert
+werden und die für die Produktion von Strom in den Kraftwerken benötigt werden.
+Auch gehandelter Rohstoffe werden hier entnommen oder eingelagert.\\
+Das InvestmentMangement beinhaltet alle Gebäude (Minen und Kraftwerke) und alle
+Grundstücke (Regionen), die das Unternehmen besitzt. Hier werden neue Gebäude
+hinzugefügt, Abschreibungen berechnet und Produktionsmengen eingestellt und
+ausgelesen. Zudem besitzt jedes Kraftwerk mehrere 'PowerStationRelation', die
+beinhaltet wieviel Energie das Kraftwerk den einzelnen, umliegenden Städten
+liefert. Diese Beziehung von einem Kraftwerk zu den Städten ist vorgesehen,
+damit die gewollte, maximale Lieferentfernung von drei Feldern nicht
+überschritten wird.\\
+Die 'Finances' sind vorgesehen, um alle vier Quartale eine Bilanz und eine
+Gewinn und Verlustrechnung aufzustellen. Alle Einnahmen und Ausgaben werden hier
+eingespeichert und aufbereitet.\\
+Das 'Marketing' ist vorgesehen um die Beliebtheit und die Bekanntheit
+bei den Kunden zu beeinflussen.\\
+Der letzte Bereich, der 'Research', ist vorgesehen um möglicherweise eine aktive
+Forschung einbauen zu können. Auf Grund von anderen Prioritäten ist dieser aber 
+nicht weiter modelliert und auch nicht in das entgültige Planspiel aufgenommen
+worden.
+
+Die Verbindung zwischen Client und Server wird aufgebaut indem sich der Client
+über die 'Client'-Klasse mit der 'Server'-Klasse auf Serverseite verbindet. Dort
+wird die Verbindung akzeptiert und nach dem 'Thread-per-Connection'-Prinzip ein,
+für jeden Clienten seperater Thread der Klasse 'Connection' erstellt.
+
+Die anschließende Kommunikation wird mit Objekten, die jeweils das
+'Messagable'-Interface implementieren durchgeführt. So kann jede beliebige
+Klasse übertragen werden. Der Empfänger des Objektes kann nun den MessageType
+des Objektes abfragen und weiß somit, wie er mit dem Objekt weiter verfahren
+soll. Hierfür sind spezielle Typen für jede unterschiedliche Nachricht, die
+kommuniziert werden soll, in zwei Enumerates definiert.
+
+Über den Server werden jede Runde, alle Entscheidungen der Spieler abgewickelt,
+die nicht nur den Spieler selbst, sondern auch andere Spieler betreffen. Vor
+allem sind dies, Grundstücksgebote und -käufe und Vertragseinstellungen mit
+einer Stadt, nach denen die Kunden des Spielers bestimmt werden. Auch bereits
+gebaute Gebäude werden dem Server mitgeteilt, so dass sie für jeden Spieler
+ersichtlich werden.
+
+Diese Änderungen werden dem Clienten zu jedem Rundenbeginn über das
+'Map'-Objekt und die 'CityRelation' mitgeteilt.
+
+
+
+
+\begin{figure}
+\centering
+\centering
+\hspace*{-30mm}
+\includegraphics[width=1.3\textwidth]{se-wa-jpg/Client}
+\caption{Klassendiagramm Teil 1}
+\label{OOA-Client}
+\end{figure}
+%Die Grafik in Abbildung 
+%\ref{labelname} auf Seite \pageref{labelname} ..
+\begin{figure}
+\centering
+\centering
+\includegraphics[width=1.1\textwidth]{se-wa-jpg/Server}
+\caption{Klassendiagramm Teil 2}
+\label{OOA-Server}
+\end{figure}
