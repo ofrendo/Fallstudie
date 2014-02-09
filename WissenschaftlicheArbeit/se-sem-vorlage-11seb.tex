@@ -154,12 +154,35 @@ gliederungsebenen=4
 
 \seChaptersNewpage{}
 
+\chapter{Einleitung}\pagenumbering{arabic}
+\input{parts/einleitung}
+\seChapterEndSkip{}
 
-% Erstes eigentliches Kapitelw der Arbeit; typischerweise das
-% Einleitungskapitel; hier muss wieder auf die Nummierung mit arabischen Seitenzahlen umgestellt werden
-%
-\input{parts/patrick}
-\input{parts/joern}
+\seChaptersWithoutNewpage{}
+
+
+\chapter{Grundlagen}
+\input{parts/bwl}
+
+\chapter{Analyse}
+\input{parts/spielideen}
+\input{parts/architektur}
+\input{parts/joern} %OOA
+\input{parts/usecase}
+\input{parts/optimierung}
+
+\chapter{Implementierung}
+\input{parts/projektablauf}
+\input{parts/ood}
+\input{parts/design}
+\input{parts/unittests}
+\input{parts/balancing}
+
+\chapter{Fazit}
+\input{parts/betrachtung}
+\input{parts/ausblick}
+
+
 
 % Anhang der Arbeit
 % 
