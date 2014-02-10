@@ -1,0 +1,273 @@
+% Konfigurationsdatei f\"ur die Pfaddefinitionen einlesen
+\input{se-wa-pfade}
+%
+%
+% Festlegung der Sprache: 
+\newcommand{\seWaSprache}{deutsch}
+%\newcommand{\seWaSprache}{englisch}
+
+
+%
+% Einlesen der .sty-Dateien
+%
+\input{\seWaPathSty/se-wa-input-styles-v095}
+%
+% Individuelle Konfiguration des Dokumentes
+%
+\input{\seWaPathText/wa-konfiguration}
+%
+% Definition von Abk\"urzungen, Symbolen und eventuell Glossareintr\"agen
+%
+\input{\seWaPathText/wa-abkuerzungen} 
+
+\seIstSeminararbeit{}
+
+\newcommand{\version}{0.953}
+
+% 
+% Diese Redefinition ist nur f\"ur den Anhang der  
+% Vorlage (Hinweise zur Installation und \"Ubersetzung)
+% notwendig; f\"ur Ihre Seminar-/Projekt-/Bachelorarbeit spielt sie keine Rolle
+%
+\renewcommand{\seVorlage}{\jobname}
+
+% Verwendung kleinerer Schriftgroessen fŸr die Ueberschriften; sinnvoll bei kurzen Texten.
+%
+%
+\KOMAoption{headings}{small}
+
+% Fuer einen Kapitelanfang wird kein zusaetzlicher vertikaler Abstand erzeugt
+%
+%
+\seNoChapterSkip[-12.25mm]{}
+
+\begin{document}
+% Erzeugung des Titelblatts
+%
+%
+%
+\seTitelblattSeminararbeit[
+%hilfslinien=ja,
+%dhbwlogoSkalierung=0.5,
+%dhbwlogoDeltaX=2.4,
+%dhbwlogoDeltaY=-10,
+studiengang=\seWirtschaftsinformatik,
+studienrichtung=\seSoftwareEngineering,
+thema=Fallstudie,
+verfasser={Jörn Hübner , Patrick Knerr, Marco Riege, Matthias Liedtke, Oliver
+Frendo},
+%verfasserin= Melanie Musterfrau,
+kurs=WWI\,12\,SE\,B,
+firma=SAP,
+% Da im Text ein Komma enthalten ist, muss der Text eingeklammert werden
+%studiengangsleiterin=,
+studiengangsleiter=Prof. Dr. Herr Holey,
+modul=Umsetzung von Methoden der Wirtschaftsinformatik,
+lehrveranstaltung=Fallstudie,
+%dozentin=,
+dozent=Gregor Tielsch
+]
+
+
+% Erzeugung der englischen Kurzfassung (Abstract); Verfasser, Firma und Thema werden automatisch \"ubernommen
+%
+% Der optionale Parameter kann verwendet werden, um f\"ur das Thema der Arbeit eine 
+% andere Formatierung vorzunehmen; das sollte in der Regel nicht erforderlich sein;
+% ausserdem besteht die Gefahr inkonsistenter Titel auf dem Titelblatt und in der 
+% Kurzfassung
+%
+%
+% Achtung: Das Kommando erzeugt nur dann eine Ausgabe, wenn \seWaSprache den Wert englisch besitzt
+%
+%
+%\seAbstract{} % dieses Kommando sollte standardm\"assig verwendet werden
+
+%\seAbstract[\LaTeX-Vorlage zur Anfertigung \seThemaWaArbeit{} (Version \version{})]
+
+
+
+% Erzeugung der Kurzfassung; Verfasser, Firma und Thema werden automatisch \"ubernommen
+%
+% Der optionale Parameter kann verwendet werden, um f\"ur das Thema der Arbeit eine 
+% andere Formatierung vorzunehmen; das sollte in der Regel nicht erforderlich sein;
+% ausserdem besteht die Gefahr inkonsistenter Titel auf dem Titelblatt und in der 
+% Kurzfassung
+%
+%\seKurzfassung{} % dieses Kommando sollte standardm\"assig verwendet werden
+
+%\seKurzfassung[\LaTeX-Vorlage zur Anfertigung einer Seminararbeit (Version
+% \version{})]
+
+
+% Beispiel f\"ur ein Kapitel, dass vor dem Einleitungskapitel kommt, z. B. ein Vorwort oder eine Danksagung
+%\seKapitelVorEinleitung{Vorwort}
+%
+%Muss jetzt wirklich nicht sein, aber wenn Sie unbedingt (z. B.) Ihrem Haustier f\"ur die Unterst\"utzung bei 
+%der Anfertigung der Projektarbeit danken wollen ...; vgl. auch das Dokument \textsl{Empfehlungen und 
+%Hinweise zur Anfertigung der zweiten Projektarbeit}
+
+
+% 2012-02-06 Inhaltsverzeichnis muss vor den weiteren Verzeichnisses kommen
+%
+%
+% Ausgabe des Inhaltsverzeichnisses
+%
+%
+\seInhaltsverzeichnis[%
+einrueckung=ja,
+gliederungsebenen=4
+]
+
+%
+% 
+% Wenn die Verzeichnisse (ohne Seitenvorschub) nach dem Inhaltsverzeichnis
+% kommen sollen, sind die beiden folgenden Kommandos zu verwenden
+%
+% Ein neues Kapitel beginnt nicht auf einer neuen Seite
+%
+%
+%\seChaptersWithoutNewpage{}
+
+% Erzeugung eines vertikalen Abstands nach diesem Kapitel
+%
+%\seChapterEndSkip{}
+
+
+% Ausgabe der verschiedenen Verzeichnisse
+% abk: Abk\"urzungsverzeichnis
+% sym: Symbolverzeichnis
+% abb: Abbildungsverzeichnis
+% tab: Tabellenverzeichnis
+% prg: Listingverzeichnis
+%
+%
+% Achtung: Abk\"urzungs- und Symbolverzeichnis werden nur ausgegeben, wenn mindest ein Symbol bzw. 
+%                mindestens eine Abk\"urzung in der Arbeit verwendet wurden
+%
+%
+% gliederungsebene:
+% -- section: die Verzeichnisse werden einem Kapitel "Verzeichnisse" untergliedert
+% -- chapter: die Verzeichnisse sind jeweils eigene Kapitel
+% imInhaltsverzeichnis: ja/nein -- Sollen die Verzeichnisse im Inhaltsverzeichnis enthalten sein?
+\seVerzeichnisse[gliederungsebene=section,imInhaltsverzeichnis=ja]{abk}{sym}{abb}{tab}{prg}
+
+
+\seChaptersNewpage{}
+
+\chapter{Einleitung}\pagenumbering{arabic}
+\input{parts/einleitung}
+\seChapterEndSkip{}
+
+\seChaptersWithoutNewpage{}
+
+\newpage
+\chapter{Grundlagen}
+\input{parts/bwl}
+
+\newpage
+\chapter{Analyse}
+\input{parts/spielideen}
+\input{parts/architektur}
+\input{parts/joern} %OOA
+\input{parts/usecase}
+\input{parts/optimierung}
+
+\newpage
+\chapter{Implementierung}
+\input{parts/projektablauf}
+\input{parts/ood}
+\input{parts/design}
+\input{parts/unittests}
+\input{parts/balancing}
+
+\newpage
+\chapter{Fazit}
+\input{parts/betrachtung}
+\input{parts/ausblick}
+
+
+
+% Anhang der Arbeit
+% 
+%
+
+% Der Anhang sollte auf einer neuen Seite beginnen; daher wird der Seitenvorschub bei neuen Kapiteln 
+% wieder angeschaltet; Achtung: die Verwendung von newpage erzeugt eine Kopfzeile, was dann nicht zu dem 
+% Gesamtlayout des Dokuments passt
+%
+%
+\seChaptersNewpage
+\seAppendix{}
+
+
+
+%
+%  Erzeugung eines Glossars
+%
+% Achtung: Das Glossar wird nur ausgegeben, wenn mindestens ein Eintrag in der Arbeit 
+%                definiert wurde
+%
+%
+
+% Die folgenden Kapitel beginnen jeweils auf einer neuen Seite
+%
+%
+\seChaptersNewpage{}
+\newpage
+\sePrintGlossary{}
+
+
+%
+% Literaturverzeichnisses
+%
+%\newpage
+\sePrintBibliography{}
+
+%\input{\seWaPathText/se-test-literaturverzeichnis}
+
+
+%
+% Festlegung des grundlegenden Formatierungsstils des Literaturverzeichnis
+%
+\bibliographystyle{jurabib}
+
+% Eigentliche Ausgabe der in der Arbeit verwendeten Quellen
+%
+%
+% Angabe der bib-Dateien, in denen die Quellen beschrieben sind;
+% die Angabe geht davon aus, dass eine wa.bib-Datei in demselben 
+% Verzeichnis liegt, wie se-ba-vorlage.tex
+%
+
+% 2012-02-06
+%
+% Umbenennung von Literatur- in Quellenverzeichnis
+% 
+%\renewcommand*{\bibname}{Quellenverzeichnis}
+\seBibliography{wa}
+
+
+%
+% Erzeugung der ehrenw\"ortlichen Erkl\"arung
+%
+% Der optionale Parameter kann verwendet werden, um f\"ur das Thema der Arbeit eine 
+% andere Formatierung vorzunehmen; das sollte in der Regel nicht erforderlich sein;
+% ausserdem besteht die Gefahr inkonsistenter Titel auf dem Titelblatt und in der 
+% ehrenw\"ortlichen Erkl\"arung
+%
+%\seEhrenwoertlicheErklaerung{} % dieses Kommando sollte standardm\"assig verwendet werden
+\seEhrenwoertlicheErklaerung[\LaTeX-Vorlage zur Anfertigung einer Seminararbeit (Version \version{})]
+
+
+\end{document}
+
+
+
+
+
+
+
+
+
+
+

@@ -83,7 +83,7 @@ public class Server extends Thread {
 		}
 	}
 
-	public synchronized void startGame() {
+	public void startGame() {
 		System.out.println("[SERVER] STARTING GAME");
 		//send clients the map
 		try {
@@ -97,7 +97,7 @@ public class Server extends Thread {
 		//listenDuringGame();
 	}
 	
-	public synchronized void sendMapUpdate() {
+	public void sendMapUpdate() {
 		System.out.println("[SERVER] Broadcasting a map...");
 		
 		sendBroadcastMessage(new MessageMapUpdate(serverGame.getMap()));
@@ -141,17 +141,17 @@ public class Server extends Thread {
 		//}
 	}
 	
-	public synchronized void pingPlayerReady() {
+	public void pingPlayerReady() {
 		serverGame.pingPlayerReady();
 	}
 
 	public void removeConnection(Connection connection) {
 		if (connection.getPlayer() != null) {
 			this.serverGame.removePlayer(connection.getPlayer());
-			this.pingPlayerReady();
 		}
 		
 		this.connections.remove(connection);
+		this.pingPlayerReady();
 		System.out.println("[SERVER] A client has disconnected.");
 		
 		serverGame.checkGameEnd();

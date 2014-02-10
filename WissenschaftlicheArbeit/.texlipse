@@ -1,0 +1,14 @@
+#TeXlipse project settings
+#Sat Feb 08 12:13:34 CET 2014
+markTmpDer=true
+builderNum=2
+outputDir=
+makeIndSty=
+bibrefDir=
+outputFormat=pdf
+tempDir=tmp
+mainTexFile=se-sem-vorlage-11seb.tex
+outputFile=Fallstudie.pdf
+langSpell=en
+markDer=true
+srcDir=

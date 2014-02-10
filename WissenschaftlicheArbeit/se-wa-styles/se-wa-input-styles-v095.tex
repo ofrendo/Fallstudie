@@ -1,0 +1,60 @@
+%  se-wa-input-styles-v095.tex
+%
+%  Joerg Baumgart 01.08.2011
+%
+%  Zusammenfassung und Konfiguration wichtiger Styles f\"ur die 
+%  Erzeugung von Seminar-, Projekt- und Bachelorarbeiten
+%
+%  2012-03-12: auf Version 0.94 umgestellt
+%
+%
+% 2012-12-13: auf Version 0.95 umgestellt
+%                     Sprachoptionen englisch/deutsch zusammengef\"uhrt
+%                     bchart.sty hinzugenommen
+%                 
+%
+
+
+\documentclass[12pt,BCOR=10mm,headinclude=on,footinclude=off,bibliography=totoc]{scrreprt}
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage{ifthen}
+% 2012-12-13
+\ifthenelse{\equal{\seWaSprache}{deutsch}}{% Deutsche Einstellungen
+\usepackage[ngerman]{babel}% 
+}{% Englische Einstellungen
+\usepackage[english]{babel}% 
+}
+
+\usepackage{lmodern}
+
+\usepackage{tikz} % Graphikpaket, das zu pdfLaTeX kompatibel ist
+\usepackage{xkeyval} % Definition von Kommandos mit mehreren optionalen Argumenten
+\usepackage{listings} % Formatierung von Programmlistings
+\usepackage{graphicx} % Einbinden von Graphiken
+\usepackage{color}
+\usepackage{\seWaPathSty/slashbox} % Diagonalen in Tabellenfeldern
+\usepackage{framed} % Erzeugung schwarzer Linien am linken Rand zur Hervorhebung von Textteilen
+\usepackage{caption} % Korrektes Setzen einer mehrzeiligen float-Unterschrift bei neu definierten float-Umgebungen
+\usepackage{floatrow}
+% 2012-12-13
+\usepackage{\seWaPathSty/bchart} % Kommandos zur Erzeugung von Balkendiagrammen
+
+
+% Es wird jeweils die sty-Datei importiert und entsprechende Konfigurationseinstellungen werden vorgenommen
+
+\usepackage{\seWaPathSty/se-jb-scrpage2} % Formatierung der Kopf- und Fu{\ss}zeilen
+\usepackage{\seWaPathSty/se-jb-footmisc}    % Fussnoten besser formatieren
+
+\usepackage{\seWaPathSty/se-jb-glossaries-v094} % Abk\"urzungsverzeichnis, Symbolverzeichnis, Glossar
+   
+\usepackage{\seWaPathSty/se-jb-floatrow}    % Definition und Konfiguration von float-Umgebungen (figure, table, die neue programm-Umgebung)
+% Achtung: se-jb-varioref muss nach se-jb-floatrow importiert werden; 
+% andernfalls ist der counter programm f\"ur die labelformat-Anweisung noch nicht definiert   
+\usepackage{\seWaPathSty/se-jb-varioref}   % Definition von Querverweisen
+\usepackage{\seWaPathSty/se-jb-chngcntr}   % Kapitelweise oder globale Nummerierung von Abbildungen etc.
+   
+\usepackage{\seWaPathSty/se-jb-listen} % Definition neuer, besser formatierter Listen
+\usepackage{\seWaPathSty/se-jb-kommandos-v095} % neue Kommandos f\"ur Seminar-, Projekt- und Bachelorarbeiten
+% 2012-12-13
+\ifthenelse{\equal{\seWaSprache}{englisch}}{\usepackage{\seWaPathSty/se-jb-kommandos-englisch}}{}

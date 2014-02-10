@@ -1,0 +1,94 @@
+\newpage
+\section{OOA-Klassenmodell}
+
+Im Folgenden wird unser, auf Basis der Anforderungen unseres Planspiels,
+erstelltes Klassendiagramm der Analysephase aus \ref{OOA-Client} und
+\ref{OOA-Server} auf \pageref{OOA-Client} und \pageref{OOA-Server} näher
+erläutert. 
+
+Das Klassendiagramm ist in zwei Hälften aufgeteilt. In dem ersten Teil werden
+die Klassen für den Client und die Klassen, die für die ründliche Kommunikation
+zwischen Server und Client genutzt werden, abgebildet. Der zweite Teil enthält
+die Klassen des Servers und weitere Klassen und Interfaces, die für die
+Kommunikation zwischen Server und Client vorgesehen sind.
+
+Das Herzstück des Unternehmens, dass auf Client-Seite vorgesehen ist, ist die
+'Company' -Klasse. In ihr werden alle Entscheidungen des Spielers bearbeitet
+und sie enthält alle Informationen, die der Spieler über sein Unternehmen
+benötigt.
+Dies sind die Mitarbeiter, die einzelnen Abteilungen und die Beziehungen, die zu
+den einzelnen Regionen bestehen.
+
+In den Beziehungen zu den Regionen werden entweder in einer 'ResourceRelation'
+der Besitztum dieser Region erlangt und, sollte man schon eine solche Region
+besitzen, auch die vorhandenen Gebäude dieser Region gespeichert. Die
+'CityRelation' enthält alle Informationen über die Bewohner einer Stadt und mit
+dem 'Contract' auch über die Kunden des Unternehmens. Hier werden auch neue
+Verträge angeboten, um neue Kunden zu generieren.
+
+Die Abteilungen des Unternehmens umfassen das 'Warehouse', das
+'InvestmentManagement', den 'Research', die 'Finances' und das 'Marketing'. In
+dem Warehouse werden die Rohstoffe gelagert, die in Minen produziert
+werden und die für die Produktion von Strom in den Kraftwerken benötigt werden.
+Auch gehandelter Rohstoffe werden hier entnommen oder eingelagert.\\
+Das InvestmentMangement beinhaltet alle Gebäude (Minen und Kraftwerke) und
+alle Grundstücke (Regionen), die das Unternehmen besitzt. Hier werden neue Gebäude
+hinzugefügt, Abschreibungen berechnet und Produktionsmengen, die sich aus einer
+Maximalen Produktion und dem Auslastugnsfaktor berechnen, eingestellt und
+ausgelesen.
+Zudem besitzt jedes Kraftwerk mehrere 'PowerStationRelation', die beinhalten 
+wieviel Energie das Kraftwerk den einzelnen, umliegenden Städten
+liefert. Diese Beziehung von einem Kraftwerk zu den Städten ist vorgesehen,
+damit die gewollte, maximale Lieferentfernung von drei Feldern nicht
+überschritten wird.\\
+Die Finances sind vorgesehen, um alle vier Quartale, eine Bilanz und eine
+Gewinn und Verlustrechnung aufzustellen. Alle Einnahmen und Ausgaben werden hier
+eingespeichert und aufbereitet.\\
+Das Marketing ist vorgesehen um die Beliebtheit und die Bekanntheit
+bei den Kunden zu beeinflussen.\\
+Der letzte Bereich, der Research, ist vorgesehen um möglicherweise eine aktive
+Forschung einbauen zu können. Auf Grund von anderen Prioritäten ist dieser aber 
+nicht weiter modelliert und auch nicht in das entgültige Planspiel aufgenommen
+worden.
+
+Der Server ermöglicht es, das Spiel auf verschiedenen Rechnern zusammen über das
+Netzwerk spielen zu können. Viele Entscheidungen des Spielers werden auf
+Client-Seite berechnet und abgearbeitet. Lediglich die Entscheidungen und Daten,
+die alle Spieler betreffen, wie zum Beispiel die vorgesehenden Energiepreise,
+Gebote für eine Region und Energiekauf und -verkauf an der Energiebörse, werden
+direkt dem Server mitgeteilt. Auch bereits gebaute Gebäude werden dem Server
+mitgeteilt, so dass sie für jeden Spieler ersichtlich werden.
+
+Die wichtigsten Veränderungen der anderen Spieler, und das generelle Geschehen
+in dem Spiel werden jedem Spieler bzw. Client mit einem generellen Update jede
+Runde übertragen. Hierzu wird jedem Client ein aktuelles 'Map'-Objekt
+geschickt, aus dem nun alle wichtigen generellen Informationen entnommen werden
+können. Lediglich die Kunden des Unternehmens sollen seperat in einem
+'CityRelation'-Objekt übertragen werden, wenn sich etwas an ihnen ändert.
+
+Die Verbindung zwischen Client und Server wird aufgebaut indem
+sich der Client über die 'Client'-Klasse mit der 'Server'-Klasse auf Serverseite
+verbindet. Dort wird die Verbindung akzeptiert und nach dem
+'Thread-per-Connection'-Prinzip ein, für jeden Clienten seperater Thread der
+Klasse 'Connection' erstellt. Dieser empfängt alle Nachrichten der Clients und
+gibt diese an die 'ServerGame'-Klasse weiter, die die Daten anschließend
+verarbeitet und entsprechende Änderungen im Spiel, zumeist in dem Map-Objekt
+vornimmt.
+
+\begin{figure}
+\centering
+\centering
+\hspace*{-30mm}
+\includegraphics[width=1.3\textwidth]{se-wa-jpg/Client}
+\caption{Klassendiagramm Teil 1}
+\label{OOA-Client}
+\end{figure}
+%Die Grafik in Abbildung 
+%\ref{labelname} auf Seite \pageref{labelname} ..
+\begin{figure}
+\centering
+\centering
+\includegraphics[width=1.1\textwidth]{se-wa-jpg/Server}
+\caption{Klassendiagramm Teil 2}
+\label{OOA-Server}
+\end{figure}

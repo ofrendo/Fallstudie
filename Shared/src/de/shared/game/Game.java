@@ -29,7 +29,7 @@ public abstract class Game {
 		return players;
 	}
 	
-	public synchronized void nextGamePhase() {
+	public void nextGamePhase() {
 		switch (gamePhase) {
 		case PLAYERS_JOINING:
 			gamePhase = GamePhase.GAME_STARTED;
