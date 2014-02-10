@@ -1,9 +1,8 @@
 %Olli
-\newpage
 \section{Unit Tests}
 In diesem Projekt wurde versucht, möglichst flächendeckend und detailiert Unit
 Tests zu erstellen. Deswegen haben wir uns für zwei Kategorien von Unit Tests
-entschieden: Erstens die, die die Spielelogik testen sollen und zweitens
+entschieden: Erstens die, die primär die Spielelogik testen sollen und zweitens
 Szenariotests, die ganze Spielemechaniken und die Kommunikation zwischen
 Client und Server testen sollen.
 
@@ -12,8 +11,8 @@ ca. 80\% erreicht (ohne Betrachtung des Codes in \texttt{de.tests} und des Codes
 \texttt{de.client.gui}, der die graphische Benutzeroberfläche generiert).
 
 \subsection{Spielelogik}
-Unter diese Kategorie fallen alle Tests, die Funktionalitäten des Spieles ohne
-Client Server Kommunikation testen.
+Unter diese Kategorie fallen alle Tests, die die Funktionalitäten des Spieles,
+die keine Client Server Kommunikation enthalten, testen.
 
 \begin{itemize}
   \item \texttt{de.tests.client}: In diesem Paket sind zwei Tests
@@ -39,44 +38,29 @@ Die zweite Kategorie von Unit Tests sind die Tests in
 \texttt{de.tests.clientserver}, die die Kommunikation zwischen den Clients und
 dem Server testen. Dabei ist zunächst wichtig, dass die Klasse \texttt{Server}
 das Singleton Pattern implementiert und deswegen zwischen den einzelnen Tests
-mit der Methode \texttt{reset} zurückgesetzt werden muss --- hier wird das
+mit der Methode \texttt{reset()} zurückgesetzt werden muss --- hier wird das
 \texttt{ServerSocket} geschlossen und wieder neu eröffnet.
 
 Des Weiteren erbt jeder Test in diesem Paket von
 \texttt{AbstractClientServerTest}, der \texttt{@Before} und \texttt{@After}
 Methoden definiert, damit der Server zwischen den Tests neugestartet wird.
 
-Bei einem JUnit Test werden alle Methoden, die als \texttt{@Test} markiert sind,
-als neue Thread gestartet und parallel ausgeführt. Da dies bei gleichzeitigen
+Bei einem JUnit Testdurchlauf werden alle Methoden, die als \texttt{@Test}
+markiert sind, als neue Thread gestartet und parallel ausgeführt. Da dies bei gleichzeitigen
 Client Server Tests zu Schwierigkeiten wegen des \texttt{ServerSocket}  führen
-würde, wurde die Klasse \texttt{ClientServerMonitor} konzipiert. Diese
-implementiert aus zwei Gründen das Singleton Pattern: Erstens muss ein Monitor 
-für die \texttt{Object.wait()} Methode objektorientiert und nicht statisch sein
+würde, wurde die Klasse \texttt{ClientServerMonitor} konzipiert. Zunächst
+implementiert diese aus zwei Gründen das Singleton Pattern:
+Erstens muss ein Monitor für die \texttt{Object.wait()} Methode objektorientiert und nicht statisch sein
 und zweitens um eine Referenz bei jeder Testklasse zu sparen. Die Methode 
 \texttt{startTest()} wird vor dem Start eines Tests aufgerufen --- damit werden
 alle anderen Threads, die auch dieses Methode aufrufen, durch
 Warten ausgeschlossen. Ist ein Test beendet wird die \texttt{endTest()} Methode
 aufgerufen, die dann alle anderen Test Threads wieder aufweckt. 
 
-In der \texttt{@Before} Methode der \texttt{AbstractClientServerTest} Klasse
-wird also \texttt{startTest()} und in der \texttt{@After} Methode
-\texttt{endTest()} aufgerufen.
+Es wird also in der \texttt{AbstractClientServerTest} Klasse Folgendes
+aufgerufen: 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+\begin{itemize}
+  \item \texttt{@Before}: \texttt{ClientServerMonitor.getInstance().startTest()}
+  \item \texttt{@After}: \texttt{ClientServerMonitor.getInstance().endTest()}
+\end{itemize}
