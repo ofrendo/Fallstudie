@@ -29,8 +29,12 @@ Es wurde früh entschieden, dass das Spiel nicht nur auf einem Computer
 laufen soll (``Hotseat''), sondern dass das Spiel von einem Server kontrolliert
 wird und die Daten an Clients, die auf unterschiedlichen Computern
 laufen können, verschickt werden --- somit können die Spieler gleichzeitig
-spielen und haben keine langen Wartephasen. Primär befindet sich die Logik des
-Spiels und die Datenhaltung dabei zentral auf dem Server.
+spielen und haben keine langen Wartephasen. Die Logik des Spiels und die
+Datenhaltung befinden sich verteilt auf dem Server und auf den einzelnen
+Clients. Der Server verwaltet die wichtigsten Daten, die allen Clients bekannt
+sein müssen (beispielsweise das Spielfeld und Informationen darüber) während auf
+den Clients zum Beispiel die finanziellen Daten wie die Bilanz gehalten
+werden.
 
 Des Weiteren wurde keine persistente Speicherung der Spieldaten vorgesehen.
 Sobald der Server also nicht mehr läuft sind die Daten des aktuellen Spiels
