@@ -1,0 +1,97 @@
+\subsection{Finanzen}
+
+\begin{figure}[H]
+\centering
+\centering
+\includegraphics[width=1.0\textwidth]{se-wa-jpg/finances}
+\caption{Klassendiagramm zum Bereich der Finanzen}
+\label{Finanzen}
+\end{figure}
+Die Finanzen sollen im Wesentlichen alle finanziell relevanten Aspekte des
+Unternehmens abbilden. Hierzu gibt es das Department Finances, welches die
+Bilanz, die Gewinn- und Verlustrechnung sowie alle vom Unternehmen aufgenommenen
+Kredite verwaltet.
+
+Im Einzelnen werden die relevantesten Methoden und ihre Aufgabe vorgestellt:\\
+\textbf{Klasse Finances}
+\begin{itemize}
+  \item \textbf{addCredit(CreditType creditType):void}\\
+  Mit dieser Methode lassen sich beliebig viele Kredite dem Unternehmen
+  hinzufügen, wobei jeder Kredit als neues Objekt in die ArrayList ``credits''
+  der Klasse Finances aufgenommen wird und der Kassenbestand des Unternehmens um die
+  Darlehenshöhe erhöht wird.
+  \item \textbf{isCreditWorthyFor(CreditType creditType):boolean}
+  Diese Methode gibt zurück, ob der vom Spiel vorgesehene maximale
+  Verschuldungsgrad bei Aufnahme eines Kredits des Typs creditType überschritten
+  würde. Damit kann im UI eine Überprüfung implementiert werden, die eine zu
+  hohe Verschuldung eines Spielers verhindern kann.
+  \item \textbf{isInsolvent():boolean}
+  Gibt diese Methode true zurück, hat der Spieler eine zu hohe Verschuldung
+  (welche durch Verluste und damit durch eine Reduktion des Eigenkapitals
+  entstehen kann) und verfügt gleichzeitig über einen negativen Kassenbestand.
+  Ist das der Fall, hat der Spieler das Spiel verloren.
+  \item \textbf{nextRound() und nextYear()}
+  werden automatisch aufgerufen und führen die Kreditzahlungen durch.
+\end{itemize}
+\textbf{Klasse Credit}
+\begin{itemize}
+  \item \textbf{payQuarter()}
+  wird jede Runde aufgerufen und führt sowohl die Tilgung als auch die
+  Zinszahlung durch. Bei abgezahlten Krediten betragen beide Werte 0, der
+  Einfachheit halber (und der Tatsache, dass die Anzahl Kredite stark begrenzt
+  ist) werden abbezahlte Kredite jedoch nicht aus der ArrayList credits der
+  Klasse Finances entfernt.
+\end{itemize}
+\textbf{Klasse Balance}
+\begin{itemize}
+  \item \textbf{recalcBalance()}
+  berechnet jedes Jahr die Werte der Grundstücke und Gebäude (AV), des Inventars
+  und der Kasse (UV), des Eigenkapitals (EK) und des Fremdkapitals (FK).
+\end{itemize}
+\textbf{Klasse ProfitAndLoss}
+\begin{itemize}
+  \item \textbf{addXYZ(double amount)}
+  da nicht alle Aufwendungen und Erträge zum Ende jeden Jahres berechnet werden
+  können, addieren diese Methoden die entsprechenden Werte für die jeweiligen
+  A/E und speichern sie in den Attributen \textbf{nextXYZ}.
+  \item \textbf{nextYear()}
+  In dieser Methode wird jedes Jahr die Gewinn- und Verlustrechnung neu
+  berechnet. Dazu werden die Werte der Variablen nextXYZ in die Variablen XYZ
+  überschrieben und dann auf 0 gesetzt. Alle anderen Aufwendungen und Erträge
+  werden nun berechnet. Anschließend wird der Gewinn bestimmt, von dem eine
+  Steuer in Höhe von 30\% abgezogen wird, sofern ein Gewinn vorhanden ist.
+  Anschließend wird der Kassenbestand des Unternehmens um die Höhe der
+  anfallenden Steuern reduziert.
+\end{itemize}
+
+\subsection{Warenlager}
+
+\begin{figure}[H]
+\centering
+\centering
+\includegraphics[width=1.0\textwidth]{se-wa-jpg/Warehouse}
+\caption{Klassendiagramm zum Warenlager}
+\label{Warenlager}
+\end{figure}
+Das Warehouse beinhaltet die Verwaltung aller Rohstoffe eines Unternehmens. Es
+bildet die Lagerung durch eine Komposition mit der Klasse Ware ab, es enthält
+Methoden zur Erhöhung und Reduzierung des Bestands sowie zum Kauf und Verkauf
+von Resourcen.
+
+\textbf{Klasse Warehouse}
+\begin{itemize}
+  \item \textbf{buyWare(…) / sellWare(…)}
+  dient zum Kauf und Verkauf von Waren. Hierbei muss nicht nur der Kassenbestand
+  des Unternehmens aktualisiert werden, es entstehen gleichzeitig auch
+  Aufwendungen / Erträge.
+  \item \textbf{getStoredValue()}
+  gibt den Wert der gelagerten Rohstoffe zurück. Dies wird zur Berechnung der
+  Bilanz benötigt.
+  \item \textbf{nextRound()}
+  die Lagerkosten werden um einen von der Menge der gelagerten Güter abhängigen
+  Wert erhöht.
+  \item \textbf{nextYear()}
+  Die Bestandsveränderungen im Vergleich zum letzten Jahr werden berechnet. Dies
+  ist für die Gewinn- und Verlustrechnung erforderlich, da hier Aufwendungen
+  bzw. Erträge entstehen.
+\end{itemize}
