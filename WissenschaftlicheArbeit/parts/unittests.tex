@@ -1,2 +1,66 @@
 %Olli
-\section{Unit Tests Olli}
+\section{Unit Tests}
+In diesem Projekt wurde versucht, möglichst flächendeckend und detailiert Unit
+Tests zu erstellen. Deswegen haben wir uns für zwei Kategorien von Unit Tests
+entschieden: Erstens die, die primär die Spielelogik testen sollen und zweitens
+Szenariotests, die ganze Spielemechaniken und die Kommunikation zwischen
+Client und Server testen sollen.
+
+Damit wurde nach dem Eclipse Plugin ``EclEmma'' insgesamt ein Code Coverage von
+ca. 80\% erreicht (ohne Betrachtung des Codes in \texttt{de.tests} und des Codes in
+\texttt{de.client.gui}, der die graphische Benutzeroberfläche generiert).
+
+\subsection{Spielelogik}
+Unter diese Kategorie fallen alle Tests, die die Funktionalitäten des Spieles,
+die keine Client Server Kommunikation enthalten, testen.
+
+\begin{itemize}
+  \item \texttt{de.tests.client}: In diesem Paket sind zwei Tests
+  enthalten, die die finanziellen Aspekte des Spieles testen soll --- dazu
+  gehören die folgenden Tests: \texttt{TestInvestmentDepreciation}, der die
+  Abschreibung von Grundstücken und Gebäuden testet und \texttt{TestWarehouse},
+  in dem die Verwaltung von Rohstoffen getestet wird. 
+  \item \texttt{de.tests.client.optimization}: Hier wird die Optimierung der
+  Kraftwerke getestet. Dazu gibt es eine Hilfsklasse \texttt{TestObjectFactory}, die für
+  die vier Tests die erforderlichen Objekte statisch erzeugt. 
+  \item \texttt{de.tests.client.gui}: Tests in diesem Paket sind keine Unit
+  Tests im eigentlichen Sinne eines automatischen Durchganges sondern wurden erstellt, um
+  das Testen der graphischen Benutzeroberfläche zu erleichtern. Für jeden Tab
+  der Benutzeroberfläche gibt es eine Klasse.
+  \item \texttt{de.tests.shared.map}: In dem letzten Paket wird durch
+  \texttt{GenerateRegions} getestet, ob die Regionen richtig erzeugt werden und
+  in \texttt{TestEnergyExchange} werden die Funktionalitäten der Energiebörse
+  getstet. 
+\end{itemize}
+
+\subsection{Szenariotests}
+Die zweite Kategorie von Unit Tests sind die Tests in
+\texttt{de.tests.clientserver}, die die Kommunikation zwischen den Clients und
+dem Server testen. Dabei ist zunächst wichtig, dass die Klasse \texttt{Server}
+das Singleton Pattern implementiert und deswegen zwischen den einzelnen Tests
+mit der Methode \texttt{reset()} zurückgesetzt werden muss --- hier wird das
+\texttt{ServerSocket} geschlossen und wieder neu eröffnet.
+
+Des Weiteren erbt jeder Test in diesem Paket von
+\texttt{AbstractClientServerTest}, der \texttt{@Before} und \texttt{@After}
+Methoden definiert, damit der Server zwischen den Tests neugestartet wird.
+
+Bei einem JUnit Testdurchlauf werden alle Methoden, die als \texttt{@Test}
+markiert sind, als neue Thread gestartet und parallel ausgeführt. Da dies bei gleichzeitigen
+Client Server Tests zu Schwierigkeiten wegen des \texttt{ServerSocket}  führen
+würde, wurde die Klasse \texttt{ClientServerMonitor} konzipiert. Zunächst
+implementiert diese aus zwei Gründen das Singleton Pattern:
+Erstens muss ein Monitor für die \texttt{Object.wait()} Methode objektorientiert und nicht statisch sein
+und zweitens um eine Referenz bei jeder Testklasse zu sparen. Die Methode 
+\texttt{startTest()} wird vor dem Start eines Tests aufgerufen --- damit werden
+alle anderen Threads, die auch dieses Methode aufrufen, durch
+Warten ausgeschlossen. Ist ein Test beendet wird die \texttt{endTest()} Methode
+aufgerufen, die dann alle anderen Test Threads wieder aufweckt. 
+
+Es wird also in der \texttt{AbstractClientServerTest} Klasse Folgendes
+aufgerufen: 
+
+\begin{itemize}
+  \item \texttt{@Before}: \texttt{ClientServerMonitor.getInstance().startTest()}
+  \item \texttt{@After}: \texttt{ClientServerMonitor.getInstance().endTest()}
+\end{itemize}

@@ -1,20 +1,8 @@
 %Olli
 \section{Architektur}
-In diesem Kapitel wird die Software Architektur des Projektes vorgestellt. Das
+In dieser Sektion wird die Software Architektur des Projektes vorgestellt. Das
 Spiel wurde nach dem ``MVC'' (Model View Controller) Konzept entwickelt. Das bedeutet,
-dass die Klassen, die das Modell und dessen Daten darstellen, sowohl das View
-als auch den Controller nicht kennen. Das View, das in diesem Fall die
-graphische Benutzeroberfläche ist kennt hingegen zwar das Modell, den
-Controller aber nicht. Diese Trennung ist wichtig, damit die Datenhaltung und
-Logik seperat von der graphischen Benutzeroberfläche entwickelt werden kann.
-
-Der Controller kennt beide anderen Ebenenen und
-verwaltet diese --- es sorgt beispielsweise dafür, dass die Benutzeroberfläche
-immer die aktuellen Daten anzeigt. In unserem Projekt wird der Controller durch
-eine einzelne Klasse gebildet, die das Singleton Pattern implementiert. Dadurch
-kann jede Klasse statisch auf den Controller zugreifen, ohne eine Referenz zu
-ihm speichern zu müssen --- und trotzdem kann der Controller objektorientiert
-entwickelt werden. %Das hier eher = Implementierung?
+dass das Projekt in drei Ebenen unterteilt ist:
 
 %MVC Bild
 \begin{figure}[H]
@@ -24,17 +12,35 @@ entwickelt werden. %Das hier eher = Implementierung?
 \label{MVC Konzept}
 \end{figure}
 
+Die Klassen, die das Modell und dessen Daten darstellen und die Ebene ``View''
+kennen den Controller nicht. Die Ebene ``View'', das in diesem Fall die
+graphische Benutzeroberfläche representiert kennt hingegen zwar das Modell, den
+Controller aber nicht. Diese Trennung ist wichtig, damit die Datenhaltung und 
+Logik seperat von der graphischen Benutzeroberfläche entwickelt werden kann.
+Somit kann beispielsweise automatisiert durch Modultests das Modell getestet
+werden, ohne das eine graphische Benutzeroberfläche erzeugt werden muss.
+
+Zuletzt kennt der Controller beide anderen Ebenenen und
+verwaltet diese --- es sorgt beispielsweise dafür, dass die Benutzeroberfläche
+immer die aktuellen Daten anzeigt. In unserem Projekt wird der Controller durch
+eine einzelne Klasse gebildet, die das Singleton Pattern implementiert. Dadurch
+kann jede Klasse statisch auf den Controller zugreifen, ohne eine Referenz zu
+ihm speichern zu müssen --- und trotzdem kann der Controller objektorientiert
+entwickelt werden. %Das hier eher = Implementierung?
 
 Es wurde früh entschieden, dass das Spiel nicht nur auf einem Computer
 laufen soll (``Hotseat''), sondern dass das Spiel von einem Server kontrolliert
 wird und die Daten an Clients, die auf unterschiedlichen Computern
 laufen können, verschickt werden --- somit können die Spieler gleichzeitig
-spielen und haben keine langen Wartephasen. Primär befindet sich die Logik des
-Spiels und die Datenhaltung dabei zentral auf dem Server.
+spielen und haben keine langen Wartephasen. Die Logik des Spiels und die
+Datenhaltung befinden sich verteilt auf dem Server und auf den einzelnen
+Clients. Der Server verwaltet die wichtigsten Daten, die allen Clients bekannt
+sein müssen (beispielsweise das Spielfeld und Informationen darüber) während auf
+den Clients zum Beispiel die finanziellen Daten wie die Bilanz gehalten
+werden.
 
 Des Weiteren wurde keine persistente Speicherung der Spieldaten vorgesehen.
 Sobald der Server also nicht mehr läuft sind die Daten des aktuellen Spiels
 verloren. Dies reduziert die Komplexität des Modells, denn es muss beim
 Initialisieren des Spiels keine Daten laden und beim Beenden des Spiels keine
 Daten speichern.
-

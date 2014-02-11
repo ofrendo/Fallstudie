@@ -1,2 +1,51 @@
 %Jörn
-\section{OOD Jörn}
+\section{Fachkonzept}
+Im \ref{ooa} wurde bereits das Klassendiagramm der Analysephase näher erläutert.
+Bei der Implementierung auf Basis dieses Klassenmodells haben wir aber noch
+einige Änderungen und Einschränkungen vorgenommen. Im volgenden Abschnitt werden
+diese Unterschiede und dessen Hintergründe näher erläutert.
+
+\subsection{Client-Server}
+Die Client-Server Architektur, die bei unserem Planspiel angewandt wird,
+ermöglicht es mehreren Spielern ihren Spielzug gleichzeitig zu absolvieren.
+Zwar verringert dies die Wartezeitden der Spieler im Gegensatz zum
+Hotseat-Modell, allerdings muss bei einem gemeinsamen Server und mehreren
+Clienten darauf geachtet werden, dass es zu keinen Dateninkonsistenzen kommt.
+An der ``Thread-per-Connection''-Methode hat sich seit der Analysephase (siehe
+\ref{ooa}) nichts geändert, weswegen hier darauf nicht näher eingegangen wird.
+
+In \ref{OOD-Map} ist die Klassenstruktur abgebildet, die alle Daten enthält, die
+für alle Spieler interessant sind und indirekt auch von diesen geändert werden
+können. Um Dateninkonsistenz zu vermeiden werden alle Änderungen die ein Spieler
+eingibt an den Server gesendet, dieser wertet die Änderungen aus überträgt sie
+gegebenenfalls in den entsprechenden Objekten. Zu Rundenbeginn wird nun die
+gesamt Objektstruktur, die in einem Objekt der 'Map'-Klasse auf Serverseite
+gespeichert ist, an alle Clients übertragen. Dadurch, dass nur der Server solche
+Änderungen vornehmen kann und diese auch nicht von verschiedenen
+'Connection'-Threads gleichzeitig vorgenommen können (``Synchronized''), wird
+die richtige Datenhaltung sichergestellt.
+
+\begin{figure}
+\centering
+\centering
+\includegraphics[width=1.1\textwidth]{se-wa-jpg/OOD-Map}
+\caption{Klassendiagramm Kommunikationsklassen}
+\label{OOD-Map}
+\end{figure}
+
+Während der Analysephase war es angedacht, Verträge mit einer Stadt unabhängig
+vom Rundenende zu schließen. Diese Idee wurde während der Entwcklung verworfen,
+so dass nun jeder Spieler seine Vertragsvorschläge dem Server während der Runde
+zusendet, der Server nach der Runde die Kunden jedes Spielers
+errechnet und zum nächsten Rundenanfang diese den Spielern mitteilt.\\
+Wie in \ref{OOD-Map} zu sehen ist, haben wir uns deswegen dazu entschieden den
+'Contract', der vorher unter dem Unternehmen in dem Bereich der Beziehungen zu
+den Regionen angeordnet war, nun der 'Map' und darin der 'CityRegion' zu
+unterordnen.\\
+Diese Änderung in der Struktur der Fachlogik erlaubt es dem Server weiterhin,
+alle Daten, die jede Runde den Spielern zugeschickt werden, in einer einzigen
+Objektstruktur zu übertragen.
+Dies ermöglicht zum einen eine einfache Kommunikation vom Server zum Client und
+zum anderen kann nun auch der Client alle wichtigen Änderungen der Runde aus
+einem einzigen Objekt auslesen, in dem er die neu erhaltene 'Map' mit der
+vorhandenen aus der vergangenen Runde vergleicht.
