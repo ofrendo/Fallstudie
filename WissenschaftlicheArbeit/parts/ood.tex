@@ -2,28 +2,27 @@
 \section{Fachkonzept}
 Im \ref{ooa} wurde bereits das Klassendiagramm der Analysephase näher erläutert.
 Bei der Implementierung auf Basis dieses Klassenmodells haben wir aber noch
-einige Änderungen und Einschränkungen vorgenommen. Im volgenden Abschnitt werden
+einige Änderungen und Einschränkungen vorgenommen. Im folgenden Abschnitt werden
 diese Unterschiede und dessen Hintergründe näher erläutert.
 
-\subsection{Client-Server}
-Die Client-Server Architektur, die bei unserem Planspiel angewandt wird,
-ermöglicht es mehreren Spielern ihren Spielzug gleichzeitig zu absolvieren.
-Zwar verringert dies die Wartezeitden der Spieler im Gegensatz zum
-Hotseat-Modell, allerdings muss bei einem gemeinsamen Server und mehreren
-Clienten darauf geachtet werden, dass es zu keinen Dateninkonsistenzen kommt.
-An der ``Thread-per-Connection''-Methode hat sich seit der Analysephase (siehe
-\ref{ooa}) nichts geändert, weswegen hier darauf nicht näher eingegangen wird.
+Durch Prioritäten die wir in der Entwurfsphase gesätzt haben, sind gegenüber dem
+OOA-Diagramm auch einige Bereiche weggefallen:
+\begin{itemize}
+  \item {\textbf{Marketing}}\\
+  Das Marketing und die dazugehörige Marktforschung und Werbung haben zeitlich
+  nicht mehr in den Plan gepasst.
+  \item{\textbf{Mitarbeiter}}\\
+  Die Mitarbeiter als einzelnes Objekt zu modellieren erschien uns im Laufe der
+  Entwurfsphase in einem Gebäudeintensiven Unternehmen für keine Notwendigkeit
+  mehr. Deswegen haben wir uns nun dazu entschieden auf eine Mitarbeiteranzahl
+  und weiteres zu verzichten und diese vielmehr in die laufenden Kosten der
+  einzelnen Kraftwerke mit einfließen zu lassen.
+\end{itemize}
 
-In \ref{OOD-Map} ist die Klassenstruktur abgebildet, die alle Daten enthält, die
-für alle Spieler interessant sind und indirekt auch von diesen geändert werden
-können. Um Dateninkonsistenz zu vermeiden werden alle Änderungen die ein Spieler
-eingibt an den Server gesendet, dieser wertet die Änderungen aus überträgt sie
-gegebenenfalls in den entsprechenden Objekten. Zu Rundenbeginn wird nun die
-gesamt Objektstruktur, die in einem Objekt der 'Map'-Klasse auf Serverseite
-gespeichert ist, an alle Clients übertragen. Dadurch, dass nur der Server solche
-Änderungen vornehmen kann und diese auch nicht von verschiedenen
-'Connection'-Threads gleichzeitig vorgenommen können (``Synchronized''), wird
-die richtige Datenhaltung sichergestellt.
+
+
+\subsection{Client-Server}
+
 
 \begin{figure}
 \centering
@@ -32,6 +31,31 @@ die richtige Datenhaltung sichergestellt.
 \caption{Klassendiagramm Kommunikationsklassen}
 \label{OOD-Map}
 \end{figure}
+
+Die Client-Server Architektur, die bei unserem Planspiel angewandt wird,
+ermöglicht es mehreren Spielern ihren Spielzug gleichzeitig zu absolvieren.
+Zwar verringert dies die Wartezeiten der Spieler im Gegensatz zum
+Hotseat-Modell, allerdings muss bei einem gemeinsamen Server und mehreren
+Clienten darauf geachtet werden, dass es zu keinen Dateninkonsistenzen kommt.
+An der ``Thread-per-Connection''-Methode hat sich seit der Analysephase (siehe
+\ref{ooa}) nichts geändert, weswegen hier darauf nicht näher eingegangen wird.
+
+In \ref{OOD-Map} ist die Klassenstruktur abgebildet, die alle Daten enthält, die
+für alle Spieler interessant sind und indirekt auch von diesen geändert werden
+können. Hierbei haben wir uns dazu entschlossen nicht alle Entscheidungen des
+Spielers dem Server mitzuteilen, sondern einige Eingaben auf Client-Seite
+zu bearbeiten, um den Server nicht unnötig zu belasten und den
+Datenverkehr zu vermindern. Zum Beispiel wird das Vermögen eines Unternehmens
+komplett auf Client-Seite bearbeitet, da es für die anderen Spieler im Spiel
+nicht sichtbar gemacht werden soll.\\
+Um Dateninkonsistenz zu vermeiden werden alle Änderungen, die alle Spieler
+betreffen, direkt an den Server gesendet, dieser wertet die Änderungen aus
+überträgt sie gegebenenfalls in den entsprechenden Objekte. Zu Rundenbeginn
+wird nun die gesamt Objektstruktur, die in einem Objekt der 'Map'-Klasse auf
+Serverseite gespeichert ist, an alle Clients übertragen. Dadurch, dass nur der
+Server solche Änderungen vornehmen kann und diese auch nicht von verschiedenen
+'Connection'-Threads gleichzeitig vorgenommen können (``Synchronized''), wird
+die richtige Datenhaltung sichergestellt.
 
 Während der Analysephase war es angedacht, Verträge mit einer Stadt unabhängig
 vom Rundenende zu schließen. Diese Idee wurde während der Entwcklung verworfen,
@@ -49,3 +73,56 @@ Dies ermöglicht zum einen eine einfache Kommunikation vom Server zum Client und
 zum anderen kann nun auch der Client alle wichtigen Änderungen der Runde aus
 einem einzigen Objekt auslesen, in dem er die neu erhaltene 'Map' mit der
 vorhandenen aus der vergangenen Runde vergleicht.
+
+Im folgenden werden die einzelnen Klassen, die vom Server zu dem Client
+übertragen werden, näher erläutert:
+\begin{itemize}
+  \item {\textbf{Klasse Map}}\\
+  Die Klasse Map enthält zum Einen alle Regionen der Spielkarte, die zu Beginn
+  des Spiels vom Server generiert werden und zum Anderen die
+  Strombörse('EnergyExchange') und den Ressourcenmarkt. Außerdem werden in ihr
+  die Kunden der einzlnen Spieler in den verschiedenen Städten berechnet.
+  \item{\textbf{Klasse RessourceMarket}}\\
+  Der Ressourcenmarkt setzt sich aus den drei unterschiedlichen Rohstoffen
+  zusammen, die in unserem SPiel vorhanden sind. Die Preise für die Rohstoffe
+  sind in dem Programm als Konstanten festgesetzt und ändern sich nicht mit der
+  Zeit.
+  \item{\textbf{Klasse EnergyExchange}}\\
+  Die Strombörse im Spiel hat einen schwankenden Preis. Dieser reguliert sich
+  aus Angebot und Nachfrage. Jedes mal wenn ein Spieler einen Stromhandel
+  abschließt, schickt der Client eine kleine Nachricht über die höhe des Handels
+  an den Server, der daraufhin den neuen Preis für die nächste Runde berechnet.
+  \item{\textbf{Klasse Region und Klasse Coords}}\\
+  Die Klasse Region ist dafür gedacht, dass sie mit ihren Koordinaten, die in
+  der Klasse Coords gespeichert sind, eindeutig ermittelt werden kann. Die
+  Region ist nich dafür gedacht, dass sie für sich instanziiert wird, sondern
+  mit Hilfe von Vererbung entweder als Ressourcenregion oder Stadtregion benutzt
+  wird.
+  \item{\textbf{Klasse CityRegion und Klasse Contract}}\\
+  Die Stadtregion enthält alle Informationen über die Einwohner der Stadt und
+  die Verträge mit den verschiedenen Energielieferanten. Die Stadt wird mit
+  einer Einwohnerzahl und verschiedenen Kennziffern zum Spielstart generiert,
+  während die Kundenzahlen, die in den Contracts gespeichert sind, sich jede
+  Runde durch Preisänderungen der Spieler ändern können. Jede Stadt hat für
+  jedes Unternehmen, dass in ihr Kunden besitzt, ein seperates Contract-Objekt.
+  \item{\textbf{Klasse RessourceRegion}}\\ 
+  Die RessourceRegion wird mit einem bestimmten RessourceType (siehe
+  Enumeration RessouurceType) und gegebenenfalls einer Menge des Rohstoffes zum
+  Spielstart generiert. Für erneuerbare Energien, wie z.B. Wasser entfällt
+  natürlich die Rohstoffmenge. Während des Spiels können Spieler auf die
+  Regionen bieten, um sie bebauen zu können. Diese Gebote werden an den Server
+  gesendet, der dann den Zuschlag an ein Unternehmen gibt, der danach zum
+  Besitzer der Region wird. Zudem meldet der Besitzer der Region dem Server,
+  sobald er ein Gebäude in einer Region fertiggestellt hat. Dieser schreibt dies
+  dann in das Region-Objekt, sodass dies auch für die anderen Spieler sichtbar
+  wird.
+  
+\end{itemize}
+
+
+\subsection{Gebäude}
+
+
+
+PowerstatioNrelation stellt die verbindung zwischen einem Kraftwerk und einer
+Stadt mit Vertrag da \ref{Opt} 
