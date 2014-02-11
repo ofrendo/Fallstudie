@@ -7,7 +7,9 @@ import de.shared.game.Game;
 import de.shared.game.GamePhase;
 import de.shared.game.Player;
 import de.shared.map.Map;
+import de.shared.map.generate.MapType;
 import de.shared.map.generate.MapTypeHexagon;
+import de.shared.map.generate.MapTypeRect;
 import de.shared.map.region.CityRegion;
 import de.shared.map.region.Coords;
 import de.shared.map.region.Region;
@@ -30,7 +32,14 @@ public class ServerGame extends Game {
 	public ServerGame() {
 		super();
 		currentBids = new ArrayList<ResourceRegionBid>();
-		map = new Map(MapTypeHexagon.NORMAL);//Map.getInstance();
+		
+		MapType mapType;
+		if (Math.random() > 0.5) 
+			mapType = MapTypeHexagon.NORMAL;
+		else
+			mapType = MapTypeRect.NORMAL;
+		
+		map = new Map(mapType);//Map.getInstance();
 		
 		//Set average energy prices
 		double averageEnergyPrice = map.getEnergyExchange().getCurrentEnergyPrice();
