@@ -6,18 +6,20 @@ Komplexität des Algorithmus reduziert, da die Daten des Servers nicht mit denen
 des Clients synchronisiert werden müssen. Aus Spielgründen wurde entschieden, 
 dass sich der Spieler nicht selbst um die Optimierung der Kraftwerke kümmern 
 muss, sondern dass die Optimierung mithilfe des Simplexalgorithmus durchgeführt 
-wird.
+wird, da die Kraftwerksverteilung durch ein lineares Optimierungsproblem
+formuliert werden kann.
 
-Zunächst stellt die Optimierung der Kraftwerke folgendes Problem dar: \\
-$k$ Kraftwerke haben je $x$ Verbindungen zu $s$ Städten mit je $y$ Verbindungen.
-Dabei wird eine Verbindung nur gebildet, wenn der Spieler mit der jeweiligen Stadt
-einen Vertrag besitzt und das Kraftwerk höchstens drei Felder von der Stadt
-entfernt ist. So könnte beispielsweise folgendes Optimierungsproblem entstehen:
+Zunächst stellt dies das folgende Problem dar: \\
+$k$ Kraftwerke mit einer Produktion von $k_i$ haben je $x$ Verbindungen zu $s$
+Städten mit je $y$ Verbindungen, einem Preis $p$ und einem Bedarf $n$. Dabei wird eine Verbindung nur gebildet,
+wenn der Spieler mit der jeweiligen Stadt einen Vertrag besitzt und das
+Kraftwerk  höchstens drei Felder von der Stadt entfernt ist. So könnte 
+beispielsweise folgendes Optimierungsproblem entstehen:
 
 %Bild Optimierung
 \begin{figure}[H]
 \centering
-\includegraphics[width=0.9\textwidth]{se-wa-jpg/optimizing}
+\includegraphics[width=0.85\textwidth]{se-wa-jpg/optimizing}
 \caption{Beispiel Optimierungsproblem}
 \label{Beispielproblem}
 \end{figure}
