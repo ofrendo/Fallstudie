@@ -10,15 +10,20 @@
 %
 % Einlesen der .sty-Dateien
 %
-\input{\seWaPathSty/se-wa-input-styles-v095}
+%\input{\seWaPathSty/se-wa-input-styles-v095}
+\input{se-wa-styles/se-wa-input-styles-v095}
+
 %
 % Individuelle Konfiguration des Dokumentes
 %
-\input{\seWaPathText/wa-konfiguration}
+%\input{\seWaPathText/wa-konfiguration}
+\input{se-wa-textbausteine-vorlagen/wa-konfiguration}
+
 %
 % Definition von Abk\"urzungen, Symbolen und eventuell Glossareintr\"agen
 %
-\input{\seWaPathText/wa-abkuerzungen} 
+%\input{\seWaPathText/wa-abkuerzungen} 
+\input{se-wa-textbausteine-vorlagen/wa-abkuerzungen}
 
 \seIstSeminararbeit{}
 
@@ -167,10 +172,11 @@ gliederungsebenen=4
 \newpage
 \chapter{Analyse}
 \input{parts/spielideen}
+\input{parts/usecase}
 \input{parts/architektur}
 \input{parts/joern} %OOA
-\input{parts/usecase}
 \input{parts/optimierung}
+\input{parts/vertraege}
 
 \newpage
 \chapter{Implementierung}
@@ -178,6 +184,7 @@ gliederungsebenen=4
 \input{parts/ood}
 \input{parts/ood-Matthias}
 \input{parts/design}
+\input{parts/swing}
 \input{parts/unittests}
 \input{parts/balancing}
 
@@ -245,7 +252,7 @@ gliederungsebenen=4
 % Umbenennung von Literatur- in Quellenverzeichnis
 % 
 %\renewcommand*{\bibname}{Quellenverzeichnis}
-\seBibliography{wa}
+\seBibliography{literatur}
 
 
 %

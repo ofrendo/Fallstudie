@@ -1,0 +1,96 @@
+%Olli
+\newpage
+\section{Graphische Benutzeroberfläche}
+In dieser Sektion wird der Aufbau der graphischen Benutzeroberfläche (GUI)
+erläutert, die mit Java Swing entwickelt wurde. Zunächst wird das GUI durch die
+Singleton Klasse \texttt{Controller} verwaltet und durch diese wird
+sichergestellt, dass von dem GUI die aktuellen Informationen angezeigt werden.
+Des Weiteren bietet es den GUI Klassen den Zugriff auf das Datenmodell. Die GUI
+Klassen liegen im Paket \texttt{de.client.gui}. 
+%In der überwiegenden Mehrheit
+%sind einzelne Komponenten durch lazy initialization
+
+\subsection{Globale Bestandteile}
+Allgemein werden die benötigten JPanels immer in ein Objekt der Klasse
+\texttt{Frame}, eingefügt --- dieses besitzt ein \texttt{GridBagLayout}.
+\begin{itemize}
+  \item Ein \texttt{PanelGlobalLeft} befindet sich immer auf der linken Seite
+  des Fensters, in dem die Liste von Spielern mit ihrem Status und der Chat 
+  enthalten sind. Diese beiden Einzelteile werden von dem Controller
+  aktualisiert, wenn der Client eine Nachricht vom Typ  
+  \texttt{PLAYER\_READY\_CHANGE} bzw. \texttt{CHAT\_BROADCAST} erhält.
+  \item Das Menü wird durch ein \texttt{PanelMenu} dargestellt, das die Buttons
+  und ein \texttt{PanelMenuInformation} enthält. \texttt{PanelMenuInformation}
+  besteht aus einem JLabel mit einem Text, der HTML Code enthält --- dadurch
+  entsteht die Tabellenstruktur. 
+\end{itemize}
+
+Wichtig sind außerdem die Klassen \texttt{Look}, in dem beispielsweise die
+Hintergrundfarben definiert sind und \texttt{Strings}. Die Letztere stellt
+mehrere Methoden bereit, die Daten für die Anzeige im GUI vorbereiten soll ---
+darunter zum Beispiel \texttt{fD(double number)}, die Zahlen lesbarer machen
+soll.
+
+Nach dem Mockup wurden vier unterschiedliche Tabs entwickelt, die dem Spieler
+unterschiedliche Einblicke in sein Unternehmen geben sollen:
+
+\subsection{Unternehmensplanung}
+Die Unternehmensplanung ist ähnlich wie die meisten anderen Tabs aus zwei
+Panels aufgebaut und wird durch ein \texttt{PanelCompany} dargestellt, das von 
+\\\texttt{PanelAbstractContent} erbt. 
+
+Das linke (im Fenster mittlere) Panel ist ein \texttt{GridLayout} mit zwei
+Spalten und zwei Reihen und wird lediglich von JLabels gefüllt. Die
+Tabellenstruktur in den einzelnen JLabels entsteht ähnlich wie im Menü durch
+die Nutzung von HTML Code. Die rechte Seite enthält die Nachrichten, die dem
+Spieler zum Beginn der Runde angezeigt werden.
+
+\subsection{Karte}
+Die Karte ist das Herzstück der Benutzeroberfläche --- hier kann der Spieler die
+wichtigsten Entscheidungen wie das Bauen von Kraftwerken und das Schließen von
+Verträgen umsetzen. Insgesamt ist die Karte ein \texttt{PanelMain}. Zunächst wird die
+linke (im Fenster mittlere) Seite erklärt.
+
+Das \texttt{PanelMap} selbst enthält nur viele \texttt{HexagonButton}, dessen
+Positionen von einem \texttt{HexagonLayout} verwaltet werden. Die Implementation
+des HexagonLayout wurde anfangs von 
+\begin{center}
+http://forums.codeguru.com/showthread.php?478270-Hexagon-Buttons
+\end{center}
+übernommen. Dieses besaß am Anfang nur ein rechteckiges Layout --- es wurde
+anschließend angepasst, damit beispielsweise die Höhe und Breite der Buttons 
+korrekt bei Änderung der Fenstergröße mitskaliert werden. Des Weiteren wurde ein
+hexagonförmiges Layout implementiert, dass mehr unserer Spielidee nachgeht: Das
+GUI kann beide Kartenarten darstellen.
+
+Jeder \texttt{HexagonButton} erhält bei der Initialisierung eine
+\texttt{Region}, mit der er seine Hintergrundfarbe, Ränder und das Bild
+bestimmten kann. Des Weiteren besitzt er eine Referenz zu einem
+\texttt{PanelSubDetails}: Diese wird bei dem ersten Klick auf dem Button
+initialisiert und bleibt danach erhalten. Der Inhalt davon wird durch einen
+Entscheidungsbaum in \texttt{PanelDetails.setRegionContent} bestimmt.
+
+Durch ``Lazy Initialization'' wird hier auf lange Sicht Rechenzeit gespart,
+dafür wird jedoch mehr Speicherplatz benötigt. Das \texttt{PanelSubDetails} wird 
+dann jeweils in die rechte Seite des \texttt{PanelMap}, die durch ein 
+\texttt{PanelDetails} gegeben ist, eingefügt.
+
+Erhält der Client durch eine \texttt{MAP\_UPDATE} Nachricht ist die Runde
+beendet: Die Referenz zum alten \texttt{PanelMap} wird gelöscht und ein komplett
+neues Objekt wird angelegt --- deswegen flackert das GUI kurz, sobald eine Runde
+beendet ist.
+
+\subsection{Finanzen}
+Die finanziellen Informationen der Firma werden durch ein \texttt{PanelFinances}
+abgebildet: Auf der linken Seite befindet sich ein
+\texttt{PanelFinancesBalance}, das durch viele verschachtelte
+\texttt{GridLayout} konstruiert wird. Daneben besteht die rechte Seite aus einem
+JLabel mit HTML Code und einem \texttt{PanelCredits}.
+
+\subsection{Markt}
+Die beiden Seite des Marktes sind relativ gleich aufgebaut und sind zusammen in
+einem \texttt{PanelMarket}. Sie besitzen beide ein \texttt{BoxLayout}, damit
+Komponenten vertikal untereinander angezeigt werden. Die Anzeige der einzelnen
+Rohstoffe, die hier gekauft und verkauft werden können, werden durch ein
+\texttt{PanelMarketResource} erstellt und basieren auf der Enumeration
+\texttt{de.shared.map.region.BuyableResouce}.

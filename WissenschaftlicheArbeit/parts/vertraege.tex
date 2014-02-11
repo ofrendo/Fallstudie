@@ -1,0 +1,39 @@
+%Olli
+\section{Verträge}
+Ein wichtiger Teil des Spieles ist für den Benutzer das Abschließen von
+Verträgen mit Städten. Dabei soll zwischen den Spielern eine Konkurrenz
+entstehen, um einen Bezug zur Realität herzustellen. Dieser
+Algorithmus wird jede Runde erneut durchlaufen, damit eine Preiskonkurrenz
+zwischen Spielern entsteht --- zudem kann sich dadurch die Anzahl der Kunden
+ändern, ohne dass der Spieler Werte ändert. Bevor der Algorithmus durchgeführt
+wird, werden alle bestehenden Verträge mit der Stadt nach ihrem Preis
+aufsteigend geordnet. Dies hat zur Auswirkung, dass die Preiswahl des Spielers
+ausschlaggebend für die Anzahl seiner Kunden ist.
+
+Zunächst wird die Anzahl der Kunden $y_0$ berechnet, die ein Spieler bei dem
+durchschnittlichen Preis bei seiner Bekanntheit und Beliebtheit erhalten würde. 
+$$y_0 = Bekanntheit * Beliebtheit * Population$$
+Anschließend wird diese Variable der ``Standardkunden'' $y_0$ in eine
+quadratische Funktion gegeben. Diese Parabel hat einen Sattelpunkt, der
+sich bei $S(x_d/y_0)$ befindet, wobei $x_d$ der Durchschnittspreis der Stadt
+representiert. Ist der Preis des Spielers also unter dem Durchschnittspreis,
+werden ihm entsprechend mehr und mehr (quadratisch steigend) Kunden zugewiesen 
+--- ist der Preis des Spielers unter dem Durchschnittspreis werden ihm umgekehrt
+weniger Kunden als $y_0$ zugewiesen. Werden dem Spieler durch diese Funktion $y
+= 0$ Kunden zugewiesen, wird der Algorithmus hier abgebrochen und der Spieler  
+erhält keinen Vertrag mit der Stadt bzw. sein aktueller Vertrag wird gekündigt. 
+
+%Bild Paralbel
+
+Durch die Wahl einer quadratischen Funktion sind Preisabweichungen sehr
+entscheidend --- anders als bei anderen Produkten und Märkten ist in dem
+Energiemarkt der Preis wichtiger als die Bekanntheit und Beliebtheit einer
+Firma. 
+
+Nun werden zwei weitere Bedingungen geprüft: \\
+Der Spieler kann die maximale Energie festlegen, die er für den Vertrag
+bereitstellen möchte. Wird dieser Wert überschritten, erhält er maximal so viele
+Kunden, wie er beliefern kann.\\
+Zuletzt muss überprüft werden, ob noch genug freie Kunden in der Stadt
+vorhanden sind --- es könnte also beispielsweise sein, dass der Spieler durch
+die Preiswahl anderer Spieler aus diesem Grund keine Kunden mehr erhält.
