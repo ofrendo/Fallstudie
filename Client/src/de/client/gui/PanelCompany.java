@@ -28,7 +28,7 @@ public class PanelCompany extends PanelAbstractContent {
 	private JPanel panelNewsTitle;
 	
 	private int PADDING = 5;
-	
+
 	public PanelCompany() {
 		company = Controller.getInstance().getCompany();
 		
