@@ -30,6 +30,10 @@ public class Balance {
 	
 	public void nextYear(){
 		year++;
+		recalcBalance();
+	}
+	
+	public void recalcBalance() {
 		// update profit and loss
 		profitAndLoss.nextYear();
 		// update money
@@ -52,9 +56,9 @@ public class Balance {
 			plotValue += region.winningBid;
 		}
 		// update inventory value
-		inventoryValue = company.getWarehouse().getStoredValue();
-	}
-	
+			inventoryValue = company.getWarehouse().getStoredValue();
+}
+
 	public ProfitAndLoss getProfitAndLoss(){
 		return profitAndLoss;
 	}
