@@ -1,6 +1,20 @@
 %Jörn
 \section{Fachkonzept}
-Im \ref{ooa} wurde bereits das Klassendiagramm der Analysephase näher erläutert.
+In unserem Entwicklertool ``Eclipse'' haben wir die Klassen in vier verschiedene
+Projekte aufgeteilt:
+\begin{enumerate}
+  \item {\textbf{Server}}, enthält alle Klassen, die nur auf dem Server benötigt
+  werden.
+  \item {\textbf{Client}}, enthält alle Klassen, die nur auf dem Client benötigt
+  werden.
+  \item{\textbf{Shared}}, enthält Klassen, die jeweils auf dem Server und
+  dem Client benötigt und eingebunden werden (z.B. Klassen zur Kommunikation).
+  \item{\textbf{UnitTests}}, enthält alle Unit-Tests, die nicht für die
+  eigentliche Anwendung benötigt werden.
+\end{enumerate}
+
+Im \ref{ooa} wurde bereits das Klassendiagramm der
+Analysephase näher erläutert.
 Bei der Implementierung auf Basis dieses Klassenmodells haben wir aber noch
 einige Änderungen und Einschränkungen vorgenommen. Im folgenden Abschnitt werden
 diese Unterschiede und dessen Hintergründe näher erläutert.
@@ -28,7 +42,7 @@ OOA-Diagramm auch einige Bereiche weggefallen:
 \centering
 \centering
 \includegraphics[width=1.1\textwidth]{se-wa-jpg/OOD-Map}
-\caption{Klassendiagramm Kommunikationsklassen}
+\caption{Klassendiagramm zu den Kommunikationsklassen}
 \label{OOD-Map}
 \end{figure}
 
@@ -122,7 +136,56 @@ Im folgenden werden die einzelnen Klassen, die vom Server zu dem Client
 
 \subsection{Gebäude}
 
+\begin{figure}
+\centering
+\centering
+\includegraphics[width=1.0\textwidth]{se-wa-jpg/OOD-Building}
+\caption{Klassendiagramm zu den Gebäude}
+\label{OOD-Building}
+\end{figure}
+
+Die Abteilung 'Investment', die für die Verwaltung der Gebäude in dem
+Unternehmen zuständig ist wurde im Vergleich zur Analysephase in einigen Punkten
+geändert. Der 'InvestmentManager' aus der Analyse fällt in unserem Entwurf weg.
+Die Funktion die die Klasse übernommen hätte, das hinzufügen von Gebäuden, wird
+stattdessen von der 'Company'-Klasse übernommen.\\
+Zudem gibt es nun keine Objekte mehr für die Grundstücke, die das Unternehmen
+besitzt. Diese Unterscheiden sich nicht voneinander, so dass die Spieler einfach
+als Besitzer der Region in das jeweilige Objekt geschrieben werden kann und
+keine gesonderte Klasse benötigt wird.
+Auch die Unterscheidung zwischen erneuerbaren Energieen wird nun nicht mehr in
+Form von Klassen, sondern mit Hilfe des 'RessourceType' des Kraftwerks.
+
+Alle verblienden Klassen werden im  folgenden erläutert:
+\begin{itemize}
+  \item{\textbf{Klasse Investment und Klasse Building}}\\ 
+  Die Klassen Investment und Building legen die Grundlagen für die beiden
+  Gebäudetypen: die Mine und das Kraftwerk. Hierzu werden bereits im Investment
+  der Kaufpreis, der aktuelle Buchwert und die dazugehörigen, jährlichen
+  Abschreibungen beschrieben. Die Klasse Building ergänzt diese Informationen
+  noch um eine maximale Produktion und die derzeitige Auslastung. Darüber hinaus
+  wird gespeichert ob der Bau bereits beendet wurde und, wenn nicht, wie lange
+  der Bau noch benötigt. Auch die aktuelle Produktion und die laufenden Kosten
+  können hier abgelesen werden.
+  \item{\textbf{Klasse Mine}}\\
+  Zuzüglich zu dem Gebäude und dem Investment besitzt die Mine noch ein
+  Ressourcentyp und eine Referenz auf die 'RessourceRelation', in der die
+  verbleibende Menge des Rohstofffeldes gespeichert wird. Damit kann jede Runde
+  die Menge an produzierten Rohstoffen berechnet werden.
+  \item{\textbf{Klasse PowerStation}}\\ 
+  Zu dem aktuellen Auslastungsfaktor im Gebäude, wird in dem Kraftwerk noch ein
+  Indikator für die Verstellbarkeit. Dieser beschreibt wie stark die laufenden
+  Kosten eingespart werden können, in dem die Auslastung gesenkt wird. Des
+  weiteren beinhaltet das Kraftwerk noch Wartungskosten, die, sofern sie
+  eingespart werden, möglicherweise Reparaturen erforderlich machen. Auch den
+  Verbrauch, der bei den fossilen Energien gebraucht wird, kann man hier
+  ablesen.
+  \item{\textbf{Klasse PowerStationRelation}}\\ 
+	 Die PowerstationRelation stellt die Verbindung zwischen einem Kraftwerk und
+	 einer Stadt mit Vertrag dar(siehe \ref{Opt}. Jedes Kraftwerk kann mehrere
+	 solche Beziehungen besitzen.
+\end{itemize}
 
 
-PowerstatioNrelation stellt die verbindung zwischen einem Kraftwerk und einer
-Stadt mit Vertrag da \ref{Opt} 
+
+
