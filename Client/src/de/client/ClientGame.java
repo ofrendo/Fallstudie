@@ -293,7 +293,7 @@ public class ClientGame extends Game {
 						{
 							//Small Meintenece Problem
 							eventCosts = ps.getResourceType().pPurchaseValue*Constants.MAINTENANCE_ACCIDENT_SMALL;
-							events.add(new EventMessage("Eine kleinere Reparatur in einem Kraftwerk kostete dir "+eventCosts+" €.", ps.coords));
+							events.add(new EventMessage("Eine kleinere Reparatur in einem Kraftwerk kostete dich "+eventCosts+" €.", ps.coords));
 							//pay costs and add them to balance
 							company.setMoney(company.getMoney()-eventCosts);  
 							company.getFinances().getBalance().getProfitAndLoss().addOtherCosts(eventCosts);
@@ -306,7 +306,7 @@ public class ClientGame extends Game {
 						{
 							//medium Meintenece Problem
 							eventCosts = ps.getResourceType().pPurchaseValue*Constants.MAINTENANCE_ACCIDENT_MEDIUM;
-							events.add(new EventMessage("Eine notwendige Reparatur in einem Kraftwerk kostete dir "+eventCosts+" €.", ps.coords));
+							events.add(new EventMessage("Eine notwendige Reparatur in einem Kraftwerk kostete dich "+eventCosts+" €.", ps.coords));
 							//pay costs and add them to balance
 							company.setMoney(company.getMoney()-eventCosts);  
 							company.getFinances().getBalance().getProfitAndLoss().addOtherCosts(eventCosts);
@@ -320,7 +320,7 @@ public class ClientGame extends Game {
 						{
 							//SUPER GAU
 							eventCosts = ps.getResourceType().pPurchaseValue*Constants.MAINTENANCE_ACCIDENT_LARGE*5;
-							events.add(new EventMessage("Eine Kernschmelze in einem Kernkraftwerk kostete dir "+eventCosts+" €.", ps.coords));
+							events.add(new EventMessage("Eine Kernschmelze in einem Kernkraftwerk kostete dich "+eventCosts+" €.", ps.coords));
 							//pay costs and add them to balance
 							company.setMoney(company.getMoney()-eventCosts);  
 							company.getFinances().getBalance().getProfitAndLoss().addOtherCosts(eventCosts);
@@ -329,7 +329,7 @@ public class ClientGame extends Game {
 						{
 							//medium Meintenece Problem
 							eventCosts = ps.getResourceType().pPurchaseValue*Constants.MAINTENANCE_ACCIDENT_LARGE;
-							events.add(new EventMessage("Eine schwerwiegende Reparatur in einem Kraftwerk kostete dir "+eventCosts+" €.", ps.coords));
+							events.add(new EventMessage("Eine schwerwiegende Reparatur in einem Kraftwerk kostete dich "+eventCosts+" €.", ps.coords));
 							//pay costs and add them to balance
 							company.setMoney(company.getMoney()-eventCosts);  
 							company.getFinances().getBalance().getProfitAndLoss().addOtherCosts(eventCosts);
