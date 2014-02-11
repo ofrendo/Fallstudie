@@ -1,2 +1,88 @@
 %Matthias
-\section{Kritische Betrachtung Matthias}
+\section{Kritische Betrachtung}
+Rückblickend betrachtet wurden gerade in der Analysephase bzw. noch in der
+Planungsphase viele Anforderungen und Ideen entworfen. In der Design- und
+Implementierungsphase fehlte dann jedoch einfach die Zeit, um alle als gut
+befundenen Ideen und Ansätze zu realisieren.
+
+Folgende Ideen konnten nicht mehr implementiert werden:
+\begin{itemize}
+  \item \textbf{Forschung}
+  Mit der Forschung sollte es eine zusätzliche Möglichkeit langfristiger
+  Investitionen geben. Mit einem Forschungsbaum hätte der Spieler einen weiteren
+  Aspekt des Fortschritts, der Erfolgserlebnisse generieren kann.\\
+  Darüber hinaus ergäben sich Synergien, wenn man zum Beispiel sich auf einen
+  Kraftwerkstyp konzentriert und die Forschung für eben diese Kraftwerke
+  vorantreibt.\\
+  Auch die Möglichkeit einer weiteren Siegbedingung durch die Erforschung des
+  Fusionsreaktors und den Bau eines solchen sollte dem Spiel eine weitere
+  Facette geben.
+  \item \textbf{Marketing}
+  Um neben dem Preis noch einen weiteren Wettbewerbsfaktor zwischen den
+  Anbietern zu generieren, war es angedacht, den Bereich des Marketings im
+  Unternehmensplanspiel zu verwirklichen. So sollten Marketing-Kampagnen für
+  eine gewisse Zeit die Beliebtheit und Bekanntheit eines Unternehmens steigern,
+  um dem Unternehmen dadurch mehr Kunden als weniger bekannten und beliebten
+  Mitbewerbern zuzuteilen.
+  \item \textbf{Marktforschung}
+  Eine Möglichkeit der Marktforschung hätte einem Unternehmen mehr Aufschluss
+  über die derzeitige Marktsituation geben können. So hätte ein Unternehmen
+  unter Einsatz eines bestimmten Budgets Informationen wie den Preis der
+  Mitbewerber, die Kundenanzahl der Mitbewerber, den Marktanteil und ähnliches
+  angezeigt bekommen können.\\
+  Durch die größere Informationsbasis wären die Spieler in der Lage gewesen,
+  Risiken und Chancen einer Investition besser abwägen zu können und
+  Schwachpunkte bzw. Stärken des eigenen Unternehmens einfacher erkennen zu
+  können.
+\end{itemize}
+
+Auf der anderen Seite konnten folgende Anforderungen wie geplant realisiert
+werden:
+\begin{itemize}
+  \item \textbf{Client-Server-Modell}
+  Wie geplant war es uns möglich, das Spiel auf einer Client-Server-Architektur
+  laufen zu lassen und so dem Spieler das Spielen an unterschiedlichen Computern
+  zu ermöglichen. Dadurch können nun die Spieler gleichzeitig ihre Aktionen
+  durchführen und müssen erst am Ende jeder Runde darauf warten, dass auch
+  wirklich jeder seine Runde abgeschlossen hat.\\
+  Dadurch läuft das Spiel viel schneller und angenehmer für jeden Spieler.\\
+  Darüber hinaus wurden noch kleinere Features wie ein Chat und eine Lobby zum
+  Erstellen des Spiels eingebaut.
+  \item \textbf{Hexagon-Karte}
+  Die größte Herausforderung beim UI war die Erstellung eines Spielfelds in Form
+  eines Sechseckrasters. Dies ließ sich jedoch unter Verwendung eines Frameworks
+  implementieren und bietet nun dem Spieler einen Überblick über die ``Welt''.
+  Es ist möglich, Felder zu kaufen, darauf Minen und Kraftwerke zu bauen und
+  Verträge mit Städten abzuschließen. Außerdem werden die Kraftwerke mit
+  Verbindungslinien den Städten zugeordnet, die sie beliefern.
+  \item \textbf{Rohstoff- und Energiemarkt}
+  Ein wichtiger Punkt in der Planung war der Handel von Rohstoffen, der es
+  ermöglicht, zum Einen auch mit der Rohstoffproduktion Gewinne zu
+  erwirtschaften und zum Anderen den Einkauf von Rohstoffen ermöglicht, wenn die
+  eigenen Rohstoffvorkommen erschöpft sind oder das Kapital nicht ausreicht, um
+  sich gleichzeitig noch eine Mine leisten zu können. Dies wurde in Form eines
+  Handels zu Festpreisen realisiert.\\
+  Anders sieht es dagegen beim Energiemarkt aus:\\
+  Hier haben Angebot und Nachfrage einen Einfluss auf den Preis. Dieser Punkt
+  konnte auch realisiert werden, wobei Angebot und Nachfrage erst den Preis des
+  nächsten Quartals beeinflussen.
+  \item \textbf{Events}
+  Zufallsgesteuerte Ereignisse sollten negative Effekte erzielen, wenn bewusst
+  Kosten bei der Wartung der Kraftwerke gedrückt wurden. So kann es nun zu
+  kleineren Unfällen bis hin zum GAU kommen.
+  \item \textbf{Finanzen}
+  Als wichtiges Mittel zur Entscheidungsfindung dienen vor allem auch die
+  bisherigen Werte des Unternehmens. Daher wurde eine Bilanz implementiert, die
+  das gebundene Vermögen in Maschinen, Grundstücke, Rohstoffe, etc. sowie
+  die Mittelherkunft (Eigenkapital oder Fremdkapital) aufzeigt.\\
+  Darüber hinaus gibt eine Gewinn- und Verlustrechnung Aufschluss über die
+  wirtschaftliche Situation des Unternehmens und listet detailliert die
+  einzelnen Kosten, die im letzten Jahr angefallen sind, auf.
+\end{itemize}
+
+Zusammenfassend lässt sich sagen, dass ein Großteil der geplanten Anforderungen
+implementiert wurden. Die nicht implementierten Ideen beeinträchtigen das
+Spielerlebnis nicht wesentlich; ihr Fehlen beeinträchtigt nicht die
+Funktionalität der implementierten Anforderungen.
+
+% Wordcount: 600
