@@ -76,10 +76,11 @@ Jeder Typ besitzt dabei eine eigene Farbe und ein eigenes Icon, welche der gängi
     Typ & Farbe & Icon \\
     Photovoltaik & gelb & Sonne \\
     Kohle & braun & Kohlewagen \\
-    Gas & grau & Flamme \\
+    Gas & dunkelgrau & Flamme \\
     Wind & weiß & Windrad \\
     Wasser & blau & Wellen \\
     Uran & grün & Atomzeichen\\
+    Stadt & hellgrau & Skyline\\
     \end{tabular}
 \end{table}
 
@@ -143,8 +144,9 @@ Die Anzahl der statischen Elemente hat sich im Vergleich zum Mockup um zwei erhö
 \item Sidebar
 \end{itemize}
 
-Die \textbf{Schnellübersicht}
-Die \textbf{Schnellübersicht}
+Die \textbf{Schnellübersicht} befindet sich rechts neben der Menüleiste und gibt dem Nutzer stets einen Überblick über die aktuelle Finanz- und Rohstofflage und informiert den Spieler über die Veränderungen der Werte, welche in der nächsten Runde „gebucht“ werden. Somit ist kein lästiges Wechseln des Menüpunktes nötig, um diese Informationen zu erhalten. 
+
+Der \textbf{Spielerchat} ist ein kleines Zusatzfeature, welches am linken Rand zu lokalisieren ist. Mit diesem ist es möglich mit seinen Mit- bzw. Gegenspielern zu kommunizieren. Der Chatverlauf kann von allen Teilnehmern eingesehen werden.
 
 
 \subsubsection{Startscreen}
@@ -169,7 +171,7 @@ Auf den Startbildschirm folgend wird der Spieler in die Lobby weitergeleitet, in
 \end{figure}
 
 \subsubsection{Unternehmen}
-Die Unternehmensübersicht ist im 
+Die Unternehmensübersicht hat sic him Vergleich zum Mockup nicht stark geändert.
 
 \begin{figure}[H]
 \centering
@@ -180,10 +182,40 @@ Die Unternehmensübersicht ist im
 \end{figure}
 
 \subsubsection{Karte mit ausgewähltem Ressourcenfeld}
+Der Grundaufbau der Karte hat sich im Vergleich zum Mockup nur leicht geändert. So wurde die Form des Spielfeldes der einzelnen Felder angepasst und ist ebenso wie ein Hexagon geformt. 
+
+Außerdem wurden einige Icons und Farben von Feldern angepasst, um farblich besser hervorzustechen. Das Ergebnis sieht folgende Farben und Icons vor:
+
+\begin{table}
+    \begin{tabular}{lll}
+    Typ & Farbe & Icon \\
+    Photovoltaik & grün & Solarpanel \\
+    Kohle & braun & Kohlewagen \\
+    Gas & dunkelgrau & Flamme \\
+    Wind & hellgrau & Windrad \\
+    Wasser & blau & Wassertropfen \\
+    Uran & gelb & Atomzeichen\\
+    Stadt & lila & Skyline\\
+    \end{tabular}
+\end{table}
+
+Neben diesen Änderungen hat man auch die Umrandungen von betroffenen Feldern angepasst und neue hinzugefügt:
+
+\begin{table}
+    \begin{tabular}{lll}
+    Farbe & Beschreibung \\
+    rosa & Felder, die im Besitz des Spielers sind \\
+    turkis & Felder, bei denen eine Auktion durch einen beliebigen Spieler gestartet wurde \\
+    schwarz & Ressourcenfeld, auf dem eine Mine gebaut wurde
+    \end{tabular}
+\end{table}
+
+Eine besonders hilfreiche Funktion ist auch die automatische Zuordnung der Energiequellen zu den Verbraucherstätten. Damit wird eine Verknüpfung zwischen Feldern hergestellt, die sich gegenseitig Energie liefern. Die sogenannte Verknüpfungslinie ist rot.
+
 \begin{figure}[H]
 \centering
 \centering
-\includegraphics[width=0.8\textwidth]{se-wa-jpg/gui__karte_ressource}
+\includegraphics[width=0.8\textwidth]{se-wa-jpg/gui_karte_ressource}
 \caption{Karte mit ausgewähltem Ressourcenfeld}
 \label{Karte mit ausgewähltem Ressourcenfeld}
 \end{figure}
@@ -193,7 +225,7 @@ Die Unternehmensübersicht ist im
 \centering
 \centering
 \includegraphics[width=0.8\textwidth]{se-wa-jpg/gui_karte_city}
-\caption{Karte mit ausgewählter Stadt}    
+\caption{Karte mit ausgewählter Stadt}
 \label{Karte mit ausgewählter Stadt}
 \end{figure}
 
