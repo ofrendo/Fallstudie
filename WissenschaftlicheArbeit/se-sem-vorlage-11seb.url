@@ -1,1 +1,2 @@
 %%% jurabib url repository
+\expandafter\urldef\csname jburl@codeguru\endcsname\url{http://forums.codeguru.com/showthread.php?478270-Hexagon-Buttons}

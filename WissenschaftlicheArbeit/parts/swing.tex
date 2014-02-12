@@ -45,7 +45,7 @@ Tabellenstruktur in den einzelnen JLabels entsteht ähnlich wie im Menü durch
 die Nutzung von HTML Code. Die rechte Seite enthält die Nachrichten, die dem
 Spieler zum Beginn der Runde angezeigt werden.
 
-\subsection{Karte}
+\subsection{Karte}\label{GUIKarte}
 Die Karte ist das Herzstück der Benutzeroberfläche --- hier kann der Spieler die
 wichtigsten Entscheidungen wie das Bauen von Kraftwerken und das Schließen von
 Verträgen umsetzen. Insgesamt ist die Karte ein \texttt{PanelMain}. Zunächst wird die
@@ -53,10 +53,10 @@ linke (im Fenster mittlere) Seite erklärt.
 
 Das \texttt{PanelMap} selbst enthält nur viele \texttt{HexagonButton}, dessen
 Positionen von einem \texttt{HexagonLayout} verwaltet werden. Die Implementation
-des HexagonLayout wurde anfangs von 
-\begin{center}
-http://forums.codeguru.com/showthread.php?478270-Hexagon-Buttons
-\end{center}
+des HexagonLayout wurde anfangs von (\seCite{}{}{codeguru})
+%\begin{center}
+%http://forums.codeguru.com/showthread.php?478270-Hexagon-Buttons
+%\end{center}
 übernommen. Dieses besaß am Anfang nur ein rechteckiges Layout --- es wurde
 anschließend angepasst, damit beispielsweise die Höhe und Breite der Buttons 
 korrekt bei Änderung der Fenstergröße mitskaliert werden. Des Weiteren wurde ein

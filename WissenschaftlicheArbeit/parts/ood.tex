@@ -293,5 +293,63 @@ von Resourcen.
 \end{itemize}
 
 %Olli
-\subsection{Kartenerzeugung Olli}
+\subsection{Kartenerzeugung}
+Die Erzeugung der Karte geschieht in dem Pkaet \textbf{de.shared.map.generate}.
+Hier gibt es zunächst das Interface \textbf{MapType}, dass von zwei anderen
+Enumerations implementiert wird:
+\begin{itemize}
+  \item \textbf{MapTypeHexagon}: Diese Klasse stellt die Karte dar, die
+  wie ein großes Hexagon geformt ist --- dabei gibt es die verschiedene
+  Kartengrößen \textbf{SMALL}, \textbf{NORMAL} und \textbf{LARGE}. Hier werden
+  verschiedene Methoden angeboten, die größtenteils in dem GUI (siehe
+  \ref{GUIKarte}) verwendet werden: Beispielsweise gibt die rekursive Funktion
+  \textbf{getAmountTilesForRow(int rowIndex)} die Anzahl von Feldern zurück, die
+  in einer bestimmten Reihe liegen. 
+  \item \textbf{MapTypeRect}: Der zweite Kartentyp ist rechteckig geformt. Diese
+  ist einfacher entwickelt und besitzt die gleichen Kartengrößen wie die
+  \textbf{MapTypeHexagon}.
+\end{itemize}
+Des Weiteren bestimmt die Klasse \textbf{CityNameGenerator} zufällig Städtenamen
+aus einer Liste von Strings.
 
+Die eigentliche Kartenerzeugung findet in \textbf{RegionGenerator} statt.
+Zunächst werden in der Methode \textbf{generateRegions} die Portionen der Karte
+festgelegt, die jeder Feldtyp besitzt. Beispielsweise sind also $1/7$ der Felder
+Kohlefelder. 
+
+Einleitend wird nun das Koordinatensystem der Karte erklärt. Da die Karte aus
+hexagonförmigen Feldern mit je sechs Seiten besteht kann hier nicht das
+klassische kartesische Koordinatensystem genutzt werden. Es bleiben immer noch
+zwei Achsen X und Y, diese laufen aber nicht im rechten Winkel zu einander:
+%\citehttp://keekerdc.com/2011/03/hexagon-grids-coordinate-systems-and-distance-calculations/
+
+
+%Bild Koordinatensystem
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.6\textwidth]{se-wa-jpg/hexagonkarte}
+\caption{Koordinatensystem der Karte}
+\label{Koordinatensystem}
+\end{figure}
+Des Weiteren kann die Distanz von einem Feld zu einem anderen folgendermaßen
+berechnet werden:
+\begin{align*}
+\Delta x = x_1 - x_2 \\
+\Delta y = y_1 - y_2
+\end{align*}
+Sind die Vorzeichen von $\Delta x$ und $\Delta y$ verschieden, ist die Distanz
+durch den größeren (positiven) Wert gegeben. Im anderen Fall, wenn $\Delta x$
+und $\Delta y$ das gleiche Vorzeichen besitzen, ist die Distanz durch die Summe
+der Beträge der beiden Werte berechenbar.
+
+Um die eigentliche Karte zu erzeigen werden als nächstes die Positionen der
+Städte zufällig generiert. Dazu werden seine X und Y Koordinaten durch eine
+Zufallszahl bestimmt --- jedoch muss die Stadt mindestens ein Feld von jeder 
+anderen bisher generierten Stadt entfernt sein. 
+
+Anschließend werden die Ressourcenfelder erzeugt. Dafür wird eine
+\textbf{HashMap} angelegt, die als Datensätze die verschiedenen Rohstofftypen
+und dessen Felderanzahl enthält. Es wird jetzt jedes Feld durchlaufen, das noch
+keine Stadt ist. Der Rohstofftyp des Feldes wird durch eine zufällige Wahl von einem
+der Datensätze der \textbf{HashMap} bestimmt, dessen verbleibende Felderanzahl
+dann entsprechend reduzier wird.
