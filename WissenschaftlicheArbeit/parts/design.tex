@@ -1,24 +1,12 @@
 %Marco
 \section{Design}
-Um den Spielern des Planspiels auch ein echtes Spielerlebnis zu bieten wurde die
-Entscheidung getroffen eine grafische OberflŠche zu schaffen, welche jegliche Spielinformationen abbildet. 
-Auf den folgenden Seiten wird der Entwicklungsprozess, als auch die Ergebnisse
-und mšgliche Verbesserungsmšglichkeiten wiedergegeben:
+Die Benutzeroberfläche ist eines der wichtigsten Bestandteile eines Spieles. Dadurch wird dem Spieler ein echtes Spielerlebnis geboten, wobei jegliche Spielinformationen strukturiert abgebildet werden. Auf den folgenden Seiten wird der Entwicklungsprozess, als auch die Ergebnisse und mögliche Verbesserungsmöglichkeiten dargelegt und wiedergegeben.
 
 \subsection{Entwicklung} 
-Die Entwicklung des Designs spielte eine wichtige Rolle bei uns, welche sich in einzelne Phasen unterteilen lassen kann. 
-Die einzelnen Phasen, Schritte und Ideen dahinter werden im folgenden dargelegt.
+Die Entwicklung des Designs spielt eine wichtige Rolle, welche sich in einzelne Phasen unterteilen lassen kann. Die einzelnen Phasen, Schritte und Ideen dahinter werden im Folgenden dargelegt.
 
 \subsubsection{Brainstorming \& erste Skizzen}
-Nach der Entwicklung des Spielkonzeptes und der Programmierung der ersten
-Spielfunktionen wurde damit begonnen die ersten Ideen fŸr das User-Interface zu sammeln. 
-Dazu wurde eine gemeinsame Brainstorming-Session gestartet und alle mšglichen
-VorschlŠge zusammengetragen. Diese VorschlŠge wurden dann in erste Skizzen
-verpackt und mšgliche Anordnungen und Elemente diskutiert. 
-Da die Skizzen jedoch sehr einfach, unŸbersichtlich \& ungenau waren wurden
-daraus, mit Hilfe von Grafikprogramme, Mockups erstellt, um die Ideen
-realitŠtsgenau darzustellen und  wirken zu lassen und somit sowohl StŠrken als
-auch SchwŠchen der Ideen aufzudecken.
+Nach der Entwicklung des Spielkonzeptes und der Programmierung der ersten Spielfunktionen wurde damit begonnen die ersten Ideen für das User-Interface zu sammeln. Dazu wurde eine gemeinsame Brainstorming-Session gestartet und alle möglichen Vorschläge zusammengetragen. Diese Vorschläge wurden dann in erste Skizzen verpackt und mögliche Anordnungen und Elemente diskutiert. Da die Skizzen jedoch sehr einfach, unübersichtlich und ungenau waren, wurden daraus, mit Hilfe von Grafikprogramme, Mockups erstellt, um die Ideen realitätsgenau darzustellen und  wirken zu lassen und somit sowohl Stärken als auch Schwächen der Ideen aufzudecken und diese zu optimieren.
 
 \begin{figure}[H]
 \centering
@@ -29,60 +17,97 @@ auch SchwŠchen der Ideen aufzudecken.
 \end{figure}
 
 \subsubsection{Mockup \& Ideen}
-Im folgenden werden die einzelnen Mockup-Grafiken dargestellt und kurz
-erlŠutert:
+Im Folgenden werden die einzelnen Mockup-Grafiken dargestellt und kurz Erläutert, um unsere Ideen der grafischen Aufteilung genau zu beschreiben.
 
 \paragraph{Elemente}
-Um den Spieler nicht zu verwirren wird auf statische OberflŠchenelemente
-gesetzt, welche sich in jedem Bildschirm an der selben Stellen befinden. DafŸr
-wurde der Bildschirm der Mockups in drei Teile geteilt:
+Um den Spieler nicht zu verwirren wird auf statische Oberflächenelemente gesetzt, welche sich in jedem Bildschirm an denselben Stellen befinden. Dafür wurde der Bildschirm der Mockups in drei Teile geteilt:
 \begin{itemize}
-\item MenŸleiste
+\item Menüleiste
 \item Hauptframe
 \item Sidebar
 \end{itemize}
 
-Die \textbf{MenŸleiste} befindet sich am oberen Bildschirmrand und stellt dem
-Spieler die Navigation auf die unterschiedlichen Seiten zur VerfŸgung.
+Die \textbf{Menüleiste} befindet sich am oberen Bildschirmrand und stellt dem Spieler die Navigation auf die unterschiedlichen Seiten zur Verfügung. Die Hintergrundfarbe ist ein starkes braun.
 
-Im \textbf{Hauptfrage} werden die Hauptinformationen des Spiels dargestellt und
-ist fŸr die Hauptinteraktionen verantwortlich.
+Im \textbf{Hauptframe} werden die Hauptinformationen des Spiels dargestellt und die Hauptinteraktionen des Spielers ausgeführt. Als Hintergrundfarbe wurde ein Beigeton gewählt, welche die Farbe von Erde (Sand) widerspiegeln soll.
 
-Die \textbf{Sidebar} dient dabei als Erweiterung und bietet zusŠtzliche
-Informationen, aber auch Interaktionsmšglichkeiten an.
+Die \textbf{Sidebar} dient dabei als Erweiterung des Hauptframes und bietet dem Spieler zusätzliche Informationen, aber auch Interaktionsmöglichkeiten an.
 
-\paragraph{UnternehmensŸbersicht}
-Die Idee hinter der UnternehmensŸbersicht ist, dass der Spieler einen †berblick
-Ÿber alle wichtigen Informationen seines Unternehmens bekommt. Dazu zŠhlt der
-Kontostand, Einnahmen, Ausgaben, Anzahl der Rohstoffe, Stromproduktion,
-Stromverbrauch, Strombilanz und die Anzahl der im Besitz befindenen Kraftwerke & Mienen. Des Weiteren soll der Nutzer auf dieser Seite auch Ÿber Aktionen der vorangegangen Spielrunde informiert werden, um keine wichtigen Interkationen & Ereignisse zu verpassen.
+
+\paragraph{Unternehmensübersicht}
+Die Idee hinter der Unternehmensübersicht ist, dass der Spieler einen Überblick über alle wichtigen Informationen seines Unternehmens bekommt. Dazu zählt der Kontostand, Einnahmen, Ausgaben, Anzahl der Rohstoffe, Stromproduktion, Stromverbrauch, Strombilanz und die Anzahl der im Besitz befindenden Kraftwerke und Minen. Des Weiteren soll der Nutzer auf dieser Seite auch über Aktionen der vorangegangen Spielrunde informiert werden, um keine wichtigen Interkationen und Ereignisse zu verpassen. Die einzelnen Informationen werden dabei klassisch als Text dargestellt, um die einzelnen Werte eindeutig und schnell dem Spieler zur Verfügung zu stellen.
+
 \begin{figure}[H]
 \centering
 \centering
 \includegraphics[width=0.9\textwidth]{se-wa-jpg/gui_unternehmen}
-\caption{UnternehmensŸbersicht}
-\label{UnternehmensŸbersicht}
+\caption{Unternehmensübersicht}
+\label{Unternehmensübersicht}
 \end{figure}
 
-\paragraph{Karte mit ausgewŠhltem Ressourcenfeld}
+\paragraph{Karte}
+Die Karte stellt den Hauptinteraktionspunkt des Spielers dar und bildet das Spielfeld ab. Die Form eines Feldes ist ein Hexagon, welche dem Spiel Civilization nachempfunden ist. Dabei wird in drei verschiedene Feldertypen unterschieden:
+\begin{itemize}
+\item Ressourcen
+\item Städte
+\item Leere Felder
+\end{itemize}
+
+
+\paragraph{Karte mit ausgewähltem Ressourcenfeld}
 \begin{figure}[H]
 \centering
 \centering
 \includegraphics[width=0.9\textwidth]{se-wa-jpg/gui_karte01}
-\caption{Karte mit ausgewŠhltem Ressourcenfeld}
-\label{Karte mit ausgewŠhltem Ressourcenfeld}
+\caption{Karte mit ausgewähltem Ressourcenfeld}
+\label{Karte mit ausgewähltem Ressourcenfeld}
 \end{figure}
+Der Typ \textbf{Ressourcen} lässt sich des Weiteren weiter in folgenden Feldern unterteilen:
+\begin{itemize}
+\item Photovoltaik
+\item Kohle
+\item Gas
+\item Wind
+\item Wasser
+\end{itemize}
 
-\paragraph{Karte mit ausgewŠhlter Stadt}
+Jeder Typ besitzt dabei eine eigene Farbe und ein eigenes Icon, welche der gängigen menschlichen Meinung nachempfunden ist. Dadurch ist es auch möglich ohne viel Lese- oder Einarbeitungszeit das Spielfeld und die verschiedenen Typen zu verstehen. In den Mockups wurden folgende Farben und Icons gewählt:
+
+\begin{table}
+    \begin{tabular}{lll}
+    Typ & Farbe & Icon \\
+    Photovoltaik & gelb & Sonne \\
+    Kohle & braun & Kohlewagen \\
+    Gas & grau & Flamme \\
+    Wind & weiß & Windrad \\
+    Wasser & blau & Wellen \\
+    Uran & grün & Atomzeichen\\
+    \end{tabular}
+\end{table}
+
+Um nun hervorzuheben, welche Felder sich im Besitz des Spielers oder der Gegenspieler befinden wurde eine farbliche Umrandung des Feldes gewählt. Eigene Felder werden dabei in Orange und fremde Felder in weiß umrandet. Eine schwarze Umrandung bedeutet, dass ein Spieler eine Auktion um das Feld eröffnet hat und darauf geboten werden kann.
+
+Ist ein Ressourcenfeld ausgewählt werden in der Sidebar die jeweiligen Feldinformationen angezeigt. Dazu zählen sowohl Minen und Kraftwerkinformationen sowie die Möglichkeit diese überhaupt auch zu bauen, wenn das Feld im Besitz des Spielers ist. Ist es nicht im Besitz des Spielers werden nur wenige Standardinformationen angezeigt.
+
+
+\paragraph{Karte mit ausgewählter Stadt}
+Der Typ \textbf{Stadt} stellt die im Spiel existierenden Städte dar, welche von dem Spieler erschlossen werden können und somit lebensnotwendig für jedes Energieunternehmen sind. Diese Felder werden mit einem hellen grau inkl. Skyline-Icon gekennzeichnet. Habe ich einen Vertrag zur Belieferung von Strom mit einer Stadt geschlossen wird diese rot umrandet.
+
+Ist eine Stadt gewählt, ist es möglich über die Sidebar Informationen wie z.B. Name und Bevölkerungsanzahl zu erlangen. Im eigenen Besitz befindende Städte zeigen ebenso die Anzahl der Kunden als auch die Kosten, Preise, Beliebtheit und Bekanntheit an.
+
 \begin{figure}[H]
 \centering
 \centering
 \includegraphics[width=0.9\textwidth]{se-wa-jpg/gui_karte02}
-\caption{Karte mit ausgewŠhlter Stadt}
-\label{Karte mit ausgewŠhlter Stadt}
+\caption{Karte mit ausgewählter Stadt}
+\label{Karte mit ausgewählter Stadt}
 \end{figure}
 
 \paragraph{Finanzen}
+Unter dem Menüpunkt „Finanzen“ ist eine komplette Bilanz sowie Gewinn- & Verlustrechnung zu finden. Beide werden in Tabellenform dargestellt und helfen somit dem Spieler aktuelle Informationen über das Unternehmen zu erhalten & Strategien daraus abzuleiten.
+
+Des Weiteren wird in der Sidebar eine kleine Übersicht über die Finanzlage (Einnahmen und Ausgaben) abgebildet. Sollte es nötig sein einen Kredit aufnehmen zu müssen ist dies dort ebenso möglich sowie die Tilgung der Kredite.
+
 \begin{figure}[H]
 \centering
 \centering
@@ -92,7 +117,8 @@ Stromverbrauch, Strombilanz und die Anzahl der im Besitz befindenen Kraftwerke &
 \end{figure}
 
 \paragraph{Markt}
-\begin{figure}[H]
+Der Markt ist ein Handelsplatz für Strom & Rohstoffe. Dort ist es möglich über
+Inputfelder Waren zu kaufen und zu verkaufen. Neben den aktuellen Preisen wird ebenso ein Liniendiagramm generiert, welches den Preisverlauf von Strom widerspiegelt und somit eine Art „Kurs“ abbildet. \begin{figure}[H]
 \centering
 \centering
 \includegraphics[width=0.9\textwidth]{se-wa-jpg/gui_markt}
@@ -102,6 +128,8 @@ Stromverbrauch, Strombilanz und die Anzahl der im Besitz befindenen Kraftwerke &
 
 \subsection{Auswertung}
 \subsubsection{Ergebnis}
+Während der Programmierung wurden etliche Elemente ergänzt, um das Spiel
+angenehmer zu machen und in den Mockups nicht berücksichtigte Ereignisse nutzbar zu machen. Im Folgenden werden nur die ergänzten Elemente der einzelnen Screens genannt und kurz erläutert. Ein Vergleich des Mockups mit dem Ergebnis folgt dann im darauf folgenden Kapitel.
 
 \subsubsection{Vergleich Mockup mit Ergebnis}
-\subsubsection{Verbesserungsmšglichkeiten}
+\subsubsection{Verbesserungsmöglichkeiten}
