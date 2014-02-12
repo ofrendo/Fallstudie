@@ -1,6 +1,6 @@
 \newpage
 \section{OOA-Klassenmodell}\label{ooa}\label{joern:ooa}
-Im Folgenden wird unser, auf Basis der Anforderungen unseres Planspiels,
+Im Folgenden wird unser auf Basis der Anforderungen unseres Planspiels
 erstelltes Klassendiagramm der Analysephase aus \ref{OOA-Client} und
 \ref{OOA-Server} auf \pageref{OOA-Client} und \pageref{OOA-Server} näher
 erläutert. 
@@ -11,7 +11,7 @@ zwischen Server und Client genutzt werden, abgebildet. Der zweite Teil enthält
 die Klassen des Servers und weitere Klassen und Interfaces, die für die
 Kommunikation zwischen Server und Client vorgesehen sind.
 
-Das Herzstück des Unternehmens, dass auf Client-Seite vorgesehen ist, ist die
+Das Herzstück des Unternehmens, das auf Client-Seite vorgesehen ist, ist die
 'Company' -Klasse. In ihr werden alle Entscheidungen des Spielers bearbeitet
 und sie enthält alle Informationen, die der Spieler über sein Unternehmen
 benötigt.
@@ -26,26 +26,26 @@ dem 'Contract' auch über die Kunden des Unternehmens. Hier werden auch neue
 Verträge angeboten, um neue Kunden zu generieren.
 
 Die Abteilungen des Unternehmens umfassen das 'Warehouse', das
-'InvestmentManagement', den 'Research', die 'Finances' und das 'Marketing'. In
-dem Warehouse werden die Rohstoffe gelagert, die in Minen produziert
-werden und die für die Produktion von Strom in den Kraftwerken benötigt werden.
-Auch gehandelter Rohstoffe werden hier entnommen oder eingelagert.\\
+'InvestmentManagement', den 'Research', die 'Finances' und das 'Marketing'. Im
+Warehouse werden die Rohstoffe gelagert, die in Minen produziert werden und die
+für die Produktion von Strom in den Kraftwerken benötigt werden.
+Auch gehandelte Rohstoffe werden hier entnommen oder eingelagert.\\
 Das InvestmentMangement beinhaltet alle Gebäude (Minen und Kraftwerke) und
 alle Grundstücke (Regionen), die das Unternehmen besitzt. Hier werden neue Gebäude
 hinzugefügt, Abschreibungen berechnet und Produktionsmengen, die sich aus einer
-Maximalen Produktion und dem Auslastugnsfaktor berechnen, eingestellt und
+maximalen Produktion und dem Auslastungsfaktor berechnen, eingestellt und
 ausgelesen.
-Zudem besitzt jedes Kraftwerk mehrere 'PowerStationRelation', die beinhalten 
-wieviel Energie das Kraftwerk den einzelnen, umliegenden Städten
+Zudem besitzt jedes Kraftwerk mehrere 'PowerStationRelation', die beinhalten, 
+wieviel Energie das Kraftwerk den einzelnen umliegenden Städten
 liefert. Diese Beziehung von einem Kraftwerk zu den Städten ist vorgesehen,
-damit die gewollte, maximale Lieferentfernung von drei Feldern nicht
+damit die gewollte maximale Lieferentfernung von drei Feldern nicht
 überschritten wird.\\
-Die Finances sind vorgesehen, um alle vier Quartale, eine Bilanz und eine
-Gewinn und Verlustrechnung aufzustellen. Alle Einnahmen und Ausgaben werden hier
-eingespeichert und aufbereitet.\\
-Das Marketing ist vorgesehen um die Beliebtheit und die Bekanntheit
+Die Finances sind vorgesehen, um alle vier Quartale eine Bilanz und eine
+Gewinn- und Verlustrechnung aufzustellen. Alle Einnahmen und Ausgaben werden
+hier eingespeichert und aufbereitet.\\
+Das Marketing ist vorgesehen, um die Beliebtheit und die Bekanntheit
 bei den Kunden zu beeinflussen.\\
-Der letzte Bereich, der Research, ist vorgesehen um möglicherweise eine aktive
+Der letzte Bereich, der Research, ist vorgesehen, um möglicherweise eine aktive
 Forschung einbauen zu können. Auf Grund von anderen Prioritäten ist dieser aber 
 nicht weiter modelliert und auch nicht in das entgültige Planspiel aufgenommen
 worden.
@@ -68,10 +68,10 @@ können. Lediglich die Kunden des Unternehmens sollen seperat in einem
 Die Verbindung zwischen Client und Server wird aufgebaut indem
 sich der Client über die 'Client'-Klasse mit der 'Server'-Klasse auf Serverseite
 verbindet. Dort wird die Verbindung akzeptiert und nach dem
-'Thread-per-Connection'-Prinzip ein, für jeden Clienten seperater Thread der
+'Thread-per-Connection'-Prinzip ein für jeden Clienten seperater Thread der
 Klasse 'Connection' erstellt. Dieser empfängt alle Nachrichten der Clients und
 gibt diese an die 'ServerGame'-Klasse weiter, die die Daten anschließend
-verarbeitet und entsprechende Änderungen im Spiel, zumeist in dem Map-Objekt
+verarbeitet und entsprechende Änderungen im Spiel, zumeist in dem Map-Objekt,
 vornimmt.
 
 \begin{figure}[H]
