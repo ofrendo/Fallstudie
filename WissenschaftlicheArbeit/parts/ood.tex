@@ -19,17 +19,17 @@ Bei der Implementierung auf Basis dieses Klassenmodells haben wir aber noch
 einige Änderungen und Einschränkungen vorgenommen. Im folgenden Abschnitt werden
 diese Unterschiede und dessen Hintergründe näher erläutert.
 
-Durch Prioritäten die wir in der Entwurfsphase gesätzt haben, sind gegenüber dem
-OOA-Diagramm auch einige Bereiche weggefallen:
+Durch Prioritäten, die wir in der Entwurfsphase gesetzt haben, sind gegenüber
+dem OOA-Diagramm auch einige Bereiche weggefallen:
 \begin{itemize}
   \item {\textbf{Marketing}}\\
   Das Marketing und die dazugehörige Marktforschung und Werbung haben zeitlich
   nicht mehr in den Plan gepasst.
   \item{\textbf{Mitarbeiter}}\\
-  Die Mitarbeiter als einzelnes Objekt zu modellieren erschien uns im Laufe der
-  Entwurfsphase in einem Gebäudeintensiven Unternehmen für keine Notwendigkeit
-  mehr. Deswegen haben wir uns nun dazu entschieden auf eine Mitarbeiteranzahl
-  und weiteres zu verzichten und diese vielmehr in die laufenden Kosten der
+  Die Mitarbeiter als einzelnes Objekt zu modellieren, erschien uns im Laufe der
+  Entwurfsphase in einem gebäudeintensiven Unternehmen für nicht mehr notwendig.
+  Deswegen haben wir uns nun dazu entschieden, auf eine Mitarbeiteranzahl und
+  weiteres zu verzichten und diese vielmehr in die laufenden Kosten der
   einzelnen Kraftwerke mit einfließen zu lassen.
 \end{itemize}
 
@@ -47,24 +47,24 @@ OOA-Diagramm auch einige Bereiche weggefallen:
 \end{figure}
 
 Die Client-Server Architektur, die bei unserem Planspiel angewandt wird,
-ermöglicht es mehreren Spielern ihren Spielzug gleichzeitig zu absolvieren.
+ermöglicht es mehreren Spielern, ihren Spielzug gleichzeitig zu absolvieren.
 Zwar verringert dies die Wartezeiten der Spieler im Gegensatz zum
 Hotseat-Modell, allerdings muss bei einem gemeinsamen Server und mehreren
 Clienten darauf geachtet werden, dass es zu keinen Dateninkonsistenzen kommt.
 An der ``Thread-per-Connection''-Methode hat sich seit der Analysephase (siehe
-\ref{ooa}) nichts geändert, weswegen hier darauf nicht näher eingegangen wird.
+\ref{ooa}) nichts geändert, weswegen hier nicht näher darauf eingegangen wird.
 
 In \ref{OOD-Map} ist die Klassenstruktur abgebildet, die alle Daten enthält, die
 für alle Spieler interessant sind und indirekt auch von diesen geändert werden
-können. Hierbei haben wir uns dazu entschlossen nicht alle Entscheidungen des
+können. Hierbei haben wir uns dazu entschlossen, nicht alle Entscheidungen des
 Spielers dem Server mitzuteilen, sondern einige Eingaben auf Client-Seite
 zu bearbeiten, um den Server nicht unnötig zu belasten und den
 Datenverkehr zu vermindern. Zum Beispiel wird das Vermögen eines Unternehmens
 komplett auf Client-Seite bearbeitet, da es für die anderen Spieler im Spiel
 nicht sichtbar gemacht werden soll.\\
-Um Dateninkonsistenz zu vermeiden werden alle Änderungen, die alle Spieler
-betreffen, direkt an den Server gesendet, dieser wertet die Änderungen aus
-überträgt sie gegebenenfalls in den entsprechenden Objekte. Zu Rundenbeginn
+Um Dateninkonsistenz zu vermeiden, werden alle Änderungen, die alle Spieler
+betreffen, direkt an den Server gesendet. Dieser wertet die Änderungen aus
+überträgt sie gegebenenfalls in die entsprechenden Objekte. Zu Rundenbeginn
 wird nun die gesamt Objektstruktur, die in einem Objekt der 'Map'-Klasse auf
 Serverseite gespeichert ist, an alle Clients übertragen. Dadurch, dass nur der
 Server solche Änderungen vornehmen kann und diese auch nicht von verschiedenen
@@ -72,43 +72,43 @@ Server solche Änderungen vornehmen kann und diese auch nicht von verschiedenen
 die richtige Datenhaltung sichergestellt.
 
 Während der Analysephase war es angedacht, Verträge mit einer Stadt unabhängig
-vom Rundenende zu schließen. Diese Idee wurde während der Entwcklung verworfen,
-so dass nun jeder Spieler seine Vertragsvorschläge dem Server während der Runde
+vom Rundenende abzuschließen. Diese Idee wurde während der Entwicklung
+verworfen, sodass nun jeder Spieler seine Vertragsvorschläge dem Server während der Runde
 zusendet, der Server nach der Runde die Kunden jedes Spielers
 errechnet und zum nächsten Rundenanfang diese den Spielern mitteilt.\\
-Wie in \ref{OOD-Map} zu sehen ist, haben wir uns deswegen dazu entschieden den
+Wie in \ref{OOD-Map} zu sehen ist, haben wir uns deswegen dazu entschieden, den
 'Contract', der vorher unter dem Unternehmen in dem Bereich der Beziehungen zu
-den Regionen angeordnet war, nun der 'Map' und darin der 'CityRegion' zu
-unterordnen.\\
+den Regionen angeordnet war, nun der 'Map' und darin der 'CityRegion'
+unterzuordnen.\\
 Diese Änderung in der Struktur der Fachlogik erlaubt es dem Server weiterhin,
 alle Daten, die jede Runde den Spielern zugeschickt werden, in einer einzigen
 Objektstruktur zu übertragen.
 Dies ermöglicht zum einen eine einfache Kommunikation vom Server zum Client und
 zum anderen kann nun auch der Client alle wichtigen Änderungen der Runde aus
-einem einzigen Objekt auslesen, in dem er die neu erhaltene 'Map' mit der
+einem einzigen Objekt auslesen, indem er die neu erhaltene 'Map' mit der
 vorhandenen aus der vergangenen Runde vergleicht.
 
-Im folgenden werden die einzelnen Klassen, die vom Server zu dem Client
+Im folgenden werden die einzelnen Klassen, die vom Server zum Client
 übertragen werden, näher erläutert:
 \begin{itemize}
   \item {\textbf{Klasse Map}}\\
-  Die Klasse Map enthält zum Einen alle Regionen der Spielkarte, die zu Beginn
-  des Spiels vom Server generiert werden und zum Anderen die
+  Die Klasse Map enthält zum einen alle Regionen der Spielkarte, die zu Beginn
+  des Spiels vom Server generiert werden, und zum anderen die
   Strombörse('EnergyExchange') und den Ressourcenmarkt. Außerdem werden in ihr
   die Kunden der einzlnen Spieler in den verschiedenen Städten berechnet.
   \item{\textbf{Klasse RessourceMarket}}\\
   Der Ressourcenmarkt setzt sich aus den drei unterschiedlichen Rohstoffen
-  zusammen, die in unserem SPiel vorhanden sind. Die Preise für die Rohstoffe
+  zusammen, die in unserem Spiel vorhanden sind. Die Preise für die Rohstoffe
   sind in dem Programm als Konstanten festgesetzt und ändern sich nicht mit der
   Zeit.
   \item{\textbf{Klasse EnergyExchange}}\\
   Die Strombörse im Spiel hat einen schwankenden Preis. Dieser reguliert sich
-  aus Angebot und Nachfrage. Jedes mal wenn ein Spieler einen Stromhandel
-  abschließt, schickt der Client eine kleine Nachricht über die höhe des Handels
+  aus Angebot und Nachfrage. Jedes Mal, wenn ein Spieler einen Stromhandel
+  abschließt, schickt der Client eine kleine Nachricht über die Höhe des Handels
   an den Server, der daraufhin den neuen Preis für die nächste Runde berechnet.
   \item{\textbf{Klasse Region und Klasse Coords}}\\
-  Die Klasse Region ist dafür gedacht, dass sie mit ihren Koordinaten, die in
-  der Klasse Coords gespeichert sind, eindeutig ermittelt werden kann. Die
+  Die Klasse Region ist dafür gedacht, dass sie mithilfe ihrer Koordinaten, die
+  in der Klasse Coords gespeichert sind, eindeutig ermittelt werden kann. Die
   Region ist nich dafür gedacht, dass sie für sich instanziiert wird, sondern
   mit Hilfe von Vererbung entweder als Ressourcenregion oder Stadtregion benutzt
   wird.
@@ -118,11 +118,11 @@ Im folgenden werden die einzelnen Klassen, die vom Server zu dem Client
   einer Einwohnerzahl und verschiedenen Kennziffern zum Spielstart generiert,
   während die Kundenzahlen, die in den Contracts gespeichert sind, sich jede
   Runde durch Preisänderungen der Spieler ändern können. Jede Stadt hat für
-  jedes Unternehmen, dass in ihr Kunden besitzt, ein seperates Contract-Objekt.
+  jedes Unternehmen, das in ihr Kunden besitzt, ein seperates Contract-Objekt.
   \item{\textbf{Klasse RessourceRegion}}\\ 
   Die RessourceRegion wird mit einem bestimmten RessourceType (siehe
   Enumeration RessouurceType) und gegebenenfalls einer Menge des Rohstoffes zum
-  Spielstart generiert. Für erneuerbare Energien, wie z.B. Wasser entfällt
+  Spielstart generiert. Für erneuerbare Energien wie z.B. Wasser entfällt
   natürlich die Rohstoffmenge. Während des Spiels können Spieler auf die
   Regionen bieten, um sie bebauen zu können. Diese Gebote werden an den Server
   gesendet, der dann den Zuschlag an ein Unternehmen gibt, der danach zum
@@ -145,38 +145,39 @@ Im folgenden werden die einzelnen Klassen, die vom Server zu dem Client
 \end{figure}
 
 Die Abteilung 'Investment', die für die Verwaltung der Gebäude in dem
-Unternehmen zuständig ist wurde im Vergleich zur Analysephase in einigen Punkten
-geändert. Der 'InvestmentManager' aus der Analyse fällt in unserem Entwurf weg.
-Die Funktion die die Klasse übernommen hätte, das hinzufügen von Gebäuden, wird
+Unternehmen zuständig ist, wurde im Vergleich zur Analysephase in einigen
+Punkten geändert. Der 'InvestmentManager' aus der Analyse fällt in unserem Entwurf weg.
+Die Funktion, die die Klasse übernommen hätte, das Hinzufügen von Gebäuden, wird
 stattdessen von der 'Company'-Klasse übernommen.\\
 Zudem gibt es nun keine Objekte mehr für die Grundstücke, die das Unternehmen
-besitzt. Diese Unterscheiden sich nicht voneinander, so dass die Spieler einfach
-als Besitzer der Region in das jeweilige Objekt geschrieben werden kann und
+besitzt. Diese unterscheiden sich nicht voneinander, sodass die Spieler einfach
+als Besitzer der Region in das jeweilige Objekt geschrieben werden können und
 keine gesonderte Klasse benötigt wird.
-Auch die Unterscheidung zwischen erneuerbaren Energieen wird nun nicht mehr in
-Form von Klassen, sondern mit Hilfe des 'RessourceType' des Kraftwerks.
+Auch die Unterscheidung zwischen erneuerbaren Energien wird nun nicht mehr in
+Form von Klassen, sondern mit Hilfe des 'RessourceType's des Kraftwerks
+vorgenommen.
 
-Alle verblienden Klassen werden im  folgenden erläutert:
+Alle verbliebenen Klassen werden im  Folgenden erläutert:
 \begin{itemize}
   \item{\textbf{Klasse Investment und Klasse Building}}\\ 
   Die Klassen Investment und Building legen die Grundlagen für die beiden
   Gebäudetypen: die Mine und das Kraftwerk. Hierzu werden bereits im Investment
-  der Kaufpreis, der aktuelle Buchwert und die dazugehörigen, jährlichen
+  der Kaufpreis, der aktuelle Buchwert und die dazugehörigen jährlichen
   Abschreibungen beschrieben. Die Klasse Building ergänzt diese Informationen
   noch um eine maximale Produktion und die derzeitige Auslastung. Darüber hinaus
-  wird gespeichert ob der Bau bereits beendet wurde und, wenn nicht, wie lange
+  wird gespeichert, ob der Bau bereits beendet wurde und, wenn nicht, wie lange
   der Bau noch benötigt. Auch die aktuelle Produktion und die laufenden Kosten
   können hier abgelesen werden.
   \item{\textbf{Klasse Mine}}\\
-  Zuzüglich zu dem Gebäude und dem Investment besitzt die Mine noch ein
+  Zuzüglich zu dem Gebäude und dem Investment besitzt die Mine noch einen
   Ressourcentyp und eine Referenz auf die 'RessourceRelation', in der die
   verbleibende Menge des Rohstofffeldes gespeichert wird. Damit kann jede Runde
   die Menge an produzierten Rohstoffen berechnet werden.
   \item{\textbf{Klasse PowerStation}}\\ 
-  Zu dem aktuellen Auslastungsfaktor im Gebäude, wird in dem Kraftwerk noch ein
-  Indikator für die Verstellbarkeit. Dieser beschreibt wie stark die laufenden
-  Kosten eingespart werden können, in dem die Auslastung gesenkt wird. Des
-  weiteren beinhaltet das Kraftwerk noch Wartungskosten, die, sofern sie
+  Zum aktuellen Auslastungsfaktor im Gebäude wird im Kraftwerk noch ein
+  Indikator für die Verstellbarkeit gespeichert. Dieser beschreibt, wie stark
+  die laufenden Kosten eingespart werden können, indem die Auslastung gesenkt wird. Des
+  Weiteren beinhaltet das Kraftwerk noch Wartungskosten, die, sofern sie
   eingespart werden, möglicherweise Reparaturen erforderlich machen. Auch den
   Verbrauch, der bei den fossilen Energien gebraucht wird, kann man hier
   ablesen.
@@ -241,7 +242,7 @@ Im Einzelnen werden die relevantesten Methoden und ihre Aufgabe vorgestellt:\\
 \textbf{Klasse ProfitAndLoss}
 \begin{itemize}
   \item \textbf{addXYZ(double amount)}
-  da nicht alle Aufwendungen und Erträge zum Ende jeden Jahres berechnet werden
+  Da nicht alle Aufwendungen und Erträge zum Ende jeden Jahres berechnet werden
   können, addieren diese Methoden die entsprechenden Werte für die jeweiligen
   A/E und speichern sie in den Attributen \textbf{nextXYZ}.
   \item \textbf{nextYear()}
@@ -320,7 +321,7 @@ Kohlefelder.
 Einleitend wird nun das Koordinatensystem der Karte erklärt. Da die Karte aus
 hexagonförmigen Feldern mit je sechs Seiten besteht kann hier nicht das
 klassische kartesische Koordinatensystem genutzt werden. Es bleiben immer noch
-zwei Achsen X und Y, diese laufen aber nicht im rechten Winkel zu einander:
+zwei Achsen X und Y, diese laufen aber nicht im rechten Winkel zueinander:
 %\citehttp://keekerdc.com/2011/03/hexagon-grids-coordinate-systems-and-distance-calculations/
 
 
@@ -342,8 +343,8 @@ durch den größeren (positiven) Wert gegeben. Im anderen Fall, wenn $\Delta x$
 und $\Delta y$ das gleiche Vorzeichen besitzen, ist die Distanz durch die Summe
 der Beträge der beiden Werte berechenbar.
 
-Um die eigentliche Karte zu erzeigen werden als nächstes die Positionen der
-Städte zufällig generiert. Dazu werden seine X und Y Koordinaten durch eine
+Um die eigentliche Karte zu erstellen, werden als nächstes die Positionen der
+Städte zufällig generiert. Dazu werden seine X- und Y-Koordinaten durch eine
 Zufallszahl bestimmt --- jedoch muss die Stadt mindestens ein Feld von jeder 
 anderen bisher generierten Stadt entfernt sein. 
 
@@ -352,4 +353,4 @@ Anschließend werden die Ressourcenfelder erzeugt. Dafür wird eine
 und dessen Felderanzahl enthält. Es wird jetzt jedes Feld durchlaufen, das noch
 keine Stadt ist. Der Rohstofftyp des Feldes wird durch eine zufällige Wahl von einem
 der Datensätze der \textbf{HashMap} bestimmt, dessen verbleibende Felderanzahl
-dann entsprechend reduzier wird.
+dann entsprechend reduziert wird.
