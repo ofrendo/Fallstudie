@@ -19,8 +19,8 @@ import de.shared.map.region.Coords;
 import de.shared.map.region.ResourceRegion;
 
 /**
+ * [Concept taken and adapted from http://forums.codeguru.com/showthread.php?478270-Hexagon-Buttons]
  * 
- * http://forums.codeguru.com/showthread.php?478270-Hexagon-Buttons
  * A layoutmanager for interleaved hexagons. This layout is based on GridLayout. It
  * divides the parent component into equal parts and resizes the subcomponents to fit
  * these. Since every other row will hold one element less than than the one before
