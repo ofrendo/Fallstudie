@@ -15,7 +15,8 @@ public class TestCountLineNumbers {
 	
 	public static void main(String[] args) throws IOException {
 		//String dir = "C:/Users/D059373/Downloads/Fallstudie_Nadine/Fallstudie/sourcen";
-		String dir = "C:/Users/D059373/git/Fallstudie";
+		//String dir = "C:/Users/D059373/git/Fallstudie";
+		String dir = "C:/Users/Oliver/git/Fallstudie";
 		File highestDir = new File(dir);
 		processFileContents(highestDir);
 		
