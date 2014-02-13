@@ -1,2 +1,3 @@
 %%% jurabib url repository
 \expandafter\urldef\csname jburl@codeguru\endcsname\url{http://forums.codeguru.com/showthread.php?478270-Hexagon-Buttons}
+\expandafter\urldef\csname jburl@hexagoncoords\endcsname\url{http://keekerdc.com/2011/03/hexagon-grids-coordinate-systems-and-distance-calculations/}

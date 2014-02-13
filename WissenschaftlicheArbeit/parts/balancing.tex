@@ -1,4 +1,5 @@
 %Patrick
+\newpage
 \section{BWL und Balancing}\label{patrick:balancing}
 \subsection{Umsetzung betriebswirtschaftlicher Besonderheiten}
 Die Besonderheiten, die wir bei der Analyse der betriebswirtschaftlichen
@@ -24,11 +25,18 @@ Eine dritte Möglichkeit Geld zu verdienen, welche allerdings der Spielidee
 entgegensteht, ist es, nach dem Bau von Minen die dort produzierten Rohstoffe an
 dem Markt zu verkaufen.
 
+\newpage
 \subsection{Festlegung betriebswirtschaftlicher Werte im Planspiel}
 Im Folgenden ist eine Kostenübersicht, die neben den laufenden Kosten und den
 Baukosten auch die Bauzeit und die Leistung der einzelnen Kraftwerke beinhaltet.
 
-<TABELLE 1>
+%Tabelle 1
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{se-wa-jpg/tabelle-1-patrick}
+\caption{Übersicht der Kraftwerkskosten und -bauzeit}
+\label{Übersicht Kraftwerkseigenschaften}
+\end{figure}
 
 Die obige Tabelle zeigt die im Spiel implementierten, von Anfang an festgelegten
 Daten. Dabei handelt sich um eine reine Übersicht der Baukosten und -zeit und
@@ -40,7 +48,7 @@ hohen Gewinn erreichen.
 Im Gegensatz dazu kann eine Photovoltaikanlage innerhalb von einem Quartal
 gebaut werden und kostet 45 Millionen Euro, wodurch dies das günstigste
 Kraftwerk in der Anschaffung ist. Allerdings beträgt die Leistung nur ein
-Bruchteil (genauer: ein fünfzigstel?) von dem Kernkraftwerk.
+ein fünfzigstel von dem eines Kernkraftwerks.
 
 Alle Werte wurden so festgelegt, dass die Bauzeit, die Leistung, die Baukosten
 sowie die laufenden Kosten in Relation zueinander stehen.
@@ -48,9 +56,22 @@ sowie die laufenden Kosten in Relation zueinander stehen.
 
 Abgesehen vom Bau der Kraftwerke besteht auch noch die Möglichkeit, auf den
 Kohle-, Gas- und Kernkraftwerkfeldern Minen zu bauen. Diese Felder produzieren
-Kohle, Gas beziehungsweise Uran. (wofür brauch ich das?)
+Kohle, Gas beziehungsweise Uran. Diese Rohstoffe werden benötigt, um die Kraftwerke zu 
+betreiben, wenn diese nicht auf den jeweiligen Feldern abgebaut werden, muss der Spieler
+Rohstoffe auf dem Handelsplatz holen.
+Die Minen haben in unserem Spiel, wie auch in der Realität eine gewisse zufällig generierte Kapazität, 
+daher sollte der Spieler die Kapazität der Mine im Auge behalten und gegenebenenfalls frühzeitig
+auf andere Alternativen setzen. Welche sein könnten: Neue Felder zu erschließen um dort
+Minen zu bauen oder alternativ konstant Rohstoffe vom Markt zu zukaufen und als letzte Methode
+einen Umstieg von den Fossilen Brennstoffen auf die erneuerbaren Energien einzuleiten.
 
-<Tabelle 2>
+%Tabelle 2
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{se-wa-jpg/tabelle-2-patrick}
+\caption{Übersicht der Minenkosten und -bauzeit}
+\label{Übersicht Mineneigenschaften}
+\end{figure}
 
 Auch die Minen müssen erst gebaut werden, was eine gewisse Zeit in Anspruch
 nimmt und wobei auch Kosten entstehen. Hierbei ist zum Beispiel ein Augenmerk
@@ -90,9 +111,18 @@ sind des Weiteren allesamt Tilgungskredite. Diese sind statisch und damit auch
 verhältnismäßig einfach zu implementieren. Das aufgenommene Darlehen wird über
 eine feste Laufzeit und einer gleichbleibenden Tilgung zurückgezahlt.
 
+
+
+
 \subsection{Balancing}
 
-<Tabelle 3>
+%Tabelle 3
+\begin{figure}[H]
+\centering
+\includegraphics[width=1\textwidth]{se-wa-jpg/tabelle-3-patrick}
+\caption{Übersicht der Kraftwerksumsätze und -gewinne}
+\label{Übersicht Umstäze und Gewinne}
+\end{figure}
 
 Die Grafik zeigt die Umsätze der einzelnen Kraftwerksarten und eine Übersicht
 der gesamten Kosten und den daraus resultierenden Gewinn. Für die drei
