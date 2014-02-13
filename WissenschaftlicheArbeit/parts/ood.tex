@@ -346,7 +346,7 @@ von Resourcen.
 
 %Olli
 \subsection{Kartenerzeugung}\label{olli:kartenerzeugung}
-Die Erzeugung der Karte geschieht in dem Pkaet \textbf{de.shared.map.generate}.
+Die Erzeugung der Karte geschieht in dem Paket \textbf{de.shared.map.generate}.
 Hier gibt es zunächst das Interface \textbf{MapType}, dass von zwei anderen
 Enumerations implementiert wird:
 \begin{itemize}
@@ -366,15 +366,14 @@ aus einer Liste von Strings.
 
 Die eigentliche Kartenerzeugung findet in \textbf{RegionGenerator} statt.
 Zunächst werden in der Methode \textbf{generateRegions} die Portionen der Karte
-festgelegt, die jeder Feldtyp besitzt. Beispielsweise sind also $1/7$ der Felder
-Kohlefelder. 
+festgelegt, die jeder Feldtyp besitzt --- beispielsweise besitzen $1/7$ der
+Ressourcenfelder den Rohstoff Kohle. 
 
 Einleitend wird nun das Koordinatensystem der Karte erklärt. Da die Karte aus
 hexagonförmigen Feldern mit je sechs Seiten besteht kann hier nicht das
 klassische kartesische Koordinatensystem genutzt werden. Es bleiben immer noch
-zwei Achsen X und Y, diese laufen aber nicht im rechten Winkel zueinander:
-%\citehttp://keekerdc.com/2011/03/hexagon-grids-coordinate-systems-and-distance-calculations/
-
+zwei Achsen X und Y, diese laufen aber nicht im rechten Winkel zueinander
+(\seCite{vgl.}{}{hexagoncoords}):
 
 %Bild Koordinatensystem
 \begin{figure}[H]

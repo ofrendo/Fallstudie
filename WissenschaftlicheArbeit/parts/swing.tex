@@ -11,7 +11,8 @@ Klassen liegen im Paket \textbf{de.client.gui}.
 
 \subsection{Globale Bestandteile}
 Allgemein werden die benötigten JPanels immer in ein Objekt der Klasse
-\textbf{Frame} eingefügt --- dieses besitzt ein \textbf{GridBagLayout}.
+\textbf{Frame} eingefügt --- dies ist das Fenster, das für das Spiel verwendet
+wird.
 \begin{itemize}
   \item Ein \textbf{PanelGlobalLeft} befindet sich immer auf der linken Seite
   des Fensters, in dem die Liste von Spielern mit ihrem Status und der Chat 
@@ -22,13 +23,22 @@ Allgemein werden die benötigten JPanels immer in ein Objekt der Klasse
   und ein \textbf{PanelMenuInformation} enthält. \textbf{PanelMenuInformation}
   besteht aus einem JLabel mit einem Text, der HTML Code enthält --- dadurch
   entsteht die Tabellenstruktur. 
+  \item \textbf{PanelAbstractContent} wird bei allen Tabs außer dem Markt
+  verwendet: In dieser abstrakten Klasse werden zwei JPanels definiert, dessen
+  Layout mithilfe eines \textbf{GridBagLayout} in der Methode
+  \textbf{initLayout()} festgelegt wird. Durch die Festlegung eines linken und
+  eines rechten Panels soll ein einheitliches Layout in allen Tabs entstehen ---
+  des Weiteren wird hier bereits die Hintergrundfarbe und die Ränder gesetzt.
 \end{itemize}
 
-Wichtig sind außerdem die Klassen \textbf{Look}, in dem beispielsweise die
-Hintergrundfarben definiert sind und \textbf{Strings}. Die Letztere stellt
-mehrere Methoden bereit, die Daten für die Anzeige im GUI vorbereiten soll ---
-darunter zum Beispiel \textbf{fD(double number)}, die Zahlen lesbarer machen
-soll.
+Wichtig ist außerdem die Klasse \textbf{Look}, in dem statisch die verschiedenen
+Hintergrundfarben und die Ränder der hexagonförmigen Buttons in der Karte
+definiert sind. Des Weiteren wurde die Klasse \textbf{Strings} erstellt, die
+mehrere statische Methoden bereit stellt, die Daten für die Anzeige im GUI vorbereiten
+soll --- darunter zum Beispiel die Funktion \textbf{fD(double number)}, die
+Zahlen, besonders vom Typ \textbf{double}, lesbarer machen soll. Außerdem
+besitzt sie Attribute wie \textbf{ENERGY\_UNIT}, damit diese an einer Stelle
+definiert sind und auch einheitlich verändert werden können.
 
 Nach dem Mockup wurden vier unterschiedliche Tabs entwickelt, die dem Spieler
 unterschiedliche Einblicke in sein Unternehmen geben sollen:
@@ -36,31 +46,29 @@ unterschiedliche Einblicke in sein Unternehmen geben sollen:
 \subsection{Unternehmensplanung}
 Die Unternehmensplanung ist ähnlich wie die meisten anderen Tabs aus zwei
 Panels aufgebaut und wird durch ein \textbf{PanelCompany} dargestellt, das von 
-\\\textbf{PanelAbstractContent} erbt. 
+\textbf{PanelAbstractContent} erbt. 
 
 Das linke (im Fenster mittlere) Panel ist ein \textbf{GridLayout} mit zwei
-Spalten und zwei Reihen und wird lediglich von JLabels gefüllt. Die
-Tabellenstruktur in den einzelnen JLabels entsteht ähnlich wie im Menü durch
-die Nutzung von HTML Code. Die rechte Seite enthält die Nachrichten, die dem
-Spieler zum Beginn der Runde angezeigt werden.
+Spalten und zwei Reihen und wird von JLabels gefüllt. Die Tabellenstruktur in
+den einzelnen JLabels entsteht ähnlich wie im Menü durch die Nutzung von HTML 
+Code. Die rechte Seite enthält die Nachrichten, die dem Spieler zum Beginn der 
+Runde angezeigt werden.
 
 \subsection{Karte}\label{GUIKarte}
 Die Karte ist das Herzstück der Benutzeroberfläche --- hier kann der Spieler die
 wichtigsten Entscheidungen wie das Bauen von Kraftwerken und das Schließen von
-Verträgen umsetzen. Insgesamt ist der Kartentab ein \textbf{PanelMain}. Zunächst
-wird die linke (im Fenster mittlere) Seite erklärt.
+Verträgen treffen. Insgesamt ist der Kartentab ein \textbf{PanelMain}, das
+ebenfalls von \textbf{PanelAbstractContent} erbt. Zunächst wird die linke (im
+Fenster mittlere) Seite erklärt.
 
 Das \textbf{PanelMap} selbst enthält nur viele \textbf{HexagonButton}, dessen
 Positionen von einem \textbf{HexagonLayout} verwaltet werden. Die Implementation
-des HexagonLayout wurde anfangs von (\seCite{}{}{codeguru})
-%\begin{center}
-%http://forums.codeguru.com/showthread.php?478270-Hexagon-Buttons
-%\end{center}
-übernommen. Dieses besaß am Anfang nur ein rechteckiges Layout --- es wurde
-anschließend angepasst, damit beispielsweise die Höhe und Breite der Buttons 
-korrekt bei Änderung der Fenstergröße mitskaliert werden. Des Weiteren wurde ein
-hexagonförmiges Layout implementiert, dass mehr unserer Spielidee nachgeht: Das
-GUI kann beide Kartenarten darstellen.
+des HexagonLayout wurde anfangs von (\seCite{}{}{codeguru})  übernommen. Dieses
+besaß am Anfang nur ein rechteckiges Layout --- es wurde anschließend angepasst,
+damit beispielsweise die Höhe und Breite der Buttons korrekt bei Änderung der 
+Fenstergröße mitskaliert werden. Des Weiteren wurde ein hexagonförmiges Layout 
+implementiert, das unserer Spielidee näher liegt: Das GUI kann beide 
+Kartenarten darstellen.
 
 Jeder \textbf{HexagonButton} erhält bei der Initialisierung eine
 \textbf{Region}, mit der er seine Hintergrundfarbe, Ränder und das Bild
@@ -69,10 +77,10 @@ bestimmten kann. Des Weiteren besitzt er eine Referenz zu einem
 initialisiert und bleibt danach erhalten. Der Inhalt davon wird durch einen
 Entscheidungsbaum in \textbf{PanelDetails.setRegionContent} bestimmt.
 
-Durch ``Lazy Initialization'' wird hier auf lange Sicht Rechenzeit gespart,
-dafür wird jedoch mehr Speicherplatz benötigt. Das \textbf{PanelSubDetails} wird 
-dann jeweils in die rechte Seite des \textbf{PanelMap}, die durch ein 
-\textbf{PanelDetails} gegeben ist, eingefügt.
+Durch ``Lazy Initialization'' des \textbf{PanelSubDetails} wird hier auf lange
+Sicht Rechenzeit gespart, dafür wird jedoch mehr Speicherplatz benötigt. Das
+\textbf{PanelSubDetails} wird dann jeweils in die rechte Seite des
+Kartentabs, die durch ein \textbf{PanelDetails} dargestellt wird, eingefügt.
 
 Erhält der Client durch eine \textbf{MAP\_UPDATE} Nachricht ist die Runde
 beendet: Die Referenz zum alten \textbf{PanelMap} wird gelöscht und ein komplett
@@ -82,14 +90,16 @@ beendet ist.
 \subsection{Finanzen}
 Die finanziellen Informationen der Firma werden durch ein \textbf{PanelFinances}
 abgebildet: Auf der linken Seite befindet sich ein
-\textbf{PanelFinancesBalance}, das durch viele verschachtelte
-\textbf{GridLayout} konstruiert wird. Daneben besteht die rechte Seite aus einem
-JLabel mit HTML Code und einem \textbf{PanelCredits}.
+\textbf{PanelFinancesBalance}, das durch viele verschachtelte 
+\textbf{GridLayout} konstruiert wird. Hier wird die Bilanz und die GuV des
+Unternehmens dargestellt.Daneben besteht die rechte Seite aus
+einem JLabel mit HTML Code und einem \textbf{PanelCredits}, in dem
+Informationen zu den verschiedenen Kredittypen angezeigt werden.
 
 \subsection{Markt}
-Die beiden Seite des Marktes sind relativ gleich aufgebaut und sind zusammen in
+Die beiden Seiten des Marktes sind relativ gleich aufgebaut und befinden sich in
 einem \textbf{PanelMarket}. Sie besitzen beide ein \textbf{BoxLayout}, damit
-Komponenten vertikal untereinander angezeigt werden. Die Anzeige der einzelnen
+Komponenten vertikal untereinander eingefügt werden. Die Anzeige der einzelnen
 Rohstoffe, die hier gekauft und verkauft werden können, werden durch ein
 \textbf{PanelMarketResource} erstellt und basieren auf der Enumeration
 \textbf{de.shared.map.region.BuyableResouce}.
