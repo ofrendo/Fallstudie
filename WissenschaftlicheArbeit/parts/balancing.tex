@@ -1,2 +1,103 @@
 %Patrick
-\section{Balancing Patrick}\label{patrick:balancing}
+\section{BWL und Balancing}\label{patrick:balancing}
+\subsection{Umsetzung betriebswirtschaftlicher Besonderheiten}
+Die Besonderheiten, die wir bei der Analyse der betriebswirtschaftlichen
+Grundlagen erarbeitet haben, wurden in unserem Planspiel verwirklicht, in dem
+die Stromproduktion verschiedener Kraftwerke unterschiedlich geregelt werden kann.
+
+Der Betrieb von Kern- und Kohlekraftwerken wiederum sorgt für Unzufriedenheit in
+der Bevölkerung und senkt somit die Beliebtheit des Betreibers. Diese
+Funktionalität wurde auch in das Spiel integriert und hat Auswirkungen auf die
+Zahl der Verträge, die in einer Stadt abgeschlossen werden.
+Die Stadt ist neben den ``Baufeldern'' das zentrale Medium um einen finanziellen
+Umsatz in dem Spiel zu generieren. Durch das Anbieten einer verfügbaren
+Kapazität zu einem festgelegten Preis, wird ein Vertrag mit der Stadt und somit
+einer gewissen Anzahl an Kunden erstellt. Je nach Anbietern bei dieser Stadt und
+je nach vorgeschlagenem Preis, hat das Unternehmen eine gewisse Anzahl an
+Kunden.
+
+Die weitere Möglichkeit, über die im Planspiel Geld verdient werden kann ist,
+den Strom über die Strombörse zu verkaufen. Allerdings ist diese so
+programmiert, dass sie sich auch wie an einer ``echten'' Börse verhält, das heißt
+je mehr Angebot vorhanden ist desto geringer ist der Preis.
+Eine dritte Möglichkeit Geld zu verdienen, welche allerdings der Spielidee
+entgegensteht, ist es, nach dem Bau von Minen die dort produzierten Rohstoffe an
+dem Markt zu verkaufen.
+
+\subsection{Festlegung betriebswirtschaftlicher Werte im Planspiel}
+Im Folgenden ist eine Kostenübersicht, die neben den laufenden Kosten und den
+Baukosten auch die Bauzeit und die Leistung der einzelnen Kraftwerke beinhaltet.
+
+<TABELLE 1>
+
+Die obige Tabelle zeigt die im Spiel implementierten, von Anfang an festgelegten
+Daten. Dabei handelt sich um eine reine Übersicht der Baukosten und -zeit und
+die laufenden Kosten. Ein Kernkraftwerk kostet 3,1 Milliarden Euro und es dauert
+10 Quartale, eins zu bauen. Damit ist dies das teuerste Kraftwerk in der
+Anschaffung, allerdings sind die laufenden Kosten nicht so hoch und durch den
+großen Leistungsunterschied zu den anderen Kraftwerken ist es möglich, einen
+hohen Gewinn erreichen. 
+Im Gegensatz dazu kann eine Photovoltaikanlage innerhalb von einem Quartal
+gebaut werden und kostet 45 Millionen Euro, wodurch dies das günstigste
+Kraftwerk in der Anschaffung ist. Allerdings beträgt die Leistung nur ein
+Bruchteil (genauer: ein fünfzigstel?) von dem Kernkraftwerk.
+
+Alle Werte wurden so festgelegt, dass die Bauzeit, die Leistung, die Baukosten
+sowie die laufenden Kosten in Relation zueinander stehen.
+(Willst du hier nicht wenigstens jedes Kraftwerk mal kurz konkret erwähnen mit seinen Daten?)
+
+Abgesehen vom Bau der Kraftwerke besteht auch noch die Möglichkeit, auf den
+Kohle-, Gas- und Kernkraftwerkfeldern Minen zu bauen. Diese Felder produzieren
+Kohle, Gas beziehungsweise Uran. (wofür brauch ich das?)
+
+<Tabelle 2>
+
+Auch die Minen müssen erst gebaut werden, was eine gewisse Zeit in Anspruch
+nimmt und wobei auch Kosten entstehen. Hierbei ist zum Beispiel ein Augenmerk
+auf die Gas-Mine zu legen, da hier die Bauzeit länger ist, als der eigentliche 
+Bau eines Kraftwerks. Somit muss entweder erst die Mine gebaut werden, bevor das
+Kraftwerk in Auftrag gegeben wird oder die benötigten Rohstoffe werden für die
+ersten zwei Quartale von dem Rohstoffmarkt bezogen. Durch den Abbau der
+jeweiligen Rohstoffe sind auch bei einer Mine laufende Kosten zu entrichten.
+
+Die letzten beiden Spalten der Grafik beschreiben sowohl die Menge an
+Rohstoffen, die ein Kraftwerk pro Quartal benötigt, als auch die Kosten für den
+Bezug der Rohstoffe vom Rohstoffmarkt. Diese Kosten sind nicht variabel sondern
+bleiben stetig gleich.
+
+Die Festlegung des Startkapitals erfolgte erst nach der Bestimmung aller anderen
+Werte, da erst danach ein sinnvoller Startwert, aufbauend auf diesen Werten,
+ermittelt werden konnte. Der Wert von 650 Millionen Euro war das Ergebnis
+unserer Ermittlungen. Mit diesem Startkapital kann sowohl die zweitgrößte
+Kraftwerksart gebaut werden, als auch einige kleinere, sodass jeder Spieler die
+Möglichkeit hat, sich je nach Interesse im Markt auszurichten.
+
+Falls ein Spieler eine größere Investition tätigen möchte oder Probleme mit
+liquiden Mitteln hat, besteht die Möglichkeit Kredite aufzunehmen. Diese sind in
+drei unterschiedliche Kreditgrößen aufgegliedert:
+
+\begin{itemize}
+  \item 100 Millionen
+  \item 500 Millionen
+  \item 1 Milliarde
+\end{itemize}
+
+Dem Spieler steht die Möglichkeit zur Verfügung so viele Kredite aufzunehmen wie
+er möchte, allerdings darf die gesamte Kreditsumme dabei nicht mehr als das
+Zweifache des Eigenkapitals betragen.
+Die Kredite sind allesamt mit einem Prozentsatz von 5 \% verzinst. Die Kredite
+sind des Weiteren allesamt Tilgungskredite. Diese sind statisch und damit auch
+verhältnismäßig einfach zu implementieren. Das aufgenommene Darlehen wird über
+eine feste Laufzeit und einer gleichbleibenden Tilgung zurückgezahlt.
+
+\subsection{Balancing}
+
+<Tabelle 3>
+
+Die Grafik zeigt die Umsätze der einzelnen Kraftwerksarten und eine Übersicht
+der gesamten Kosten und den daraus resultierenden Gewinn. Für die drei
+Kraftwerksarten bei denen es Mineralien gibt wurde eine extra Übersicht
+erstellt, wie sich die Kosten und Gewinne entwickeln würden mit bzw. ohne Mine.
+Auf den ersten Blick macht es den Eindruck, dass die Gewinne sehr stark
+auseinander liegen, allerdings ist hierbei drauf zu achten, dass die
+unterschiedlichen Baukosten und Bauzeiten nicht mit einbezogen sind.
