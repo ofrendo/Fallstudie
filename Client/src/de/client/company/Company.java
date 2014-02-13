@@ -20,6 +20,9 @@ import de.shared.map.relation.CityRelation;
 import de.shared.map.relation.Contract;
 import de.shared.map.relation.RegionRelation;
 
+/**
+ * This class is the main client side model in the game. 
+ */
 public class Company {
 	public final String companyName;
 	
@@ -161,22 +164,6 @@ public class Company {
 		}
 		return powerStations.toArray(new PowerStation[0]);
 	}
-	
-	/*public CityRelation[] getCityRelationsWithContract() {
-		ArrayList<CityRelation> cityRelations = new ArrayList<CityRelation>();
-		for (RegionRelation relation : regionRelations) {
-			if (relation instanceof CityRelation) {
-				CityRelation r = (CityRelation) relation;
-				
-				if (r.getContract() != null) {
-					cityRelations.add(r);
-				}
-				
-			}
-		}
-		
-		return cityRelations.toArray(new CityRelation[0]);
-	}*/
 	
 	public boolean isPowerStationInRange(CityRelation cityRelation) {
 		for (RegionRelation regionRelation : getRegionRelations()) {

@@ -16,7 +16,9 @@ import de.shared.map.region.Region;
 import de.shared.map.region.ResourceType;
 import de.shared.map.relation.Contract;
 
-
+/**
+ * This class controls access from the GUI to the model. This class is a singleton.
+ */
 public class Controller {
 
 	private static Controller instance;
@@ -33,6 +35,10 @@ public class Controller {
 		client = new Client(frameConnect.getIPAddress(), frameConnect.getPlayerName());
 	}
 	
+	/**
+	 * Gets the singleton instance.
+	 * @return The instance
+	 */
 	public static Controller getInstance() {
 		if (instance == null)
 			instance = new Controller();

@@ -6,26 +6,24 @@ import de.shared.map.relation.Contract;
 
 /**
  * Optimizes Power Station relations.
- * @author D059373
- *
  */
 public class Optimizer {
+	
 	/**
-	 * Steps:
+	 * Steps:<br>
 	 * Zielfunktion aufstellen:
 	 * for each stadt for each kraftwerk in range
 	 * z = SIGMA StadtPreis * (SIGMA Kraftwerkoutput * Kraftwerkrelation)
-	 * 
+	 * <br><br>
 	 * Nebenbedinungen aufstellen:
 	 * for each stadt for each kraftwerk in range
 	 * SIGMA kraftwerkoutput * kraftwerkrelation  <= stadtbedarf
-	 * 
+	 * <br><br>
 	 * for each kraftwerk
 	 * SIGMA kraftwerkrelations <= 1
 	 * 
 	 * 
 	 */
-	
 	public static void optimizePowerStations(PowerStation[] powerStations, Contract[] contracts) {
 		//Reset from previous in case a contract was cancelled
 		for (PowerStation powerStation : powerStations) {

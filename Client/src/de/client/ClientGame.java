@@ -61,6 +61,10 @@ public class ClientGame extends Game {
 		return events;
 	}
 	
+	/**
+	 * Method to compare maps - this will also generate events in case the player is not paying for full repairs.
+	 * @param newMap The new map to be compared
+	 */
 	private void compareMap(Map newMap) {
 		//compares the old Map with the new map to create EventMessages, so that the Player knows what's going on in the game
 		ArrayList<Region> regionsNew = newMap.getRegions();

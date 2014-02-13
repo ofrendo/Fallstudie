@@ -14,6 +14,9 @@ import de.shared.message.client.MessageChat;
 import de.shared.message.client.MessageInit;
 import de.shared.message.client.MessageReady;
 
+/**
+ * This class is the main communication point between the Client and the Server.
+ */
 public class Client extends Thread {
 
 	private Socket socket;
@@ -24,6 +27,11 @@ public class Client extends Thread {
 	
 	private ClientGame clientGame;
 	
+	/**
+	 * Client constructor.
+	 * @param ipAddress The ipAddress of the server you want to connect to
+	 * @param playerName Name of the player
+	 */
 	public Client(String ipAddress, String playerName) {
 		this.serverAddress = ipAddress;
 		this.clientGame = new ClientGame(this, new Player(playerName));
@@ -38,6 +46,9 @@ public class Client extends Thread {
 		handleMessage();
 	}
 	
+	/**
+	 * Tries to connect to the server.
+	 */
 	public void connectToServer() {
 		try {
 			System.out.println("[CLIENT] Connecting to server...");
@@ -55,6 +66,10 @@ public class Client extends Thread {
 		return this.clientGame;
 	}
 	
+	/**
+	 * Sends a message to the server.
+	 * @param message The Message that should be sent to the server
+	 */
 	public synchronized void sendMessage(Message message) {
 		try {
 			out.writeObject(message);
@@ -73,10 +88,17 @@ public class Client extends Thread {
 		}
 	}
 	
+	/**
+	 * This should be the first message to be sent - it tries to connect to the server and initializes the Player.
+	 */
 	public void sendInitMessage() {
 		sendMessage(new MessageInit(clientGame.ownPlayer));
 	}
 	
+	/**
+	 * Sends the server the message that you are ready for the next round.
+	 * @param ready true means ready, false means not ready
+	 */
 	public void sendReadyMessage(boolean ready) {
 		if (getClientGame().gamePhase == GamePhase.GAME_STARTED) {
 			clientGame.finishRound();
@@ -87,13 +109,20 @@ public class Client extends Thread {
 	public void setReady(boolean ready) {
 		clientGame.ownPlayer.ready = ready;
 	}
-
+	
+	/**
+	 * Sends a broadcast chat message to the other players.
+	 * @param message Message string to be sent
+	 */
 	public void sendChatMessage(String message) {
 		sendMessage(new MessageChat(clientGame.getPlayer().playerName + ": " + message));
 	}
 	
+	/**
+	 * The main listening function. This will block, so it is called in run().
+	 */
 	@SuppressWarnings("unchecked")
-	public void handleMessage() {
+	private void handleMessage() {
 		boolean continueListening = true;
 		Message message = null;
 		try	{
@@ -181,6 +210,10 @@ public class Client extends Thread {
 		}
 	}
 
+	/**
+	 * Shows the user the end game panel and disconnects from the server.
+	 * @param isWin
+	 */
 	public void endGame(boolean isWin) {
 		String value = (isWin) ? "won" : "lost";
 		String message = "You have " + value + " the game.";
@@ -194,6 +227,9 @@ public class Client extends Thread {
 		return answer;
 	}*/
 	private boolean unitTesting = false;
+	/**
+	 * Call this function to start unit test mode - the Controller will not be notified and no GUI elements will appear.
+	 */
 	public void TEST_setUnitTestMode() {
 		unitTesting = true;
 	}
