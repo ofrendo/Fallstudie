@@ -4,15 +4,11 @@ Die Benutzeroberfläche ist eines der wichtigsten Bestandteile eines Spieles. Dad
 Die Entwicklung des Designs spielt eine wichtige Rolle, welche sich in einzelne Phasen unterteilen lassen kann. Die einzelnen Phasen, Schritte und Ideen dahinter werden im Folgenden dargelegt.
 
 \subsection{Brainstorming \& erste Skizzen}
-Nach der Entwicklung des Spielkonzeptes und der Programmierung der ersten Spielfunktionen wurde damit begonnen die ersten Ideen für das User-Interface zu sammeln. Dazu wurde eine gemeinsame Brainstorming-Session gestartet und alle möglichen Vorschläge zusammengetragen. Diese Vorschläge wurden dann in erste Skizzen verpackt und mögliche Anordnungen und Elemente diskutiert. Da die Skizzen jedoch sehr einfach, unübersichtlich und ungenau waren, wurden daraus, mit Hilfe von Grafikprogramme, Mockups erstellt, um die Ideen realitätsgenau darzustellen und  wirken zu lassen und somit sowohl Stärken als auch Schwächen der Ideen aufzudecken und diese zu optimieren.
-
-\begin{figure}[H]
-\centering
-\centering
-\includegraphics[width=0.8\textwidth]{se-wa-jpg/gui_skizze}
-\caption{Eine der ersten Skizzen aus dem Brainstorming}
-\label{Eine der ersten Skizzen aus dem Brainstorming}
-\end{figure}
+Nach der Entwicklung des Spielkonzeptes und der Programmierung der ersten
+Spielfunktionen wurde damit begonnen die ersten Ideen für das User-Interface zu
+sammeln. Dazu wurde eine gemeinsame Brainstorming-Session gestartet und alle
+möglichen Vorschläge zusammengetragen. Diese Vorschläge wurden dann in erste
+Skizzen verpackt und mögliche Anordnungen und Elemente diskutiert. Da die Skizzen jedoch sehr einfach, unübersichtlich und ungenau waren, wurden daraus, mit Hilfe von Grafikprogrammen, Mockups erstellt, um die Ideen realitätsgetreu darzustellen und  wirken zu lassen und somit sowohl Stärken als auch Schwächen der Ideen aufzudecken und diese zu optimieren.
 
 \subsection{Mockup \& Ideen}
 Im Folgenden werden die einzelnen Mockup-Grafiken dargestellt und kurz Erläutert, um unsere Ideen der grafischen Aufteilung genau zu beschreiben.
@@ -33,19 +29,21 @@ Die \textbf{Sidebar} dient dabei als Erweiterung des Hauptframes und bietet dem 
 
 
 \subsubsection{Unternehmensübersicht}
-Die Idee hinter der Unternehmensübersicht ist, dass der Spieler einen Überblick über alle wichtigen Informationen seines Unternehmens bekommt. Dazu zählt der Kontostand, Einnahmen, Ausgaben, Anzahl der Rohstoffe, Stromproduktion, Stromverbrauch, Strombilanz und die Anzahl der im Besitz befindenden Kraftwerke und Minen. Des Weiteren soll der Nutzer auf dieser Seite auch über Aktionen der vorangegangen Spielrunde informiert werden, um keine wichtigen Interkationen und Ereignisse zu verpassen. Die einzelnen Informationen werden dabei klassisch als Text dargestellt, um die einzelnen Werte eindeutig und schnell dem Spieler zur Verfügung zu stellen.
+Die Idee hinter der Unternehmensübersicht ist, dass der Spieler einen Überblick
+über alle wichtigen Informationen seines Unternehmens bekommt. Dazu zählt der Kontostand, Einnahmen, Ausgaben, Anzahl der Rohstoffe, Stromproduktion, Stromverbrauch, Strombilanz und die Anzahl der im Besitz befindenden Kraftwerke und Minen. Des Weiteren soll der Nutzer auf dieser Seite auch über Aktionen der vorangegangen Spielrunde informiert werden, um keine wichtigen Interaktionen und Ereignisse zu verpassen. Die einzelnen Informationen werden dabei klassisch als Text dargestellt, um die einzelnen Werte eindeutig und schnell dem Spieler zur Verfügung zu stellen.
 
 \begin{figure}[H]
 \centering
 \centering
 \includegraphics[width=0.9\textwidth]{se-wa-jpg/gui_unternehmen}
-\caption{Unternehmensübersicht}
-\label{Unternehmensübersicht}
+\caption{Mockup: Unternehmensübersicht}
+\label{Mockup: Unternehmensübersicht}
 \end{figure}
 
 \subsubsection{Karte}
-Die Karte stellt den Hauptinteraktionspunkt des Spielers dar und bildet das Spielfeld ab. Die Form eines Feldes ist ein Hexagon, welche dem Spiel Civilization nachempfunden ist. Dabei wird in drei verschiedene Feldertypen unterschieden:
-\begin{itemize}
+Die Karte stellt den Hauptinteraktionspunkt des Spielers dar und bildet das
+Spielfeld ab. Die Form eines Feldes ist ein Hexagon, welches dem Spiel Civilization nachempfunden ist. Dabei wird in drei verschiedene Feldertypen unterschieden:
+\begin{itemize}[H]
 \item Ressourcen
 \item Städte
 \item Leere Felder
@@ -57,23 +55,24 @@ Die Karte stellt den Hauptinteraktionspunkt des Spielers dar und bildet das Spie
 \centering
 \centering
 \includegraphics[width=0.8\textwidth]{se-wa-jpg/gui_karte01}
-\caption{Karte mit ausgewähltem Ressourcenfeld}
-\label{Karte mit ausgewähltem Ressourcenfeld}
+\caption{Mockup: Karte mit ausgewähltem Ressourcenfeld}
+\label{Mockup: Karte mit ausgewähltem Ressourcenfeld}
 \end{figure}
-Der Typ \textbf{Ressourcen} lässt sich des Weiteren weiter in folgenden Feldern unterteilen:
-\begin{itemize}
+Der Typ \textbf{Ressourcen} lässt sich des Weiteren weiter in folgende Feldern unterteilen:
+\begin{itemize}[H]
 \item Photovoltaik
 \item Kohle
 \item Gas
 \item Wind
 \item Wasser
+\item Uran
 \end{itemize}
 
 Jeder Typ besitzt dabei eine eigene Farbe und ein eigenes Icon, welche der gängigen menschlichen Meinung nachempfunden ist. Dadurch ist es auch möglich ohne viel Lese- oder Einarbeitungszeit das Spielfeld und die verschiedenen Typen zu verstehen. In den Mockups wurden folgende Farben und Icons gewählt:
 
-\begin{table}
+\begin{table}[H]
     \begin{tabular}{lll}
-    Typ & Farbe & Icon \\
+    \textbf{Typ} & \textbf{Farbe} & \textbf{Icon} \\
     Photovoltaik & gelb & Sonne \\
     Kohle & braun & Kohlewagen \\
     Gas & dunkelgrau & Flamme \\
@@ -90,7 +89,11 @@ Ist ein Ressourcenfeld ausgewählt werden in der Sidebar die jeweiligen Feldinfor
 
 
 \subsubsection{Karte mit ausgewählter Stadt}
-Der Typ \textbf{Stadt} stellt die im Spiel existierenden Städte dar, welche von dem Spieler erschlossen werden können und somit lebensnotwendig für jedes Energieunternehmen sind. Diese Felder werden mit einem hellen grau inkl. Skyline-Icon gekennzeichnet. Habe ich einen Vertrag zur Belieferung von Strom mit einer Stadt geschlossen wird diese rot umrandet.
+Der Typ \textbf{Stadt} stellt die im Spiel existierenden Städte dar, welche von
+dem Spieler erschlossen werden können und somit lebensnotwendig für jedes
+Energieunternehmen sind. Diese Felder sind mit hellgrauer Farbe und
+Skyline-Icon gekennzeichnet. Hat der Spieler einen Vertrag zur Belieferung von
+Strom mit einer Stadt geschlossen wird diese rot umrandet.
 
 Ist eine Stadt gewählt, ist es möglich über die Sidebar Informationen wie z.B. Name und Bevölkerungsanzahl zu erlangen. Im eigenen Besitz befindende Städte zeigen ebenso die Anzahl der Kunden als auch die Kosten, Preise, Beliebtheit und Bekanntheit an.
 
@@ -98,8 +101,8 @@ Ist eine Stadt gewählt, ist es möglich über die Sidebar Informationen wie z.B. N
 \centering
 \centering
 \includegraphics[width=0.8\textwidth]{se-wa-jpg/gui_karte02}
-\caption{Karte mit ausgewählter Stadt}
-\label{Karte mit ausgewählter Stadt}
+\caption{Mockup: Karte mit ausgewählter Stadt}
+\label{Mockup: Karte mit ausgewählter Stadt}
 \end{figure}
 
 \subsubsection{Finanzen}
@@ -115,8 +118,8 @@ zu müssen, ist dies dort ebenso möglich sowie die Tilgung der Kredite.
 \centering
 \centering
 \includegraphics[width=0.8\textwidth]{se-wa-jpg/gui_finanzen}
-\caption{Finanzen}
-\label{Finanzen}
+\caption{Mockup: Finanzen}
+\label{Mockup: Finanzen}
 \end{figure}
 
 \subsubsection{Markt}
@@ -126,23 +129,26 @@ Inputfelder Waren zu kaufen und zu verkaufen. Neben den aktuellen Preisen wird e
 \centering
 \centering
 \includegraphics[width=0.8\textwidth]{se-wa-jpg/gui_markt}
-\caption{Markt}
-\label{Markt}
+\caption{Mockup: Markt}
+\label{Mockup: Markt}
 \end{figure}
 
 \subsection{Ergebnis}
 Während der Programmierung wurden etliche Elemente ergänzt, um das Spiel
-angenehmer zu machen und in den Mockups nicht berücksichtigte Ereignisse nutzbar zu machen. Im Folgenden werden nur die ergänzten Elemente der einzelnen Screens genannt und kurz erläutert. Ein Vergleich des Mockups mit dem Ergebnis folgt dann im darauf folgenden Kapitel.
+angenehmer zu machen und in den Mockups nicht berücksichtigte Ereignisse nutzbar zu machen. Im Folgenden werden nur die ergänzten Elemente der einzelnen Screens genannt und kurz erläutert.
 
 \subsubsection{Elemente}
 Die Anzahl der statischen Elemente hat sich im Vergleich zum Mockup um zwei erhöht. Dadurch sind folgende Elemente im Planspiel zu finden:
-\begin{itemize}
+\begin{itemize}[H]
 \item Menüleiste
 \item Schnellübersicht
 \item Spielerchat
 \item Hauptframe
 \item Sidebar
 \end{itemize}
+
+In der \textbf{Menüliste} wurde nun der Button ``Runde abschließen''
+hinzugefügt, mit dem der Spieler jede Runde abzuschließen hat.
 
 Die \textbf{Schnellübersicht} befindet sich rechts neben der Menüleiste und gibt dem Nutzer stets einen Überblick über die aktuelle Finanz- und Rohstofflage und informiert den Spieler über die Veränderungen der Werte, welche in der nächsten Runde „gebucht“ werden. Somit ist kein lästiges Wechseln des Menüpunktes nötig, um diese Informationen zu erhalten. 
 
@@ -156,29 +162,31 @@ Nachdem der Spieler das Spiel gestartet hat landet dieser auf dem Startbildschir
 \centering
 \centering
 \includegraphics[width=0.8\textwidth]{se-wa-jpg/gui_start}
-\caption{Startscreen}
-\label{Startscreen}
+\caption{Ergebnis: Startscreen}
+\label{Ergebnis: Startscreen}
 \end{figure}
 
 \subsubsection{Lobby}
-Auf den Startbildschirm folgend wird der Spieler in die Lobby weitergeleitet, in der es möglich ist auf Weitere Mitspieler zu warten, um z.B. gegen Freunde zu spielen. Klickt der Spieler auf „Bereit“ startet das Spiel sobald alle anderen Mitspielen ebenso diese Aktion ausgeführt haben.
+Auf den Startbildschirm folgend wird der Spieler in die Lobby weitergeleitet, in
+der es möglich ist auf weitere Mitspieler zu warten, um z.B. gegen Freunde zu
+spielen. Klickt der Spieler auf „Bereit“ startet das Spiel sobald alle anderen Mitspieler ebenso diese Aktion ausgeführt haben.
 \begin{figure}[H]
 \centering
 \centering
 \includegraphics[width=0.8\textwidth]{se-wa-jpg/gui_login}
-\caption{Lobby}
-\label{Lobby}
+\caption{Ergebnis: Lobby}
+\label{Ergebnis: Lobby}
 \end{figure}
 
 \subsubsection{Unternehmen}
-Die Unternehmensübersicht hat sic him Vergleich zum Mockup nicht stark geändert.
+Die Unternehmensübersicht hat sich im Vergleich zum Mockup nicht geändert.
 
 \begin{figure}[H]
 \centering
 \centering
 \includegraphics[width=0.8\textwidth]{se-wa-jpg/gui_result_unternehmen}
-\caption{Unternehmen}
-\label{Unternehmen}
+\caption{Ergebnis: Unternehmen}
+\label{Ergebnis: Unternehmen}
 \end{figure}
 
 \subsubsection{Karte mit ausgewähltem Ressourcenfeld}
@@ -186,9 +194,9 @@ Der Grundaufbau der Karte hat sich im Vergleich zum Mockup nur leicht geändert. 
 
 Außerdem wurden einige Icons und Farben von Feldern angepasst, um farblich besser hervorzustechen. Das Ergebnis sieht folgende Farben und Icons vor:
 
-\begin{table}
+\begin{table}[H]
     \begin{tabular}{lll}
-    Typ & Farbe & Icon \\
+    \textbf{Typ} & \textbf{Farbe} & \textbf{Icon} \\
     Photovoltaik & grün & Solarpanel \\
     Kohle & braun & Kohlewagen \\
     Gas & dunkelgrau & Flamme \\
@@ -201,9 +209,9 @@ Außerdem wurden einige Icons und Farben von Feldern angepasst, um farblich besse
 
 Neben diesen Änderungen hat man auch die Umrandungen von betroffenen Feldern angepasst und neue hinzugefügt:
 
-\begin{table}
+\begin{table}[H]
     \begin{tabular}{lll}
-    Farbe & Beschreibung \\
+    \textbf{Farbe} & \textbf{Beschreibung} \\
     rosa & Felder, die im Besitz des Spielers sind \\
     turkis & Felder, bei denen eine Auktion durch einen beliebigen Spieler gestartet wurde \\
     schwarz & Ressourcenfeld, auf dem eine Mine gebaut wurde
@@ -212,18 +220,15 @@ Neben diesen Änderungen hat man auch die Umrandungen von betroffenen Feldern ang
 
 Eine besonders hilfreiche Funktion ist auch die automatische Zuordnung der Energiequellen zu den Verbraucherstätten. Damit wird eine Verknüpfung zwischen Feldern hergestellt, die sich gegenseitig Energie liefern. Die sogenannte Verknüpfungslinie ist rot.
 
-An der Sidebar sowie der Menüleiste wurden keine Änderungen vorgenommen.
+An der Sidebar wurden keine Änderungen vorgenommen.
 
 \begin{figure}[H]
 \centering
 \centering
 \includegraphics[width=0.8\textwidth]{se-wa-jpg/gui_karte_ressource}
-\caption{Karte mit ausgewähltem Ressourcenfeld}
-\label{Karte mit ausgewähltem Ressourcenfeld}
+\caption{Ergebnis: Karte mit ausgewähltem Ressourcenfeld}
+\label{Ergebnis: Karte mit ausgewähltem Ressourcenfeld}
 \end{figure}
-
-
-
 
 \subsubsection{Karte mit ausgewählter Stadt}
 Bei dieser Ansicht wurden die Sidebarinformationen nach den Spielbedürfnissen angepasst und formatiert. Ansonsten hat es keine Veränderungen zu Mockup gegeben.
@@ -232,8 +237,8 @@ Bei dieser Ansicht wurden die Sidebarinformationen nach den Spielbedürfnissen an
 \centering
 \centering
 \includegraphics[width=0.8\textwidth]{se-wa-jpg/gui_karte_city}
-\caption{Karte mit ausgewählter Stadt}
-\label{Karte mit ausgewählter Stadt}
+\caption{Ergebnis: Karte mit ausgewählter Stadt}
+\label{Ergebnis: Karte mit ausgewählter Stadt}
 \end{figure}
 
 \subsubsection{Finanzen}
@@ -242,8 +247,8 @@ Die Finanzen werden in unserer Endfassung sehr detailliert dargestellt. So sind 
 \centering
 \centering
 \includegraphics[width=0.8\textwidth]{se-wa-jpg/gui_result_finanzen}
-\caption{Finanzen}
-\label{Finanzen}
+\caption{Ergebnis: Finanzen}
+\label{Ergebnis: Finanzen}
 \end{figure}
 
 \subsubsection{Markt}
@@ -252,8 +257,8 @@ Auf Grund des hohen Entwicklungsaufwandes wurde das vorgesehen Diagramm weggelas
 \centering
 \centering
 \includegraphics[width=0.8\textwidth]{se-wa-jpg/gui_result_markt}
-\caption{Markt}
-\label{Markt}
+\caption{Ergebnis: Markt}
+\label{Ergebnis: Markt}
 \end{figure}
 
 \subsection{Fazit}
@@ -261,7 +266,7 @@ Im Großen und Ganzen wurde ein guter Entwicklungsprozess durchgezogen. So wurden
 
 \subsection{Verbesserungsmöglichkeiten}
 Trotz der bereits vielen Optimierungen sind weitere Verbesserungen möglich:
-\begin{itemize}
+\begin{itemize}[H]
 \item Größenanpassung der Icons in der Karte
 \item Optimierung der Farben (mehr Komplementärfarben)
 \item Einbindung von Diagrammen

@@ -35,7 +35,7 @@ dem OOA-Diagramm auch einige Bereiche weggefallen:
 
 
 
-\subsection{Client-Server}
+\subsection{Client-Server}\label{cs}
 
 
 \begin{figure}
@@ -133,12 +133,63 @@ Im folgenden werden die einzelnen Klassen, die vom Server zum Client
   
 \end{itemize}
 
-
-\subsection{Gebäude}
+\subsection{Unternehmen}
 
 \begin{figure}
 \centering
+\includegraphics[width=0.75\textwidth]{se-wa-jpg/OOD-Company}
+\caption{Die Klasse Company}
+\label{OOD-Company}
+\end{figure}
+
+Die 'Company'-Klasse, die in \ref{OOD-Company} zu sehen ist, ist auf
+Client-Seite der Ausgangspunkt für alle Entscheidungen die ein Spieler treffen
+kann. Von ihr werden alle Bereiche des Unternehmens referenziert und
+angesprochen. Diese werden zumeist auch nur an die Untergeordneten Klassen
+weitergeleitet, ohne sie selbst zu bearbeiten.
+Allerdings beinhaltet die Company das Vermögen des Unternehmens, so dass alle
+Einzahlungen und Auszahlungen in ihr erfolgen.
+Des weiteren regelt die Klasse den Rundenanfang und das Rundenende. Zu Beginn
+jeder Runde werden, zum Beispiel, die Einnahmen durch die Stromlieferungen dem
+Konto gutgeschrieben. Zum Ende jeder Runde werden unter anderem die
+Rohstoffmengen verbraucht und überprüft, ob überhaupt genug vorhanden sind.
+Sollte dies nicht der Fall sein, kann die Runde nicht sofort beendet werden. Der
+Spieler muss nun erst das Problem beheben, bevor das Spiel weitergehen kann.
+Auch andere Faktoren, wie ein negativer Kontostand, oder nicht versorgte Kunden
+können in der Company das Rundenende verhindern.
+
+\subsection{Regionen}
+
+\begin{figure}
 \centering
+\includegraphics[width=1.0\textwidth]{se-wa-jpg/OOD-Relation}
+\caption{Klassendiagramm zu den Regionsbeziehungen}
+\label{OOD-Relation}
+\end{figure}
+
+Da die Map, wie in \ref{cs} beschrieben, nur auf Serverseite bearbeitet wird,
+hat jedes Unternehmen zu manchen Regionen eigene Beziehungen. Diese werden
+genutzt um Unternehmensspezifische Daten zu jeder Region zu speichern. Mit Hilfe
+der Koordinaten kann jede RegionRelation genau einer Region zugeordnet werden.
+Wie in \ref{OOD-Relation} zu sehen ist, gibt es zwei Arten von Beziehungen: 
+\begin{enumerate}
+  \item {\textbf{RessourceRelation}}\\
+  In der RessourceRelation werden neben Referenzen auf die
+  Gebäude, die in der jeweiligen Region gebaut wurden, auch die verbleibende
+  Rohstoffmenge gespeichert. Diese wird aus der jeweiligen Region
+  übernommen und in die RegionRelation geschrieben. Dies ermöglicht, dass die
+  Produktionsmenge einer Mine, direkt auf Client-Seite, von der restlichen
+  Menge abgezogen werden kann.
+  \item{\textbf{CityRelation}}\\
+  Ursprünglich angedacht um unter anderem die Verträge der Spieler zu speichern,
+  beinhaltet die CityRelation nun nur noch die Beliebtheit und die Bekanntheit
+  des Unternehmens zu den jeweiligen Städten.
+\end{enumerate}
+
+\subsection{Gebäude}
+\begin{figure}
+\centering
+
 \includegraphics[width=1.0\textwidth]{se-wa-jpg/OOD-Building}
 \caption{Klassendiagramm zu den Gebäude}
 \label{OOD-Building}
