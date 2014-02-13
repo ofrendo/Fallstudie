@@ -12,7 +12,7 @@ ca. 80\% erreicht (ohne Betrachtung des Codes in \textbf{de.tests} und des Codes
 
 \subsection{Spiellogik}
 Unter diese Kategorie fallen alle Tests, die die Funktionalitäten des Spiels
-testen, die keine Client Server Kommunikation enthalten.
+testen, die keine Client-Server Kommunikation enthalten.
 
 \begin{itemize}
   \item \textbf{de.tests} enthält \textbf{AllTests}: eine große TestSuite, die
@@ -51,7 +51,7 @@ Methoden definiert, damit der Server zwischen den Tests neugestartet wird.
 
 Bei einem JUnit Testdurchlauf werden alle Methoden, die als \textbf{@Test}
 markiert sind, als neue Thread gestartet und parallel ausgeführt. Da dies bei gleichzeitigen
-Client Server Tests zu Schwierigkeiten wegen des \textbf{ServerSocket}  führen
+Client-Server Tests zu Schwierigkeiten wegen des \textbf{ServerSocket}  führen
 würde, wurde die Klasse \textbf{ClientServerMonitor} konzipiert. Zunächst
 implementiert diese aus zwei Gründen das Singleton Pattern:
 Erstens muss ein Monitor für die \textbf{Object.wait()} Methode objektorientiert und nicht statisch sein
@@ -60,8 +60,8 @@ und zweitens um eine Referenz bei jeder Testklasse zu sparen. Die Methode
 alle anderen Threads, die auch dieses Methode aufrufen, durch
 Warten ausgeschlossen. Ist ein Test beendet wird die \textbf{endTest()} Methode
 aufgerufen, die dann alle anderen Test Threads wieder aufweckt. Durch die
-Nutzungs eines Monitors kann hier also sichergestellt werden, dass die Client
-Server Tests trotz parallelem Starten hintereinander ausgeführt werden.
+Nutzungs eines Monitors kann hier also sichergestellt werden, dass die
+Client-Server Tests trotz parallelem Starten hintereinander ausgeführt werden.
 
 
 Es wird in der \textbf{AbstractClientServerTest} Klasse Folgendes
@@ -76,5 +76,5 @@ Nachrichten verschickt werden. Dazu wurde die statische Methode
 \textbf{TestUtils.block()} geschrieben, die den Hauptthread für eine
 bestimmte Dauer durch eine while-Schleife blockiert. Dadurch kann die Dauer der
 Unit Tests allerdings auch sehr in die Länge gezogen werden. \textit{Sollten die
-Client Server Unit Tests einen Fehler anzeigen könnte es sein, dass die
+Client-Server Unit Tests einen Fehler anzeigen könnte es sein, dass die
 Blockierzeit nicht hoch genug ist. Dies ist von Computer zu Computer unterschiedlich!}
