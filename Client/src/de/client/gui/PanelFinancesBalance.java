@@ -69,14 +69,14 @@ public class PanelFinancesBalance extends JPanel {
 	private JLabel labelIncomeTitle;
 	private JLabel labelIncomeLossHeader;
 	private JPanel panelIncomeTableLeft;
-	private JLabel labelIncomeTitleAufw;
-	private JLabel labelIncomeAufw;
+	//private JLabel labelIncomeTitleAufw;
+	//private JLabel labelIncomeAufw;
 	private JLabel labelIncomeDepCostsTitle;
 	private JLabel labelIncomeDepCostsValue;
 	private JLabel labelIncomeDepreciationTitle;
 	private JLabel labelIncomeDepreciationValue;
-	private JLabel labelIncomeInventoryChangeTitle;
-	private JLabel labelIncomeInventoryChangeValue;
+	//private JLabel labelIncomeInventoryChangeTitle;
+	//private JLabel labelIncomeInventoryChangeValue;
 	private JLabel labelIncomeFinanceCostsTitle;
 	private JLabel labelIncomeFinanceCostsValue;
 	private JLabel labelIncomeResourceCostsTitle;
@@ -546,7 +546,7 @@ public class PanelFinancesBalance extends JPanel {
 		}
 		return labelIncomeDepCostsTitle;
 	}
-	private JLabel getLabelIncomeTitleAufw() {
+	/*private JLabel getLabelIncomeTitleAufw() {
 		if (labelIncomeTitleAufw == null) {
 			labelIncomeTitleAufw = new JLabel("Aufwendungen");
 		}
@@ -555,12 +555,11 @@ public class PanelFinancesBalance extends JPanel {
 	private JLabel getLabelIncomeAufw() {
 		if (labelIncomeAufw == null) {
 			double aufwendungen = profitAndLoss.getFinanceCosts() + profitAndLoss.getDepartmentCosts() + profitAndLoss.getDepreciation();
-			//ARE THESE THE RIGHT NUMBERS?
 			labelIncomeAufw = new JLabel(0 + "\u20AC");
 			labelIncomeAufw.setHorizontalAlignment(SwingConstants.TRAILING);
 		}
 		return labelIncomeAufw;
-	}
+	}*/
 	private JLabel getLabelIncomeProfitTitle() {
 		if (labelIncomeProfitTitle == null) {
 			labelIncomeProfitTitle = new JLabel("Gewinn");
