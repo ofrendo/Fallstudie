@@ -12,6 +12,9 @@ import de.shared.map.region.Region;
 import de.shared.map.region.ResourceRegion;
 import de.shared.map.region.ResourceType;
 
+/**
+ * This class is responsible for randomly generating an ArrayList of Regions that make up a map.
+ */
 public class RegionGenerator {
 	
 	public static ArrayList<Region> generateRegions(MapType mapType) {

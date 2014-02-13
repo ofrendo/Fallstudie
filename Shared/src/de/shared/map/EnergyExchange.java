@@ -5,6 +5,9 @@ import java.util.ArrayList;
 
 import de.shared.game.Constants;
 
+/**
+ * The energy exchange is only changed server side - it lets players buy and sell energy and calculates the price based on supply and demand.
+ */
 public class EnergyExchange implements Serializable {
 
 	private static final long serialVersionUID = -6346571442591481630L;

@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import de.shared.map.*;
 import de.shared.map.region.*;
 
+/**
+ * The main game class: two classes ClientGame and ServerGame inherit from this.
+ */
 public abstract class Game {
 	
 	protected ArrayList<Player> players;
@@ -66,7 +69,7 @@ public abstract class Game {
 		}
 	}
 	
-	//METHOD FOR TESTING
+	//METHOD FOR UNIT TESTING
 	public ResourceRegion getFirstNeutralResourceRegion() {
 		for (Region region : map.getRegions()) {
 			if (region instanceof ResourceRegion) {
@@ -80,7 +83,7 @@ public abstract class Game {
 		return null;
 	}
 
-	//METHOD FOR TESTING
+	//METHOD FOR UNIT TESTING
 	public CityRegion getFirstCityRegion() {
 		for (Region region : map.getRegions()) {
 			if (region instanceof CityRegion) {

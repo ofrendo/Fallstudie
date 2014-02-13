@@ -1,5 +1,8 @@
 package de.shared.game;
 
+/**
+ * Used for static constants in the game so that they are the same everywhere.
+ */
 public class Constants {
 	public static final double ENERGY_FACTOR = 0.4;
 	

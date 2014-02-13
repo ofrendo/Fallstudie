@@ -2,6 +2,9 @@ package de.shared.map;
 
 import de.shared.map.region.ResourceType;
 
+/**
+ * This is a collection of resources that can be sold at the market.
+ */
 public enum BuyableResource {
 	ENERGY("Strom", "MWh", null),
 	COAL("Kohle", "t", ResourceType.COAL),

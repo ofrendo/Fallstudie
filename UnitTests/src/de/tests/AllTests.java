@@ -9,6 +9,9 @@ import de.tests.clientserver.TestSuiteClientServer;
 import de.tests.shared.map.GenerateRegions;
 import de.tests.shared.map.TestEnergyExchange;
 
+/**
+ * This class is responsible for running all the unit tests.
+ */
 @RunWith(Suite.class)
 @SuiteClasses({ 
 	TestSuiteClient.class,

@@ -1,21 +1,21 @@
 package de.tests;
 
-import java.net.InetAddress;
-import java.net.UnknownHostException;
 
-
+/**
+ * Utility class for running JUnit tests.
+ */
 public class TestUtils {
 	
-	public static int shortWaitTime = 500;
-	public static int longWaitTime = 4500;
+	public static int shortWaitTime = 100;
+	public static int longWaitTime = 100;
 	
 	public static String getIP() {
-		//return "127.0.0.1";
-		try {
+		return "127.0.0.1";
+		/*try {
 			return InetAddress.getLocalHost().getHostAddress();
 		} catch (UnknownHostException e) {
 			return "127.0.0.1";
-		}
+		}*/
 	}
 	
 	/**
