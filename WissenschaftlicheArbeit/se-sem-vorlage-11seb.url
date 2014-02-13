@@ -1,3 +1,6 @@
 %%% jurabib url repository
+\expandafter\urldef\csname jburl@patrick:gesetze\endcsname\url{http://www.gesetze-im-internet.de/enwg_2005/BJNR197010005.html#BJNR197010005BJNG000100000}
 \expandafter\urldef\csname jburl@codeguru\endcsname\url{http://forums.codeguru.com/showthread.php?478270-Hexagon-Buttons}
+\expandafter\urldef\csname jburl@patrick:Stromboerse\endcsname\url{http://www.iee.tu-clausthal.de/fileadmin/downloads/Scripte/SS8819K6_25_06_2008.pdf}
 \expandafter\urldef\csname jburl@hexagoncoords\endcsname\url{http://keekerdc.com/2011/03/hexagon-grids-coordinate-systems-and-distance-calculations/}
+\expandafter\urldef\csname jburl@patrick:Minen\endcsname\url{http://www.v-r-b.de/pages/layout1sp.php?idpage=15}
