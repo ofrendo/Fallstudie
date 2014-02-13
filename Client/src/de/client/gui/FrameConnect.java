@@ -8,7 +8,6 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.InetAddress;
-import java.net.UnknownHostException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -122,8 +121,9 @@ public class FrameConnect extends JFrame {
 		if (textFieldIPAddress == null) {
 			textFieldIPAddress = new JTextField();
 			try {
-				textFieldIPAddress.setText(InetAddress.getLocalHost().getHostAddress());
-			} catch (UnknownHostException e) {
+				//textFieldIPAddress.setText(InetAddress.getLocalHost().getHostAddress());
+				textFieldIPAddress.setText(InetAddress.getLoopbackAddress().getHostAddress());
+			} catch (Exception e) {
 				textFieldIPAddress.setText("127.0.0.1");
 			}
 			textFieldIPAddress.setFont(new Font("Tahoma", Font.PLAIN, 20));

@@ -2,7 +2,7 @@
 \section{Unit Tests}\label{olli:unittests}
 In diesem Projekt wurde versucht, möglichst flächendeckend und detailiert Unit
 Tests zu erstellen. Deswegen haben wir uns für zwei Kategorien von Unit Tests
-entschieden: Erstens die, die primär die Spielelogik testen sollen und zweitens
+entschieden: Erstens die, die primär die Spiellogik testen sollen und zweitens
 Szenariotests, die ganze Spielemechaniken und die Kommunikation zwischen
 Client und Server testen sollen.
 
@@ -10,12 +10,12 @@ Damit wurde nach dem Eclipse Plugin ``EclEmma'' insgesamt ein Code Coverage von
 ca. 80\% erreicht (ohne Betrachtung des Codes in \textbf{de.tests} und des Codes in
 \textbf{de.client.gui}, der die graphische Benutzeroberfläche generiert).
 
-\subsection{Spielelogik}
-Unter diese Kategorie fallen alle Tests, die die Funktionalitäten des Spieles,
-die keine Client Server Kommunikation enthalten, testen.
+\subsection{Spiellogik}
+Unter diese Kategorie fallen alle Tests, die die Funktionalitäten des Spiels
+testen, die keine Client Server Kommunikation enthalten.
 
 \begin{itemize}
-  \item \textbf{de.tests} enthält \textbf{AllTests}, eine große TestSuite, die
+  \item \textbf{de.tests} enthält \textbf{AllTests}: eine große TestSuite, die
   alle Modultests durchführt und \textbf{TestManual}, der gleichzeitig den
   Server und die Benutzeroberfläche startet, falls ein manueller Test gestartet
   werden soll.
@@ -25,8 +25,8 @@ die keine Client Server Kommunikation enthalten, testen.
   Abschreibung von Grundstücken und Gebäuden testet und \textbf{TestWarehouse},
   in dem die Verwaltung von Rohstoffen getestet wird. 
   \item \textbf{de.tests.client.optimization}: Hier wird die Optimierung der
-  Kraftwerke getestet. Dazu gibt es eine Hilfsklasse \textbf{TestObjectFactory}, die für
-  die vier Tests die erforderlichen Objekte statisch erzeugt. 
+  Kraftwerke getestet. Dazu gibt es eine Hilfsklasse
+  \textbf{TestObjectFactory}, die für die vier Tests die erforderlichen Objekte statisch erzeugt. 
   \item \textbf{de.tests.client.gui}: Tests in diesem Paket sind keine Unit
   Tests im eigentlichen Sinne eines automatischen Durchganges sondern wurden erstellt, um
   das Testen der graphischen Benutzeroberfläche zu erleichtern. Für jeden Tab
@@ -59,12 +59,22 @@ und zweitens um eine Referenz bei jeder Testklasse zu sparen. Die Methode
 \textbf{startTest()} wird vor dem Start eines Tests aufgerufen --- damit werden
 alle anderen Threads, die auch dieses Methode aufrufen, durch
 Warten ausgeschlossen. Ist ein Test beendet wird die \textbf{endTest()} Methode
-aufgerufen, die dann alle anderen Test Threads wieder aufweckt. 
+aufgerufen, die dann alle anderen Test Threads wieder aufweckt. Durch die
+Nutzungs eines Monitors kann hier also sichergestellt werden, dass die Client
+Server Tests trotz parallelem Starten hintereinander ausgeführt werden.
 
-Es wird also in der \textbf{AbstractClientServerTest} Klasse Folgendes
+
+Es wird in der \textbf{AbstractClientServerTest} Klasse Folgendes
 aufgerufen: 
-
 \begin{itemize}
   \item \textbf{@Before}: \textbf{ClientServerMonitor.getInstance().startTest()}
   \item \textbf{@After}: \textbf{ClientServerMonitor.getInstance().endTest()}
 \end{itemize}
+Zuletzt gibt es die Klasse \textbf{TestUtils}: Da die Clients und der Server
+nicht in der Hauptthread ausgeführt werden muss dieser blockiert werden, wenn
+Nachrichten verschickt werden. Dazu wurde die statische Methode
+\textbf{TestUtils.block()} geschrieben, die den Hauptthread für eine
+bestimmte Dauer durch eine while-Schleife blockiert. Dadurch kann die Dauer der
+Unit Tests allerdings auch sehr in die Länge gezogen werden. \textit{Sollten die
+Client Server Unit Tests einen Fehler anzeigen könnte es sein, dass die
+Blockierzeit nicht hoch genug ist. Dies ist von Computer zu Computer unterschiedlich!}

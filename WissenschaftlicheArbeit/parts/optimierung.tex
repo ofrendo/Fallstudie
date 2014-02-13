@@ -9,7 +9,7 @@ muss, sondern dass die Optimierung mithilfe des Simplexalgorithmus durchgeführt
 wird, da die Kraftwerksverteilung durch ein lineares Optimierungsproblem
 formuliert werden kann (\seCite{vgl.}{}{holey}).
 
-Zunächst stellt dies das folgende Problem dar: \\
+Zunächst das Problem folgendermaßen dargestellt werden: \\
 $k$ Kraftwerke mit einer Produktion von $k_i$ haben je $x$ Verbindungen zu $s$
 Städten mit je $y$ Verbindungen, einem Preis $p$ und einem Bedarf $n$. Dabei wird eine Verbindung nur gebildet,
 wenn der Spieler mit der jeweiligen Stadt einen Vertrag besitzt und das
@@ -20,7 +20,7 @@ beispielsweise folgendes Optimierungsproblem entstehen:
 \begin{figure}[H]
 \centering
 \includegraphics[width=0.85\textwidth]{se-wa-jpg/optimizing}
-\caption{Beispiel Optimierungsproblem}
+\caption{Beispiel für ein Optimierungsproblem}
 \label{Beispielproblem}
 \end{figure}
 
@@ -31,8 +31,8 @@ $k_j$ die maximale Produktion des Kraftwerkes $j$ und $y_j$ die Verbindung
 zwischen der Stadt und dem Kraftwerk.
 
 \begin{align*}
-z &= \sum\limits_{i=1}^s p_i * \sum\limits_{j=1}^y y_j * k_j \\
-  &= 0.39 (x_{11} * 30 + x_{21} * 20) + 0.35 (x_{22} * 20 + x_{31} * 40)
+z &= \sum\limits_{i=1}^s p_i * \sum\limits_{j=1}^y k_j * y_j \\
+  &= 0.39 (30 * x_{11} + 20 * x_{21}) + 0.35 (20 * x_{22} + 40 * x_{31})
 \end{align*}
 
 Als nächstes wird für jedes Kraftwerk eine Nebenbedingung erstellt. Die
