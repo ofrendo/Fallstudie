@@ -11,6 +11,9 @@ import de.shared.message.Message;
 import de.shared.message.server.MessageGameEnd;
 import de.shared.message.server.MessageMapUpdate;
 
+/**
+ * This class represents the server hosting the game. It follows the Thread per Connection concept - that is, one Connection thread is started for each player.
+ */
 public class Server extends Thread {
 	
 	private static Server instance;

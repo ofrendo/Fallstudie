@@ -16,6 +16,9 @@ import de.shared.message.server.MessageChatBroadcast;
 import de.shared.message.server.MessageInitConfirm;
 import de.shared.message.server.MessageInitReject;
 
+/**
+ * One Connection object is used per player - it can be used to communicate directly with the player.
+ */
 public class Connection extends Thread {
 
 	private Socket clientSocket;

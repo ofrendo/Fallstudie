@@ -7,6 +7,9 @@ import javax.swing.JLabel;
 
 import de.server.Server;
 
+/**
+ * A simple window used for exporting the server to a runnable .jar file.
+ */
 public class ServerFrame extends JFrame {
 	
 	private static final long serialVersionUID = 143155800075308995L;
